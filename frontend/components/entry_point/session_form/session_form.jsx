@@ -82,6 +82,9 @@ class SessionForm extends React.Component {
 
         let formId;
         formType === "Sign Up" ? formId = "signup" : formId = "login"
+
+
+        // -------------------- Rendering form --------------------
         
         return (
             <div className="entry-container">
