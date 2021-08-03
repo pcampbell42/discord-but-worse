@@ -12,7 +12,7 @@
     border-color: black;
     
     margin: auto;
-    margin-top: 9%;
+    margin-top: 8.5%;
     padding: 30px;
 
 
@@ -67,6 +67,8 @@
     
                 margin-top: 6px;
                 margin-bottom: 17px;
+
+                outline-style: none;
     
                 color: white;
             }
@@ -74,7 +76,17 @@
             input:focus {
                 outline-style: solid;
                 outline-color: #1065ae;
-                outline-width: 3px;
+                outline-width: 1px;
+            }
+        }
+
+        label#error {
+            color: #dc4044;
+
+            input {
+                outline-style: solid;
+                outline-color: #dc4044;
+                outline-width: 1px;
             }
         }
     
@@ -149,7 +161,7 @@
 #signup {
     width: 30%;
     height: 400px;
-    margin-top: 7%;
+    margin-top: 6%;
 
     .session-form {
         width: 100%;

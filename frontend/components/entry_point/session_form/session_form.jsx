@@ -35,8 +35,13 @@ class SessionForm extends React.Component {
     }
 
     render() {
+        const { formType, errors, clearSessionErrors } = this.props; // Destructuring props
+
+
+        // -------------------- Form header --------------------
+
         const header = (
-                this.props.formType === "Login" ?
+                formType === "Login" ?
                     <div>
                         <h1>Welcome back!</h1>
                         <h2>We're so excited to see you again!</h2>
@@ -47,50 +52,68 @@ class SessionForm extends React.Component {
                     </div>
         );
 
+
+        // -------------------- Checking for errors --------------------
+
+        let usernameError;
+        let passwordError;
+        let emailError;
+        for (let i = 0; i < errors.length; i++) {
+            if (errors[i].includes("Username")) {
+                usernameError = errors[i];
+            } else if (errors[i].includes("mail")) {
+                emailError = errors[i];
+            } else if (errors[i].includes("Password")) {
+                passwordError = errors[i];
+            }
+        }
+
+
+        // -------------------- Input for username --------------------
+
         const usernameInput = (
-            <label>USERNAME
+            <label id={usernameError ? "error" : "no-error"}>USERNAME {usernameError ? ` - ${usernameError}` : null}
                 <input type="text" onChange={this.update("username")} value={this.state.username} />
             </label>
         );
 
+
+        // -------------------- Setting form id based on form type for css --------------------
+
         let formId;
-        this.props.formType === "Sign Up" ? formId = "signup" : formId = "login"
+        formType === "Sign Up" ? formId = "signup" : formId = "login"
         
         return (
             <div className="entry-container">
-                <EntryHeader />
+                <EntryHeader clearSessionErrors={clearSessionErrors}/>
 
                 <div className="session-form-container" id={formId}>
                     <form className="session-form" onSubmit={this.handleSubmit}>
                         {header}
 
-                        {this.props.formType === "Sign Up" ? usernameInput : null}
-
-                        <label>EMAIL
+                        {formType === "Sign Up" ? usernameInput : null}
+                        <label id={emailError ? "error" : "no-error"}>EMAIL {emailError ? ` - ${emailError}` : null}
                             <input type="text" onChange={this.update("email")} value={this.state.email} />
                         </label>
-
-                        <label>PASSWORD
+                        <label id={passwordError ? "error" : "no-error"}>PASSWORD {passwordError ? ` - ${passwordError}` : null}
                             <input type="password" onChange={this.update("password")} value={this.state.password} />
                         </label>
 
-                        <input className="form-submit" type="submit" value={this.props.formType} />
+                        <input className="form-submit" type="submit" value={formType} />
 
-                        <ul>{this.props.errors.map((error, idx) => <li key={idx}>{error}</li>)}</ul>
+                        {/* <ul>{errors.map((error, idx) => <li key={idx}>{error}</li>)}</ul> */}
 
-                        {this.props.formType === "Login" ?
-                            <h3>Need an account? <Link to="/signup">Register</Link></h3> :
-                            <h3><Link to="/login">Already have an account?</Link></h3>
+                        {formType === "Login" ?
+                            <h3>Need an account? <Link to="/signup" onClick={clearSessionErrors}>Register</Link></h3> :
+                            <h3><Link to="/login" onClick={clearSessionErrors}>Already have an account?</Link></h3>
                         }
-
                     </form>
-                    {this.props.formType === "Login" ?
+
+                    {formType === "Login" ?
                         <div className="demo-account-container">
                             <div onClick={this.demoAccountLogin}>Demo Account</div>
-                        </div> :
-                        null
+                        </div> : null
                     }
-                    
                 </div>
             </div>
         );

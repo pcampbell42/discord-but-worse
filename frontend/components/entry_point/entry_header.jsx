@@ -8,11 +8,11 @@ import angelListLogo from "../../../app/assets/images/angel_list_logo.png";
 
 const EntryHeader = props => (
     <header className="ep-header">
-        <div className="ep-header-left">
-            <Link to="/"><img src={discordLogo} /></Link>
-            <Link to="/"><h1>Discord</h1></Link>
-            <Link to="/"><h3>(but worse)</h3></Link>
-        </div>
+        <Link className="ep-header-left" to="/" onClick={props.clearSessionErrors}>
+            <img src={discordLogo} />
+            <h1>Discord<sub>(but worse)</sub></h1>
+        </Link>
+
         <div className="ep-header-right">
             <a href="https://github.com/pcampbell42"><img src={githubLogo} /></a>
             <a href="https://www.mmo-champion.com/content/"><img src={linkedinLogo}/></a>

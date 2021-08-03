@@ -11,6 +11,7 @@
         background-color: #0f65ae;
 
         padding-left: 15px;
+        padding-bottom: 5px;
         margin-left: 10px;
         margin-top: 10px;
 
@@ -19,33 +20,29 @@
         border-color: black;
         border-style: solid;
 
+        text-decoration: none;
+
         h1 {
             font-family: 'Nunito', sans-serif;
             font-size: 30px;
             font-weight: 900;
             // color: black;
             color: white;
-        }
 
-        h3 {
-            font-family: 'Nunito', sans-serif;
-            font-size: 10px;
-            font-weight: 600;
-            // color: black;
-            color: white;
-            position: relative;
-            top: 20px;
-            right: 35px;
+            sub {
+                font-size: 10px;
+                font-weight: 600;
+                // color: black;
+                color: white;
+                position: relative;
+                top: 13px;
+                right: 33px;
+            }
         }
 
         img {
             height: 60px;
             width: 60px;
-        }
-
-        a {
-            text-decoration: none;
-            color: black;
         }
     }
 
