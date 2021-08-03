@@ -1,0 +1,158 @@
+
+.session-form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #35393f;
+    width: 40%;
+    height: 300px;
+
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+    
+    margin: auto;
+    margin-top: 9%;
+    padding: 30px;
+
+
+    border-radius: 6px;
+    font-family: 'Nunito', sans-serif;
+    color: #8d9196;
+    font-weight: 300;
+
+
+
+    .session-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 55%;
+    
+    
+        h1 {
+            font-size: 25px;
+            font-weight: 700;
+            color: white;
+            padding-bottom: 10px;
+        }
+    
+        .create-account-header-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+    
+        h2 {
+            font-size: 16px;
+            padding-bottom: 20px;
+        }
+    
+        label {
+            font-size: 12px;
+            font-weight: 700;
+            display: block;
+    
+            input {
+                display: block;
+                background-color: #2f3339;
+                width: 99.2%;
+                height: 30px;
+                padding-left: 10px;
+                
+                border-color: black;
+                border-radius: 3px;
+                border-width: 1px;
+                border-style: solid;
+    
+                margin-top: 6px;
+                margin-bottom: 17px;
+    
+                color: white;
+            }
+
+            input:focus {
+                outline-style: solid;
+                outline-color: #1065ae;
+                outline-width: 3px;
+            }
+        }
+    
+        .form-submit {
+            background-color: #1065ae;
+            width: 103.2%;
+            height: 35px;
+    
+            border: none;
+            border-radius: 2px;
+    
+            margin-top: 12px;
+            margin-bottom: 12px;
+    
+            color: white;
+            font-size: 14px;
+            font-weight: 400;
+        }
+    
+        .form-submit:hover {
+            cursor: pointer;
+            background-color: #063B6B;
+        }
+    
+        h3 {
+            font-size: 12px;
+            a {
+                text-decoration: none;
+                color: #099fdc;
+            }
+    
+            a:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .demo-account-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 38%;
+
+        font-size: 30px;
+        font-weight: 700;
+        color: white;
+        text-align: center;
+        line-height: 40px;
+
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            height: 60%;
+            width: 80%;
+            background-color: #1065ae;
+            
+            border-radius: 8px;
+            // border-width: 3px;
+            // border-color: black;
+            // border-style: solid;
+        }
+        
+        div:hover {
+            background-color: #063B6B;
+            cursor: pointer;
+        }
+    }
+}
+
+#signup {
+    width: 30%;
+    height: 400px;
+    margin-top: 7%;
+
+    .session-form {
+        width: 100%;
+        padding-right: 10px;
+    }
+}
