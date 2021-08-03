@@ -1,5 +1,5 @@
 import React from "react";
-import MessageIndexContainer from "./temp_message_stuff/message_index_container";
+import MessageIndexContainer from "../temp_message_stuff/message_index_container";
 
 class HomePage extends React.Component {
     constructor(props) {

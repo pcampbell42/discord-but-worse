@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import MessageIndex from "./message_index";
-import { fetchAllMessages, updateMessage, removeMessage } from "../../../../actions/message_actions";
+import { fetchAllMessages, updateMessage, removeMessage } from "../../../actions/message_actions";
 
 const mstp = state => ({
     currentUser: state.entities.users[state.session.id],
