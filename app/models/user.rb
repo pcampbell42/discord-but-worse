@@ -40,7 +40,11 @@ class User < ApplicationRecord
 
 
     #--------------------- Associations ---------------------
-    #qweqwe
+    
+    has_many :messages,
+        primary_key: :id,
+        foreign_key: :author_id,
+        class_name: :Message
     
 
     #--------------------- User Auth Methods ---------------------

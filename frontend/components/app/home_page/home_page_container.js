@@ -7,7 +7,7 @@ const mstp = state => ({
 });
 
 const mdtp = dispatch => ({
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
 });
 
 export default connect(mstp, mdtp)(HomePage);
