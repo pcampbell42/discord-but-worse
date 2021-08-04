@@ -8,6 +8,11 @@ export const fetchAllMessages = () => (
 );
 // ------------------------------------------------------
 
+
+
+
+// --------------------- Not needed with websockets ---------------------
+
 export const createMessage = message => (
     $.ajax({
         method: "POST",

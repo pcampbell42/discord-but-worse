@@ -11,6 +11,8 @@ class Api::MessagesController < ApplicationController
     #---------------------------------------------------------------
 
 
+    #--------------------- Not needed with websockets ---------------------
+
     def create
         @message = Message.new(message_params)
         @message.author_id = current_user.id
