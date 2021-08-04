@@ -4,6 +4,7 @@ class MessageForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = { body: "" };
+        
         this.update = this.update.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
