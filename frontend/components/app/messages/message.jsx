@@ -1,12 +1,11 @@
 import React from "react";
 
-class MessageShow extends React.Component {
+class Message extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             message: {
-                body: props.message.body,
-                // authorId: props.message.authorId
+                body: props.message.body
             },
             editing: false
         };
@@ -23,26 +22,24 @@ class MessageShow extends React.Component {
     }
 
     update(e) {
-        this.setState({ message: { 
-            id: this.props.message.id,
-            body: e.currentTarget.value 
-        }});
+        this.setState({ message: { body: e.currentTarget.value }});
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.updateMessage(this.state.message)
+        const messageToSend = Object.assign({}, this.state.message, { id: this.props.message.id });
+        App.cable.subscriptions.subscriptions[0].update({ message: messageToSend });
         this.setState({ editing: false });
     }
 
     handleDelete(e) {
         e.preventDefault();
-        this.props.removeMessage(this.props.message.id);
+        App.cable.subscriptions.subscriptions[0].destroy({ id: this.props.message.id });
         this.setState({ editing: false });
     }
 
     render() {
-        const { message, currentUserId } = this.props
+        const { message, currentUser } = this.props;
 
         const editingView = <input type="text" value={this.state.message.body} onChange={this.update} />
 
@@ -56,15 +53,14 @@ class MessageShow extends React.Component {
             </span>
         );
 
-
-        return (
+        return(
             <li key={message.id}>
                 {message.authorId}: {this.state.editing ? editingView : message.body}
 
-                {currentUserId === message.authorId ? editAndDeleteButtons : null}
+                {currentUser.id === message.authorId ? editAndDeleteButtons : null}
             </li>
         );
     }
 }
 
-export default MessageShow;
+export default Message;
