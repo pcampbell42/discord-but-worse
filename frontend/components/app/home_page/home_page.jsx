@@ -16,7 +16,7 @@ class HomePage extends React.Component {
             <div>
                 <h1>You are inside the app</h1>
                 <button onClick={this.props.logout}>Logout</button>
-                <MessageIndexContainer />
+                {/* <MessageIndexContainer /> */}
             </div>
         );
     }
