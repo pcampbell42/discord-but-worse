@@ -45,6 +45,20 @@ class User < ApplicationRecord
         primary_key: :id,
         foreign_key: :author_id,
         class_name: :Message
+
+    has_many :servers,
+        primary_key: :id,
+        foreign_key: :owner_id,
+        class_name: :Server
+    
+    has_many :memberships,
+        primary_key: :id,
+        foreign_key: :user_id,
+        class_name: :Membership
+
+    has_many :joined_servers,
+        through: :memberships,
+        source: :server
     
 
     #--------------------- User Auth Methods ---------------------
@@ -68,11 +82,6 @@ class User < ApplicationRecord
     def self.find_by_credentials(email, password)
         user = User.find_by(email: email)
         (user && user.check_password?(password)) ? user : nil
-        # if user && user.check_password?(password)
-        #     user
-        # else
-        #     nil
-        # end
     end
 
 end
