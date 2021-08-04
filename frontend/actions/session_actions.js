@@ -26,12 +26,9 @@ const receiveCurrentUserDetails = details => ({
 });
 
 
-export const clearSessionErrors = () => {
-    console.log("helo0qiwejoiqwje")
-    return (
-        { type: CLEAR_SESSION_ERRORS }
-    )
-};
+export const clearSessionErrors = () => ({ 
+    type: CLEAR_SESSION_ERRORS
+});
 
 export const signup = formUser => dispatch => SessionAPIUtil.signup(formUser)
     .then(user => dispatch(receiveCurrentUser(user)),
