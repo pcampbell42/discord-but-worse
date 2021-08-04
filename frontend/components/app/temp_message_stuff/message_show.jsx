@@ -19,7 +19,6 @@ class MessageShow extends React.Component {
 
     swapToEditing(e) {
         e.preventDefault();
-        console.log(this.state.message);
         this.setState({ editing: true });
     }
 

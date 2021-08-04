@@ -20,7 +20,6 @@ const receiveSessionErrors = errors => ({
 });
 
 export const clearSessionErrors = () => {
-    console.log("helo0qiwejoiqwje")
     return (
         { type: CLEAR_SESSION_ERRORS }
     )
