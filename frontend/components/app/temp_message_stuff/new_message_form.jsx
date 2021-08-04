@@ -8,8 +8,8 @@ class NewMessageForm extends React.Component {
             // authorId: props.currentUser.id
             // messageable_id and type from url...?
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.update = this.update.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     update(e) {
