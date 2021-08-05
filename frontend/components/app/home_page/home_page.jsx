@@ -1,6 +1,6 @@
 import React from "react";
 // import MessageIndexContainer from "../temp_message_stuff/message_index_container";
-import ChatRoomContainer from "../messages/chat_room_container";
+// import ChatRoomContainer from "../messages/chat_room_container";
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -17,7 +17,7 @@ class HomePage extends React.Component {
             <div>
                 <h1>You are inside the app</h1>
                 {/* <MessageIndexContainer /> */}
-                <ChatRoomContainer />
+                {/* <ChatRoomContainer /> */}
                 <button onClick={this.props.logout}>Logout</button>
             </div>
         );
