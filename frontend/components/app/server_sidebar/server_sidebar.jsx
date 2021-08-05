@@ -15,16 +15,17 @@ class ServersSideBar extends React.Component {
     }
     
     // Might have to move the entire form component in here if this update thing doesnt work
-    componentDidUpdate() {
-        this.setState({ showForm: false })
-    }
+    // componentDidUpdate() {
+    //     this.setState({ showForm: false })
+    // }
 
     render() {
         return (
-            <div>
-                {showForm ? <NewServerFormContainer /> : null}
-
-                {this.props.userServers.map(server => <ServerIconDisplayContainer key={server.id} server={server} />)}
+            <div className="server-sidebar-container">
+                {this.state.showForm ? <NewServerFormContainer /> : null}
+                <ul>
+                    {this.props.userServers.map(server => <ServerIconDisplayContainer key={server.id} server={server} />)}
+                </ul>
                 <button onClick={() => this.setState({ showForm: true })}>Create Server</button>
             </div>
         );
