@@ -14,7 +14,7 @@ class Api::MembershipsController < ApplicationController
 
 
     def destroy
-        @membership.find_by(id: params[:id])
+        @membership = Membership.find_by(id: params[:id])
         @membership.destroy
         render json: {}
     end

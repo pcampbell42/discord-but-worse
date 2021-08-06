@@ -1,0 +1,161 @@
+
+.pn-container {
+    position: absolute;
+    left: 10.2vh;
+    top: 93vh;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 7vh;
+    width: 17.1%;
+
+    background-color: #292b2f;
+
+    .pn-left-container {
+        display: flex;
+        align-items: center;
+
+        margin-left: 1vh;
+
+        .pn-profile-pic {
+            width: 5vh;
+            height: 5vh;
+            filter: invert(1)
+        }
+    
+        .pn-profile-pic:hover {
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .pn-username {
+            margin-top: 0.3vh;
+            margin-left: 0.5vh;
+
+            h2{
+                font-family: 'Nunito', sans-serif;
+                color: white;
+                font-size: 14px;
+                font-weight: 700;
+                margin-bottom: 0.3vh;
+            }
+    
+            h3 {
+                font-family: 'Nunito', sans-serif;
+                color: #8e9296;
+                font-size: 10px;
+                font-weight: 500;
+            }
+        }
+
+        .pn-username:hover {
+            cursor: pointer;
+        }
+    }
+
+
+    .pn-right-container {
+        display: flex;
+        align-items: center;
+        margin-right: 1vh;
+
+        .pn-home-icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            height: 5vh;
+            width: 5vh;
+
+            border-radius: 10px;
+
+            img {
+                width: 2.5vh;
+                height: 2.5vh;
+                filter: invert(1);
+            }
+        }
+    
+        .pn-home-icon-container:hover {
+            background-color: #34383e;
+        }
+        
+        .pn-home-relative-position-anchor {
+            position: relative;
+            width: 0;
+            height: 0;
+
+            .pn-home-tooltip-show {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                position: absolute;
+                bottom: 3vh;
+                right: -1.4vh;
+
+                height: 4vh;
+                padding: 0vh 1.5vh 0vh 1.5vh;
+                border-radius: 1vh;
+
+                background-color: black;
+
+                font-family: 'Nunito', sans-serif;
+                color: white;
+                font-size: 12px;
+                font-weight: 900;
+            }
+        }
+    
+        .pn-logout-icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            height: 5vh;
+            width: 5vh;
+
+            border-radius: 10px;
+
+            img {
+                width: 2.5vh;
+                height: 2.5vh;
+                filter: invert(1);
+            }
+        }
+
+        .pn-logout-icon-container:hover {
+            background-color: #34383e;
+            cursor: pointer;
+        }
+
+        .pn-logout-relative-position-anchor {
+            position: relative;
+            width: 0;
+            height: 0;
+
+            .pn-logout-tooltip-show {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                position: absolute;
+                bottom: 3vh;
+                right: -1.6vh;
+
+                height: 4vh;
+                padding: 0vh 1.5vh 0vh 1.5vh;
+                border-radius: 1vh;
+
+                background-color: black;
+
+                font-family: 'Nunito', sans-serif;
+                color: white;
+                font-size: 12px;
+                font-weight: 900;
+            }
+        }
+    }
+}

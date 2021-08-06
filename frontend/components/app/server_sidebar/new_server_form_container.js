@@ -6,7 +6,7 @@ const mstp = state => ({
 });
 
 const mdtp = dispatch => ({
-    // create server action
+    // create server action --> have to create membership here as well
 });
 
 export default connect(mstp, mdtp)(NewServerForm);

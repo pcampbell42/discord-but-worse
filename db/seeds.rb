@@ -34,23 +34,23 @@ users = User.create([
 ])
 
 servers = Server.create([
-    { name: "tgk", owner_id: users[10] },
-    { name: "washed up mop heroes", owner_id: users[0] },
-    { name: "beers and bgs", owner_id: users[5] },
-    { name: "squawllywood", owner_id: users[10] },
-    { name: "boolers", owner_id: users[11] },
+    { name: "tgk", owner_id: users[10].id },
+    { name: "washed up mop heroes", owner_id: users[0].id },
+    { name: "beers and bgs", owner_id: users[5].id },
+    { name: "squawllywood", owner_id: users[10].id },
+    { name: "boolers", owner_id: users[11].id },
 
-    { name: "book club", owner_id: users[12] },
-    { name: "ai enthusiasts", owner_id: users[14] },
-    { name: "shroud", owner_id: users[9] },
-    { name: "my nice friendly server :)", owner_id: demo_user },
-    { name: "dawg patch bandits", owner_id: users[2] },
+    { name: "book club", owner_id: users[12].id },
+    { name: "ai enthusiasts", owner_id: users[14].id },
+    { name: "shroud", owner_id: users[9].id },
+    { name: "my nice friendly server :)", owner_id: demo_user.id },
+    { name: "dawg patch bandits", owner_id: users[2].id },
 
-    { name: "mike fan club", owner_id: users[4] },
-    { name: "healthy living tips", owner_id: users[13] },
-    { name: "valorant masochists", owner_id: users[8] },
-    { name: "taco lovers", owner_id: users[11] },
-    { name: "olympus", owner_id: users[15] },
+    { name: "mike fan club", owner_id: users[4].id },
+    { name: "healthy living tips", owner_id: users[13].id },
+    { name: "valorant masochists", owner_id: users[8].id },
+    { name: "taco lovers", owner_id: users[11].id },
+    { name: "olympus", owner_id: users[15].id },
 
     { name: "hey im mvp", owner_id: users[16] },
 ])

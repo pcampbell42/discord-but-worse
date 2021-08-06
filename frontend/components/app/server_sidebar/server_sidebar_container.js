@@ -10,7 +10,7 @@ const mstp = state => ({
 
 const mdtp = dispatch => ({
     fetchCurrentUserDetails: currentUserId => dispatch(fetchCurrentUserDetails(currentUserId))
-    // create server action
+    // create server action --> have to create membership here as well
 });
 
 export default connect(mstp, mdtp)(ServerSidebar);

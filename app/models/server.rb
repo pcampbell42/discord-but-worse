@@ -21,13 +21,13 @@ class Server < ApplicationRecord
     after_initialize :set_default_avatar
 
     def set_default_avatar
-        self.avatar = "123"
+        self.avatar ||= "123"
     end
 
 
     #--------------------- Associations ---------------------
 
-    belongs_to :owner_id,
+    belongs_to :owner,
         primary_key: :id,
         foreign_key: :owner_id,
         class_name: :User
