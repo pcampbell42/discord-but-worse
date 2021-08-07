@@ -36,7 +36,7 @@
             // justify-content: space-around;
             align-items: center;
 
-            height: 35vh;
+            height: 40vh;
 
             margin-right: 5vh;
             margin-bottom: 5vh;
@@ -66,10 +66,12 @@
             }
 
             button {
-                background-color: #008002;
+                background-color: #3ba55d;
                 border: none;
                 height: 6vh;
                 width: 10vh;
+                outline-style: none;
+
 
                 margin-bottom: 2vh;
                 border-radius: 1vh;
@@ -87,14 +89,33 @@
             }
 
             h2 {
-                text-align: center;
+                margin-bottom: 2vh;
 
                 width: 15vh;
-
+                
+                text-align: center;
                 font-family: 'Nunito', sans-serif;
                 color: white;
                 font-size: 20px;
                 font-weight: 900;
+            }
+
+            h3 {
+                width: 15vh;
+
+                text-align: center;
+                font-family: 'Nunito', sans-serif;
+                color: #ed4245;
+                font-size: 10px;
+                font-weight: 600;
+            }
+        }
+
+        li#e {
+            button {
+                outline-style: solid;
+                outline-width: 0.3vh;
+                outline-color: #ed4245;
             }
         }
     }

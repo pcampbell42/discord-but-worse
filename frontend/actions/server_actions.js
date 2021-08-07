@@ -1,4 +1,5 @@
 import * as ServerAPIUtil from "../util/server_api_util";
+import { receiveMembershipError } from "./membership_actions";
 
 export const RECEIVE_ALL_SERVERS = "RECEIVE_ALL_SERVERS";
 export const RECEIVE_SERVER = "RECEIVE_SERVER";
@@ -10,9 +11,9 @@ const receiveAllServers = servers => ({
     servers
 });
 
-const receiveServer = server => ({
+const receiveServer = data => ({
     type: RECEIVE_SERVER,
-    server
+    data
 });
 
 const removeServer = serverId => ({
@@ -29,10 +30,11 @@ export const fetchAllServers = () => dispatch => ServerAPIUtil.fetchAllServers()
     .then(servers => dispatch(receiveAllServers(servers)));
 
 export const createServer = formServer => dispatch => ServerAPIUtil.createServer(formServer)
-    .then(server => dispatch(receiveServer(server)));
+    .then(data => dispatch(receiveServer(data)),
+        err => dispatch(receiveMembershipError(err.responseJSON)));
 
 export const updateServer = formServer => dispatch => ServerAPIUtil.updateServer(formServer)
-    .then(server => dispatch(receiveServer(server)));
+    .then(data => dispatch(receiveServer(data)));
 
 export const deleteServer = serverId => dispatch => ServerAPIUtil.deleteServer(serverId)
     .then(() => dispatch(removeServer(serverId)));

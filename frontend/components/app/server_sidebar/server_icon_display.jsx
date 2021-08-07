@@ -40,7 +40,7 @@ class ServerIconDisplay extends React.Component {
         
         const serverOptions = (
             <div className="ss-options-relative-position-anchor">
-                <ul>
+                <ul className="ss-dropdown">
                     {currentUser.id === server.ownerId ? 
                         <li id="ss-options-delete" onClick={this.handleDeleteServer}>Delete Server</li> : 
                         <li id="ss-options-leave" onClick={this.handleLeaveServer}>Leave Server</li>

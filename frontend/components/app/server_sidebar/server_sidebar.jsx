@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ServerIconDisplayContainer from "./server_icon_display_container";
-import NewServerFormContainer from "./new_server_form_container";
-import discordLogo from "../../../../app/assets/images/discord_logo.png"
+import discordLogo from "../../../../app/assets/images/discord_logo.png";
+import imageUploadIcon from "../../../../app/assets/images/image_upload_icon.png";
+
 
 class ServersSideBar extends React.Component {
     constructor(props) {
@@ -21,13 +22,18 @@ class ServersSideBar extends React.Component {
         this.props.fetchCurrentUserDetails(this.props.currentUser.id);
     }
 
-    update(e) {
+    componentWillUnmount() {
+        this.props.clearMembershipErrors();
+    }
 
+    update(e) {
+        this.setState({ name: e.currentTarget.value })
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        // this.props.
+        this.props.createServer({ name: this.state.name })
+            .then(() => this.setState({ name: "", showForm: false }));
     }
 
     render() {
@@ -44,17 +50,35 @@ class ServersSideBar extends React.Component {
         );
 
         const createServerForm = (
-            <form onSubmit={this.handleSubmit}>
-                <label>SERVER NAME
-                    <input type="text" value={this.state.name} />
-                    <input type="submit" value="CREATE SERVER" />
-                </label>
-            </form>
+            <div className="ss-create-form-relative-position-anchor">
+                <div>
+                    <button onClick={() => this.setState({ name: "", showForm: false })}>x</button>
+                    <div>
+                        <h1>Customize your server</h1>
+                        <h2>Give your server a personality with a name and an icon. You can always change it later.</h2>
+                        <button>
+                            <img src={imageUploadIcon} />
+                        </button>
+                    </div>
+                    <form onSubmit={this.handleSubmit}>
+                        <label>SERVER NAME
+                            <input type="text" value={this.state.name} onChange={this.update} 
+                                    placeholder={`${this.props.currentUser.username}'s server`} />
+                        </label>
+                        <footer>
+                            <span>
+                                {this.props.error}
+                            </span>
+                            <input className="ss-submit-button" type="submit" value="Create" />
+                        </footer>
+                    </form>
+                </div>
+            </div> 
         );
 
         return (
             <div className="ss-container">
-                {this.state.showForm ? <NewServerFormContainer /> : null}
+                {this.state.showForm ? createServerForm : null}
 
                 <div className="ss-buffer"></div>
 
@@ -64,7 +88,7 @@ class ServersSideBar extends React.Component {
                 </Link>
                 {this.state.homeHovered ? homeTooltipShow : null}
 
-                <ul>
+                <ul className="ss-servers">
                     {this.props.userServers.map(server => <ServerIconDisplayContainer key={server.id} server={server} />)}
                 </ul>
 

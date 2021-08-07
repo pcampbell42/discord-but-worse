@@ -1,6 +1,6 @@
 import { RECEIVE_CURRENT_USER_DETAILS } from "../../actions/session_actions";
 import { RECEIVE_MEMBERSHIP, REMOVE_MEMBERSHIP } from "../../actions/membership_actions";
-import { REMOVE_SERVER } from "../../actions/server_actions";
+import { RECEIVE_SERVER, REMOVE_SERVER } from "../../actions/server_actions";
 
 const membershipsReducer = (state = {}, action) => {
     Object.freeze(state);
@@ -24,6 +24,9 @@ const membershipsReducer = (state = {}, action) => {
                 }
             }
             return nextState;
+
+        case RECEIVE_SERVER:
+            return Object.assign({}, state, { [action.data.membership.id]: action.data.membership });
 
         default:
             return state;
