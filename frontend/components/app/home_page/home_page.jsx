@@ -1,6 +1,5 @@
 import React from "react";
-// import MessageIndexContainer from "../temp_message_stuff/message_index_container";
-import ChatRoomContainer from "../messages/chat_room_container";
+import ServerShowContainer from "./server_show_container";
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -9,16 +8,22 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-
+        this.props.fetchAllServers();
     }
 
+    // componentWillUnmount() {
+    //     // Refetch current user servers? To remove excess servers from store...
+    // }
+
     render() {
+        const { servers } = this.props;
         return (
-            <div>
-                <h1>You are inside the app</h1>
-                {/* <MessageIndexContainer /> */}
-                <ChatRoomContainer />
-                <button onClick={this.props.logout}>Logout</button>
+            <div className="hp-container">
+                <div className="hp-header-box"><h1>Server Discovery</h1></div>
+                
+                <ul>
+                    {servers.map(server => <ServerShowContainer key={server.id} server={server}/>)}
+                </ul>
             </div>
         );
     }

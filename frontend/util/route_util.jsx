@@ -14,7 +14,7 @@ const mstp = state => ({
 const Auth = ({ component: Component, path, loggedIn, exact }) => {
     return (
         <Route path={path} exact={exact} render={props =>
-            loggedIn ? (<Redirect to="/app" />) : (<Component {...props} />)
+            loggedIn ? (<Redirect to="/app/home" />) : (<Component {...props} />)
         } />
     );
 };

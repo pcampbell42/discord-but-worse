@@ -17,7 +17,13 @@ class Api::ServersController < ApplicationController
         @server = Server.new(server_params)
         @server.owner_id = current_user.id
         
-        if @server.save
+        if current_user.memberships.length >= 8
+            render json: ["Premium account required for more than 8 servers :)"], status: 402
+        elsif @server.save
+            @membership = Membership.new(server_id: @server.id)
+            @membership.user_id = current_user.id
+            @membership.save
+            
             render :show
         else
             #this should never happen... no reason for server creation to fail... bad avatar?

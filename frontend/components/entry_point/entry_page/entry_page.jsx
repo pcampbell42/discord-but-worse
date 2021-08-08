@@ -9,7 +9,7 @@ const EntryPage = ({ currentUser, logout }) => {
         loginDisplay = (
             <div className="ep-welcome-display">
                 <h1>Welcome, {currentUser.username}!</h1>
-                <Link to="/app">Enter Discord<sub>(but worse)</sub></Link>
+                <Link to="/app/home">Enter Discord<sub>(but worse)</sub></Link>
                 <button onClick={logout}>Logout</button>
             </div>
         );

@@ -30,12 +30,12 @@ class User < ApplicationRecord
     end
 
     def generate_username_id
-        self.username_id = rand(1..9999)
+        self.username_id ||= rand(1..9999)
         # Add logic for checking if [username, username_id] is taken here
     end
 
     def set_default_avatar
-        self.avatar = "qwe" # Add a default avatar to project
+        self.avatar ||= "qwe" # Add a default avatar to project
     end
 
 
@@ -44,17 +44,20 @@ class User < ApplicationRecord
     has_many :messages,
         primary_key: :id,
         foreign_key: :author_id,
-        class_name: :Message
+        class_name: :Message,
+        dependent: :destroy
 
     has_many :servers,
         primary_key: :id,
         foreign_key: :owner_id,
-        class_name: :Server
+        class_name: :Server,
+        dependent: :destroy
     
     has_many :memberships,
         primary_key: :id,
         foreign_key: :user_id,
-        class_name: :Membership
+        class_name: :Membership,
+        dependent: :destroy
 
     has_many :joined_servers,
         through: :memberships,

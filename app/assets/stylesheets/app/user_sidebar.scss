@@ -1,0 +1,48 @@
+
+.user-sidebar-container {
+    height: 100vh;
+    width: 33.74vh;
+    background-color: #2f3137;
+    overflow-y: auto;
+
+    .user-sidebar-header-box {
+        height: 6.5vh;
+        width: 100%;
+
+        border-bottom: 1px solid black;
+    }
+
+    ul {
+
+        margin-top: 2vh;
+        margin-left: 2vh;
+
+        li {
+            display: flex;
+            align-items: center;
+            
+            margin-bottom: 1vh;
+
+            font-family: 'Nunito', sans-serif;
+            color: #8e9296;
+            font-size: 16px;
+            font-weight: 700;
+
+            img {
+                width: 5vh;
+                height: 5vh;
+                filter: invert(1);
+
+                margin-right: 1vh;
+            }
+
+            img:hover {
+                opacity: 0.7;
+            }
+        }
+
+        li:hover {
+            cursor: pointer;
+        }
+    }
+}

@@ -1,13 +1,13 @@
 import { connect } from "react-redux";
 import HomePage from "./home_page";
-import { logout } from "../../../actions/session_actions";
+import { fetchAllServers } from "../../../actions/server_actions";
 
 const mstp = state => ({
-    currentUser: state.entities.users[state.session.id]
+    servers: Object.values(state.entities.servers)
 });
 
 const mdtp = dispatch => ({
-    logout: () => dispatch(logout()),
+    fetchAllServers: () => dispatch(fetchAllServers())
 });
 
 export default connect(mstp, mdtp)(HomePage);

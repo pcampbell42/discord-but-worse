@@ -14,6 +14,7 @@ class Server < ApplicationRecord
     #--------------------- Validations ---------------------
 
     validates :name, :avatar, :owner_id, presence: true
+    validates :name, length: { minimum: 2, maximum: 30 }
 
 
     #--------------------- After initialize ---------------------
@@ -21,13 +22,13 @@ class Server < ApplicationRecord
     after_initialize :set_default_avatar
 
     def set_default_avatar
-        self.avatar = "123"
+        self.avatar ||= "123"
     end
 
 
     #--------------------- Associations ---------------------
 
-    belongs_to :owner_id,
+    belongs_to :owner,
         primary_key: :id,
         foreign_key: :owner_id,
         class_name: :User

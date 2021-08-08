@@ -22,8 +22,8 @@ class Message < ApplicationRecord
     after_initialize :placeholder_set_messageable
 
     def placeholder_set_messageable
-        self.messageable_id = 1
-        self.messageable_type = "qwe"
+        self.messageable_id ||= 1
+        self.messageable_type ||= "qwe"
     end
 
 

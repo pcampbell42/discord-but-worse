@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       
         resource :session, only: [:create, :destroy]
 
-        resources :users, only: [:show, :create]
+        resources :users, only: [:create, :show]
 
         resources :messages, only: [:index, :create, :update, :destroy] # only need index (for now)
 
