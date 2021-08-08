@@ -8,7 +8,8 @@ import { clearMembershipErrors } from "../../../actions/membership_actions";
 const mstp = state => ({
     currentUser: state.entities.users[state.session.id],
     userServers: currentUserServers(state),
-    error: state.errors.memberships
+    error: state.errors.memberships,
+    homeSelected: ( window.location.hash === "#/app/home" ? true : false )
 });
 
 const mdtp = dispatch => ({

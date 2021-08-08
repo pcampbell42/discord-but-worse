@@ -12,6 +12,34 @@
     }
 
     a {
+        .ss-home-hover-bar-relative-position-anchor {
+            position: relative;
+            width: 0;
+            height: 0;
+
+            aside.hovered {
+                background-color: #fefefe;
+                width: 1vh;
+                height: 2.8vh;
+                border-radius: 0.5vh;
+
+                position: absolute;
+                top: 2vh;
+                left: -0.5vh;
+            }
+
+            aside#selected {
+                background-color: #fefefe;
+                width: 1vh;
+                height: 5.5vh;
+                border-radius: 0.5vh;
+
+                position: absolute;
+                top: 0.8vh;
+                left: -0.5vh;
+            }
+        }
+
         .ss-logo-container {
             height: 7vh;
             width: 7vh;
@@ -33,6 +61,11 @@
         .ss-logo-container:hover {
             background-color: #0f65ae;
             cursor: pointer;
+            border-radius: 18px;
+        }
+
+        .ss-logo-container#selected {
+            background-color: #0f65ae;
             border-radius: 18px;
         }
     }
@@ -67,23 +100,52 @@
 
     .ss-servers {
         div {
-            li {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-        
-                height: 7vh;
-                width: 7vh;
-        
-                margin-left: 1.5vh;
-                margin-top: 1.2vh;
-        
-                background-color: #37393f;
-        
-                border-radius: 50px;
-        
-                a {
-                    text-decoration: none;
+            .ss-hover-bar-relative-position-anchor {
+                position: relative;
+                width: 0;
+                height: 0;
+
+                aside.hovered {
+                    background-color: #fefefe;
+                    width: 1vh;
+                    height: 2.8vh;
+                    border-radius: 0.5vh;
+
+                    position: absolute;
+                    top: 2vh;
+                    left: -0.5vh;
+                }
+
+                aside#selected {
+                    background-color: #fefefe;
+                    width: 1vh;
+                    height: 5.5vh;
+                    border-radius: 0.5vh;
+
+                    position: absolute;
+                    top: 0.8vh;
+                    left: -0.5vh;
+                }
+            }
+
+            a {
+                text-decoration: none;
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+            
+                    height: 7vh;
+                    width: 7vh;
+            
+                    margin-left: 1.5vh;
+                    margin-top: 1.2vh;
+            
+                    background-color: #37393f;
+            
+                    border-radius: 50px;
+            
                     div {
                         font-family: 'Nunito', sans-serif;
                         color: white;
@@ -98,6 +160,12 @@
                 cursor: pointer;
                 border-radius: 18px;
             }
+
+            li.selected {
+                background-color: #0f65ae;
+                border-radius: 18px;
+            }
+
             .ss-relative-position-anchor {
                 position: relative;
                 width: 0;
@@ -204,7 +272,8 @@
             li {
                 display: flex;
                 justify-content: left;
-                height: 5vh;
+                align-items: center;
+                height: 3.8vh;
                 width: 14vh;
 
                 border-radius: 0;
@@ -331,6 +400,8 @@
                     display: block;
 
                     font-weight: 700;
+                    font-size: 11px;
+
                     color: #8e9296;
 
                     input {
@@ -345,7 +416,14 @@
                         border-color: #8e9296;
                         border-width: 1px;
                     }
+                }
 
+                label#ss-error {
+                    color: #ed4245;
+                    
+                    span {
+                        font-style: italic;
+                    }
                 }
 
                 footer {
@@ -356,7 +434,7 @@
                         height: 5vh;
                         width: 13vh;
                         padding-left: 0;
-                        margin-top: 2vh;
+                        margin-top: 1.7vh;
                         background-color: #5865f1;
     
                         border-radius: 0.3vh;
@@ -367,16 +445,22 @@
                         color: white;
     
                     }
+
+                    .ss-submit-button#ss-invalid {
+                        background-color: #a6adf4;
+                        border-width: 0;
+                        cursor:not-allowed;
+                    }
     
                     .ss-submit-button:hover {
                         background-color: #4753c4;
                         cursor: pointer;
                     }
 
-                    span {
-                        margin-top: 3.3vh;
-                        color: #ed4245;
-                    }
+                    // span {
+                    //     margin-top: 3.3vh;
+                    //     color: #ed4245;
+                    // }
                 }
             }
         }

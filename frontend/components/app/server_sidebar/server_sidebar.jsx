@@ -12,10 +12,11 @@ class ServersSideBar extends React.Component {
             showForm: false,
             homeHovered: false,
             createHovered: false,
-            name: ""
+            name: `${props.currentUser.username}'s server`
         };
         this.update = this.update.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
 
     componentDidMount() {
@@ -30,10 +31,17 @@ class ServersSideBar extends React.Component {
         this.setState({ name: e.currentTarget.value })
     }
 
+    handleClose(e) {
+        e.preventDefault();
+        this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false });
+        this.props.clearMembershipErrors();
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         this.props.createServer({ name: this.state.name })
-            .then(() => this.setState({ name: "", showForm: false }));
+            .then(() => this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false }))
+                .then(() => this.props.clearMembershipErrors());
     }
 
     render() {
@@ -52,7 +60,7 @@ class ServersSideBar extends React.Component {
         const createServerForm = (
             <div className="ss-create-form-relative-position-anchor">
                 <div>
-                    <button onClick={() => this.setState({ name: "", showForm: false })}>x</button>
+                    <button onClick={this.handleClose}>x</button>
                     <div>
                         <h1>Customize your server</h1>
                         <h2>Give your server a personality with a name and an icon. You can always change it later.</h2>
@@ -60,16 +68,15 @@ class ServersSideBar extends React.Component {
                             <img src={imageUploadIcon} />
                         </button>
                     </div>
-                    <form onSubmit={this.handleSubmit}>
-                        <label>SERVER NAME
-                            <input type="text" value={this.state.name} onChange={this.update} 
-                                    placeholder={`${this.props.currentUser.username}'s server`} />
+                    <form onSubmit={this.state.name === "" ? null : this.handleSubmit}>
+                        <label id={this.props.error.length < 1 ? null : "ss-error"}>
+                            SERVER NAME <span>{this.props.error.length < 1 ? null : `- ${this.props.error}`}</span>
+                            <input type="text" value={this.state.name} onChange={this.update} />
                         </label>
                         <footer>
                             <span>
-                                {this.props.error}
                             </span>
-                            <input className="ss-submit-button" type="submit" value="Create" />
+                            <input id={this.state.name === "" ? "ss-invalid" : null}className="ss-submit-button" type="submit" value="Create" />
                         </footer>
                     </form>
                 </div>
@@ -84,12 +91,20 @@ class ServersSideBar extends React.Component {
 
                 <Link to="/app/home" onMouseEnter={() => this.setState({ homeHovered: true })}
                         onMouseLeave={() => this.setState({ homeHovered: false })}>
-                    <div className="ss-logo-container"><img src={discordLogo} /></div>
+                    <div className="ss-home-hover-bar-relative-position-anchor">
+                        <aside className={this.state.homeHovered ? "hovered" : null} id={this.props.homeSelected ? "selected" : null}></aside>
+                    </div>
+                    <div className="ss-logo-container" id={this.props.homeSelected ? "selected" : null}>
+                        <img src={discordLogo} />
+                    </div>
                 </Link>
                 {this.state.homeHovered ? homeTooltipShow : null}
 
                 <ul className="ss-servers">
-                    {this.props.userServers.map(server => <ServerIconDisplayContainer key={server.id} server={server} />)}
+                    {this.props.userServers.map(server => 
+                        <ServerIconDisplayContainer key={server.id} server={server}
+                            selected={window.location.href.includes(`/app/servers/${server.id}`)} />
+                    )}
                 </ul>
 
                 <button onClick={() => this.setState({ showForm: true })}

@@ -10,28 +10,42 @@ class ServerIconDisplay extends React.Component {
             hovered: false,
             showOptions: false
         };
+
         this.handleRightClick = this.handleRightClick.bind(this);
         this.handleLeaveServer = this.handleLeaveServer.bind(this);
         this.handleDeleteServer = this.handleDeleteServer.bind(this);
     }
+
 
     handleRightClick(e) {
         e.preventDefault();
         this.setState({ showOptions: true })
     }
 
+
     handleLeaveServer(e) {
         const membershipId = findMembershipId(this.props.currentUser.id, this.props.server.id, this.props.memberships);
-        console.log(membershipId);
         this.props.deleteMembership(membershipId);
     }
+
 
     handleDeleteServer(e) {
         this.props.deleteServer(this.props.server.id);
     }
 
+    // toggleSelected() {
+    //     if (window.location.href.includes(`/app/servers/${this.props.server.id}`)) {
+    //         this.setState({ selected: true });
+    //         return "selected";
+    //     } else {
+    //         this.setState({ selected: false });
+    //         return null;
+    //     }
+    // }
+
     render() {
-        const { server, currentUser, deleteMembership, deleteServer } = this.props
+        const { server, currentUser, selected, currentServerDetails } = this.props
+
         const serverNameShow = (
             <div className="ss-relative-position-anchor">
                 <div className="ss-name-show">{server.name}</div>
@@ -52,11 +66,18 @@ class ServerIconDisplay extends React.Component {
 
         return (
             <div>
-                <li onMouseEnter={() => this.setState({ hovered: true })}
-                    onMouseLeave={() => this.setState({ hovered: false })}
-                    onContextMenu={this.handleRightClick}>
-                    <Link to="/app/home"><div>{server.name[0]}</div></Link>
-                </li>
+                <div className="ss-hover-bar-relative-position-anchor">
+                    <aside className={this.state.hovered ? "hovered" : null} id={selected ? "selected" : null}></aside>
+                </div>
+
+                <Link to={`/app/servers/${server.id}/1`} onClick={() => currentServerDetails(server.id)}>
+                    <li className={selected ? "selected" : null} 
+                        onMouseEnter={() => this.setState({ hovered: true })}
+                        onMouseLeave={() => this.setState({ hovered: false })}
+                        onContextMenu={this.handleRightClick}>
+                        <div>{server.name[0]}</div>
+                    </li>
+                </Link>
 
                 {this.state.hovered ? serverNameShow : null}
                 {this.state.showOptions ? serverOptions : null}

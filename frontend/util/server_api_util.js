@@ -29,4 +29,9 @@ export const deleteServer = serverId => (
     })
 );
 
-// export const fetchCurrentServerDetails --> For clicking on a server...
+export const fetchCurrentServerDetails = serverId => (
+    $.ajax({
+        method: "GET",
+        url: `/api/servers/${serverId}`
+    })
+);

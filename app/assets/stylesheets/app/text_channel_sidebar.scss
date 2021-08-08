@@ -1,0 +1,39 @@
+
+.text-channel-container {
+    height: 100vh;
+    // width: 17.1%;
+    width: 34.15vh;
+    overflow-y: auto;
+
+    background-color: #2f3137;
+
+    .text-channel-header-box {
+        height: 6.5vh;
+        width: 100%;
+        border-bottom: 1px solid black;
+        overflow-x: auto;
+
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        padding-left: 1.8vh;
+
+        font-family: 'Nunito', sans-serif;
+        font-size: 18px;
+        font-weight: 900;
+        color: white;
+    }
+
+    h1 {
+        font-family: 'Nunito', sans-serif;
+        color: #8e9296;
+        font-size: 12px;
+        font-weight: 800;
+        padding-top: 2vh;
+        padding-left: 2vh;
+    }
+
+    h1:hover {
+        color: white;
+    }
+}

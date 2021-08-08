@@ -46,3 +46,22 @@ export const currentUserServers = state => {
 
     return joinedServers;
 }
+
+export const currentServerUsers = (state, currentServerId) => {
+    const memberships = state.entities.memberships;
+    let serverMemberships = [];
+
+    for (const i in memberships) {
+        if (memberships[i].serverId.toString() === currentServerId) {
+            serverMemberships.push(memberships[i]);
+        }
+    }
+
+
+    let serverUsers = [];
+    for (let i = 0; i < serverMemberships.length; i++) {
+        serverUsers.push(state.entities.users[serverMemberships[i].userId]);
+    }
+
+    return serverUsers;
+}

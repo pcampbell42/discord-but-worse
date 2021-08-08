@@ -14,6 +14,7 @@ class Server < ApplicationRecord
     #--------------------- Validations ---------------------
 
     validates :name, :avatar, :owner_id, presence: true
+    validates :name, length: { minimum: 2, maximum: 30 }
 
 
     #--------------------- After initialize ---------------------

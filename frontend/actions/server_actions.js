@@ -39,4 +39,5 @@ export const updateServer = formServer => dispatch => ServerAPIUtil.updateServer
 export const deleteServer = serverId => dispatch => ServerAPIUtil.deleteServer(serverId)
     .then(() => dispatch(removeServer(serverId)));
 
-// export const fetchServerDetails = serverId => dispatch => ... for when you click on a server (uses receiveServer Details action on line 23)
+export const currentServerDetails = serverId => dispatch => ServerAPIUtil.fetchCurrentServerDetails(serverId)
+    .then(details => dispatch(receiveServerDetails(details)));

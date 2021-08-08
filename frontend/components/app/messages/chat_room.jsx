@@ -49,7 +49,8 @@ class ChatRoom extends React.Component {
         const { currentUser, messages } = this.props
 
         return (
-            <div>
+            <div className="chat-room-container">
+                <div className="chat-room-header"></div>
                 <ul>
                     {messages.map(message => (
                         <Message key={message.id} message={message} currentUser={currentUser} />

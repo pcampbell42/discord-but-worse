@@ -9,6 +9,7 @@ import HomePageContainer from "./app/home_page/home_page_container";
 import ServerSidebarContainer from "./app/server_sidebar/server_sidebar_container";
 import ConversationSidebarContainer from "./app/conversation_sidebar/conversation_sidebar_container";
 import ProfileNavbarContainer from "./app/profile_navbar/profile_navbar_container";
+import ServerShowContainer from "./app/server_show/server_show_container";
 
 const App = () => (
     <div>
@@ -23,7 +24,7 @@ const App = () => (
 
             <ProtectedRoute exact path="/app/home" component={HomePageContainer} />
             {/* <ProtectedRoute path="/app/home/conversations/:conversationId" component={ConvsationShowContainer} /> */}
-            {/* <ProtectedRoute path="/app/servers/:serverId" component={ServerShowContainer} /> */}
+            <ProtectedRoute path="/app/servers/:serverId/:textChannelId" component={ServerShowContainer} />
 
         </div>
     </div>
