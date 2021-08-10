@@ -4,7 +4,12 @@ import { receiveMessage, receiveAllMessages, deleteMessage, fetchAllMessages } f
 
 const mstp = state => ({
     currentUser: state.entities.users[state.session.id],
-    messages: Object.values(state.entities.messages)
+    messages: Object.values(state.entities.messages),
+    chatRoomId: window.location.href.includes("servers") ? 
+        parseInt(window.location.href.split("/").slice(-1).pop()) :
+        null,
+    textChannels: state.entities.textChannels
+        // put user name ^ (after else) for dms...
 });
 
 const mdtp = dispatch => ({

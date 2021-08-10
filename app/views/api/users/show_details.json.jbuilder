@@ -15,4 +15,12 @@ json.servers do
     end
 end
 
+json.text_channels do
+    @user.joined_servers.each do |server|
+        json.set! server.text_channels.first.id do
+            json.partial! "api/text_channels/text_channel", text_channel: server.text_channels.first
+        end
+    end
+end
+
 #eventually will grab conversations here as well

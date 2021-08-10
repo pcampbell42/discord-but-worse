@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_04_170515) do
+ActiveRecord::Schema.define(version: 2021_08_09_170847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "direct_messages", force: :cascade do |t|
+    t.integer "user1_id", null: false
+    t.integer "user2_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user1_id", "user2_id"], name: "index_direct_messages_on_user1_id_and_user2_id", unique: true
+    t.index ["user1_id"], name: "index_direct_messages_on_user1_id"
+    t.index ["user2_id"], name: "index_direct_messages_on_user2_id"
+  end
 
   create_table "memberships", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -44,6 +54,14 @@ ActiveRecord::Schema.define(version: 2021_08_04_170515) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_servers_on_name"
     t.index ["owner_id"], name: "index_servers_on_owner_id"
+  end
+
+  create_table "text_channels", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "server_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_text_channels_on_name"
   end
 
   create_table "users", force: :cascade do |t|

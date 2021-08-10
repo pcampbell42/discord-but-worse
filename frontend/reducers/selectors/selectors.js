@@ -65,3 +65,22 @@ export const currentServerUsers = (state, currentServerId) => {
 
     return serverUsers;
 }
+
+export const getFirstTextChannelId = (state, currentServerId) => {
+    const textChannels = Object.values(state.entities.textChannels);
+
+    for (let i = 0; i < textChannels.length; i++) {
+        if (textChannels[i].serverId === currentServerId) return textChannels[i].id;
+    }
+}
+
+export const getServerTextChannels = (state, currentServerId) => {
+    const textChannels = Object.values(state.entities.textChannels);
+
+    let selectedChannels = [];
+    for (let i = 0; i < textChannels.length; i++) {
+        if (textChannels[i].serverId.toString() === currentServerId) selectedChannels.push(textChannels[i]);
+    }
+
+    return selectedChannels;
+}
