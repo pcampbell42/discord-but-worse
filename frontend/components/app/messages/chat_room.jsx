@@ -40,12 +40,14 @@ class ChatRoom extends React.Component {
     }
 
     render() {
-        const { currentUser, messages } = this.props
+        const { currentUser, messages, chatRoomId, textChannels} = this.props
+
 
         return (
             <div className="chat-room-container">
                 <div className="chat-room-header">
-                    <h1>hello</h1>
+                    <h1>#</h1>
+                    <h2>{textChannels[chatRoomId] ? textChannels[chatRoomId].name : null}</h2>
                 </div>
                 <div className="chat-room-sub-container">
                     <ul>

@@ -76,8 +76,6 @@ export const getFirstTextChannelId = (state, currentServerId) => {
 
 export const getServerTextChannels = (state, currentServerId) => {
     const textChannels = Object.values(state.entities.textChannels);
-    console.log(currentServerId)
-    console.log(textChannels)
 
     let selectedChannels = [];
     for (let i = 0; i < textChannels.length; i++) {

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
         resources :memberships, only: [:create, :destroy]
 
-        resources :text_channels, only: [:show, :create, :destroy]
+        resources :text_channels, only: [:show, :create, :update, :destroy]
 
         resources :direct_messages, only: [:show, :create]
         

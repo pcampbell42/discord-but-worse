@@ -11,6 +11,38 @@ class TextChannelDisplay extends React.Component {
             editHovered: false,
             name: props.textChannel.name
         }
+
+        this.update = this.update.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleReset = this.handleReset.bind(this);
+    }
+
+
+    update(e) {
+        this.setState({ name: e.currentTarget.value });
+    }
+
+    handleReset(e) {
+        e.preventDefault();
+        this.setState({ name: this.props.textChannel.name });
+    }
+
+    handleClose() {
+        this.setState({ showForm: false, name: this.props.textChannel.name });
+    }
+
+
+    handleDelete(e) {
+        this.props.deleteTextChannel(this.props.textChannel.id);
+    }
+
+
+    handleSubmit(e) {
+        e.preventDefault();
+        this.props.updateTextChannel({ id: this.props.textChannel.id, name: this.state.name })
+            .then(() => this.setState({ name: "", showForm: false }))
     }
 
 
@@ -20,7 +52,7 @@ class TextChannelDisplay extends React.Component {
         const settingsButton = (
             <div className="tc-name-hover-relative-position-anchor">
                 <div className="tc-name-hover-container">
-                    <img src={settingsIcon} onClick={() => this.setState({ showForm: true })}
+                    <img src={settingsIcon} onClick={() => this.setState({ editHovered: false, showForm: true })}
                         onMouseEnter={() => this.setState({ editHovered: true })}
                         onMouseLeave={() => this.setState({ editHovered: false })}></img>
                 </div>
@@ -37,6 +69,31 @@ class TextChannelDisplay extends React.Component {
         const textChannelSettings = (
             <div className="tc-settings-container">
 
+                <div className="tc-settings-cancel-button">
+                    <div className="tc-settings-x-button" onClick={this.handleClose}>x</div>
+                    <p>ESC</p>
+                </div>
+
+                <div className="tc-settings-left">
+                    <ul>
+                        <li>Overview</li>
+                        <li className="tc-settings-delete-button" onClick={this.handleDelete}>Delete Channel</li>
+                    </ul>
+                </div>
+
+                <div className="tc-settings-right">
+                    <h1>OVERVIEW</h1>
+                    <form onSubmit={this.handleSubmit}>
+                        <label>CHANNEL NAME
+                            <input type="text" value={this.state.name} onChange={this.update} />
+                        </label>
+
+                        <div>
+                            <button onClick={this.handleReset}>Reset</button>
+                            <input className="tc-settings-save-changes" type="submit" value="Save Changes" />
+                        </div>
+                    </form>
+                </div>
             </div>
         );
 
