@@ -14,6 +14,7 @@ class ServerShow extends React.Component {
     handleJoin(e) {
         e.preventDefault();
         this.props.createMembership({ server_id: this.props.server.id })
+            .then(() => this.props.currentServerDetails(this.props.server.id));
     }
 
     render() {

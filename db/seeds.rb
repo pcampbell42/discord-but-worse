@@ -75,7 +75,7 @@ servers[14].members += [users[15], users[0]]
 
 servers[15].members += [users[16], users[10]]
 
-TextChannel.create(name: "general", server_id: servers[0].id);
+TextChannel.create(name: "not-general", server_id: servers[0].id);
 TextChannel.create(name: "general", server_id: servers[1].id);
 TextChannel.create(name: "general", server_id: servers[2].id);
 TextChannel.create(name: "general", server_id: servers[3].id);
