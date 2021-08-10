@@ -20,9 +20,15 @@ class Api::ServersController < ApplicationController
         if current_user.memberships.length >= 8
             render json: ["Premium account required for more than 8 servers :)"], status: 402
         elsif @server.save
+            
+            # Create membership for owner
             @membership = Membership.new(server_id: @server.id)
             @membership.user_id = current_user.id
             @membership.save
+
+            # Create initial text channel
+            @text_channel = TextChannel.new(name: "general", server_id: @server.id)
+            @text_channel.save
             
             render :show
         else

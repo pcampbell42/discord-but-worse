@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import ServerIconDisplayContainer from "./server_icon_display_container";
 import discordLogo from "../../../../app/assets/images/discord_logo.png";
 import imageUploadIcon from "../../../../app/assets/images/image_upload_icon.png";
@@ -19,17 +20,21 @@ class ServersSideBar extends React.Component {
         this.handleClose = this.handleClose.bind(this);
     }
 
+
     componentDidMount() {
         this.props.fetchCurrentUserDetails(this.props.currentUser.id);
     }
+
 
     componentWillUnmount() {
         this.props.clearMembershipErrors();
     }
 
+
     update(e) {
         this.setState({ name: e.currentTarget.value })
     }
+
 
     handleClose(e) {
         e.preventDefault();
@@ -37,23 +42,30 @@ class ServersSideBar extends React.Component {
         this.props.clearMembershipErrors();
     }
 
+
     handleSubmit(e) {
         e.preventDefault();
+
         this.props.createServer({ name: this.state.name })
             .then(() => this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false }))
-                .then(() => this.props.clearMembershipErrors());
+            .then(() => this.props.clearMembershipErrors())
+            .then(() => this.props.currentServerDetails(this.props.userServers[this.props.userServers.length - 1].id))
+            .then(() => this.props.history.push(`/app/servers/${this.props.userServers[this.props.userServers.length - 1].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`));
     }
+
 
     render() {
         const homeTooltipShow = (
             <div className="ss-home-relative-position-anchor">
                 <div className="ss-home-tooltip-show">Server Discovery</div>
+                <div className="ss-home-arrow-left"></div>
             </div>
         );
 
         const createTooltipShow = (
             <div className="ss-create-relative-position-anchor">
                 <div className="ss-create-tooltip-show">Create a Server</div>
+                <div className="ss-create-arrow-left"></div>
             </div>
         );
 
@@ -91,19 +103,22 @@ class ServersSideBar extends React.Component {
 
                 <Link to="/app/home" onMouseEnter={() => this.setState({ homeHovered: true })}
                         onMouseLeave={() => this.setState({ homeHovered: false })}>
+
                     <div className="ss-home-hover-bar-relative-position-anchor">
                         <aside className={this.state.homeHovered ? "hovered" : null} id={this.props.homeSelected ? "selected" : null}></aside>
                     </div>
+
                     <div className="ss-logo-container" id={this.props.homeSelected ? "selected" : null}>
                         <img src={discordLogo} />
                     </div>
+
                 </Link>
                 {this.state.homeHovered ? homeTooltipShow : null}
 
                 <ul className="ss-servers">
                     {this.props.userServers.map(server => 
                         <ServerIconDisplayContainer key={server.id} server={server}
-                            selected={window.location.href.includes(`/app/servers/${server.id}`)} />
+                            selected={window.location.href.includes(`/app/servers/${server.id}/`)} />
                     )}
                 </ul>
 
@@ -118,4 +133,5 @@ class ServersSideBar extends React.Component {
     }
 }
 
-export default ServersSideBar;
+// export default ServersSideBar;
+export default withRouter(ServersSideBar);

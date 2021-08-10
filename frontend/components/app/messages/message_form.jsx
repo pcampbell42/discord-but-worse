@@ -25,9 +25,9 @@ class MessageForm extends React.Component {
         return (
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" value={this.state.body} onChange={this.update}
-                        placeholder={`Message PUT MESSAGEABLE ID'S NAME HERE`}
+                        placeholder={`Message @ or # user or text channel name`}
                     />
-                    <input type="submit" value="post" />
+                    {/* <input type="submit" value="post" /> */}
                 </form>
         );
     }

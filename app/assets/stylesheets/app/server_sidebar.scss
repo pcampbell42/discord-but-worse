@@ -96,6 +96,19 @@
             font-size: 15px;
             font-weight: 900;
         }
+
+        .ss-home-arrow-left {
+            position: absolute;
+            left: 10.1vh;
+            bottom: 2.5vh;
+
+            width: 0; 
+            height: 0; 
+            border-top: 1vh solid transparent;
+            border-bottom: 1vh solid transparent;
+            
+            border-right: 1vh solid black;
+        }
     }
 
     .ss-servers {
@@ -192,6 +205,19 @@
                     font-size: 15px;
                     font-weight: 900;
                 }
+
+                .ss-name-show-arrow-left {
+                    position: absolute;
+                    left: 10.1vh;
+                    bottom: 2.5vh;
+
+                    width: 0; 
+                    height: 0; 
+                    border-top: 1vh solid transparent;
+                    border-bottom: 1vh solid transparent;
+                    
+                    border-right: 1vh solid black;
+                }
             }
 
         }
@@ -251,6 +277,19 @@
             color: white;
             font-size: 15px;
             font-weight: 900;
+        }
+
+        .ss-create-arrow-left {
+            position: absolute;
+            left: 10.1vh;
+            bottom: 2.5vh;
+
+            width: 0; 
+            height: 0; 
+            border-top: 1vh solid transparent;
+            border-bottom: 1vh solid transparent;
+            
+            border-right: 1vh solid black;
         }
     }
 

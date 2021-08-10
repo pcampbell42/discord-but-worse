@@ -23,7 +23,7 @@ class Message < ApplicationRecord
 
     def placeholder_set_messageable
         self.messageable_id ||= 1
-        self.messageable_type ||= "qwe"
+        self.messageable_type ||= "TextChannel"
     end
 
 
@@ -33,5 +33,7 @@ class Message < ApplicationRecord
         primary_key: :id,
         foreign_key: :author_id,
         class_name: :User
+
+    belongs_to :messageable, :polymorphic => true
 
 end

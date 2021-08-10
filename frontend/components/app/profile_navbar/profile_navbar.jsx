@@ -22,12 +22,14 @@ class ProfileNavbar extends React.Component {
         const homeTooltipShow = (
             <div className="pn-home-relative-position-anchor">
                 <div className="pn-home-tooltip-show">Home</div>
+                <div className="pn-home-arrow-down"></div>
             </div>
         );
 
         const logoutTooltipShow = (
             <div className="pn-logout-relative-position-anchor">
                 <div className="pn-logout-tooltip-show">Logout</div>
+                <div className="pn-logout-arrow-down"></div>
             </div>
         );
 

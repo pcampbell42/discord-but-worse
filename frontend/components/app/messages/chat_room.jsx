@@ -6,13 +6,7 @@ class ChatRoom extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        // this.bottom = React.createRef();
-        /* <div ref={this.bottom} /> */ // In render inside <li>...
     }
-
-    // componentDidUpdate() {
-    //     this.bottom.current.scrollIntoView();
-    // }
 
     componentDidMount() {
         App.cable.subscriptions.create(
@@ -50,14 +44,18 @@ class ChatRoom extends React.Component {
 
         return (
             <div className="chat-room-container">
-                <div className="chat-room-header"></div>
-                <ul>
-                    {messages.map(message => (
-                        <Message key={message.id} message={message} currentUser={currentUser} />
-                    ))}
-                </ul>
-                
-                <MessageForm currentUser={currentUser} />
+                <div className="chat-room-header">
+                    <h1>hello</h1>
+                </div>
+                <div className="chat-room-sub-container">
+                    <ul>
+                        {messages.map(message => (
+                            <Message key={message.id} message={message} currentUser={currentUser} />
+                        ))}
+                    </ul>
+                    
+                    <MessageForm currentUser={currentUser} />
+                </div>
             </div>
         );
     }

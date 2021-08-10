@@ -75,3 +75,22 @@ servers[14].members += [users[15], users[0]]
 
 servers[15].members += [users[16], users[10]]
 
+TextChannel.create(name: "general", server_id: servers[0].id);
+TextChannel.create(name: "general", server_id: servers[1].id);
+TextChannel.create(name: "general", server_id: servers[2].id);
+TextChannel.create(name: "general", server_id: servers[3].id);
+TextChannel.create(name: "general", server_id: servers[4].id);
+
+TextChannel.create(name: "general", server_id: servers[5].id);
+TextChannel.create(name: "general", server_id: servers[6].id);
+TextChannel.create(name: "general", server_id: servers[7].id);
+TextChannel.create(name: "general", server_id: servers[8].id);
+TextChannel.create(name: "general", server_id: servers[9].id);
+
+TextChannel.create(name: "general", server_id: servers[10].id);
+TextChannel.create(name: "general", server_id: servers[11].id);
+TextChannel.create(name: "general", server_id: servers[12].id);
+TextChannel.create(name: "general", server_id: servers[13].id);
+TextChannel.create(name: "general", server_id: servers[14].id);
+
+TextChannel.create(name: "general", server_id: servers[15].id);

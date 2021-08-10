@@ -17,6 +17,7 @@ class UserSidebar extends React.Component {
         return (
             <div className="user-sidebar-container">
                 <div className="user-sidebar-header-box"></div>
+                <h1>MEMBERS - {users.length}</h1>
                 <ul>
                     {users.map(user => 
                         <li key={user.id}>

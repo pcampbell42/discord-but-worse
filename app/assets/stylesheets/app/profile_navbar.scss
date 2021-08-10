@@ -107,6 +107,19 @@
                 font-size: 12px;
                 font-weight: 900;
             }
+
+            .pn-home-arrow-down {
+                position: absolute;
+                bottom: 2.1vh;
+                right: 1.5vh;
+
+                width: 0; 
+                height: 0; 
+                border-left: 1vh solid transparent;
+                border-right: 1vh solid transparent;
+                
+                border-top: 1vh solid black;
+            }
         }
     
         .pn-logout-icon-container {
@@ -155,6 +168,19 @@
                 color: white;
                 font-size: 12px;
                 font-weight: 900;
+            }
+
+            .pn-logout-arrow-down {
+                position: absolute;
+                bottom: 2.1vh;
+                right: 1.5vh;
+
+                width: 0; 
+                height: 0; 
+                border-left: 1vh solid transparent;
+                border-right: 1vh solid transparent;
+                
+                border-top: 1vh solid black;
             }
         }
     }

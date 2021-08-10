@@ -4,7 +4,7 @@ import { receiveMessage, receiveAllMessages, deleteMessage, fetchAllMessages } f
 
 const mstp = state => ({
     currentUser: state.entities.users[state.session.id],
-    messages: Object.values(state.entities.messages)
+    messages: Object.values(state.entities.messages),
 });
 
 const mdtp = dispatch => ({

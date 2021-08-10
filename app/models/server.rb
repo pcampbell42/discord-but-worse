@@ -43,4 +43,10 @@ class Server < ApplicationRecord
         through: :memberships,
         source: :member
 
+    has_many :text_channels,
+        primary_key: :id,
+        foreign_key: :server_id,
+        class_name: :TextChannel,
+        dependent: :destroy
+
 end
