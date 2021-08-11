@@ -85,6 +85,15 @@ export const getServerTextChannels = (state, currentServerId) => {
     return selectedChannels;
 }
 
+export const getServerTextChannelsNoState = (textChannels, currentServerId) => {
+    let selectedChannels = [];
+    for (let i = 0; i < textChannels.length; i++) {
+        if (textChannels[i].serverId.toString() === currentServerId) selectedChannels.push(textChannels[i]);
+    }
+
+    return selectedChannels;
+}
+
 export const getMessagesForChannel = state => {
     let currentLocation = window.location.hash;
 

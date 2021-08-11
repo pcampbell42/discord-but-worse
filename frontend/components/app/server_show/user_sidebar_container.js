@@ -4,11 +4,8 @@ import { currentServerUsers } from "../../../reducers/selectors/selectors";
 import { currentServerDetails } from "../../../actions/server_actions";
 
 const mstp = (state, ownProps) => ({
-    users: currentServerUsers(state, ownProps.serverId)
+    users: currentServerUsers(state, ownProps.serverId),
+    server: state.entities.servers[ownProps.serverId]
 });
 
-const mdtp = dispatch => ({
-    // currentServerDetails: serverId => dispatch(currentServerDetails(serverId))
-});
-
-export default connect(mstp, mdtp)(UserSidebar);
+export default connect(mstp)(UserSidebar);

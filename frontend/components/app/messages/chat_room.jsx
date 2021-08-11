@@ -43,7 +43,7 @@ class ChatRoom extends React.Component {
 
 
     render() {
-        const { currentUser, messages, chatRoomId, textChannels} = this.props
+        const { currentUser, messages, chatRoomId, textChannels, users} = this.props
 
         return (
             <div className="chat-room-container">
@@ -54,7 +54,7 @@ class ChatRoom extends React.Component {
                 <div className="chat-room-sub-container">
                     <ul>
                         {messages.map(message => (
-                            <Message key={message.id} message={message} currentUser={currentUser} />
+                            <Message key={message.id} message={message} currentUser={currentUser} users={users}/>
                         ))}
                     </ul>
                     
