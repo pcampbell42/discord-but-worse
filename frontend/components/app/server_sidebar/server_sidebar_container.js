@@ -12,9 +12,9 @@ const mstp = state => ({
     currentUser: state.entities.users[state.session.id],
     userServers: currentUserServers(state),
     error: state.errors.memberships,
-    homeSelected: ( window.location.hash === "#/app/home" ? true : false ),
+    homeSelected: ( window.location.hash.includes("#/app/home") ? true : false ),
     textChannels: Object.values(state.entities.textChannels),
-    // all dms as well...
+    directMessages: Object.values(state.entities.directMessages)
 });
 
 const mdtp = dispatch => ({

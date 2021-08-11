@@ -30,39 +30,18 @@ class ServersSideBar extends React.Component {
             createSubscription("tc", this.props.textChannels[i].id,
                 this.props.receiveAllMessages,
                 this.props.receiveMessage,
-                this.props.deleteMessage)
+                this.props.deleteMessage
+            );
         }
-            // App.cable.subscriptions.create(
-            //     { channel: "ChatChannel", thread_type: "tc", thread_id: i },
-            //     {
-            //         received: data => {
-            //             switch (data.type) {
-            //                 case "index":
-            //                     this.props.receiveAllMessages(data.messages);
-            //                     break;
 
-            //                 case "create":
-            //                     this.props.receiveMessage(data.message);
-            //                     break;
-
-            //                 case "update":
-            //                     this.props.receiveMessage(data.message);
-            //                     break;
-
-            //                 case "destroy":
-            //                     this.props.deleteMessage(data.messageId);
-            //                     break;
-
-            //                 default:
-            //                     break;
-            //             }
-            //         },
-            //         create: function (data) { return this.perform("create", data) },
-            //         update: function (data) { return this.perform("update", data) },
-            //         destroy: function (data) { return this.perform("destroy", data) }
-            //     }
-            // )
+        for (const i in this.props.directMessages) {
+            createSubscription("dm", this.props.directMessages[i].id,
+                this.props.receiveAllMessages,
+                this.props.receiveMessage,
+                this.props.deleteMessage
+            );
         }
+    }
 
 
     componentWillUnmount() {

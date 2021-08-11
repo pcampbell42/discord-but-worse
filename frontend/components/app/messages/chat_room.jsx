@@ -10,46 +10,23 @@ class ChatRoom extends React.Component {
     }
 
 
-    componentDidMount() {
-    //     App.cable.subscriptions.create(
-    //         { channel: "ChatChannel" },
-    //         {
-    //             received: data => {
-    //                 switch(data.type) {
-    //                     case "create":
-    //                         this.props.receiveMessage(data.message);
-    //                         break;
-
-    //                     case "update":
-    //                         this.props.receiveMessage(data.message);
-    //                         break;
-
-    //                     case "destroy":
-    //                         this.props.deleteMessage(data.messageId);
-    //                         break;
-
-    //                     default:
-    //                         break;
-    //                 }
-    //             },
-    //             create: function(data) { return this.perform("create", data) },
-    //             update: function(data) { return this.perform("update", data) },
-    //             destroy: function(data) { return this.perform("destroy", data) }
-    //         }
-    //     );
-
-        // this.props.fetchAllMessages();
-    }
-
-
     render() {
-        const { currentUser, messages, chatRoomId, textChannels, users} = this.props
+        const { currentUser, messages, users, chatRoomType, chatRoomObj } = this.props
+
+        let dmdUser;
+        if (chatRoomType === "dm") {
+            chatRoomObj.user1Id === currentUser.id ? 
+                dmdUser = users[chatRoomObj.user2Id] :
+                dmdUser = users[chatRoomObj.user1Id]
+        }
 
         return (
-            <div className="chat-room-container">
+            <div className="chat-room-container" id={chatRoomType === "dm" ? "dm" : null}>
                 <div className="chat-room-header">
-                    <h1>#</h1>
-                    <h2>{textChannels[chatRoomId] ? textChannels[chatRoomId].name : null}</h2>
+                    <h1>{chatRoomType === "tc" ? "#" : "@"}</h1>
+                    <h2>
+                        {chatRoomType === "tc" ? chatRoomObj.name : dmdUser.username}
+                    </h2>
                 </div>
                 <div className="chat-room-sub-container">
                     <ul>

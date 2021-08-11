@@ -12,15 +12,15 @@ class DirectMessage < ApplicationRecord
 
     validates :user1_id, :user2_id, presence: true
 
-    belongs_to :user_1,
+    belongs_to :initiator,
         primary_key: :id,
         foreign_key: :user1_id,
         class_name: :User
     
-    belongs_to :user_2,
+    belongs_to :receiver,
         primary_key: :id,
         foreign_key: :user2_id,
-        class_name: :user
+        class_name: :User
 
     has_many :messages, :as => :messageable,
         dependent: :destroy

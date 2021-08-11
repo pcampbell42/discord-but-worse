@@ -27,7 +27,7 @@
         }
 
         h2 {
-            padding-left: 1vw;
+            padding-left: 0.5vw;
             font-weight: 800;
             font-size: 2.5vh;
         }
@@ -176,4 +176,27 @@
             }
         }
     }
+}
+
+
+.chat-room-container#dm {
+    width: 77.8%;
+
+    .chat-room-header {
+        width: 98.73%;
+
+        h1 {
+            font-size: 3.5vh;
+        }
+    }
+
+    .chat-room-sub-container {
+        form {
+            input {
+                width: 73.3vw;
+                margin-right: 0;
+            }
+        }
+    }
+
 }

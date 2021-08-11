@@ -62,6 +62,26 @@ class User < ApplicationRecord
     has_many :joined_servers,
         through: :memberships,
         source: :server
+
+    has_many :direct_messages_started,
+        primary_key: :id,
+        foreign_key: :user1_id,
+        class_name: :DirectMessage,
+        dependent: :destroy
+
+    has_many :users_dmd,
+        through: :direct_messages_started,
+        source: :receiver
+
+    has_many :direct_messages_received,
+        primary_key: :id,
+        foreign_key: :user2_id,
+        class_name: :DirectMessage,
+        dependent: :destroy
+
+    has_many :users_dmd_by,
+        through: :direct_messages_received,
+        source: :initiator
     
 
     #--------------------- User Auth Methods ---------------------
