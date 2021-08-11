@@ -16,9 +16,9 @@ class ServerShow extends React.Component {
     render() {
         return (
             <div className="server-show-container">
-                <TextChannelSidebarContainer serverId={this.props.match.params.serverId} />
-                <ChatRoomContainer serverId={this.props.match.params.serverId} />
-                <UserSidebarContainer serverId={this.props.match.params.serverId} />
+                <TextChannelSidebarContainer serverId={this.props.match.params.serverId} channelId={this.props.match.params.textChannelId} />
+                <ChatRoomContainer serverId={this.props.match.params.serverId} channelId={this.props.match.params.textChannelId} />
+                <UserSidebarContainer serverId={this.props.match.params.serverId} channelId={this.props.match.params.textChannelId} />
             </div>
         );
     }

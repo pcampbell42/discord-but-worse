@@ -17,7 +17,7 @@ const removeTextChannel = textChannelId => ({
 const receiveTextChannelDetails = details => ({
     type: RECEIVE_TEXT_CHANNEL_DETAILS,
     details
-});
+})
 
 export const createTextChannel = formTextChannel => dispatch => TextChannelAPIUtil.createTextChannel(formTextChannel)
     .then(textChannel => dispatch(receiveTextChannel(textChannel)));

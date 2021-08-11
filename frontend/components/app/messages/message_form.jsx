@@ -1,4 +1,6 @@
 import React from "react";
+import { findCurrentSubscription } from "../../../util/websockets_helpers";
+
 
 class MessageForm extends React.Component {
     constructor(props) {
@@ -9,18 +11,23 @@ class MessageForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+
     update(e) {
         this.setState({ body: e.currentTarget.value });
     }
+
 
     handleSubmit(e) {
         e.preventDefault();
         // ---------------------- Have to get messageable type + id here ----------------------
         const messageToSend = Object.assign({}, this.state, { author_id: this.props.currentUser.id });
-        App.cable.subscriptions.subscriptions[0].create({ message: messageToSend });
+        const subscriptionNum = findCurrentSubscription();
+
+        App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
         this.setState({ body: "" });
     }
 
+    
     render() {
         return (
                 <form onSubmit={this.handleSubmit}>

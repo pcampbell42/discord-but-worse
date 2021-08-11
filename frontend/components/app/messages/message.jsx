@@ -2,6 +2,7 @@ import React from "react";
 import defaultProfilePicture from "../../../../app/assets/images/default_profile_picture.png";
 import editIcon from "../../../../app/assets/images/edit_icon.png";
 import deleteIcon from "../../../../app/assets/images/delete_icon.png";
+import { findCurrentSubscription } from "../../../util/websockets_helpers";
 
 
 class Message extends React.Component {
@@ -21,28 +22,39 @@ class Message extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
     }
 
+
     swapToEditing(e) {
         e.preventDefault();
         this.setState({ editing: true });
     }
 
+
     update(e) {
         this.setState({ message: { body: e.currentTarget.value }});
     }
 
+
     handleSubmit(e) {
         e.preventDefault();
+
         const messageToSend = Object.assign({}, this.state.message, { id: this.props.message.id });
-        App.cable.subscriptions.subscriptions[0].update({ message: messageToSend });
+        const subscriptionNum = findCurrentSubscription();
+        App.cable.subscriptions.subscriptions[subscriptionNum].update({ message: messageToSend });
+
         this.setState({ editing: false });
     }
+
 
     handleDelete(e) {
         e.preventDefault();
-        App.cable.subscriptions.subscriptions[0].destroy({ id: this.props.message.id });
+
+        const subscriptionNum = findCurrentSubscription();
+        App.cable.subscriptions.subscriptions[subscriptionNum].destroy({ id: this.props.message.id });
+
         this.setState({ editing: false });
     }
 
+    
     render() {
         const { message, currentUser } = this.props;
 

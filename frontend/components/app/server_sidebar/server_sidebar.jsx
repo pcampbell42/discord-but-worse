@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import ServerIconDisplayContainer from "./server_icon_display_container";
 import discordLogo from "../../../../app/assets/images/discord_logo.png";
 import imageUploadIcon from "../../../../app/assets/images/image_upload_icon.png";
+import { createSubscription } from "../../../util/websockets_helpers";
 
 
 class ServersSideBar extends React.Component {
@@ -15,6 +16,7 @@ class ServersSideBar extends React.Component {
             createHovered: false,
             name: `${props.currentUser.username}'s server`
         };
+
         this.update = this.update.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -22,8 +24,51 @@ class ServersSideBar extends React.Component {
 
 
     componentDidMount() {
-        this.props.fetchCurrentUserDetails(this.props.currentUser.id);
-    }
+        this.props.fetchCurrentUserDetails(this.props.currentUser.id)
+        setTimeout(() => {
+            for (const i in this.props.textChannels) {
+                createSubscription("tc", this.props.textChannels[i].id, 
+                                        this.props.receiveAllMessages, 
+                                        this.props.receiveMessage, 
+                                        this.props.deleteMessage)
+            }
+
+            // App.cable.subscriptions.create(
+            //     { channel: "ChatChannel", thread_type: "tc", thread_id: i },
+            //     {
+            //         received: data => {
+            //             switch (data.type) {
+            //                 case "index":
+            //                     this.props.receiveAllMessages(data.messages);
+            //                     break;
+
+            //                 case "create":
+            //                     this.props.receiveMessage(data.message);
+            //                     break;
+
+            //                 case "update":
+            //                     this.props.receiveMessage(data.message);
+            //                     break;
+
+            //                 case "destroy":
+            //                     this.props.deleteMessage(data.messageId);
+            //                     break;
+
+            //                 default:
+            //                     break;
+            //             }
+            //         },
+            //         create: function (data) { return this.perform("create", data) },
+            //         update: function (data) { return this.perform("update", data) },
+            //         destroy: function (data) { return this.perform("destroy", data) }
+            //     }
+            // )
+                // console.log(JSON.parse(App.cable.subscriptions.subscriptions[0].identifier))
+                // console.log(window.location.hash)
+                // same thing for dms...
+
+            }, 1000);
+        }
 
 
     componentWillUnmount() {
@@ -50,6 +95,9 @@ class ServersSideBar extends React.Component {
             .then(() => this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false }))
             .then(() => this.props.clearMembershipErrors())
             .then(() => this.props.currentServerDetails(this.props.userServers[this.props.userServers.length - 1].id))
+            .then(() => createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id, 
+                                                this.props.receiveAllMessages, this.props.receiveMessage,
+                                                this.props.deleteMessage))
             .then(() => this.props.history.push(`/app/servers/${this.props.userServers[this.props.userServers.length - 1].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`));
     }
 

@@ -7,7 +7,7 @@ const messagesReducer = (state = {}, action) => {
     
     switch(action.type) {
         case RECEIVE_ALL_MESSAGES:
-            return action.messages;
+            return Object.assign({}, state, action.messages);
             
         case RECEIVE_MESSAGE:
             return Object.assign({}, state, { [action.message.id]: action.message });
@@ -17,11 +17,11 @@ const messagesReducer = (state = {}, action) => {
             delete newState[action.messageId];
             return newState;
 
-        case RECEIVE_TEXT_CHANNEL_DETAILS:
-            return action.details.messages;
+        // case RECEIVE_TEXT_CHANNEL_DETAILS:
+        //     return action.details.messages;
 
-        case RECEIVE_DIRECT_MESSAGE_DETAILS:
-            return action.details.messages;
+        // case RECEIVE_DIRECT_MESSAGE_DETAILS:
+        //     return action.details.messages;
 
         default:
             return state;

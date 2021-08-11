@@ -1,6 +1,8 @@
 import { connect } from "react-redux";
 import SessionForm from "./session_form";
 import { signup, clearSessionErrors } from "./../../../actions/session_actions";
+import { fetchCurrentUserDetails } from "../../../actions/session_actions";
+
 
 
 const mstp = state => ({

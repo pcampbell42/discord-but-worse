@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { AuthRoute, ProtectedRoute } from "./../util/route_util.jsx";
+import { AuthRoute, ProtectedRoute } from "../util/route_util.jsx";
 
 import EntryPageContainer from "./entry_point/entry_page/entry_page_container";
 import SignupFormContainer from "./entry_point/session_form/signup_form_container";

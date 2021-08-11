@@ -84,3 +84,24 @@ export const getServerTextChannels = (state, currentServerId) => {
 
     return selectedChannels;
 }
+
+export const getMessagesForChannel = state => {
+    let currentLocation = window.location.hash;
+
+    let chatRoomType;
+    if (currentLocation.includes("servers")) chatRoomType = "TextChannel";
+    if (currentLocation.includes("conversations")) chatRoomType = "DirectMessage";
+
+    const chatRoomId = parseInt(currentLocation.split("/").slice(-1).pop());
+
+    const allMessages = Object.values(state.entities.messages);
+
+    let selectedMessages = [];
+    for (let i = 0; i < allMessages.length; i++) {
+        if (allMessages[i].messageableType === chatRoomType && allMessages[i].messageableId === chatRoomId) {
+            selectedMessages.push(allMessages[i]);
+        }
+    }
+
+    return selectedMessages;
+}

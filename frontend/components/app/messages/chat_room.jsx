@@ -2,46 +2,48 @@ import React from "react";
 import Message from "./message";
 import MessageForm from "./message_form";
 
+
 class ChatRoom extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
 
+
     componentDidMount() {
-        App.cable.subscriptions.create(
-            { channel: "ChatChannel" },
-            {
-                received: data => {
-                    switch(data.type) {
-                        case "create":
-                            this.props.receiveMessage(data.message);
-                            break;
+    //     App.cable.subscriptions.create(
+    //         { channel: "ChatChannel" },
+    //         {
+    //             received: data => {
+    //                 switch(data.type) {
+    //                     case "create":
+    //                         this.props.receiveMessage(data.message);
+    //                         break;
 
-                        case "update":
-                            this.props.receiveMessage(data.message);
-                            break;
+    //                     case "update":
+    //                         this.props.receiveMessage(data.message);
+    //                         break;
 
-                        case "destroy":
-                            this.props.deleteMessage(data.messageId);
-                            break;
+    //                     case "destroy":
+    //                         this.props.deleteMessage(data.messageId);
+    //                         break;
 
-                        default:
-                            break;
-                    }
-                },
-                create: function(data) { return this.perform("create", data) },
-                update: function(data) { return this.perform("update", data) },
-                destroy: function(data) { return this.perform("destroy", data) }
-            }
-        );
+    //                     default:
+    //                         break;
+    //                 }
+    //             },
+    //             create: function(data) { return this.perform("create", data) },
+    //             update: function(data) { return this.perform("update", data) },
+    //             destroy: function(data) { return this.perform("destroy", data) }
+    //         }
+    //     );
 
-        this.props.fetchAllMessages();
+        // this.props.fetchAllMessages();
     }
+
 
     render() {
         const { currentUser, messages, chatRoomId, textChannels} = this.props
-
 
         return (
             <div className="chat-room-container">

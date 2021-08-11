@@ -22,6 +22,8 @@ class DirectMessage < ApplicationRecord
         foreign_key: :user2_id,
         class_name: :user
 
-    has_many :messages, :as => :messageable
+    has_many :messages, :as => :messageable,
+        dependent: :destroy
+
     
 end
