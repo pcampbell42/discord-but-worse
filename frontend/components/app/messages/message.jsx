@@ -68,17 +68,15 @@ class Message extends React.Component {
             <div className="chatroom-message-hover-relative-position-anchor">
                 <div className="message-hover-container">
                     {this.state.editing ? null :
-                        <div><img src={editIcon} onClick={this.swapToEditing} /></div>}
+                        <div className="cr-edit-icon"><img src={editIcon} onClick={this.swapToEditing} /></div>}
 
                     <div><img src={deleteIcon} onClick={this.handleDelete} /></div>
                 </div>
             </div>
         );
 
-        console.log(message.createdAt)
-
         return(
-            <li key={message.id}
+            <li key={message.id} className={this.state.editing ? "editing" : null}
                 onMouseEnter={() => this.setState({ hovered: true })}
                 onMouseLeave={() => this.setState({ hovered: false })}>
 

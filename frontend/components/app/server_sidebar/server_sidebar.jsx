@@ -25,14 +25,13 @@ class ServersSideBar extends React.Component {
 
     componentDidMount() {
         this.props.fetchCurrentUserDetails(this.props.currentUser.id)
-        setTimeout(() => {
-            for (const i in this.props.textChannels) {
-                createSubscription("tc", this.props.textChannels[i].id, 
-                                        this.props.receiveAllMessages, 
-                                        this.props.receiveMessage, 
-                                        this.props.deleteMessage)
-            }
 
+        for (const i in this.props.textChannels) {
+            createSubscription("tc", this.props.textChannels[i].id,
+                this.props.receiveAllMessages,
+                this.props.receiveMessage,
+                this.props.deleteMessage)
+        }
             // App.cable.subscriptions.create(
             //     { channel: "ChatChannel", thread_type: "tc", thread_id: i },
             //     {
@@ -63,11 +62,6 @@ class ServersSideBar extends React.Component {
             //         destroy: function (data) { return this.perform("destroy", data) }
             //     }
             // )
-                // console.log(JSON.parse(App.cable.subscriptions.subscriptions[0].identifier))
-                // console.log(window.location.hash)
-                // same thing for dms...
-
-            }, 1000);
         }
 
 

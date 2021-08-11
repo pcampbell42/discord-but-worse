@@ -86,14 +86,6 @@
                     }
                 }
 
-                form {
-                    width: 80%;
-                    input {
-                        width: 100%;
-                        margin-bottom: 2vh;
-                    }
-                }
-
                 .chatroom-message-hover-relative-position-anchor {
                     position: relative;
                     width: 0;
@@ -108,16 +100,16 @@
                         width: 8vh;
 
                         position: absolute;
-                        left: 110vh;
+                        left: 105vh;
                         bottom: 0.7vh;
+
+                        padding-left: 0.6vw;
 
                         background-color: #31353b;
                         border: 0.5px solid black;
                         border-radius: 0.6vh;
 
                         div {
-
-
                             img {
                                 height: 2vh;
                                 width: 2vh;
@@ -125,6 +117,7 @@
 
                             img:hover {
                                 cursor: pointer;
+                                opacity: 0.5;
                             }
                         }
                     }
@@ -133,6 +126,25 @@
 
             li:hover {
                 background-color: #31353b;
+            }
+
+            li.editing {
+                height: 14vh;
+
+                img {
+                    margin-bottom: 3vh;
+                }
+
+                form {
+                    width: 51vw;
+
+                    input {
+                        height: 5vh;
+                        width: 100%;
+                        margin-top: 1vh;
+                        margin-left: -0.6vh;
+                    }
+                }
             }
         }
 

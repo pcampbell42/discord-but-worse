@@ -11,23 +11,35 @@ import ConversationSidebarContainer from "./app/conversation_sidebar/conversatio
 import ProfileNavbarContainer from "./app/profile_navbar/profile_navbar_container";
 import ServerShowContainer from "./app/server_show/server_show_container";
 
+import LoadingContainer from "./loading/loading_container";
+
 const App = () => (
     <div>
         <Route exact path="/" component={EntryPageContainer} />
         <AuthRoute exact path="/signup" component={SignupFormContainer} />
         <AuthRoute exact path="/login" component={LoginFormContainer} />
 
-        <div className="app-container">
-            <ProtectedRoute path="/app" component={ProfileNavbarContainer} />
-            <ProtectedRoute path="/app" component={ServerSidebarContainer} />
-            <ProtectedRoute path="/app/home" component={ConversationSidebarContainer} />
-
-            <ProtectedRoute exact path="/app/home" component={HomePageContainer} />
-            {/* <ProtectedRoute path="/app/home/conversations/:conversationId" component={ConvsationShowContainer} /> */}
-            <ProtectedRoute path="/app/servers/:serverId/:textChannelId" component={ServerShowContainer} />
-
-        </div>
+        <ProtectedRoute path="/app" component={LoadingContainer} />
     </div>
-);
+)
+
+// const App = () => (
+//     <div>
+//         <Route exact path="/" component={EntryPageContainer} />
+//         <AuthRoute exact path="/signup" component={SignupFormContainer} />
+//         <AuthRoute exact path="/login" component={LoginFormContainer} />
+
+//         <div className="app-container">
+//             <ProtectedRoute path="/app" component={ProfileNavbarContainer} />
+//             <ProtectedRoute path="/app" component={ServerSidebarContainer} />
+//             <ProtectedRoute path="/app/home" component={ConversationSidebarContainer} />
+
+//             <ProtectedRoute exact path="/app/home" component={HomePageContainer} />
+//             {/* <ProtectedRoute path="/app/home/conversations/:conversationId" component={ConvsationShowContainer} /> */}
+//             <ProtectedRoute path="/app/servers/:serverId/:textChannelId" component={ServerShowContainer} />
+
+//         </div>
+//     </div>
+// );
 
 export default App;
