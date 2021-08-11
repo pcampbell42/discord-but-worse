@@ -1,5 +1,8 @@
 import React from "react";
+import { withRouter } from "react-router";
 import TextChannelDisplayContainer from "./text_channel_display_container";
+import { createSubscription } from "../../../../util/websockets_helpers";
+
 
 class TextChannelSidebar extends React.Component {
     constructor(props) {
@@ -32,8 +35,9 @@ class TextChannelSidebar extends React.Component {
 
         this.props.createTextChannel({ name: this.state.name, server_id: this.props.server.id })
             .then(() => this.setState({ name: "", showForm: false }))
-            // NEED THIS - grab current text channel details instead of server...
-            // .then(() => this.props.currentServerDetails(this.props.userServers[this.props.userServers.length - 1].id))
+            .then(() => createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id, 
+                                                    this.props.receiveAllMessages, this.props.receiveMessage,
+                                                    this.props.deleteMessage))
             .then(() => this.props.history.push(`/app/servers/${this.props.server.id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`));
     }
 
@@ -99,4 +103,5 @@ class TextChannelSidebar extends React.Component {
     }
 }
 
-export default TextChannelSidebar;
+// export default TextChannelSidebar;
+export default withRouter(TextChannelSidebar);

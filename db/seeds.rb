@@ -75,22 +75,36 @@ servers[14].members += [users[15], users[0]]
 
 servers[15].members += [users[16], users[10]]
 
-TextChannel.create(name: "not-general", server_id: servers[0].id);
-TextChannel.create(name: "general", server_id: servers[1].id);
+TextChannel.create(name: "tgk chat", server_id: servers[0].id);
+TextChannel.create(name: "high council", server_id: servers[0].id);
+TextChannel.create(name: "beached whales", server_id: servers[1].id);
+TextChannel.create(name: "sharks", server_id: servers[1].id);
 TextChannel.create(name: "general", server_id: servers[2].id);
-TextChannel.create(name: "general", server_id: servers[3].id);
-TextChannel.create(name: "general", server_id: servers[4].id);
 
-TextChannel.create(name: "general", server_id: servers[5].id);
-TextChannel.create(name: "general", server_id: servers[6].id);
+TextChannel.create(name: "bgs", server_id: servers[2].id);
+TextChannel.create(name: "rbgs", server_id: servers[2].id);
+TextChannel.create(name: "g.n.a.r.", server_id: servers[3].id);
+TextChannel.create(name: "kt22", server_id: servers[3].id);
+TextChannel.create(name: "mcconkey's", server_id: servers[3].id);
+
+TextChannel.create(name: "boolers", server_id: servers[4].id);
+TextChannel.create(name: "blood and thunder", server_id: servers[5].id);
+TextChannel.create(name: "the looming tower", server_id: servers[5].id);
+TextChannel.create(name: "tesla fan boys", server_id: servers[6].id);
 TextChannel.create(name: "general", server_id: servers[7].id);
-TextChannel.create(name: "general", server_id: servers[8].id);
-TextChannel.create(name: "general", server_id: servers[9].id);
 
+TextChannel.create(name: "friendly general :)", server_id: servers[8].id);
+TextChannel.create(name: "not-general", server_id: servers[8].id);
+TextChannel.create(name: "general1", server_id: servers[9].id);
+TextChannel.create(name: "general2", server_id: servers[9].id);
 TextChannel.create(name: "general", server_id: servers[10].id);
+
 TextChannel.create(name: "general", server_id: servers[11].id);
 TextChannel.create(name: "general", server_id: servers[12].id);
-TextChannel.create(name: "general", server_id: servers[13].id);
-TextChannel.create(name: "general", server_id: servers[14].id);
+TextChannel.create(name: "rocky mountain tacos", server_id: servers[13].id);
+TextChannel.create(name: "bad players", server_id: servers[14].id);
+TextChannel.create(name: "even worse players", server_id: servers[14].id);
 
+TextChannel.create(name: "slightly less bad players", server_id: servers[14].id);
 TextChannel.create(name: "general", server_id: servers[15].id);
+TextChannel.create(name: "scripted pvp", server_id: servers[15].id);

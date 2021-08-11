@@ -17,7 +17,8 @@ class TextChannel < ApplicationRecord
         foreign_key: :server_id,
         class_name: :Server
 
-    has_many :messages, :as => :messageable
+    has_many :messages, :as => :messageable,
+        dependent: :destroy
 
     
 end
