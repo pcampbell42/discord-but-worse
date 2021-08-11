@@ -1,6 +1,5 @@
 import React from "react";
 import { createSubscription } from "./../../../util/websockets_helpers";
-import { getServerTextChannelsNoState } from "./../../../reducers/selectors/selectors";
 
 
 class ServerShow extends React.Component {
@@ -21,6 +20,11 @@ class ServerShow extends React.Component {
         this.props.createMembership({ server_id: this.props.server.id })
             .then(() => this.props.currentServerDetails(this.props.server.id))
             .then(() => this.props.clearMembershipErrors())
+            .then(() => console.log(this.props.textChannels))
+            .then(() => this.props.textChannels.forEach(textChannel =>
+                createSubscription("tc", textChannel.id, this.props.receiveAllMessages, 
+                    this.props.receiveMessage, this.props.deleteMessage)
+            ))
     }
 
 

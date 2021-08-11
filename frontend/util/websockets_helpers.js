@@ -1,5 +1,6 @@
 
 export const createSubscription = (thread_type, thread_id, receiveAllMessages, receiveMessage, deleteMessage) => {
+    console.log(thread_id)
     App.cable.subscriptions.create(
         { channel: "ChatChannel", thread_type: thread_type, thread_id: thread_id },
         {
