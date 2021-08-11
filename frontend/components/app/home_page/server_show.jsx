@@ -1,4 +1,7 @@
 import React from "react";
+import { createSubscription } from "./../../../util/websockets_helpers";
+import { getServerTextChannelsNoState } from "./../../../reducers/selectors/selectors";
+
 
 class ServerShow extends React.Component {
     constructor(props) {
@@ -7,15 +10,19 @@ class ServerShow extends React.Component {
         this.handleJoin = this.handleJoin.bind(this);
     }
 
+
     componentWillUnmount() {
         this.props.clearMembershipErrors();
     }
 
+
     handleJoin(e) {
         e.preventDefault();
         this.props.createMembership({ server_id: this.props.server.id })
-            .then(() => this.props.currentServerDetails(this.props.server.id));
+            .then(() => this.props.currentServerDetails(this.props.server.id))
+            .then(() => this.props.clearMembershipErrors())
     }
+
 
     render() {
         const { currentUserServerIds, server, errors } = this.props;
@@ -34,5 +41,6 @@ class ServerShow extends React.Component {
         );
     }
 }
+
 
 export default ServerShow;

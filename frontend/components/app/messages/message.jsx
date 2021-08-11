@@ -56,7 +56,7 @@ class Message extends React.Component {
 
     
     render() {
-        const { message, currentUser } = this.props;
+        const { message, currentUser, users } = this.props;
 
         const editingView = (
             <form onSubmit={this.handleSubmit}>
@@ -75,6 +75,8 @@ class Message extends React.Component {
             </div>
         );
 
+        console.log(message.createdAt)
+
         return(
             <li key={message.id}
                 onMouseEnter={() => this.setState({ hovered: true })}
@@ -86,7 +88,7 @@ class Message extends React.Component {
 
                 <div>
                     <div>
-                        <h1>{message.authorId}</h1>
+                        <h1>{users[message.authorId].username}</h1>
                         <h3>{message.createdAt}</h3>
                     </div>
                     {this.state.editing ? editingView : message.body}

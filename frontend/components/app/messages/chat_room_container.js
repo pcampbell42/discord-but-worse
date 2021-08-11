@@ -5,15 +5,15 @@ import { getMessagesForChannel } from "../../../reducers/selectors/selectors";
 
 const mstp = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],
+    users: state.entities.users,
     messages: getMessagesForChannel(state),
-
 
 
     chatRoomId: window.location.href.includes("servers") ? 
         ownProps.channelId :
         null,
     textChannels: state.entities.textChannels
-        // put user name ^ (after else) for dms...
+        
 });
 
 const mdtp = dispatch => ({
