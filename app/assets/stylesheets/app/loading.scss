@@ -1,0 +1,51 @@
+.loading-background {
+    background-color: #35393f;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .loading-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .loading-spinner {
+          border: 16px solid #f3f3f3;
+          border-top: 16px solid #0f65ae;
+          background-color: transparent;
+          border-radius: 50%;
+          width: 120px;
+          height: 120px;
+          animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+    
+        .loading-message {
+            margin-top: 4vh;
+
+            font-family: 'Nunito', sans-serif;
+            color: #8e9296;
+            font-size: 4vh;
+            font-weight: 900;
+
+            &:after {
+                content: "";
+                animation: dots 2s linear infinite alternate;
+            }
+        }
+
+        @keyframes dots {
+            0% { content: "Loading"; }
+            33% { content: "Loading."; }
+            66% { content: "Loading.."; }
+            100% { content: "Loading..."; }
+        }
+    }
+}

@@ -40,7 +40,8 @@ export const createServer = formServer => dispatch => ServerAPIUtil.createServer
         err => dispatch(receiveMembershipError(err.responseJSON)));
 
 export const updateServer = formServer => dispatch => ServerAPIUtil.updateServer(formServer)
-    .then(server => dispatch(receiveUpdatedServer(server)));
+    .then(server => dispatch(receiveUpdatedServer(server)),
+        err => dispatch(receiveMembershipError(err.responseJSON)));
 
 export const deleteServer = serverId => dispatch => ServerAPIUtil.deleteServer(serverId)
     .then(() => dispatch(removeServer(serverId)));

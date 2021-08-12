@@ -25,6 +25,11 @@ class ServerIconDisplay extends React.Component {
     }
 
 
+    componentWillUnmount() {
+        this.props.clearMembershipErrors();
+    }
+
+
     handleRightClick(e) {
         e.preventDefault();
         this.setState({ showDropdown: true })
@@ -53,16 +58,22 @@ class ServerIconDisplay extends React.Component {
         this.setState({ showDropdown: false, showSettings: true });
     }
 
+
     handleCloseSettings(e) {
         this.setState({ showSettings: false, name: this.props.server.name });
+        this.props.clearMembershipErrors();
     }
 
 
     handleSubmit(e) {
         e.preventDefault();
         this.props.updateServer({ id: this.props.server.id, name: this.state.name })
-            .then(() => this.setState({ name: this.props.server.name, showSettings: false }))
+            .then(() => {
+                this.setState({ name: this.props.server.name, showSettings: false })
+                this.props.clearMembershipErrors();
+            });
     }
+
 
     handleReset(e) {
         e.preventDefault();
@@ -76,7 +87,7 @@ class ServerIconDisplay extends React.Component {
 
 
     render() {
-        const { server, currentUser, selected, currentServerDetails, firstTextChannelId } = this.props
+        const { server, currentUser, selected, currentServerDetails, firstTextChannelId, error } = this.props
 
         const serverNameShow = (
             <div className="ss-relative-position-anchor">
@@ -122,7 +133,8 @@ class ServerIconDisplay extends React.Component {
                                 <h2>Upload Image</h2>
                             </div>
 
-                            <label>SERVER NAME
+                            <label id={error.length > 0 ? "server-settings-error" : null}>
+                                SERVER NAME <span>{error.length > 0 ? `- ${error}` : null}</span>
                                 <input type="text" value={this.state.name} onChange={this.update} />
                             </label>
                         </div>

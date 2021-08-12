@@ -1,4 +1,5 @@
 import * as SessionAPIUtil from "./../util/session_api_util";
+import { removeAllSubscriptions } from "../util/websockets_helpers";
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const LOGOUT_CURRENT_USER = "LOGOUT_CURRENT_USER";
@@ -39,7 +40,10 @@ export const login = formUser => dispatch => SessionAPIUtil.login(formUser)
         err => dispatch(receiveSessionErrors(err.responseJSON)));
 
 export const logout = () => dispatch => SessionAPIUtil.logout()
-    .then(() => dispatch(logoutCurrentUser()));
+    .then(() => {
+        dispatch(logoutCurrentUser());
+        removeAllSubscriptions();
+    })
 
 export const fetchCurrentUserDetails = currentUserId => dispatch => SessionAPIUtil.fetchCurrentUserDetails(currentUserId)
     .then(details => dispatch(receiveCurrentUserDetails(details)));

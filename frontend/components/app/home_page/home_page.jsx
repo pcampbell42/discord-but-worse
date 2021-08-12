@@ -17,6 +17,7 @@ class HomePage extends React.Component {
 
     render() {
         const { servers } = this.props;
+
         return (
             <div className="hp-container">
                 <div className="hp-header-box"><h1>Server Discovery</h1></div>

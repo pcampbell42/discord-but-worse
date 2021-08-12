@@ -23,25 +23,25 @@ class ServersSideBar extends React.Component {
     }
 
 
-    componentDidMount() {
-        this.props.fetchCurrentUserDetails(this.props.currentUser.id)
+    // componentDidMount() {
+    //     this.props.fetchCurrentUserDetails(this.props.currentUser.id)
 
-        for (const i in this.props.textChannels) {
-            createSubscription("tc", this.props.textChannels[i].id,
-                this.props.receiveAllMessages,
-                this.props.receiveMessage,
-                this.props.deleteMessage
-            );
-        }
+    //     for (const i in this.props.textChannels) {
+    //         createSubscription("tc", this.props.textChannels[i].id,
+    //             this.props.receiveAllMessages,
+    //             this.props.receiveMessage,
+    //             this.props.deleteMessage
+    //         );
+    //     }
 
-        for (const i in this.props.directMessages) {
-            createSubscription("dm", this.props.directMessages[i].id,
-                this.props.receiveAllMessages,
-                this.props.receiveMessage,
-                this.props.deleteMessage
-            );
-        }
-    }
+    //     for (const i in this.props.directMessages) {
+    //         createSubscription("dm", this.props.directMessages[i].id,
+    //             this.props.receiveAllMessages,
+    //             this.props.receiveMessage,
+    //             this.props.deleteMessage
+    //         );
+    //     }
+    // }
 
 
     componentWillUnmount() {
@@ -154,5 +154,5 @@ class ServersSideBar extends React.Component {
     }
 }
 
-// export default ServersSideBar;
+
 export default withRouter(ServersSideBar);
