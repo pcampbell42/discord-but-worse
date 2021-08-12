@@ -5,7 +5,7 @@ import { createServer } from "../../../actions/server_actions";
 import { currentUserServers } from "../../../reducers/selectors/selectors";
 import { clearMembershipErrors } from "../../../actions/membership_actions";
 import { currentServerDetails } from "../../../actions/server_actions";
-// import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../actions/message_actions";
+import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../actions/message_actions";
 
 
 const mstp = state => ({
@@ -13,8 +13,8 @@ const mstp = state => ({
     userServers: currentUserServers(state),
     error: state.errors.memberships,
     homeSelected: ( window.location.hash.includes("#/app/home") ? true : false ),
-    // textChannels: Object.values(state.entities.textChannels),
-    // directMessages: Object.values(state.entities.directMessages)
+    textChannels: Object.values(state.entities.textChannels),
+    directMessages: Object.values(state.entities.directMessages)
 });
 
 const mdtp = dispatch => ({
@@ -23,9 +23,9 @@ const mdtp = dispatch => ({
     clearMembershipErrors: () => dispatch(clearMembershipErrors()),
     currentServerDetails: serverId => dispatch(currentServerDetails(serverId)),
 
-    // receiveMessage: message => dispatch(receiveMessage(message)),
-    // receiveAllMessages: messages => dispatch(receiveAllMessages(messages)),
-    // deleteMessage: messageId => dispatch(deleteMessage(messageId))
+    receiveMessage: message => dispatch(receiveMessage(message)),
+    receiveAllMessages: messages => dispatch(receiveAllMessages(messages)),
+    deleteMessage: messageId => dispatch(deleteMessage(messageId))
 });
 
 export default connect(mstp, mdtp)(ServerSidebar);
