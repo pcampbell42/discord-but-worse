@@ -19,7 +19,7 @@ class MessageForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // ---------------------- Have to get messageable type + id here ----------------------
+
         const messageToSend = Object.assign({}, this.state, { author_id: this.props.currentUser.id });
         const subscriptionNum = findCurrentSubscription();
 
@@ -29,15 +29,34 @@ class MessageForm extends React.Component {
 
     
     render() {
+        const { chatRoomType, chatRoomObj, users, currentUser } = this.props
+
+        
+        // --------------- Finding placeholder for message input ---------------
+
+        let placeholder;
+        if (chatRoomType === "dm") {
+            let dmdUser;
+
+            if (chatRoomObj.user1Id === currentUser.id ) {
+                dmdUser = users[chatRoomObj.user2Id]
+            } else {
+                dmdUser = users[chatRoomObj.user1Id]
+            }
+
+            placeholder = `Message @${dmdUser.username}`
+        } else {
+            placeholder = `Message #${chatRoomObj.name}`
+        }
+
         return (
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" value={this.state.body} onChange={this.update}
-                        placeholder={`Message @ or # user or text channel name`}
-                    />
-                    {/* <input type="submit" value="post" /> */}
+                            placeholder={placeholder} />
                 </form>
         );
     }
 }
+
 
 export default MessageForm;

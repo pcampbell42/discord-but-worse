@@ -8,12 +8,11 @@ import { findCurrentSubscription } from "../../../util/websockets_helpers";
 class Message extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            message: {
-                body: props.message.body
-            },
+            message: { body: props.message.body },
             editing: false,
-            hovered: false
+            hovered: false,
         };
 
         this.swapToEditing = this.swapToEditing.bind(this);
@@ -75,6 +74,13 @@ class Message extends React.Component {
             </div>
         );
 
+        let messageDateArray = message.createdAt.split("T")[0].split("-"); // year, day, month
+        let dateToShow = `${messageDateArray[1]}/${messageDateArray[2]}/${messageDateArray[0]}`;
+
+
+        
+
+
         return(
             <li key={message.id} className={this.state.editing ? "editing" : null}
                 onMouseEnter={() => this.setState({ hovered: true })}
@@ -87,7 +93,7 @@ class Message extends React.Component {
                 <div>
                     <div>
                         <h1>{users[message.authorId].username}</h1>
-                        <h3>{message.createdAt}</h3>
+                        <h3>{dateToShow}</h3>
                     </div>
                     {this.state.editing ? editingView : message.body}
                 </div>

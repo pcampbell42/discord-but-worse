@@ -1,16 +1,16 @@
 import { connect } from "react-redux";
 import ServerShow from "./server_show";
 import { createMembership, clearMembershipErrors } from "../../../actions/membership_actions";
-import { currentUserServerIds } from "../../../reducers/selectors/selectors";
+import { currentUserServerIds, getServerTextChannels } from "../../../reducers/selectors/selectors";
 import { currentServerDetails } from "../../../actions/server_actions";
 import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../actions/message_actions";
 
 
 
-const mstp = state => ({
+const mstp = (state, ownProps) => ({
     currentUserServerIds: currentUserServerIds(state),
     errors: state.errors.memberships,
-    textChannels: state.entities.textChannels
+    textChannels: getServerTextChannels(state, ownProps.server.id.toString())
 });
 
 const mdtp = dispatch => ({

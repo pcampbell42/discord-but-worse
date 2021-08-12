@@ -1,7 +1,7 @@
 
 .pn-container {
     position: absolute;
-    left: 10.2vh;
+    left: 5.1vw;
     top: 93vh;
 
     display: flex;
@@ -10,6 +10,8 @@
 
     height: 7vh;
     width: 17.1%;
+
+    z-index: 5;
 
     background-color: #292b2f;
 

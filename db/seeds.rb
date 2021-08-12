@@ -33,6 +33,7 @@ users = User.create([
     { username: "bugha", email: "worldchamp@email.com", password: "yessir" },
 ])
 
+
 servers = Server.create([
     { name: "tgk", owner_id: users[10].id },
     { name: "washed up mop heroes", owner_id: users[0].id },
@@ -55,6 +56,7 @@ servers = Server.create([
     { name: "hey im mvp", owner_id: users[16] },
 ])
 
+
 servers[0].members += [users[10], users[0], users[1], users[2], users[3], users[5], users[6], users[7]]
 servers[1].members += [users[0], users[2], users[5], users[6], users[10], users[13], users[16]]
 servers[2].members += [users[5], users[10]]
@@ -74,6 +76,7 @@ servers[13].members += [users[11], users[0], users[1], users[12], users[6], user
 servers[14].members += [users[15], users[0]]
 
 servers[15].members += [users[16], users[10]]
+
 
 TextChannel.create(name: "tgk chat", server_id: servers[0].id);
 TextChannel.create(name: "high council", server_id: servers[0].id);
@@ -108,3 +111,13 @@ TextChannel.create(name: "even worse players", server_id: servers[14].id);
 TextChannel.create(name: "slightly less bad players", server_id: servers[14].id);
 TextChannel.create(name: "general", server_id: servers[15].id);
 TextChannel.create(name: "scripted pvp", server_id: servers[15].id);
+
+#-------------------------------------------------------------------------------
+
+DirectMessage.create(user1_id: demo_user.id, user2_id: users[9].id);
+DirectMessage.create(user1_id: demo_user.id, user2_id: users[11].id);
+DirectMessage.create(user1_id: demo_user.id, user2_id: users[16].id);
+DirectMessage.create(user1_id: users[8].id, user2_id: demo_user.id);
+DirectMessage.create(user1_id: users[2].id, user2_id: demo_user.id);
+
+DirectMessage.create(user1_id: users[4].id, user2_id: demo_user.id);

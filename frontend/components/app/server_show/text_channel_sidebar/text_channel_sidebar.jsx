@@ -93,7 +93,7 @@ class TextChannelSidebar extends React.Component {
                         {textChannels.map(textChannel => 
                             <TextChannelDisplayContainer key={textChannel.id} textChannel={textChannel} server={server} 
                                 selected={(window.location.hash === `#/app/servers/${server.id}/${textChannel.id}` ? 
-                                    true : false)} />
+                                    true : false)}  textChannels={textChannels} />
                         )}
                     </ul>
 

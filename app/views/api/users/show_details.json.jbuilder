@@ -25,5 +25,33 @@ json.text_channels do
     end
 end
 
+json.direct_messages do
+    @user.direct_messages_started.each do |direct_message|
+        json.set! direct_message.id do
+            json.partial! "api/direct_messages/direct_message", direct_message: direct_message
+        end
+    end
+
+    @user.direct_messages_received.each do |direct_message|
+        json.set! direct_message.id do
+            json.partial! "api/direct_messages/direct_message", direct_message: direct_message
+        end
+    end
+end
+
+json.users do
+    @user.users_dmd.each do |user|
+        json.set! user.id do
+            json.partial! "api/users/user", user: user
+        end
+    end
+
+    @user.users_dmd_by.each do |user|
+        json.set! user.id do
+            json.partial! "api/users/user", user: user
+        end
+    end
+end
+
 # eventually will grab conversations here as well
 # ... and users in these conversations

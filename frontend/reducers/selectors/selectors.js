@@ -114,3 +114,46 @@ export const getMessagesForChannel = state => {
 
     return selectedMessages;
 }
+
+export const getUsersForDms = state => {
+    // if (!state.entities.users) return;
+    const allUsers = state.entities.users;
+    const allDMs = Object.values(state.entities.directMessages);
+    const currentUserId = state.session.id
+
+    let selectedUsers = {};
+    for (const i in allUsers) {
+        for (let j = 0; j < allDMs.length; j++) {
+            if ((allUsers[i].id === allDMs[j].user1Id || allUsers[i].id === allDMs[j].user2Id) 
+                        && allUsers[i].id !== currentUserId) {
+                selectedUsers[allUsers[i].id] = allUsers[i];
+            }
+        }
+    }
+
+    return selectedUsers;
+}
+
+export const dmExists = (state, currentUserId, otherUserId) => {
+    const allDMs = Object.values(state.entities.directMessages);
+
+    for (let i = 0; i < allDMs.length; i++) {
+        if ( (allDMs[i].user1Id === currentUserId && allDMs[i].user2Id === otherUserId) ||
+            (allDMs[i].user2Id === currentUserId && allDMs[i].user1Id === otherUserId) ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+export const getDMId = (state, currentUserId, otherUserId) => {
+    const allDMs = Object.values(state.entities.directMessages);
+
+    for (let i = 0; i < allDMs.length; i++) {
+        if ((allDMs[i].user1Id === currentUserId && allDMs[i].user2Id === otherUserId) ||
+            (allDMs[i].user2Id === currentUserId && allDMs[i].user1Id === otherUserId)) {
+            return allDMs[i].id;
+        }
+    }
+}
