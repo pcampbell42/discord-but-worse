@@ -44,7 +44,6 @@ class UserShow extends React.Component {
                 })
                 .then(() => {
                     const subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
-                    console.log(subscriptionNum)
                     App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
                 })
                 .then(() => this.setState({ showProfile: false, body: "" }))
