@@ -13,6 +13,7 @@ class Message extends React.Component {
             message: { body: props.message.body },
             editing: false,
             hovered: false,
+            edited: (props.message.updatedAt === props.message.createdAt ? false : true)
         };
 
         this.swapToEditing = this.swapToEditing.bind(this);
@@ -40,7 +41,7 @@ class Message extends React.Component {
         const subscriptionNum = findCurrentSubscription();
         App.cable.subscriptions.subscriptions[subscriptionNum].update({ message: messageToSend });
 
-        this.setState({ editing: false });
+        this.setState({ editing: false, edited: true });
     }
 
 
@@ -77,10 +78,6 @@ class Message extends React.Component {
         let messageDateArray = message.createdAt.split("T")[0].split("-"); // year, day, month
         let dateToShow = `${messageDateArray[1]}/${messageDateArray[2]}/${messageDateArray[0]}`;
 
-
-        
-
-
         return(
             <li key={message.id} className={this.state.editing ? "editing" : null}
                 onMouseEnter={() => this.setState({ hovered: true })}
@@ -96,6 +93,7 @@ class Message extends React.Component {
                         <h3>{dateToShow}</h3>
                     </div>
                     {this.state.editing ? editingView : message.body}
+                    {!this.state.editing && this.state.edited ? <sub>(edited)</sub> : null}
                 </div>
 
             </li>

@@ -86,6 +86,18 @@
                     }
                 }
 
+                sub {
+                    color: #71757c;
+                    font-size: 1.3vh;
+                    font-weight: 600;
+                    padding-left: 0.3vw;
+
+                }
+
+                section {
+                    display: inline;
+                }
+
                 .chatroom-message-hover-relative-position-anchor {
                     position: relative;
                     width: 0;
@@ -191,6 +203,10 @@
     }
 
     .chat-room-sub-container {
+        li {
+            width: 98%;
+        }
+
         .message-hover-container {
             left: 69vw
         }
@@ -199,6 +215,14 @@
             input {
                 width: 73.3vw;
                 margin-right: 0;
+            }
+        }
+
+        li.editing {
+            form {
+                input {
+                    width: 129%;
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ import { deleteMembership } from "../../../actions/membership_actions";
 import { deleteServer } from "../../../actions/server_actions";
 import { currentServerDetails } from "../../../actions/server_actions";
 import { getFirstTextChannelId } from "../../../reducers/selectors/selectors";
+import { updateServer } from "../../../actions/server_actions";
 
 const mstp = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],
@@ -14,7 +15,7 @@ const mstp = (state, ownProps) => ({
 const mdtp = dispatch => ({
     deleteMembership: membershipId => dispatch(deleteMembership(membershipId)),
     deleteServer: serverId => dispatch(deleteServer(serverId)),
-    // eventually, update server action (name, avatar) (if owner)
+    updateServer: server => dispatch(updateServer(server)),
     currentServerDetails: serverId => dispatch(currentServerDetails(serverId))
 });
 
