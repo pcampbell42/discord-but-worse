@@ -14,7 +14,36 @@ class UserShow extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.update = this.update.bind(this);
+        this.handleEscape = this.handleEscape.bind(this);
+        this.handleOutsideClick = this.handleOutsideClick.bind(this);
     }
+
+
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleEscape, true);
+        document.addEventListener("click", this.handleOutsideClick, true);
+    }
+
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleEscape, true);
+        document.removeEventListener("click", this.handleOutsideClick, true);
+    }
+
+
+    handleOutsideClick(e) {
+        if (!this.node.contains(e.target)) {
+            this.setState({ body: "", showProfile: false });
+        }
+    }
+
+
+    handleEscape(e) {
+        if (e.keyCode === 27) {
+            this.setState({ body:"", showProfile: false });
+        }
+    }
+
 
     update(e) {
         this.setState({ body: e.currentTarget.value });
@@ -57,7 +86,7 @@ class UserShow extends React.Component {
 
         const profileDisplay = (
             <div className="user-show-relative-position-anchor">
-                <div className="user-show-profile-display">
+                <div className="user-show-profile-display" ref={node => this.node = node}>
 
                     <div className="user-show-profile-header"></div>
                     <button onClick={() => this.setState({ showProfile: false, body: "" })}>x</button>

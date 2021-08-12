@@ -16,11 +16,39 @@ class TextChannelSidebar extends React.Component {
         this.update = this.update.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleEscape = this.handleEscape.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleEscape, true);
+        document.addEventListener("click", this.handleClick, true);
+    }
+
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleEscape, true);
+        document.removeEventListener("click", this.handleClick, true);
     }
 
 
     update(e) {
         this.setState({ name: e.currentTarget.value })
+    }
+
+
+    handleClick(e) {
+        if (e.target.className === "ts-create-form-relative-position-anchor") {
+            this.setState({ name: "", showForm: false });
+        }
+    }
+
+
+    handleEscape(e) {
+        if (e.keyCode === 27) {
+            this.setState({ name: "", showForm: false });
+        }
     }
 
 

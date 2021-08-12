@@ -432,6 +432,8 @@
                 position: relative;
                 top: 70%;
 
+                height: 20vh;
+
                 font-family: 'Nunito', sans-serif;
                 font-size: 13px;
                 font-weight: 400;
@@ -741,12 +743,21 @@
                         border-width: 0;
                     }
                 }
+
+                label#server-settings-error {
+                    color: #ed4245;
+
+                    span {
+                        font-style: italic;
+                    }
+                }
             }
 
 
             div {
                 background-color: #212527;
-                height: 8vh;
+                height: 8.5vh;
+                width: 14vw;
 
                 margin-left: 31.8vw;
                 border-radius: 1vh;
@@ -755,7 +766,7 @@
                 justify-content: space-evenly;
                 align-items: center;
                 
-                button {
+                section {
                     background-color: #212527;
                     border-style: none;
 
@@ -763,11 +774,11 @@
                     color: white;
                     font-size: 1.6vh;
                     font-weight: 600;
-                    margin-bottom: 1vh;
+                    // margin-bottom: 1vh;
                     margin-right: 0.6vw;
                 }
 
-                button:hover {
+                section:hover {
                     cursor: pointer;
                     text-decoration: underline;
                 }
@@ -777,6 +788,7 @@
     
                     padding: 1.5vh 1.5vh 1.5vh 1.5vh;
                     width: 8vw;
+                    margin-right: 0;
 
                     border-style: none;
                     border-radius: 0.4vh;
@@ -790,6 +802,11 @@
                 .server-settings-save-changes:hover {
                     cursor: pointer;
                     background-color: #2d7d46;
+                }
+
+                .server-settings-save-changes#server-settings-invalid {
+                    cursor:not-allowed;
+                    opacity: 0.5;
                 }
             }
         }

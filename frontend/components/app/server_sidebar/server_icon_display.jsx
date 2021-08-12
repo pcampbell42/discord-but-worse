@@ -22,11 +22,47 @@ class ServerIconDisplay extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.update = this.update.bind(this);
         this.handleReset = this.handleReset.bind(this);
+        this.handleEscape = this.handleEscape.bind(this);
+        this.handleOutsideClick = this.handleOutsideClick.bind(this);
+        this.handleOutsideRightClick = this.handleOutsideRightClick.bind(this);
+    }
+
+
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleEscape, true);
+        document.addEventListener("click", this.handleOutsideClick, true);
+        document.addEventListener("contextmenu", this.handleOutsideRightClick, true);
     }
 
 
     componentWillUnmount() {
         this.props.clearMembershipErrors();
+        document.removeEventListener("keydown", this.handleEscape, true);
+        document.removeEventListener("click", this.handleOutsideClick, true);
+        document.removeEventListener("contextmenu", this.handleOutsideRightClick, true);
+    }
+
+
+    handleOutsideClick(e) {
+        if (!this.node.contains(e.target)) {
+            this.setState({ showDropdown: false, name: this.props.server.name });
+        }
+    }
+
+
+    handleOutsideRightClick(e) {
+        if (!this.node2.contains(e.target)) {
+            this.setState({ showDropdown: false, name: this.props.server.name });
+
+        }
+    }
+
+
+    handleEscape(e) {
+        if (e.keyCode === 27) {
+            this.setState({ showSettings: false, showDropdown: false, name: this.props.server.name });
+            this.props.clearMembershipErrors();
+        }
     }
 
 
@@ -98,7 +134,7 @@ class ServerIconDisplay extends React.Component {
         
         const serverDropdown = (
             <div className="ss-options-relative-position-anchor">
-                <ul className="ss-dropdown">
+                <ul className="ss-dropdown" ref={node => this.node = node}>
                     {currentUser.id === server.ownerId ?
                         <li id="ss-options-settings" onClick={this.handleShowSettings}>Server Settings</li> :
                         <li id="ss-options-leave" onClick={this.handleLeave}>Leave Server</li>
@@ -141,8 +177,8 @@ class ServerIconDisplay extends React.Component {
 
 
                         <div>
-                            <button onClick={this.handleReset}>Reset</button>
-                            <input className="server-settings-save-changes" type="submit" value="Save Changes" />
+                            <section onClick={this.handleReset}>Reset</section>
+                            <input id={this.state.name === "" ? "server-settings-invalid" : null} className="server-settings-save-changes" type="submit" value="Save Changes" />
                         </div>
                     </form>
                 </div>
@@ -162,7 +198,8 @@ class ServerIconDisplay extends React.Component {
                     <li className={selected ? "selected" : null} 
                         onMouseEnter={() => this.setState({ hovered: true })}
                         onMouseLeave={() => this.setState({ hovered: false })}
-                        onContextMenu={this.handleRightClick}>
+                        onContextMenu={this.handleRightClick}
+                        ref={node2 => this.node2 = node2}>
                         <div>{server.name[0]}</div>
                     </li>
                 </Link>

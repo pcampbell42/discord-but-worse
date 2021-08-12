@@ -44,7 +44,7 @@ class Loading extends React.Component {
             })
 
         // ---------------------- Set timeout for loading screen end ----------------------
-        setTimeout(() => this.setState({ loading: false }), 3000);
+        setTimeout(() => this.setState({ loading: false }), 2000);
     }
 
     

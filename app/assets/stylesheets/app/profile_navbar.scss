@@ -55,6 +55,65 @@
         .pn-username:hover {
             cursor: pointer;
         }
+
+
+        .pn-copied-relative-position-anchor {
+            position: relative;
+            width: 0;
+            height: 0;
+
+            .pn-copied-tooltip-show {
+                position: absolute;
+                bottom: 3.3vh;
+                right: -1vw;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                height: 4.5vh;
+                padding: 0vh 1.5vh 0vh 1.5vh;
+                border-radius: 1vh;
+
+                background-color: #3ba55d;
+
+                font-family: 'Nunito', sans-serif;
+                color: white;
+                font-size: 12px;
+                font-weight: 900;
+
+                animation: fadeCopyMessage 1.5s linear infinite;
+            }
+
+            .pn-copied-arrow-down {
+                position: absolute;
+                bottom: 2.3vh;
+                right: 2vh;
+
+                width: 0; 
+                height: 0; 
+                border-left: 1vh solid transparent;
+                border-right: 1vh solid transparent;
+                
+                border-top: 1vh solid #3ba55d;
+
+                animation: fadeCopyMessage 1.5s linear infinite;
+            }
+
+            @keyframes fadeCopyMessage {
+                0% { opacity: 1; }
+                10% { opacity: 1; }
+                20% { opacity: 1; }
+                30% { opacity: 1; }
+                40% { opacity: 1; }
+                50% { opacity: 1; }
+                60% { opacity: 0.8; }
+                70% { opacity: 0.6; }
+                80% { opacity: 0.4; }
+                90% { opacity: 0.2; }
+                100% { opacity: 0; }
+            }
+        }
     }
 
 

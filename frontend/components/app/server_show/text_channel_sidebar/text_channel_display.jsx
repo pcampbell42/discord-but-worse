@@ -18,6 +18,24 @@ class TextChannelDisplay extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleReset = this.handleReset.bind(this);
+        this.handleEscape = this.handleEscape.bind(this);
+    }
+
+
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleEscape, true);
+    }
+
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleEscape, true);
+    }
+
+
+    handleEscape(e) {
+        if (e.keyCode === 27) {
+            this.setState({ showForm: false, name: this.props.textChannel.name });
+        }
     }
 
 
@@ -25,10 +43,12 @@ class TextChannelDisplay extends React.Component {
         this.setState({ name: e.currentTarget.value });
     }
 
+
     handleReset(e) {
         e.preventDefault();
         this.setState({ name: this.props.textChannel.name });
     }
+
 
     handleClose() {
         this.setState({ showForm: false, name: this.props.textChannel.name });
@@ -91,8 +111,8 @@ class TextChannelDisplay extends React.Component {
                         </label>
 
                         <div>
-                            <button onClick={this.handleReset}>Reset</button>
-                            <input className="tc-settings-save-changes" type="submit" value="Save Changes" />
+                            <section onClick={this.handleReset}>Reset</section>
+                            <input id={this.state.name === "" ? "tc-settings-invalid" : null} className="tc-settings-save-changes" type="submit" value="Save Changes" />
                         </div>
                     </form>
                 </div>

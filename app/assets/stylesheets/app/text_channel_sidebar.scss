@@ -528,7 +528,7 @@
                 justify-content: space-around;
                 align-items: center;
                 
-                button {
+                section {
                     background-color: #212527;
                     border-style: none;
 
@@ -540,7 +540,7 @@
                     margin-left: 0.6vw;
                 }
 
-                button:hover {
+                section:hover {
                     cursor: pointer;
                     text-decoration: underline;
                 }
@@ -563,6 +563,11 @@
                 .tc-settings-save-changes:hover {
                     cursor: pointer;
                     background-color: #2d7d46;
+                }
+
+                .tc-settings-save-changes#tc-settings-invalid {
+                    cursor:not-allowed;
+                    opacity: 0.5;
                 }
             }
 
