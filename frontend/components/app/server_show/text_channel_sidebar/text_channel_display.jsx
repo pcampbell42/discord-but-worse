@@ -64,7 +64,7 @@ class TextChannelDisplay extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.updateTextChannel({ id: this.props.textChannel.id, name: this.state.name })
-            .then(() => this.setState({ name: this.props.server.name, showForm: false }))
+            .then(() => this.setState({ name: this.props.textChannel.name, showForm: false }))
     }
 
 
