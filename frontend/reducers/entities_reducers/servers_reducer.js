@@ -1,5 +1,6 @@
 import { RECEIVE_CURRENT_USER_DETAILS } from "../../actions/session_actions";
 import { RECEIVE_ALL_SERVERS, RECEIVE_SERVER, REMOVE_SERVER, RECEIVE_SERVER_DETAILS, RECEIVE_UPDATED_SERVER } from "../../actions/server_actions";
+import { LOGOUT_CURRENT_USER } from "../../actions/session_actions";
 
 const serversReducer = (state = {}, action) => {
     Object.freeze(state);
@@ -27,6 +28,9 @@ const serversReducer = (state = {}, action) => {
 
         case RECEIVE_SERVER_DETAILS:
             return Object.assign({}, state, { [action.details.server.id]: action.details.server });
+
+        case LOGOUT_CURRENT_USER:
+            return {};
 
         default:
             return state;

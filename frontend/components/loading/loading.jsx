@@ -18,12 +18,13 @@ class Loading extends React.Component {
 
     componentDidMount() {
         this.props.fetchCurrentUserDetails(this.props.currentUser.id);
+        setTimeout(() => null, 1000)
     }
 
     
     render() {
         return (
-            Object.keys(this.props.textChannels).length !== 0 ? 
+            // Object.keys(this.props.textChannels).length !== 0 ? 
                 <div>
                     <div className="app-container">
                         <ProtectedRoute path="/app" component={ProfileNavbarContainer} />
@@ -33,10 +34,9 @@ class Loading extends React.Component {
                         <ProtectedRoute exact path="/app/home" component={HomePageContainer} />
                         <ProtectedRoute path="/app/home/conversations/:conversationId" component={ChatRoomContainer} />
                         <ProtectedRoute path="/app/servers/:serverId/:textChannelId" component={ServerShowContainer} />
-
                     </div>
-                </div> :
-                <div className="loading">Bet you can't see me :)</div>
+                </div>
+                // <div className="loading">Bet you can't see me :)</div>
         );
     }
 }

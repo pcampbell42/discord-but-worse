@@ -1,4 +1,5 @@
 import { RECEIVE_MEMBERSHIP_ERROR, CLEAR_MEMBERSHIP_ERRORS } from "../../actions/membership_actions";
+import { LOGOUT_CURRENT_USER } from "../../actions/session_actions";
 
 const membershipErrorsReducer = (state = [], action) => {
     Object.freeze(state);
@@ -8,6 +9,9 @@ const membershipErrorsReducer = (state = [], action) => {
             return action.error;    
 
         case CLEAR_MEMBERSHIP_ERRORS:
+            return [];
+
+        case LOGOUT_CURRENT_USER:
             return [];
 
         default:
