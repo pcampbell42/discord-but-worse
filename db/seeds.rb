@@ -117,7 +117,7 @@ TextChannel.create(name: "scripted pvp", server_id: servers[15].id);
 DirectMessage.create(user1_id: demo_user.id, user2_id: users[9].id);
 DirectMessage.create(user1_id: demo_user.id, user2_id: users[11].id);
 DirectMessage.create(user1_id: demo_user.id, user2_id: users[16].id);
-DirectMessage.create(user1_id: users[8].id, user2_id: demo_user.id);
+# DirectMessage.create(user1_id: users[8].id, user2_id: demo_user.id);
 DirectMessage.create(user1_id: users[2].id, user2_id: demo_user.id);
 
 DirectMessage.create(user1_id: users[4].id, user2_id: demo_user.id);
