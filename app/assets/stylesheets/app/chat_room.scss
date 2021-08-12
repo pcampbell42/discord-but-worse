@@ -34,115 +34,135 @@
     }
 
     .chat-room-sub-container {
-        height: 90.5%;
+        height: 92.5vh;
+        width: 100%;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: end;
+       article {
+            height: 80vh;
 
-        ul {
-            overflow-y: auto;
+            // overflow-y: auto;
             padding-top: 1vh;
             
             margin-bottom: 1vh;
 
-            li {
-                display: flex;
-                align-items: center;
-                height: 7vh;
-                
-                width: 97.5%;
-                margin-top: 2vh;
-                padding-left: 3vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
 
-                img {
-                    height: 6.5vh;
-                    width: 6.5vh;
-                    filter: invert(1);
+            ul {
+                overflow-y: auto;
 
-                    margin-right: 1vh;
-                }
-                
-                div {
-                    font-size: 2vh;
-                    line-height: 3vh;
+                li {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    height: 7vh;
+                    
+                    width: 97.5%;
+                    margin-top: 2vh;
+                    padding-left: 3vh;
 
-                    div {
-                        display: flex;
-                        align-items: center;
+                    img {
+                        height: 6.5vh;
+                        width: 6.5vh;
+                        filter: invert(1);
 
-                        h1 {
-                            font-size: 2vh;
-                            font-weight: 700;
-                        }
-
-                        h3 {
-                            font-size: 1.5vh;
-                            font-weight: 700;
-                            color: #71757c;
-                            margin-left: 1vh;
-                            margin-top: 0.25vh;
-                        }
+                        margin-right: 1vh;
                     }
-                }
-
-                .chatroom-message-hover-relative-position-anchor {
-                    position: relative;
-                    width: 0;
-                    height: 0;
-
-                    .message-hover-container {
-                        display: flex;
-                        justify-content: space-evenly;
-                        align-items: center;
-
-                        height: 4vh;
-                        width: 8vh;
-
-                        position: absolute;
-                        left: 105vh;
-                        bottom: 0.7vh;
-
-                        padding-left: 0.6vw;
-
-                        background-color: #31353b;
-                        border: 0.5px solid black;
-                        border-radius: 0.6vh;
+                    
+                    div {
+                        font-size: 2vh;
+                        line-height: 3vh;
 
                         div {
-                            img {
-                                height: 2vh;
-                                width: 2vh;
+                            display: flex;
+                            align-items: center;
+
+                            h1 {
+                                font-size: 2vh;
+                                font-weight: 700;
                             }
 
-                            img:hover {
-                                cursor: pointer;
-                                opacity: 0.5;
+                            h3 {
+                                font-size: 1.5vh;
+                                font-weight: 700;
+                                color: #71757c;
+                                margin-left: 1vh;
+                                margin-top: 0.25vh;
+                            }
+                        }
+                    }
+
+                    sub {
+                        color: #71757c;
+                        font-size: 1.3vh;
+                        font-weight: 600;
+                        padding-left: 0.3vw;
+
+                    }
+
+                    section {
+                        display: inline;
+                    }
+
+                    .chatroom-message-hover-relative-position-anchor {
+                        position: relative;
+                        width: 0;
+                        height: 0;
+
+                        .message-hover-container {
+                            display: flex;
+                            justify-content: space-evenly;
+                            align-items: center;
+
+                            height: 4vh;
+                            width: 8vh;
+
+                            position: absolute;
+                            left: 105vh;
+                            bottom: 0.7vh;
+
+                            padding-left: 0.6vw;
+
+                            background-color: #31353b;
+                            border: 0.5px solid black;
+                            border-radius: 0.6vh;
+
+                            div {
+                                img {
+                                    height: 2vh;
+                                    width: 2vh;
+                                }
+
+                                img:hover {
+                                    cursor: pointer;
+                                    opacity: 0.5;
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            li:hover {
-                background-color: #31353b;
-            }
-
-            li.editing {
-                height: 14vh;
-
-                img {
-                    margin-bottom: 3vh;
+                li:hover {
+                    background-color: #31353b;
                 }
 
-                form {
-                    width: 51vw;
+                li.editing {
+                    height: 14vh;
 
-                    input {
-                        height: 5vh;
-                        width: 100%;
-                        margin-top: 1vh;
-                        margin-left: -0.6vh;
+                    img {
+                        margin-bottom: 3vh;
+                    }
+
+                    form {
+                        width: 51vw;
+
+                        input {
+                            height: 5vh;
+                            width: 100%;
+                            margin-top: 1vh;
+                            margin-left: -0.6vh;
+                        }
                     }
                 }
             }
@@ -191,6 +211,10 @@
     }
 
     .chat-room-sub-container {
+        li {
+            width: 98%;
+        }
+
         .message-hover-container {
             left: 69vw
         }
@@ -199,6 +223,14 @@
             input {
                 width: 73.3vw;
                 margin-right: 0;
+            }
+        }
+
+        li.editing {
+            form {
+                input {
+                    width: 129%;
+                }
             }
         }
     }

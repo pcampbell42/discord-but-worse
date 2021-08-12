@@ -1,6 +1,7 @@
 import { RECEIVE_CURRENT_USER_DETAILS } from "../../actions/session_actions";
 import { RECEIVE_MEMBERSHIP, REMOVE_MEMBERSHIP } from "../../actions/membership_actions";
 import { RECEIVE_SERVER, REMOVE_SERVER, RECEIVE_SERVER_DETAILS } from "../../actions/server_actions";
+import { LOGOUT_CURRENT_USER } from "../../actions/session_actions";
 
 const membershipsReducer = (state = {}, action) => {
     Object.freeze(state);
@@ -30,6 +31,9 @@ const membershipsReducer = (state = {}, action) => {
 
         case RECEIVE_SERVER_DETAILS:
             return Object.assign({}, state, action.details.memberships)
+
+        case LOGOUT_CURRENT_USER:
+            return {};
 
         default:
             return state;

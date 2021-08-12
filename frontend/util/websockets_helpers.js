@@ -32,6 +32,11 @@ export const createSubscription = (thread_type, thread_id, receiveAllMessages, r
     )
 }
 
+export const removeAllSubscriptions = () => {
+    App.cable.subscriptions.subscriptions.forEach(subscription => 
+        App.cable.subscriptions.remove(subscription)    
+    );
+}
 
 export const findCurrentSubscription = (chatRoomType = undefined, chatRoomId = undefined) => {
     let currentLocation = window.location.hash;

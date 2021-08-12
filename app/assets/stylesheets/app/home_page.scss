@@ -113,9 +113,11 @@
 
         li#e {
             button {
-                outline-style: solid;
-                outline-width: 0.3vh;
-                outline-color: #ed4245;
+                // outline-style: solid;
+                // outline-width: 0.3vh;
+                // outline-color: #ed4245;
+
+                box-shadow: 0px 0px 0px 0.3vh #ed4245 inset;
             }
         }
     }

@@ -10,6 +10,12 @@ class ChatRoom extends React.Component {
     }
 
 
+    componentDidUpdate() {
+        const chatRoomUl = document.getElementById("chat-room-ul");
+        chatRoomUl ? chatRoomUl.scrollTop = chatRoomUl.scrollHeight : null;
+    }
+
+
     render() {
         const { currentUser, messages, users, chatRoomType, chatRoomObj } = this.props
 
@@ -30,12 +36,13 @@ class ChatRoom extends React.Component {
                         </h2>
                     </div>
                     <div className="chat-room-sub-container">
-                        <ul>
-                            {messages.map(message => (
-                                <Message key={message.id} message={message} currentUser={currentUser} users={users}/>
-                            ))}
-                        </ul>
-                        
+                        <article>
+                            <ul id="chat-room-ul">
+                                {messages.map(message => (
+                                    <Message key={message.id} message={message} currentUser={currentUser} users={users}/>
+                                ))}
+                            </ul>
+                        </article>
                         <MessageFormContainer />
                     </div>
                 </div> :

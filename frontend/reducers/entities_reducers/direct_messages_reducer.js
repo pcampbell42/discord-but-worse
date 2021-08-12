@@ -1,5 +1,6 @@
 import { RECEIVE_DIRECT_MESSAGE, RECEIVE_DIRECT_MESSAGE_DETAILS } from "../../actions/direct_message_actions";
 import { RECEIVE_CURRENT_USER_DETAILS } from "../../actions/session_actions";
+import { LOGOUT_CURRENT_USER } from "../../actions/session_actions";
 
 const directMessagesReducer = (state = {}, action) => {
     Object.freeze(state);
@@ -13,6 +14,9 @@ const directMessagesReducer = (state = {}, action) => {
 
         case RECEIVE_CURRENT_USER_DETAILS:
             return Object.assign({}, state, action.details.directMessages)
+
+        case LOGOUT_CURRENT_USER:
+            return {};
     
         default:
             return state;

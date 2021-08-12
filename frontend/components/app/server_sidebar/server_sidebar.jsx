@@ -20,34 +20,38 @@ class ServersSideBar extends React.Component {
         this.update = this.update.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleEscape = this.handleEscape.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
 
     componentDidMount() {
-        this.props.fetchCurrentUserDetails(this.props.currentUser.id)
-
-        for (const i in this.props.textChannels) {
-            createSubscription("tc", this.props.textChannels[i].id,
-                this.props.receiveAllMessages,
-                this.props.receiveMessage,
-                this.props.deleteMessage
-            );
-        }
-
-        for (const i in this.props.directMessages) {
-            createSubscription("dm", this.props.directMessages[i].id,
-                this.props.receiveAllMessages,
-                this.props.receiveMessage,
-                this.props.deleteMessage
-            );
-        }
+        document.addEventListener("keydown", this.handleEscape, true);
+        document.addEventListener("click", this.handleClick, true);
     }
 
 
     componentWillUnmount() {
         this.props.clearMembershipErrors();
+        document.removeEventListener("keydown", this.handleEscape, true);
+        document.removeEventListener("click", this.handleClick, true);
     }
 
+
+    handleClick(e) {
+        if (e.target.className === "ss-create-form-relative-position-anchor") {
+            this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false });
+        }
+    }
+    
+    
+    handleEscape(e) {
+        if (e.keyCode === 27) {
+            this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false });
+            this.props.clearMembershipErrors();
+        }
+    }
+    
 
     update(e) {
         this.setState({ name: e.currentTarget.value })
@@ -93,7 +97,7 @@ class ServersSideBar extends React.Component {
         const createServerForm = (
             <div className="ss-create-form-relative-position-anchor">
                 <div>
-                    <button onClick={this.handleClose}>x</button>
+                    <button id="ss-close-create-form" onClick={this.handleClose}>x</button>
                     <div>
                         <h1>Customize your server</h1>
                         <h2>Give your server a personality with a name and an icon. You can always change it later.</h2>
@@ -109,7 +113,7 @@ class ServersSideBar extends React.Component {
                         <footer>
                             <span>
                             </span>
-                            <input id={this.state.name === "" ? "ss-invalid" : null}className="ss-submit-button" type="submit" value="Create" />
+                            <input id={this.state.name === "" ? "ss-invalid" : null} className="ss-submit-button" type="submit" value="Create" />
                         </footer>
                     </form>
                 </div>
@@ -154,5 +158,5 @@ class ServersSideBar extends React.Component {
     }
 }
 
-// export default ServersSideBar;
+
 export default withRouter(ServersSideBar);
