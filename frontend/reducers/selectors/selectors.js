@@ -133,3 +133,27 @@ export const getUsersForDms = state => {
 
     return selectedUsers;
 }
+
+export const dmExists = (state, currentUserId, otherUserId) => {
+    const allDMs = Object.values(state.entities.directMessages);
+
+    for (let i = 0; i < allDMs.length; i++) {
+        if ( (allDMs[i].user1Id === currentUserId && allDMs[i].user2Id === otherUserId) ||
+            (allDMs[i].user2Id === currentUserId && allDMs[i].user1Id === otherUserId) ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+export const getDMId = (state, currentUserId, otherUserId) => {
+    const allDMs = Object.values(state.entities.directMessages);
+
+    for (let i = 0; i < allDMs.length; i++) {
+        if ((allDMs[i].user1Id === currentUserId && allDMs[i].user2Id === otherUserId) ||
+            (allDMs[i].user2Id === currentUserId && allDMs[i].user1Id === otherUserId)) {
+            return allDMs[i].id;
+        }
+    }
+}

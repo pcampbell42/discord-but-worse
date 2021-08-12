@@ -33,15 +33,18 @@ export const createSubscription = (thread_type, thread_id, receiveAllMessages, r
 }
 
 
-export const findCurrentSubscription = () => {
+export const findCurrentSubscription = (chatRoomType = undefined, chatRoomId = undefined) => {
     let currentLocation = window.location.hash;
 
-    let chatRoomType;
-    if (currentLocation.includes("servers")) chatRoomType = "tc";
-    if (currentLocation.includes("conversations")) chatRoomType = "dm";
+    if (chatRoomType === undefined) {
+        if (currentLocation.includes("servers")) chatRoomType = "tc";
+        if (currentLocation.includes("conversations")) chatRoomType = "dm";
+    }
 
-    const chatRoomId = parseInt(currentLocation.split("/").slice(-1).pop());
-
+    if (chatRoomId === undefined) {
+        chatRoomId = parseInt(currentLocation.split("/").slice(-1).pop());
+    }
+    
     for (let i = 0; i < App.cable.subscriptions.subscriptions.length; i++) {
         let parsedIdentifier = JSON.parse(App.cable.subscriptions.subscriptions[i].identifier);
         if (parsedIdentifier.thread_type === chatRoomType && parseInt(parsedIdentifier.thread_id) === chatRoomId) {

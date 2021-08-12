@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import TextChannelDisplay from "./text_channel_display";
 import { updateTextChannel, deleteTextChannel } from "../../../../actions/text_channel_actions";
 
+
 const mstp = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id]
 });

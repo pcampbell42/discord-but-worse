@@ -1,17 +1,15 @@
 import { connect } from "react-redux";
-import ChatRoom from "./chat_room";
-import { getMessagesForChannel } from "../../../reducers/selectors/selectors";
+import MessageForm from "./message_form";
 
 const mstp = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],
     users: state.entities.users, // selector here maybe?
-    messages: getMessagesForChannel(state),
 
     chatRoomType: window.location.href.includes("servers") ? "tc" : "dm",
 
-    chatRoomObj: window.location.href.includes("servers") ? 
-        state.entities.textChannels[ownProps.channelId] :
+    chatRoomObj: window.location.href.includes("servers") ?
+        state.entities.textChannels[parseInt(window.location.hash.split("/").slice(-1).pop())] :
         state.entities.directMessages[parseInt(window.location.hash.split("/").slice(-1).pop())]
 });
 
-export default connect(mstp)(ChatRoom);
+export default connect(mstp)(MessageForm);

@@ -3,7 +3,7 @@
     height: 100vh;
     width: 33.74vh;
     background-color: #2f3137;
-    overflow-y: auto;
+    // overflow-y: auto;
 
     .user-sidebar-header-box {
         height: 6.5vh;
@@ -28,9 +28,6 @@
         margin-left: 0.6vw;
 
         li {
-            display: flex;
-            align-items: center;
-            
             margin-bottom: 1vh;
             padding-left: 0.4vw;
             margin-right: 0.6vw;
@@ -41,30 +38,141 @@
             font-size: 17px;
             font-weight: 600;
 
-            img {
-                width: 5vh;
-                height: 5vh;
-                filter: invert(1);
-
-                margin-right: 1vh;
+            section {
+                display: flex;
+                align-items: center;
+                img {
+                    width: 5vh;
+                    height: 5vh;
+                    filter: invert(1);
+    
+                    margin-right: 1vh;
+                }
+    
+                img:hover {
+                    opacity: 0.7;
+                }
+    
+                .king-icon {
+                    width: 1vw;
+                    height: 1.7vh;
+                    filter: invert(0);
+    
+                    margin-left: 1vw;
+                }
             }
 
-            img:hover {
-                opacity: 0.7;
+            section:hover {
+                cursor: pointer;
+                background-color: #33373c;
             }
 
-            .king-icon {
-                width: 1vw;
-                height: 1.7vh;
-                filter: invert(0);
+            .user-show-relative-position-anchor {
+                position: relative;
+                width: 0;
+                height: 0;
 
-                margin-left: 1vw;
+                .user-show-profile-display {
+                    position: absolute;
+                    left: -21.5vw;
+                    top: -4.8vh;
+
+                    height: 30vh;
+                    width: 20vw;
+
+                    background-color: #18191c;
+
+                    border-radius: 2vh;
+
+                    .user-show-profile-header {
+                        background-color: #262429;
+                        height: 8vh;
+                        width: 100%;
+
+                        border-top-left-radius: 2vh;
+                        border-top-right-radius: 2vh;
+                    }
+
+                    button {
+                        background: none;
+
+                        position: absolute;
+                        left: 90%;
+                        bottom: 84.5%;
+
+                        border-style: none;
+                        border-radius: 1vh;
+                        border-color: #18191c;
+
+                        font-family: 'Nunito', sans-serif;
+                        color: white;
+                        font-size: 3vh;
+                        font-weight: 600;
+                    }
+
+                    button:hover {
+                        opacity: 0.4;
+                        cursor: pointer;
+                    }
+
+                    img {
+                        position: absolute;
+                        bottom: 15.5vh;
+                        left: 0.7vw;
+
+                        height: 13vh;
+                        width: 13vh;
+                        filter: invert(1);
+                    }
+
+                    img:hover {
+                        cursor: pointer;
+                        opacity: 0.5;
+                    }
+
+                    div {
+                        height: 22vh;
+                        display: flex;
+                        flex-direction: column;
+
+                        h1 {
+                            margin-top: 7vh;
+                            margin-left: 1vw;
+                            color: white;
+                            font-size: 4vh;
+                        }
+    
+                        form {
+                            margin-top: 2.5vh;
+                            margin-left: 2vh;
+    
+                            input {
+                                height: 5vh;
+                                width: 90%;
+
+                                background-color: #292b2f;
+
+                                border-style: none;
+                                border-radius: 0.5vh;
+
+                                font-family: 'Nunito', sans-serif;
+                                color: #dcddde;
+                                font-size: 14px;
+                                font-weight: 600;
+
+                                padding-left: 0.5vw;
+
+                            }
+
+                            input:focus {
+                                outline-style: solid;
+                                outline-color: #05aef4;
+                                border-width: 0;
+                            }
+                        }
+                    }
+                }
             }
-        }
-
-        li:hover {
-            cursor: pointer;
-            background-color: #33373c;
         }
     }
 }

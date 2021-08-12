@@ -1,7 +1,7 @@
 
 .chat-room-container {
     height: 100vh;
-    width: 122vh;
+    width: 60.8vw;
     background-color: #35393f;
 
     font-family: 'Nunito', sans-serif;
@@ -78,7 +78,7 @@
 
                         h3 {
                             font-size: 1.5vh;
-                            font-weight: 300;
+                            font-weight: 700;
                             color: #71757c;
                             margin-left: 1vh;
                             margin-top: 0.25vh;
@@ -198,5 +198,17 @@
             }
         }
     }
-
 }
+
+.empty-chat-room-container {
+    height: 100vh;
+    width: 60.8vw;
+    background-color: #35393f;
+    
+    .empty-chat-room-header {
+        height: 6.5vh;
+        width: 100%;
+        border-bottom: 1px solid black;
+    }
+}
+

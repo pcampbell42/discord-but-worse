@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import settingsIcon from "../../../../../app/assets/images/settings_icon.png"
 
 class TextChannelDisplay extends React.Component {
@@ -35,7 +36,8 @@ class TextChannelDisplay extends React.Component {
 
 
     handleDelete(e) {
-        this.props.deleteTextChannel(this.props.textChannel.id);
+        this.props.deleteTextChannel(this.props.textChannel.id)
+            .then(() => this.props.history.push(`/app/servers/${this.props.server.id}/${this.props.textChannels[0].id}`));
     }
 
 
@@ -119,4 +121,5 @@ class TextChannelDisplay extends React.Component {
     }
 }
 
-export default TextChannelDisplay;
+// export default TextChannelDisplay;
+export default withRouter(TextChannelDisplay);
