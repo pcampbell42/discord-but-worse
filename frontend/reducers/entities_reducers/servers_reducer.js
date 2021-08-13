@@ -18,7 +18,6 @@ const serversReducer = (state = {}, action) => {
             return Object.assign({}, state, { [action.data.server.id]: action.data.server });
 
         case RECEIVE_UPDATED_SERVER:
-            console.log(action.server)
             return Object.assign({}, state, { [action.server.id]: action.server });
 
         case REMOVE_SERVER:

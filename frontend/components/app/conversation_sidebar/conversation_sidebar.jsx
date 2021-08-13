@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import defaultProfilePicture from "./../../../../app/assets/images/default_profile_picture.png";
 
 
@@ -7,9 +7,13 @@ class ConversationSidebar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedId: props.selectedId
+            // selectedId: props.selectedId
         };
     }
+
+    // componentDidUpdate() {
+    //     this.state.selectedId = this.props.selectedId;
+    // }
 
 
     render() {

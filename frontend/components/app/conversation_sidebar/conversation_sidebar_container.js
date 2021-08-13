@@ -2,15 +2,13 @@ import { connect } from "react-redux";
 import ConversationSidebar from "./conversation_sidebar";
 import { getUsersForDms } from "../../../reducers/selectors/selectors";
 
-const mstp = (state, ownProps) => ({
+
+const mstp = state => ({
     currentUser: state.entities.users[state.session.id],
     directMessages: Object.values(state.entities.directMessages).reverse(),
     users: getUsersForDms(state),
     selectedId: parseInt(window.location.hash.split("/").slice(-1).pop())
 });
 
-const mdtp = dispatch => ({
-    
-});
 
-export default connect(mstp, mdtp)(ConversationSidebar);
+export default connect(mstp)(ConversationSidebar);
