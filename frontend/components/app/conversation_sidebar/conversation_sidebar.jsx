@@ -6,7 +6,9 @@ import defaultProfilePicture from "./../../../../app/assets/images/default_profi
 class ConversationSidebar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            selectedId: props.selectedId
+        };
     }
 
 
