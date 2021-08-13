@@ -23,9 +23,10 @@
     }
 
     ul {
-
         margin-top: 0.5vh;
         margin-left: 0.6vw;
+        height: 86vh;
+        // overflow-y: auto;
 
         li {
             margin-bottom: 1vh;
@@ -41,6 +42,7 @@
             section {
                 display: flex;
                 align-items: center;
+                
                 img {
                     width: 5vh;
                     height: 5vh;

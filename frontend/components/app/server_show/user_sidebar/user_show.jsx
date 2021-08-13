@@ -32,7 +32,8 @@ class UserShow extends React.Component {
 
 
     handleOutsideClick(e) {
-        if (!this.node.contains(e.target)) {
+        if (!this.showProfileEl) return;
+        if (!this.showProfileEl.contains(e.target)) {
             this.setState({ body: "", showProfile: false });
         }
     }
@@ -54,8 +55,8 @@ class UserShow extends React.Component {
         e.preventDefault();
 
         if (this.props.dmExists) {
-            const messageToSend = Object.assign({}, { body: this.state.body }, { author_id: this.props.currentUser.id });
-            const subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
+            let messageToSend = Object.assign({}, { body: this.state.body }, { author_id: this.props.currentUser.id });
+            let subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
 
             App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
             if (this.state.body !== "") this.props.history.push(`/app/home/conversations/${this.props.dmId}`);
@@ -63,7 +64,7 @@ class UserShow extends React.Component {
             
 
         } else {
-            const messageToSend = Object.assign({}, { body: this.state.body }, { author_id: this.props.currentUser.id });
+            let messageToSend = Object.assign({}, { body: this.state.body }, { author_id: this.props.currentUser.id });
 
             this.props.createDirectMessage({ user1_id: this.props.currentUser.id, user2_id: this.props.user.id })
                 .then(() => {
@@ -72,7 +73,7 @@ class UserShow extends React.Component {
                         this.props.deleteMessage)
                 })
                 .then(() => {
-                    const subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
+                    let subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
                     App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
                 })
                 .then(() => this.setState({ showProfile: false, body: "" }))
@@ -86,7 +87,7 @@ class UserShow extends React.Component {
 
         const profileDisplay = (
             <div className="user-show-relative-position-anchor">
-                <div className="user-show-profile-display" ref={node => this.node = node}>
+                <div className="user-show-profile-display" ref={showProfileEl => this.showProfileEl = showProfileEl}>
 
                     <div className="user-show-profile-header"></div>
                     <button onClick={() => this.setState({ showProfile: false, body: "" })}>x</button>

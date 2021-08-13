@@ -89,7 +89,7 @@ class Message extends React.Component {
 
                 <div>
                     <div>
-                        <h1>{users[message.authorId].username}</h1>
+                        {users[message.authorId] ? <h1>{users[message.authorId].username}</h1> : null}
                         <h3>{dateToShow}</h3>
                     </div>
                     {this.state.editing ? editingView : message.body}

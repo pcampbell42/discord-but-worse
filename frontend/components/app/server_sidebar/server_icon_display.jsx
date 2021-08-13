@@ -44,16 +44,17 @@ class ServerIconDisplay extends React.Component {
 
 
     handleOutsideClick(e) {
-        if (!this.node.contains(e.target)) {
+        if (!this.serverDropdownEl) return;
+        if (!this.serverDropdownEl.contains(e.target)) {
             this.setState({ showDropdown: false, name: this.props.server.name });
         }
     }
 
 
     handleOutsideRightClick(e) {
-        if (!this.node2.contains(e.target)) {
+        if (!this.serverIconEl) return;
+        if (!this.serverIconEl.contains(e.target)) {
             this.setState({ showDropdown: false, name: this.props.server.name });
-
         }
     }
 
@@ -134,7 +135,7 @@ class ServerIconDisplay extends React.Component {
         
         const serverDropdown = (
             <div className="ss-options-relative-position-anchor">
-                <ul className="ss-dropdown" ref={node => this.node = node}>
+                <ul className="ss-dropdown" ref={serverDropdownEl => this.serverDropdownEl = serverDropdownEl}>
                     {currentUser.id === server.ownerId ?
                         <li id="ss-options-settings" onClick={this.handleShowSettings}>Server Settings</li> :
                         <li id="ss-options-leave" onClick={this.handleLeave}>Leave Server</li>
@@ -199,7 +200,7 @@ class ServerIconDisplay extends React.Component {
                         onMouseEnter={() => this.setState({ hovered: true })}
                         onMouseLeave={() => this.setState({ hovered: false })}
                         onContextMenu={this.handleRightClick}
-                        ref={node2 => this.node2 = node2}>
+                        ref={serverIconEl => this.serverIconEl = serverIconEl}>
                         <div>{server.name[0]}</div>
                     </li>
                 </Link>
