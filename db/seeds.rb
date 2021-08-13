@@ -78,46 +78,64 @@ servers[14].members += [users[15], users[0]]
 servers[15].members += [users[16], users[10]]
 
 
-TextChannel.create(name: "tgk chat", server_id: servers[0].id);
-TextChannel.create(name: "high council", server_id: servers[0].id);
-TextChannel.create(name: "beached whales", server_id: servers[1].id);
-TextChannel.create(name: "sharks", server_id: servers[1].id);
-TextChannel.create(name: "general", server_id: servers[2].id);
+text_channels = TextChannel.create([
+    { name: "tgk chat", server_id: servers[0].id },
+    { name: "high council", server_id: servers[0].id },
+    { name: "beached whales", server_id: servers[1].id },
+    { name: "sharks", server_id: servers[1].id },
+    { name: "general", server_id: servers[2].id },
 
-TextChannel.create(name: "bgs", server_id: servers[2].id);
-TextChannel.create(name: "rbgs", server_id: servers[2].id);
-TextChannel.create(name: "g.n.a.r.", server_id: servers[3].id);
-TextChannel.create(name: "kt22", server_id: servers[3].id);
-TextChannel.create(name: "mcconkey's", server_id: servers[3].id);
+    { name: "bgs", server_id: servers[2].id },
+    { name: "rbgs", server_id: servers[2].id },
+    { name: "g.n.a.r.", server_id: servers[3].id },
+    { name: "kt22", server_id: servers[3].id },
+    { name: "mcconkey's", server_id: servers[3].id },
 
-TextChannel.create(name: "boolers", server_id: servers[4].id);
-TextChannel.create(name: "blood and thunder", server_id: servers[5].id);
-TextChannel.create(name: "the looming tower", server_id: servers[5].id);
-TextChannel.create(name: "tesla fan boys", server_id: servers[6].id);
-TextChannel.create(name: "general", server_id: servers[7].id);
+    { name: "boolers", server_id: servers[4].id },
+    { name: "blood and thunder", server_id: servers[5].id },
+    { name: "the looming tower", server_id: servers[5].id },
+    { name: "tesla fan boys", server_id: servers[6].id },
+    { name: "general", server_id: servers[7].id },
 
-TextChannel.create(name: "friendly general :)", server_id: servers[8].id);
-TextChannel.create(name: "not-general", server_id: servers[8].id);
-TextChannel.create(name: "general1", server_id: servers[9].id);
-TextChannel.create(name: "general2", server_id: servers[9].id);
-TextChannel.create(name: "general", server_id: servers[10].id);
+    { name: "friendly general :)", server_id: servers[8].id },
+    { name: "not-general", server_id: servers[8].id },
+    { name: "general1", server_id: servers[9].id },
+    { name: "general2", server_id: servers[9].id },
+    { name: "general", server_id: servers[10].id },
 
-TextChannel.create(name: "general", server_id: servers[11].id);
-TextChannel.create(name: "general", server_id: servers[12].id);
-TextChannel.create(name: "rocky mountain tacos", server_id: servers[13].id);
-TextChannel.create(name: "bad players", server_id: servers[14].id);
-TextChannel.create(name: "even worse players", server_id: servers[14].id);
+    { name: "general", server_id: servers[11].id },
+    { name: "general", server_id: servers[12].id },
+    { name: "rocky mountain tacos", server_id: servers[13].id },
+    { name: "bad players", server_id: servers[14].id },
+    { name: "even worse players", server_id: servers[14].id },
 
-TextChannel.create(name: "slightly less bad players", server_id: servers[14].id);
-TextChannel.create(name: "general", server_id: servers[15].id);
-TextChannel.create(name: "scripted pvp", server_id: servers[15].id);
+    { name: "slightly less bad players", server_id: servers[14].id },
+    { name: "general", server_id: servers[15].id },
+    { name: "scripted pvp", server_id: servers[15].id }
+])
 
 #-------------------------------------------------------------------------------
 
-DirectMessage.create(user1_id: demo_user.id, user2_id: users[9].id);
-DirectMessage.create(user1_id: demo_user.id, user2_id: users[11].id);
-DirectMessage.create(user1_id: demo_user.id, user2_id: users[16].id);
-# DirectMessage.create(user1_id: users[8].id, user2_id: demo_user.id);
-DirectMessage.create(user1_id: users[2].id, user2_id: demo_user.id);
+direct_messages = DirectMessage.create([
+    { user1_id: demo_user.id, user2_id: users[9].id },
+    { user1_id: demo_user.id, user2_id: users[11].id },
+    { user1_id: demo_user.id, user2_id: users[16].id },
+    { user1_id: users[8].id, user2_id: demo_user.id },
+    { user1_id: users[2].id, user2_id: demo_user.id },
+    
+    { user1_id: users[4].id, user2_id: demo_user.id }
+])
 
-DirectMessage.create(user1_id: users[4].id, user2_id: demo_user.id);
+#-------------------------------------------------------------------------------
+
+messages = Message.create([
+    { body: "guess who got first tracks on the fingers yesterday", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[8].id },
+    { body: "no big deal or anything", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[8].id },
+    { body: "I got in line 5pm the day before", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[8].id },
+    { body: "wow man that sounds really worth it", author_id: demo_user.id, messageable_type: "TextChannel", messageable_id: text_channels[8].id },
+    { body: "proud of you", author_id: demo_user.id, messageable_type: "TextChannel", messageable_id: text_channels[8].id },
+
+    { body: "who's up for a game of G.N.A.R.", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[7].id },
+    { body: "RIP", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[9].id },
+    { body: "RIP", author_id: demo_user.id, messageable_type: "TextChannel", messageable_id: text_channels[9].id }
+])
