@@ -19,7 +19,7 @@ class ConversationSidebar extends React.Component {
                 <h1>DIRECT MESSAGES</h1>
 
                 <ul>
-                    {directMessages.reverse().map(directMessage => 
+                    {directMessages.map(directMessage => 
                         <li key={directMessage.id} className={selectedId === directMessage.id ? "selected" : null}>
                             {directMessage.user1Id === currentUser.id ?
 
