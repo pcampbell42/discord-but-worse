@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import defaultProfilePicture from "./../../../../app/assets/images/default_profile_picture.png";
 
 
@@ -7,13 +7,9 @@ class ConversationSidebar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // selectedId: props.selectedId
+            selectedId: props.selectedId
         };
     }
-
-    // componentDidUpdate() {
-    //     this.state.selectedId = this.props.selectedId;
-    // }
 
 
     render() {
@@ -26,7 +22,9 @@ class ConversationSidebar extends React.Component {
 
                 <ul>
                     {directMessages.map(directMessage => 
-                        <li key={directMessage.id} className={selectedId === directMessage.id ? "selected" : null}>
+                        <li key={directMessage.id} className={this.state.selectedId === directMessage.id ? "selected" : null} 
+                            onClick={() => this.setState({ selectedId: directMessage.id })}>
+
                             {directMessage.user1Id === currentUser.id ?
 
                                 <Link to={`/app/home/conversations/${directMessage.id}`}>
