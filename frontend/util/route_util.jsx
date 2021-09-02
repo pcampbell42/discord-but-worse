@@ -1,5 +1,4 @@
 import React from "react";
-import { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, withRouter } from "react-router-dom";
 
@@ -8,6 +7,7 @@ import { Route, Redirect, withRouter } from "react-router-dom";
 const mstp = state => ({
     loggedIn: Boolean(state.session.id)
 });
+
 
 // -------------------- Auth Route --------------------
 

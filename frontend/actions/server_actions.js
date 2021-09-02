@@ -1,11 +1,17 @@
-import * as ServerAPIUtil from "../util/server_api_util";
+import * as ServerAPIUtil from "../util/api_calls/server_api_util";
 import { receiveMembershipError } from "./membership_actions";
+
+
+// ---------------------- Constants ----------------------
 
 export const RECEIVE_ALL_SERVERS = "RECEIVE_ALL_SERVERS";
 export const RECEIVE_SERVER = "RECEIVE_SERVER";
 export const RECEIVE_UPDATED_SERVER = "RECEIVE_UPDATED_SERVER";
 export const REMOVE_SERVER = "REMOVE_SERVER";
 export const RECEIVE_SERVER_DETAILS = "RECEIVE_SERVER_DETAILS";
+
+
+// ---------------------- Normal Actions ----------------------
 
 const receiveAllServers = servers => ({
     type: RECEIVE_ALL_SERVERS,
@@ -31,6 +37,9 @@ const receiveServerDetails = details => ({
     type: RECEIVE_SERVER_DETAILS,
     details
 });
+
+
+// ---------------------- Function Actions ----------------------
 
 export const fetchAllServers = () => dispatch => ServerAPIUtil.fetchAllServers()
     .then(servers => dispatch(receiveAllServers(servers)));
