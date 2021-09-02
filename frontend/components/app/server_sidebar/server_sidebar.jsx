@@ -43,15 +43,15 @@ class ServersSideBar extends React.Component {
             this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false });
         }
     }
-    
-    
+
+
     handleEscape(e) {
         if (e.keyCode === 27) {
             this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false });
             this.props.clearMembershipErrors();
         }
     }
-    
+
 
     update(e) {
         this.setState({ name: e.currentTarget.value })
@@ -72,9 +72,9 @@ class ServersSideBar extends React.Component {
             .then(() => this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false }))
             .then(() => this.props.clearMembershipErrors())
             .then(() => this.props.currentServerDetails(this.props.userServers[this.props.userServers.length - 1].id))
-            .then(() => createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id, 
-                                                this.props.receiveAllMessages, this.props.receiveMessage,
-                                                this.props.deleteMessage))
+            .then(() => createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id,
+                this.props.receiveAllMessages, this.props.receiveMessage,
+                this.props.deleteMessage))
             .then(() => this.props.history.push(`/app/servers/${this.props.userServers[this.props.userServers.length - 1].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`));
     }
 
@@ -117,7 +117,7 @@ class ServersSideBar extends React.Component {
                         </footer>
                     </form>
                 </div>
-            </div> 
+            </div>
         );
 
         return (
@@ -127,7 +127,7 @@ class ServersSideBar extends React.Component {
                 <div className="ss-buffer"></div>
 
                 <Link to="/app/home" onMouseEnter={() => this.setState({ homeHovered: true })}
-                        onMouseLeave={() => this.setState({ homeHovered: false })}>
+                    onMouseLeave={() => this.setState({ homeHovered: false })}>
 
                     <div className="ss-home-hover-bar-relative-position-anchor">
                         <aside className={this.state.homeHovered ? "hovered" : null} id={this.props.homeSelected ? "selected" : null}></aside>
@@ -136,20 +136,19 @@ class ServersSideBar extends React.Component {
                     <div className="ss-logo-container" id={this.props.homeSelected ? "selected" : null}>
                         <img src={discordLogo} />
                     </div>
-
                 </Link>
                 {this.state.homeHovered ? homeTooltipShow : null}
 
                 <ul className="ss-servers">
-                    {this.props.userServers.map(server => 
+                    {this.props.userServers.map(server =>
                         <ServerIconDisplayContainer key={server.id} server={server}
                             selected={window.location.href.includes(`/app/servers/${server.id}/`)} />
                     )}
                 </ul>
 
                 <button onClick={() => this.setState({ showForm: true })}
-                        onMouseEnter={() => this.setState({ createHovered: true })}
-                        onMouseLeave={() => this.setState({ createHovered: false })}>
+                    onMouseEnter={() => this.setState({ createHovered: true })}
+                    onMouseLeave={() => this.setState({ createHovered: false })}>
                     +
                 </button>
                 {this.state.createHovered ? createTooltipShow : null}
