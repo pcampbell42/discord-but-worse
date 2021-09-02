@@ -23,6 +23,7 @@ export const currentUserServerIds = state => {
 }
 
 
+// Also sorts
 export const currentUserServers = state => {
     const currentUserId = state.session.id;
 
@@ -38,13 +39,11 @@ export const currentUserServers = state => {
     const servers = state.entities.servers;
     let joinedServers = [];
 
-    for (const i in servers) {
-        if (joinedServerIds.includes(servers[i].id)) {
-            joinedServers.push(servers[i]);
-        }
+    for (let i = 0; i < joinedServerIds.length; i++) {
+        joinedServers.push(servers[joinedServerIds[i]]);
     }
 
-    return joinedServers;
+    return joinedServers.reverse();
 }
 
 export const currentServerUsers = (state, currentServerId) => {
@@ -124,8 +123,8 @@ export const getUsersForDms = state => {
     let selectedUsers = {};
     for (const i in allUsers) {
         for (let j = 0; j < allDMs.length; j++) {
-            if ((allUsers[i].id === allDMs[j].user1Id || allUsers[i].id === allDMs[j].user2Id) 
-                        && allUsers[i].id !== currentUserId) {
+            if ((allUsers[i].id === allDMs[j].user1Id || allUsers[i].id === allDMs[j].user2Id)
+                && allUsers[i].id !== currentUserId) {
                 selectedUsers[allUsers[i].id] = allUsers[i];
             }
         }
@@ -138,8 +137,8 @@ export const dmExists = (state, currentUserId, otherUserId) => {
     const allDMs = Object.values(state.entities.directMessages);
 
     for (let i = 0; i < allDMs.length; i++) {
-        if ( (allDMs[i].user1Id === currentUserId && allDMs[i].user2Id === otherUserId) ||
-            (allDMs[i].user2Id === currentUserId && allDMs[i].user1Id === otherUserId) ) {
+        if ((allDMs[i].user1Id === currentUserId && allDMs[i].user2Id === otherUserId) ||
+            (allDMs[i].user2Id === currentUserId && allDMs[i].user1Id === otherUserId)) {
             return true;
         }
     }

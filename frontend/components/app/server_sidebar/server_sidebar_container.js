@@ -12,7 +12,7 @@ const mstp = state => ({
     currentUser: state.entities.users[state.session.id],
     userServers: currentUserServers(state),
     error: state.errors.memberships,
-    homeSelected: ( window.location.hash.includes("#/app/home") ? true : false ),
+    homeSelected: (window.location.hash.includes("#/app/home") ? true : false),
     textChannels: Object.values(state.entities.textChannels),
     directMessages: Object.values(state.entities.directMessages)
 });
