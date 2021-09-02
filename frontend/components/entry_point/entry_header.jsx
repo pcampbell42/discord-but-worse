@@ -15,8 +15,8 @@ const EntryHeader = props => (
 
         <div className="ep-header-right">
             <a href="https://github.com/pcampbell42"><img src={githubLogo} /></a>
-            <a href="https://www.mmo-champion.com/content/"><img src={linkedinLogo}/></a>
-            <a href="https://pcampbell42.github.io/the_arena/"><img src={angelListLogo} /></a>
+            <a href="https://www.linkedin.com/in/patrick-campbell-336a72139/"><img src={linkedinLogo} /></a>
+            <a href="https://angel.co/u/patrick-campbell-22"><img src={angelListLogo} /></a>
         </div>
     </header>
 );
