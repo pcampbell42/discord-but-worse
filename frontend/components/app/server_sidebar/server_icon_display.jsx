@@ -11,6 +11,7 @@ class ServerIconDisplay extends React.Component {
             hovered: false,
             showDropdown: false,
             showSettings: false,
+            updatedServerLoading: false, // Used to "smooth" the loading time when updating a new server with an avatar
 
             // form info
             name: props.server.name,
@@ -121,6 +122,7 @@ class ServerIconDisplay extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        this.setState({ updatedServerLoading: true });
 
         const formData = new FormData();
         formData.append("id", this.props.server.id);
@@ -132,7 +134,8 @@ class ServerIconDisplay extends React.Component {
                 this.setState({ showSettings: false });
                 this._resetFormValues();
                 this.props.clearMembershipErrors();
-            });
+            })
+            .then(() => this.setState({ updatedServerLoading: false }));
     }
 
 
@@ -165,7 +168,7 @@ class ServerIconDisplay extends React.Component {
 
     render() {
         const { server, currentUser, selected, currentServerDetails, firstTextChannelId, error } = this.props
-        const { hovered, showDropdown, showSettings, name, imageUrl } = this.state;
+        const { hovered, showDropdown, showSettings, name, imageUrl, updatedServerLoading } = this.state;
 
 
         const serverNameShow = (
@@ -190,7 +193,7 @@ class ServerIconDisplay extends React.Component {
 
 
         const serverSettings = (
-            <div className="server-settings-container">
+            <div className="server-settings-container" id={updatedServerLoading ? "updated-server-loading" : null}>
 
                 <div className="server-settings-cancel-button">
                     <div className="server-settings-x-button" onClick={this.handleCloseSettings}>x</div>
@@ -227,7 +230,7 @@ class ServerIconDisplay extends React.Component {
 
                         <div>
                             <section onClick={this.handleReset}>Reset</section>
-                            <input id={name === "" ? "server-settings-invalid" : null} className="server-settings-save-changes" type="submit" value="Save Changes" />
+                            <input id={name === "" || updatedServerLoading ? "server-settings-invalid" : null} className="server-settings-save-changes" type="submit" value="Save Changes" />
                         </div>
                     </form>
                 </div>

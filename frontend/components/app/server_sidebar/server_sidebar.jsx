@@ -13,6 +13,7 @@ class ServersSideBar extends React.Component {
             showForm: false,
             homeHovered: false,
             createHovered: false,
+            newServerLoading: false, // Used to "smooth" the loading time when creating a new server with an avatar
 
             // form info
             name: `${props.currentUser.username}'s server`,
@@ -92,6 +93,7 @@ class ServersSideBar extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        this.setState({ newServerLoading: true });
 
         const formData = new FormData();
         formData.append("server[name]", this.state.name)
@@ -112,7 +114,8 @@ class ServersSideBar extends React.Component {
 
                 // Finally, redirect to default text channel in new server
                 this.props.history.push(`/app/servers/${this.props.userServers[0].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`);
-            });
+            })
+            .then(() => this.setState({ newServerLoading: false }))
     }
 
 
@@ -130,7 +133,7 @@ class ServersSideBar extends React.Component {
 
     render() {
         const { error, homeSelected } = this.props;
-        const { imageUrl, name, showForm, createHovered, homeHovered } = this.state;
+        const { imageUrl, name, showForm, createHovered, homeHovered, newServerLoading } = this.state;
 
 
         const homeTooltipShow = (
@@ -151,7 +154,7 @@ class ServersSideBar extends React.Component {
 
         const createServerForm = (
             <div className="ss-create-form-relative-position-anchor">
-                <div>
+                <div id={newServerLoading ? "new-server-loading" : null}>
                     <button id="ss-close-create-form" onClick={this.handleClose}>x</button>
 
                     <div>
@@ -171,7 +174,7 @@ class ServersSideBar extends React.Component {
                         </label>
                         <footer>
                             <span></span>
-                            <input id={name === "" ? "ss-invalid" : null} className="ss-submit-button" type="submit" value="Create" />
+                            <input id={name === "" || newServerLoading ? "ss-invalid" : null} className="ss-submit-button" type="submit" value="Create" />
                         </footer>
                     </form>
                 </div>

@@ -388,6 +388,10 @@
         justify-content: center;
         align-items: center;
 
+        #new-server-loading {
+            cursor: wait;
+        }
+
         div {
             position: absolute;
             background-color: white;
@@ -539,6 +543,10 @@
             }
         }
     }
+}
+
+.server-settings-container#updated-server-loading {
+    cursor: wait;
 }
 
 .server-settings-container {
