@@ -60,7 +60,19 @@
                 margin-bottom: 2vh;
             }
 
+            #home-page-server-photo {
+                background-size: 100% 100%;
+                background-position: center;
+                border-radius: 50%;
+            }
+
             div:hover {
+                background-color: #063B6B;
+                cursor: default;
+                border-radius: 35px;
+            }
+
+            #home-page-server-photo:hover {
                 background-color: #063B6B;
                 border-radius: 35px;
             }

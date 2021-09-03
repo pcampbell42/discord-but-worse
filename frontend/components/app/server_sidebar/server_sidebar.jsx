@@ -44,7 +44,7 @@ class ServersSideBar extends React.Component {
     }
 
 
-    // ------------- Event listeners for different ways of closing form -------------
+    // ------------- Event handler for different ways of closing form -------------
 
     handleClick(e) {
         // If click is outside of form, close form
@@ -68,7 +68,7 @@ class ServersSideBar extends React.Component {
     }
 
 
-    // ------------- Event listeners for updating form values -------------
+    // ------------- Event handlers for updating form values -------------
 
     update(e) {
         this.setState({ name: e.currentTarget.value })
@@ -88,7 +88,7 @@ class ServersSideBar extends React.Component {
     }
 
 
-    // ------------- Event listener for submitting form -------------
+    // ------------- Event handler for submitting form -------------
 
     handleSubmit(e) {
         e.preventDefault();
@@ -181,7 +181,7 @@ class ServersSideBar extends React.Component {
 
         return (
             <div className="ss-container">
-                {this.state.showForm ? createServerForm : null}
+                {showForm ? createServerForm : null}
 
                 <div className="ss-buffer"></div>
 

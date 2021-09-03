@@ -171,7 +171,6 @@
                 li#server-has-photo {
                     height: 7vh;
                     width: 7vh;
-                    background-color: white;
                     background-size: 100% 100%;
                     background-position: center;
                     border-radius: 50%;
@@ -722,6 +721,23 @@
                         border-style: solid;
                         border-width: 0.1vh;
                         border-color: black;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .server-update-file-input {
+                            display: none;
+                        }
+                    }
+
+                    .server-settings-image-upload#server-update-has-photo {
+                        height: 14vh;
+                        width: 7vw;
+                        background-color: white;
+                        background-size: 100% 100%;
+                        background-position: center;
+                        border-radius: 50%;
                     }
         
                     .server-settings-image-upload:hover {
@@ -732,13 +748,20 @@
                             display: none;
                         }
                     }
+
+                    .server-settings-image-upload:hover:after {
+                        content: "CHANGE ICON";
+                        font-size: 1.5vh;
+                        text-align: center;
+                    }
+
+                    .server-settings-image-upload#server-update-has-photo:after {
+                        content: "CHANGE ICON";
+                        font-size: 1.5vh;
+                        text-align: center;
+                    }
                 }
     
-                .server-settings-image-upload:hover:after {
-                    content: "CHANGE ICON";
-                    font-size: 1.5vh;
-                    text-align: center;
-                }
     
                 label {
                     display: block;

@@ -13,7 +13,8 @@ class ConversationSidebar extends React.Component {
 
 
     render() {
-        const { users, directMessages, currentUser, selectedId } = this.props;
+        const { selectedId } = this.state;
+        const { users, directMessages, currentUser } = this.props;
 
         return (
             <div className="cs-container">
@@ -21,8 +22,8 @@ class ConversationSidebar extends React.Component {
                 <h1>DIRECT MESSAGES</h1>
 
                 <ul>
-                    {directMessages.map(directMessage => 
-                        <li key={directMessage.id} className={this.state.selectedId === directMessage.id ? "selected" : null} 
+                    {directMessages.map(directMessage =>
+                        <li key={directMessage.id} className={selectedId === directMessage.id ? "selected" : null}
                             onClick={() => this.setState({ selectedId: directMessage.id })}>
 
                             {directMessage.user1Id === currentUser.id ?

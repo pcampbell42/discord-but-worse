@@ -11,7 +11,11 @@ class ServerIconDisplay extends React.Component {
             hovered: false,
             showDropdown: false,
             showSettings: false,
-            name: props.server.name
+
+            // form info
+            name: props.server.name,
+            imageUrl: props.server.photoUrl,
+            imageFile: null
         };
 
         this.handleRightClick = this.handleRightClick.bind(this);
@@ -25,6 +29,8 @@ class ServerIconDisplay extends React.Component {
         this.handleEscape = this.handleEscape.bind(this);
         this.handleOutsideClick = this.handleOutsideClick.bind(this);
         this.handleOutsideRightClick = this.handleOutsideRightClick.bind(this);
+        this.handleFileUpload = this.handleFileUpload.bind(this);
+        this._resetFormValues = this._resetFormValues.bind(this);
     }
 
 
@@ -44,31 +50,34 @@ class ServerIconDisplay extends React.Component {
     }
 
 
-    // ------------- Event listeners for closing dropdown / settings -------------
+    // ------------- Event handlers for closing dropdown / settings -------------
 
     handleOutsideClick(e) {
         if (!this.serverDropdownEl) return;
         if (!this.serverDropdownEl.contains(e.target)) {
-            this.setState({ showDropdown: false, name: this.props.server.name });
+            this.setState({ showDropdown: false });
+            this._resetFormValues();
         }
     }
 
     handleOutsideRightClick(e) {
         if (!this.serverIconEl) return;
         if (!this.serverIconEl.contains(e.target)) {
-            this.setState({ showDropdown: false, name: this.props.server.name });
+            this.setState({ showDropdown: false });
+            this._resetFormValues();
         }
     }
 
     handleEscape(e) {
         if (e.keyCode === 27) {
-            this.setState({ showSettings: false, showDropdown: false, name: this.props.server.name });
+            this.setState({ showSettings: false, showDropdown: false });
+            this._resetFormValues();
             this.props.clearMembershipErrors();
         }
     }
 
 
-    // ------------- Event listeners for settings menu -------------
+    // ------------- Event handlers for settings menu -------------
 
     handleShowSettings(e) {
         e.preventDefault();
@@ -76,7 +85,8 @@ class ServerIconDisplay extends React.Component {
     }
 
     handleCloseSettings(e) {
-        this.setState({ showSettings: false, name: this.props.server.name });
+        this.setState({ showSettings: false });
+        this._resetFormValues();
         this.props.clearMembershipErrors();
     }
 
@@ -89,6 +99,19 @@ class ServerIconDisplay extends React.Component {
         this.setState({ name: e.currentTarget.value });
     }
 
+    handleFileUpload(e) {
+        const reader = new FileReader();
+        const file = e.currentTarget.files[0];
+        reader.onloadend = () =>
+            this.setState({ imageUrl: reader.result, imageFile: file });
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            this.setState({ imageUrl: this.props.server.photoUrl, imageFile: null });
+        }
+    }
+
     handleDelete(e) {
         const savedServerId = this.props.server.id;
         this.props.deleteServer(this.props.server.id)
@@ -98,15 +121,22 @@ class ServerIconDisplay extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.updateServer({ id: this.props.server.id, name: this.state.name })
+
+        const formData = new FormData();
+        formData.append("id", this.props.server.id);
+        formData.append("server[name]", this.state.name);
+        if (this.state.imageFile) formData.append("server[photo]", this.state.imageFile)
+
+        this.props.updateServer(formData)
             .then(() => {
-                this.setState({ name: this.props.server.name, showSettings: false })
+                this.setState({ showSettings: false });
+                this._resetFormValues();
                 this.props.clearMembershipErrors();
             });
     }
 
 
-    // ------------- Event listeners for right click dropdown -------------
+    // ------------- Event handlers for right click dropdown -------------
 
     handleRightClick(e) {
         e.preventDefault();
@@ -122,9 +152,20 @@ class ServerIconDisplay extends React.Component {
     }
 
 
+    // ------------- Helper method for resetting form values -------------
+
+    _resetFormValues() {
+        this.setState({
+            name: this.props.server.name,
+            imageUrl: this.props.server.photoUrl,
+            imageFile: null
+        });
+    }
+
+
     render() {
         const { server, currentUser, selected, currentServerDetails, firstTextChannelId, error } = this.props
-        const { hovered, showDropdown, showSettings, name } = this.state;
+        const { hovered, showDropdown, showSettings, name, imageUrl } = this.state;
 
 
         const serverNameShow = (
@@ -169,7 +210,12 @@ class ServerIconDisplay extends React.Component {
                         <div className="server-settings-form-container">
 
                             <div className="server-settings-image-upload-container">
-                                <div className="server-settings-image-upload"><p>{server.name[0]}</p></div>
+                                <label className="server-settings-image-upload"
+                                    style={imageUrl === "noPhoto" ? null : { backgroundImage: `url(${imageUrl})` }}
+                                    id={imageUrl === "noPhoto" ? null : "server-update-has-photo"}>
+                                    <p>{imageUrl === "noPhoto" ? server.name[0] : null}</p>
+                                    <input className="server-update-file-input" type="file" onChange={this.handleFileUpload} />
+                                </label>
                                 <h2>Upload Image</h2>
                             </div>
 

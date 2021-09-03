@@ -11,9 +11,9 @@ class HomePage extends React.Component {
         this.props.fetchAllServers();
     }
 
-    // componentWillUnmount() {
-    //     // Refetch current user servers? To remove excess servers from store...
-    // }
+    componentWillUnmount() {
+        this.props.clearMembershipErrors();
+    }
 
     render() {
         const { servers } = this.props;
@@ -21,9 +21,9 @@ class HomePage extends React.Component {
         return (
             <div className="hp-container">
                 <div className="hp-header-box"><h1>Server Discovery</h1></div>
-                
+
                 <ul>
-                    {servers.map(server => <ServerShowContainer key={server.id} server={server}/>)}
+                    {servers.map(server => <ServerShowContainer key={server.id} server={server} />)}
                 </ul>
             </div>
         );
