@@ -5,7 +5,6 @@ import * as TextChannelAPIUtil from "../util/api_calls/text_channel_api_util";
 
 export const RECEIVE_TEXT_CHANNEL = "RECEIVE_TEXT_CHANNEL";
 export const REMOVE_TEXT_CHANNEL = "REMOVE_TEXT_CHANNEL";
-export const RECEIVE_TEXT_CHANNEL_DETAILS = "RECEIVE_TEXT_CHANNEL_DETAILS";
 
 
 // ---------------------- Normal Actions ----------------------
@@ -20,11 +19,6 @@ const removeTextChannel = textChannelId => ({
     textChannelId
 });
 
-const receiveTextChannelDetails = details => ({
-    type: RECEIVE_TEXT_CHANNEL_DETAILS,
-    details
-});
-
 
 // ---------------------- Function Actions ----------------------
 
@@ -36,6 +30,3 @@ export const updateTextChannel = formTextChannel => dispatch => TextChannelAPIUt
 
 export const deleteTextChannel = textChannelId => dispatch => TextChannelAPIUtil.deleteTextChannel(textChannelId)
     .then(() => dispatch(removeTextChannel(textChannelId)));
-
-export const fetchCurrentTextChannelDetails = textChannelId => TextChannelAPIUtil.fetchCurrentTextChannelDetails(textChannelId)
-    .then(details => dispatch(receiveTextChannelDetails(details)));

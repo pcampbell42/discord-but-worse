@@ -49,4 +49,6 @@ class Server < ApplicationRecord
         class_name: :TextChannel,
         dependent: :destroy
 
+    has_one_attached :photo
+
 end

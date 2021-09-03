@@ -82,6 +82,8 @@ class User < ApplicationRecord
     has_many :users_dmd_by,
         through: :direct_messages_received,
         source: :initiator
+
+    has_one_attached :photo
     
 
     #--------------------- User Auth Methods ---------------------
