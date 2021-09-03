@@ -21,10 +21,3 @@ export const deleteTextChannel = textChannelId => (
         url: `api/text_channels/${textChannelId}`
     })
 );
-
-export const fetchCurrentTextChannelDetails = textChannelId => (
-    $.ajax({
-        method: "GET",
-        url: `api/text_channels/${textChannelId}`
-    })
-);

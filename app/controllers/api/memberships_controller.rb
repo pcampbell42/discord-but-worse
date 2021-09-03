@@ -1,6 +1,5 @@
 class Api::MembershipsController < ApplicationController
 
-
     def create
         @membership = Membership.new(membership_params)
         @membership.user_id = current_user.id
@@ -27,5 +26,4 @@ class Api::MembershipsController < ApplicationController
         params.require(:membership).permit(:server_id)
     end
 
-    
 end

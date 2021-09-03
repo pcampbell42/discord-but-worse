@@ -32,7 +32,6 @@ class ChatChannel < ApplicationCable::Channel
         )
 
         if message.save
-            # socket = create_message_socket(message, "create")
             socket = { type: "create", message: create_return_message(message) }
             ChatChannel.broadcast_to("chat_channel_#{params["thread_type"]}_#{params["thread_id"]}", socket)
         end
@@ -43,7 +42,6 @@ class ChatChannel < ApplicationCable::Channel
         message = Message.find_by(id: data["message"]["id"])
 
         if message.update(body: data["message"]["body"])
-            # socket = {create_message_socket(message, "update")}
             socket = { type: "update", message: create_return_message(message) }
             ChatChannel.broadcast_to("chat_channel_#{params["thread_type"]}_#{params["thread_id"]}", socket)
         end
@@ -72,20 +70,5 @@ class ChatChannel < ApplicationCable::Channel
             updatedAt: message.updated_at
         }
     end
-
-    # def create_message_socket(message, type)
-    #     {
-    #         type: type, 
-    #         message: {
-                # id: message.id,
-                # body: message.body,
-                # authorId: message.author_id,
-                # messageableType: message.messageable_type,
-                # messageableId: message.messageable_id,
-                # createdAt: message.created_at,
-                # updatedAt: message.updated_at
-    #         }
-    #     }
-    # end
 
 end

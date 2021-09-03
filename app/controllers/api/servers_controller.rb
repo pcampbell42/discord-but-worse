@@ -1,6 +1,5 @@
 class Api::ServersController < ApplicationController
 
-
     def index
         @servers = Server.all
         render :index
@@ -19,8 +18,8 @@ class Api::ServersController < ApplicationController
         
         if current_user.memberships.length >= 8
             render json: ["Premium account required for more than 8 servers :)"], status: 402
+
         elsif @server.save
-            
             # Create membership for owner
             @membership = Membership.new(server_id: @server.id)
             @membership.user_id = current_user.id
@@ -32,7 +31,6 @@ class Api::ServersController < ApplicationController
             
             render :show
         else
-            #this should never happen... no reason for server creation to fail... bad avatar?
             render json: @server.errors.full_messages, status: 422
         end
     end
@@ -58,8 +56,7 @@ class Api::ServersController < ApplicationController
 
     private
     def server_params
-        params.require(:server).permit(:name, :owner_id, :avatar)
+        params.require(:server).permit(:name, :owner_id, :photo)
     end
-
 
 end

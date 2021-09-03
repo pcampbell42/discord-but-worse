@@ -1,11 +1,17 @@
-import * as SessionAPIUtil from "./../util/session_api_util";
+import * as SessionAPIUtil from "./../util/api_calls/session_api_util";
 import { removeAllSubscriptions } from "../util/websockets_helpers";
+
+
+// ---------------------- Constants ----------------------
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const LOGOUT_CURRENT_USER = "LOGOUT_CURRENT_USER";
 export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS";
 export const RECEIVE_CURRENT_USER_DETAILS = "RECEIVE_CURRENT_USER_DETAILS";
+
+
+// ---------------------- Normal Actions ----------------------
 
 const receiveCurrentUser = currentUser => ({
     type: RECEIVE_CURRENT_USER,
@@ -26,10 +32,12 @@ const receiveCurrentUserDetails = details => ({
     details
 });
 
-
-export const clearSessionErrors = () => ({ 
+export const clearSessionErrors = () => ({
     type: CLEAR_SESSION_ERRORS
 });
+
+
+// ---------------------- Function Actions ----------------------
 
 export const signup = formUser => dispatch => SessionAPIUtil.signup(formUser)
     .then(user => dispatch(receiveCurrentUser(user)),
@@ -42,7 +50,7 @@ export const login = formUser => dispatch => SessionAPIUtil.login(formUser)
 export const logout = () => dispatch => SessionAPIUtil.logout()
     .then(() => {
         dispatch(logoutCurrentUser());
-        removeAllSubscriptions();
+        removeAllSubscriptions(); // Remove websocket subscriptions on logout
     })
 
 export const fetchCurrentUserDetails = currentUserId => dispatch => SessionAPIUtil.fetchCurrentUserDetails(currentUserId)

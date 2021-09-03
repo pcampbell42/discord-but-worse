@@ -2,9 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import ServerIconDisplayContainer from "./server_icon_display_container";
-import discordLogo from "../../../../app/assets/images/discord_logo.png";
-import imageUploadIcon from "../../../../app/assets/images/image_upload_icon.png";
 import { createSubscription } from "../../../util/websockets_helpers";
+import discordLogo from "../../../../app/assets/images/discord_logo.png";
 
 
 class ServersSideBar extends React.Component {
@@ -14,10 +13,16 @@ class ServersSideBar extends React.Component {
             showForm: false,
             homeHovered: false,
             createHovered: false,
-            name: `${props.currentUser.username}'s server`
+
+            // form info
+            name: `${props.currentUser.username}'s server`,
+            imageUrl: "",
+            imageFile: null
         };
 
+        this._resetFormValues = this._resetFormValues.bind(this);
         this.update = this.update.bind(this);
+        this.handleFileUpload = this.handleFileUpload.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleEscape = this.handleEscape.bind(this);
@@ -25,11 +30,12 @@ class ServersSideBar extends React.Component {
     }
 
 
+    // ------------- Click and ESC event listeners for closing form -------------
+
     componentDidMount() {
         document.addEventListener("keydown", this.handleEscape, true);
         document.addEventListener("click", this.handleClick, true);
     }
-
 
     componentWillUnmount() {
         this.props.clearMembershipErrors();
@@ -38,54 +44,102 @@ class ServersSideBar extends React.Component {
     }
 
 
+    // ------------- Event handler for different ways of closing form -------------
+
     handleClick(e) {
+        // If click is outside of form, close form
         if (e.target.className === "ss-create-form-relative-position-anchor") {
-            this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false });
-        }
-    }
-
-
-    handleEscape(e) {
-        if (e.keyCode === 27) {
-            this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false });
+            this._resetFormValues();
             this.props.clearMembershipErrors();
         }
     }
 
+    handleEscape(e) {
+        if (e.keyCode === 27) {
+            this._resetFormValues();
+            this.props.clearMembershipErrors();
+        }
+    }
+
+    handleClose(e) {
+        e.preventDefault();
+        this._resetFormValues();
+        this.props.clearMembershipErrors();
+    }
+
+
+    // ------------- Event handlers for updating form values -------------
 
     update(e) {
         this.setState({ name: e.currentTarget.value })
     }
 
+    handleFileUpload(e) {
+        const reader = new FileReader();
+        const file = e.currentTarget.files[0];
+        reader.onloadend = () =>
+            this.setState({ imageUrl: reader.result, imageFile: file });
 
-    handleClose(e) {
-        e.preventDefault();
-        this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false });
-        this.props.clearMembershipErrors();
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            this.setState({ imageUrl: "", imageFile: null });
+        }
     }
 
+
+    // ------------- Event handler for submitting form -------------
 
     handleSubmit(e) {
         e.preventDefault();
 
-        this.props.createServer({ name: this.state.name })
-            .then(() => this.setState({ name: `${this.props.currentUser.username}'s server`, showForm: false }))
-            .then(() => this.props.clearMembershipErrors())
-            .then(() => this.props.currentServerDetails(this.props.userServers[this.props.userServers.length - 1].id))
-            .then(() => createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id,
-                this.props.receiveAllMessages, this.props.receiveMessage,
-                this.props.deleteMessage))
-            .then(() => this.props.history.push(`/app/servers/${this.props.userServers[this.props.userServers.length - 1].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`));
+        const formData = new FormData();
+        formData.append("server[name]", this.state.name)
+        if (this.state.imageFile) formData.append("server[photo]", this.state.imageFile)
+
+        this.props.createServer(formData)
+            .then(() => {
+                // Reset all the values...
+                this._resetFormValues();
+                this.props.clearMembershipErrors();
+
+                // Grab info for new server
+                this.props.currentServerDetails(this.props.userServers[this.props.userServers.length - 1].id);
+
+                // Create websocket subscription for default text channel in new server
+                createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id,
+                    this.props.receiveAllMessages, this.props.receiveMessage, this.props.deleteMessage);
+
+                // Finally, redirect to default text channel in new server
+                this.props.history.push(`/app/servers/${this.props.userServers[0].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`);
+            });
+    }
+
+
+    // ------------- Helper method for resetting state -------------
+
+    _resetFormValues() {
+        this.setState({
+            name: `${this.props.currentUser.username}'s server`,
+            imageUrl: "",
+            imageFile: null,
+            showForm: false
+        });
     }
 
 
     render() {
+        const { error, homeSelected } = this.props;
+        const { imageUrl, name, showForm, createHovered, homeHovered } = this.state;
+
+
         const homeTooltipShow = (
             <div className="ss-home-relative-position-anchor">
                 <div className="ss-home-tooltip-show">Server Discovery</div>
                 <div className="ss-home-arrow-left"></div>
             </div>
         );
+
 
         const createTooltipShow = (
             <div className="ss-create-relative-position-anchor">
@@ -94,35 +148,40 @@ class ServersSideBar extends React.Component {
             </div>
         );
 
+
         const createServerForm = (
             <div className="ss-create-form-relative-position-anchor">
                 <div>
                     <button id="ss-close-create-form" onClick={this.handleClose}>x</button>
+
                     <div>
                         <h1>Customize your server</h1>
                         <h2>Give your server a personality with a name and an icon. You can always change it later.</h2>
-                        <button>
-                            <img src={imageUploadIcon} />
-                        </button>
+
+                        <label className="server-custom-file-input"
+                            style={imageUrl ? { backgroundImage: `url(${imageUrl})` } : null}>
+                            <input className="file-input" type="file" onChange={this.handleFileUpload} />
+                        </label>
                     </div>
-                    <form onSubmit={this.state.name === "" ? null : this.handleSubmit}>
-                        <label id={this.props.error.length < 1 ? null : "ss-error"}>
-                            SERVER NAME <span>{this.props.error.length < 1 ? null : `- ${this.props.error}`}</span>
-                            <input type="text" value={this.state.name} onChange={this.update} />
+
+                    <form onSubmit={name === "" ? null : this.handleSubmit}>
+                        <label id={error.length < 1 ? null : "ss-error"}>
+                            SERVER NAME <span>{error.length < 1 ? null : `- ${error}`}</span>
+                            <input type="text" value={name} onChange={this.update} />
                         </label>
                         <footer>
-                            <span>
-                            </span>
-                            <input id={this.state.name === "" ? "ss-invalid" : null} className="ss-submit-button" type="submit" value="Create" />
+                            <span></span>
+                            <input id={name === "" ? "ss-invalid" : null} className="ss-submit-button" type="submit" value="Create" />
                         </footer>
                     </form>
                 </div>
-            </div>
+            </div >
         );
+
 
         return (
             <div className="ss-container">
-                {this.state.showForm ? createServerForm : null}
+                {showForm ? createServerForm : null}
 
                 <div className="ss-buffer"></div>
 
@@ -130,14 +189,14 @@ class ServersSideBar extends React.Component {
                     onMouseLeave={() => this.setState({ homeHovered: false })}>
 
                     <div className="ss-home-hover-bar-relative-position-anchor">
-                        <aside className={this.state.homeHovered ? "hovered" : null} id={this.props.homeSelected ? "selected" : null}></aside>
+                        <aside className={homeHovered ? "hovered" : null} id={homeSelected ? "selected" : null}></aside>
                     </div>
 
-                    <div className="ss-logo-container" id={this.props.homeSelected ? "selected" : null}>
+                    <div className="ss-logo-container" id={homeSelected ? "selected" : null}>
                         <img src={discordLogo} />
                     </div>
                 </Link>
-                {this.state.homeHovered ? homeTooltipShow : null}
+                {homeHovered ? homeTooltipShow : null}
 
                 <ul className="ss-servers">
                     {this.props.userServers.map(server =>
@@ -151,7 +210,7 @@ class ServersSideBar extends React.Component {
                     onMouseLeave={() => this.setState({ createHovered: false })}>
                     +
                 </button>
-                {this.state.createHovered ? createTooltipShow : null}
+                {createHovered ? createTooltipShow : null}
             </div>
         );
     }

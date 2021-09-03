@@ -1,10 +1,5 @@
 class Api::TextChannelsController < ApplicationController
 
-    def show
-        @text_channel = TextChannel.find_by(id: params[:id])
-        render "api/text_channels/show_details"
-    end
-
     def create
         @text_channel = TextChannel.new(text_channel_params)
         if @text_channel.save
@@ -13,6 +8,7 @@ class Api::TextChannelsController < ApplicationController
             render json: @text_channel.errors.full_messages, status: 422
         end
     end
+
 
     def update
         @text_channel = TextChannel.find_by(id: params[:id])
@@ -23,11 +19,13 @@ class Api::TextChannelsController < ApplicationController
         end
     end
 
+
     def destroy
         @text_channel = TextChannel.find_by(id: params[:id])
         @text_channel.destroy
         render json: {}
     end
+    
 
     private
     def text_channel_params

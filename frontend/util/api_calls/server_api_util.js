@@ -6,19 +6,23 @@ export const fetchAllServers = () => (
     })
 );
 
-export const createServer = server => (
+export const createServer = formData => (
     $.ajax({
         method: "POST",
         url: "api/servers",
-        data: { server }
+        data: formData,
+        contentType: false,
+        processData: false
     })
 );
 
-export const updateServer = server => (
+export const updateServer = formData => (
     $.ajax({
         method: "PATCH",
-        url: `/api/servers/${server.id}`,
-        data: { server }
+        url: `/api/servers/${formData.get("id")}`,
+        data: formData,
+        contentType: false,
+        processData: false
     })
 );
 

@@ -3,11 +3,12 @@ import { RECEIVE_MEMBERSHIP, REMOVE_MEMBERSHIP } from "../../actions/membership_
 import { RECEIVE_SERVER, REMOVE_SERVER, RECEIVE_SERVER_DETAILS } from "../../actions/server_actions";
 import { LOGOUT_CURRENT_USER } from "../../actions/session_actions";
 
+
 const membershipsReducer = (state = {}, action) => {
     Object.freeze(state);
 
     let nextState = Object.assign({}, state);
-    switch(action.type) {
+    switch (action.type) {
         case RECEIVE_CURRENT_USER_DETAILS:
             return Object.assign({}, state, action.details.memberships)
 
@@ -17,7 +18,7 @@ const membershipsReducer = (state = {}, action) => {
         case REMOVE_MEMBERSHIP:
             delete nextState[action.membershipId];
             return nextState;
-        
+
         case REMOVE_SERVER:
             for (const i in nextState) {
                 if (nextState[i].serverId === action.serverId) {
@@ -39,5 +40,6 @@ const membershipsReducer = (state = {}, action) => {
             return state;
     }
 }
+
 
 export default membershipsReducer;

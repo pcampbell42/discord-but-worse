@@ -11,7 +11,11 @@ class ServerIconDisplay extends React.Component {
             hovered: false,
             showDropdown: false,
             showSettings: false,
-            name: props.server.name
+
+            // form info
+            name: props.server.name,
+            imageUrl: props.server.photoUrl,
+            imageFile: null
         };
 
         this.handleRightClick = this.handleRightClick.bind(this);
@@ -25,15 +29,18 @@ class ServerIconDisplay extends React.Component {
         this.handleEscape = this.handleEscape.bind(this);
         this.handleOutsideClick = this.handleOutsideClick.bind(this);
         this.handleOutsideRightClick = this.handleOutsideRightClick.bind(this);
+        this.handleFileUpload = this.handleFileUpload.bind(this);
+        this._resetFormValues = this._resetFormValues.bind(this);
     }
 
+
+    // ------------- Click and ESC event listeners for closing form -------------
 
     componentDidMount() {
         document.addEventListener("keydown", this.handleEscape, true);
         document.addEventListener("click", this.handleOutsideClick, true);
         document.addEventListener("contextmenu", this.handleOutsideRightClick, true);
     }
-
 
     componentWillUnmount() {
         this.props.clearMembershipErrors();
@@ -43,35 +50,98 @@ class ServerIconDisplay extends React.Component {
     }
 
 
+    // ------------- Event handlers for closing dropdown / settings -------------
+
     handleOutsideClick(e) {
         if (!this.serverDropdownEl) return;
         if (!this.serverDropdownEl.contains(e.target)) {
-            this.setState({ showDropdown: false, name: this.props.server.name });
+            this.setState({ showDropdown: false });
+            this._resetFormValues();
         }
     }
-
 
     handleOutsideRightClick(e) {
         if (!this.serverIconEl) return;
         if (!this.serverIconEl.contains(e.target)) {
-            this.setState({ showDropdown: false, name: this.props.server.name });
+            this.setState({ showDropdown: false });
+            this._resetFormValues();
         }
     }
 
-
     handleEscape(e) {
         if (e.keyCode === 27) {
-            this.setState({ showSettings: false, showDropdown: false, name: this.props.server.name });
+            this.setState({ showSettings: false, showDropdown: false });
+            this._resetFormValues();
             this.props.clearMembershipErrors();
         }
     }
 
 
+    // ------------- Event handlers for settings menu -------------
+
+    handleShowSettings(e) {
+        e.preventDefault();
+        this.setState({ showDropdown: false, showSettings: true });
+    }
+
+    handleCloseSettings(e) {
+        this.setState({ showSettings: false });
+        this._resetFormValues();
+        this.props.clearMembershipErrors();
+    }
+
+    handleReset(e) {
+        e.preventDefault();
+        this.setState({ name: this.props.server.name });
+    }
+
+    update(e) {
+        this.setState({ name: e.currentTarget.value });
+    }
+
+    handleFileUpload(e) {
+        const reader = new FileReader();
+        const file = e.currentTarget.files[0];
+        reader.onloadend = () =>
+            this.setState({ imageUrl: reader.result, imageFile: file });
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            this.setState({ imageUrl: this.props.server.photoUrl, imageFile: null });
+        }
+    }
+
+    handleDelete(e) {
+        const savedServerId = this.props.server.id;
+        this.props.deleteServer(this.props.server.id)
+            .then(() => (window.location.href.includes(`/app/servers/${savedServerId}`)) ?
+                this.props.history.push("/app/home") : null);
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("id", this.props.server.id);
+        formData.append("server[name]", this.state.name);
+        if (this.state.imageFile) formData.append("server[photo]", this.state.imageFile)
+
+        this.props.updateServer(formData)
+            .then(() => {
+                this.setState({ showSettings: false });
+                this._resetFormValues();
+                this.props.clearMembershipErrors();
+            });
+    }
+
+
+    // ------------- Event handlers for right click dropdown -------------
+
     handleRightClick(e) {
         e.preventDefault();
         this.setState({ showDropdown: true })
     }
-
 
     handleLeave(e) {
         const savedServerId = this.props.server.id;
@@ -82,49 +152,21 @@ class ServerIconDisplay extends React.Component {
     }
 
 
-    handleDelete(e) {
-        const savedServerId = this.props.server.id;
-        this.props.deleteServer(this.props.server.id)
-            .then(() => (window.location.href.includes(`/app/servers/${savedServerId}`)) ?
-                        this.props.history.push("/app/home") : null);
-    }
+    // ------------- Helper method for resetting form values -------------
 
-
-    handleShowSettings(e) {
-        e.preventDefault();
-        this.setState({ showDropdown: false, showSettings: true });
-    }
-
-
-    handleCloseSettings(e) {
-        this.setState({ showSettings: false, name: this.props.server.name });
-        this.props.clearMembershipErrors();
-    }
-
-
-    handleSubmit(e) {
-        e.preventDefault();
-        this.props.updateServer({ id: this.props.server.id, name: this.state.name })
-            .then(() => {
-                this.setState({ name: this.props.server.name, showSettings: false })
-                this.props.clearMembershipErrors();
-            });
-    }
-
-
-    handleReset(e) {
-        e.preventDefault();
-        this.setState({ name: this.props.server.name });
-    }
-
-    
-    update(e) {
-        this.setState({ name: e.currentTarget.value });
+    _resetFormValues() {
+        this.setState({
+            name: this.props.server.name,
+            imageUrl: this.props.server.photoUrl,
+            imageFile: null
+        });
     }
 
 
     render() {
         const { server, currentUser, selected, currentServerDetails, firstTextChannelId, error } = this.props
+        const { hovered, showDropdown, showSettings, name, imageUrl } = this.state;
+
 
         const serverNameShow = (
             <div className="ss-relative-position-anchor">
@@ -132,7 +174,8 @@ class ServerIconDisplay extends React.Component {
                 <div className="ss-name-show-arrow-left"></div>
             </div>
         );
-        
+
+
         const serverDropdown = (
             <div className="ss-options-relative-position-anchor">
                 <ul className="ss-dropdown" ref={serverDropdownEl => this.serverDropdownEl = serverDropdownEl}>
@@ -144,6 +187,7 @@ class ServerIconDisplay extends React.Component {
                 </ul>
             </div>
         );
+
 
         const serverSettings = (
             <div className="server-settings-container">
@@ -164,22 +208,26 @@ class ServerIconDisplay extends React.Component {
                     <h1>Server Overview</h1>
                     <form onSubmit={this.handleSubmit}>
                         <div className="server-settings-form-container">
-                            
+
                             <div className="server-settings-image-upload-container">
-                                <div className="server-settings-image-upload"><p>{server.name[0]}</p></div>
+                                <label className="server-settings-image-upload"
+                                    style={imageUrl === "noPhoto" ? null : { backgroundImage: `url(${imageUrl})` }}
+                                    id={imageUrl === "noPhoto" ? null : "server-update-has-photo"}>
+                                    <p>{imageUrl === "noPhoto" ? server.name[0] : null}</p>
+                                    <input className="server-update-file-input" type="file" onChange={this.handleFileUpload} />
+                                </label>
                                 <h2>Upload Image</h2>
                             </div>
 
                             <label id={error.length > 0 ? "server-settings-error" : null}>
                                 SERVER NAME <span>{error.length > 0 ? `- ${error}` : null}</span>
-                                <input type="text" value={this.state.name} onChange={this.update} />
+                                <input type="text" value={name} onChange={this.update} />
                             </label>
                         </div>
 
-
                         <div>
                             <section onClick={this.handleReset}>Reset</section>
-                            <input id={this.state.name === "" ? "server-settings-invalid" : null} className="server-settings-save-changes" type="submit" value="Save Changes" />
+                            <input id={name === "" ? "server-settings-invalid" : null} className="server-settings-save-changes" type="submit" value="Save Changes" />
                         </div>
                     </form>
                 </div>
@@ -189,24 +237,26 @@ class ServerIconDisplay extends React.Component {
 
         return (
             <div>
-                {this.state.showSettings ? serverSettings : null}
+                {showSettings ? serverSettings : null}
 
                 <div className="ss-hover-bar-relative-position-anchor">
-                    <aside className={this.state.hovered ? "hovered" : null} id={selected ? "selected" : null}></aside>
+                    <aside className={hovered ? "hovered" : null} id={selected ? "selected" : null}></aside>
                 </div>
 
                 <Link to={`/app/servers/${server.id}/${firstTextChannelId}`} onClick={() => currentServerDetails(server.id)}>
-                    <li className={selected ? "selected" : null} 
+                    <li className={selected ? "selected" : null}
                         onMouseEnter={() => this.setState({ hovered: true })}
                         onMouseLeave={() => this.setState({ hovered: false })}
                         onContextMenu={this.handleRightClick}
-                        ref={serverIconEl => this.serverIconEl = serverIconEl}>
-                        <div>{server.name[0]}</div>
+                        ref={serverIconEl => this.serverIconEl = serverIconEl}
+                        style={server.photoUrl === "noPhoto" ? null : { backgroundImage: `url(${server.photoUrl})` }}
+                        id={server.photoUrl === "noPhoto" ? null : "server-has-photo"}>
+                        <div>{server.photoUrl === "noPhoto" ? server.name[0] : null}</div>
                     </li>
                 </Link>
 
-                {this.state.hovered ? serverNameShow : null}
-                {this.state.showDropdown ? serverDropdown : null}
+                {hovered ? serverNameShow : null}
+                {showDropdown ? serverDropdown : null}
             </div>
         );
     }

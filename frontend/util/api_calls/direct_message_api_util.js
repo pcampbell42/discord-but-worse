@@ -6,10 +6,3 @@ export const createDirectMessage = directMessage => (
         data: { direct_message: directMessage }
     })
 );
-
-export const fetchCurrentDirectMessageDetails = directMessageId => (
-    $.ajax({
-        method: "GET",
-        url: `api/direct_messages/${directMessageId}`
-    })
-);
