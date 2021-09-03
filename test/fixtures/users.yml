@@ -8,7 +8,6 @@
 #  email           :string           not null
 #  password_digest :string           not null
 #  session_token   :string           not null
-#  avatar          :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #

@@ -8,7 +8,6 @@
 #  email           :string           not null
 #  password_digest :string           not null
 #  session_token   :string           not null
-#  avatar          :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
@@ -16,14 +15,14 @@ class User < ApplicationRecord
 
     #--------------------- Validations ---------------------
     
-    validates :username, :username_id, :email, :password_digest, :session_token, :avatar, presence: true
+    validates :username, :username_id, :email, :password_digest, :session_token, presence: true
     validates :username, :email, :session_token, uniqueness: true
     validates :password, length: { minimum: 6, allow_nil: true }
 
 
     #--------------------- After Initialize ---------------------
 
-    after_initialize :ensure_session_token, :generate_username_id, :set_default_avatar
+    after_initialize :ensure_session_token, :generate_username_id
 
     def ensure_session_token
         self.session_token ||= SecureRandom::urlsafe_base64
@@ -32,10 +31,6 @@ class User < ApplicationRecord
     def generate_username_id
         self.username_id ||= rand(1..9999)
         # Add logic for checking if [username, username_id] is taken here
-    end
-
-    def set_default_avatar
-        self.avatar ||= "qwe" # Add a default avatar to project
     end
 
 
