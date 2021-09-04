@@ -25,12 +25,10 @@
 
     ul {
         margin-top: 0.5vh;
-        margin-left: 0.6vw;
         height: 86vh;
         // overflow-y: auto;
 
         li {
-            margin-bottom: 1.2vh;
             padding-left: 0.4vw;
             margin-right: 0.6vw;
             border-radius: 1vh;
@@ -43,11 +41,15 @@
             section {
                 display: flex;
                 align-items: center;
+                height: 5.8vh;
+                margin-left: 0.2vw;
+                border-radius: 0.7vh;
                 
                 img {
                     width: 4.3vh;
                     height: 4.3vh;
                     margin-right: 1.4vh;
+                    margin-left: 0.4vw;
 
                     border-radius: 50%;
                     border-style: solid;
