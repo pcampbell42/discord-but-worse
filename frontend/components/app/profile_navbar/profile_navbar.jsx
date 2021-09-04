@@ -11,10 +11,12 @@ class ProfileNavbar extends React.Component {
         this.state = {
             homeHovered: false,
             logoutHovered: false,
+            profilePictureHovered: false,
             showCopied: false
         };
 
         this.handleUsernameClick = this.handleUsernameClick.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
@@ -25,8 +27,31 @@ class ProfileNavbar extends React.Component {
     }
 
 
+    handleSubmit(e) {
+        e.preventDefault();
+
+        const reader = new FileReader();
+        const file = e.currentTarget.files[0];
+
+        // Callback that happens when readAsDataUrl(file) below completes successfully.
+        // Dispatches updateUser thunk action.
+        reader.onloadend = () => {
+            const formData = new FormData();
+            formData.append("id", this.props.currentUser.id);
+            if (file) formData.append("user[photo]", file);
+
+            this.props.updateUser(formData);
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+
     render() {
-        const { currentUser } = this.props
+        const { currentUser } = this.props;
+        const { homeHovered, logoutHovered, profilePictureHovered, showCopied } = this.state;
 
         const homeTooltipShow = (
             <div className="pn-home-relative-position-anchor">
@@ -42,6 +67,13 @@ class ProfileNavbar extends React.Component {
             </div>
         );
 
+        const profilePictureTooltip = (
+            <div className="pn-profile-picture-relative-position-anchor">
+                <div className="pn-profile-picture-tooltip-show">Change <br/> Profile Pic</div>
+                <div className="pn-profile-picture-arrow-down"></div>
+            </div>
+        );
+
         const copiedMessage = (
             <div className="pn-copied-relative-position-anchor">
                 <div className="pn-copied-tooltip-show">Copied!</div>
@@ -53,15 +85,24 @@ class ProfileNavbar extends React.Component {
             <div className="pn-container">
 
                 <div className="pn-left-container">
-                    <img className="pn-profile-pic" src={defaultProfilePicture} />
 
-                    <div className="pn-username" 
+                    <label className="pn-profile-pic"
+                           onMouseEnter={() => this.setState({ profilePictureHovered: true })}
+                           onMouseLeave={() => this.setState({ profilePictureHovered: false })}
+                           onClick={() => this.setState({ profilePictureHovered: false })}
+                           id={currentUser.photoUrl === "noPhoto" ? null : "has-photo"}
+                           style={currentUser.photoUrl === "noPhoto" ? null : { backgroundImage: `url(${currentUser.photoUrl})` }}>
+                        <input className="change-profile-pic-input" type="file" onChange={this.handleSubmit}/>
+                    </label>
+                    {profilePictureHovered ? profilePictureTooltip : null}
+
+                    <div className="pn-username"
                         onClick={this.handleUsernameClick}>
                         <h2>{currentUser.username}</h2>
                         <h3>#{currentUser.usernameId}</h3>
                     </div>
 
-                    {this.state.showCopied ? copiedMessage : null}
+                    {showCopied ? copiedMessage : null}
                 </div>
 
                 <div className="pn-right-container">
@@ -73,15 +114,15 @@ class ProfileNavbar extends React.Component {
                             <img src={homeIcon} />
                         </div>
                     </Link>
-                    {this.state.homeHovered ? homeTooltipShow : null}
+                    {homeHovered ? homeTooltipShow : null}
 
 
-                    <div className="pn-logout-icon-container" onClick={this.props.logout} 
+                    <div className="pn-logout-icon-container" onClick={this.props.logout}
                         onMouseEnter={() => this.setState({ logoutHovered: true })}
                         onMouseLeave={() => this.setState({ logoutHovered: false })}>
                         <img src={logoutIcon} />
                     </div>
-                    {this.state.logoutHovered ? logoutTooltipShow : null}
+                    {logoutHovered ? logoutTooltipShow : null}
 
                 </div>
             </div>

@@ -57,10 +57,13 @@
 
                 img {
                     margin-right: 0.5vw;
-                    
-                    width: 5vh;
-                    height: 5vh;
-                    filter: invert(1);
+                    width: 4.3vh;
+                    height: 4.3vh;
+
+                    border-radius: 50%;
+                    border-style: solid;
+                    border-color: black;
+                    border-width: 0.1vh;
                 }
             }
         }

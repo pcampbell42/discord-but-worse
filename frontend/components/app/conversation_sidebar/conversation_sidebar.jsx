@@ -29,12 +29,14 @@ class ConversationSidebar extends React.Component {
                             {directMessage.user1Id === currentUser.id ?
 
                                 <Link to={`/app/home/conversations/${directMessage.id}`}>
-                                    <img src={defaultProfilePicture} />
+                                    <img src={users[directMessage.user2Id].photoUrl === "noPhoto" ? 
+                                                    defaultProfilePicture : users[directMessage.user2Id].photoUrl} />
                                     {users[directMessage.user2Id].username}
                                 </Link> :
 
                                 <Link to={`/app/home/conversations/${directMessage.id}`}>
-                                    <img src={defaultProfilePicture} />
+                                    <img src={users[directMessage.user1Id].photoUrl === "noPhoto" ? 
+                                                    defaultProfilePicture : users[directMessage.user1Id].photoUrl} />
                                     {users[directMessage.user1Id].username}
                                 </Link>
                             }

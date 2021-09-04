@@ -4,6 +4,7 @@ import defaultProfilePicture from "./../../../../../app/assets/images/default_pr
 import crownIcon from "./../../../../../app/assets/images/crown_icon.png";
 import { createSubscription, findCurrentSubscription } from "../../../../util/websockets_helpers";
 
+
 class UserShow extends React.Component {
     constructor(props) {
         super(props);
@@ -19,17 +20,20 @@ class UserShow extends React.Component {
     }
 
 
+    // ------------- Click and ESC event listeners for closing user info -------------
+
     componentDidMount() {
         document.addEventListener("keydown", this.handleEscape, true);
         document.addEventListener("click", this.handleOutsideClick, true);
     }
-
 
     componentWillUnmount() {
         document.removeEventListener("keydown", this.handleEscape, true);
         document.removeEventListener("click", this.handleOutsideClick, true);
     }
 
+
+    // ------------- Event handlers for different ways of closing user info -------------
 
     handleOutsideClick(e) {
         if (!this.showProfileEl) return;
@@ -38,7 +42,6 @@ class UserShow extends React.Component {
         }
     }
 
-
     handleEscape(e) {
         if (e.keyCode === 27) {
             this.setState({ body:"", showProfile: false });
@@ -46,10 +49,11 @@ class UserShow extends React.Component {
     }
 
 
+    // ------------- Event handlers for messaging user from user info -------------
+
     update(e) {
         this.setState({ body: e.currentTarget.value });
     }
-
 
     handleSubmit(e) {
         e.preventDefault();
@@ -92,7 +96,7 @@ class UserShow extends React.Component {
                     <div className="user-show-profile-header"></div>
                     <button onClick={() => this.setState({ showProfile: false, body: "" })}>x</button>
 
-                    <img src={defaultProfilePicture} />
+                    <img src={user.photoUrl === "noPhoto" ? defaultProfilePicture : user.photoUrl}/>
 
                     <div>
                         <h1>{user.username}</h1>
@@ -112,7 +116,7 @@ class UserShow extends React.Component {
         return (
             <li id={this.state.showProfile ? "selected" : null}>
                 <section onClick={() => this.setState({ showProfile: true })}>
-                    <img src={defaultProfilePicture} />
+                    <img src={user.photoUrl === "noPhoto" ? defaultProfilePicture : user.photoUrl}/>
                     {user.username}
                     {user.id === server.ownerId ? <img className="king-icon" src={crownIcon} /> : null}
 
