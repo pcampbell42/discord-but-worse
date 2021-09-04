@@ -63,11 +63,14 @@
                     padding-left: 3vh;
 
                     img {
-                        height: 6.5vh;
-                        width: 6.5vh;
-                        filter: invert(1);
-
+                        height: 5.5vh;
+                        width: 5.5vh;
                         margin-right: 1vh;
+
+                        border-radius: 50%;
+                        border-style: solid;
+                        border-color: black;
+                        border-width: 0.1vh;
                     }
                     
                     div {

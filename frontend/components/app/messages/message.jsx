@@ -78,25 +78,26 @@ class Message extends React.Component {
         let messageDateArray = message.createdAt.split("T")[0].split("-"); // year, day, month
         let dateToShow = `${messageDateArray[1]}/${messageDateArray[2]}/${messageDateArray[0]}`;
 
-        return(
-            <li key={message.id} className={this.state.editing ? "editing" : null}
-                onMouseEnter={() => this.setState({ hovered: true })}
-                onMouseLeave={() => this.setState({ hovered: false })}>
+        return (
+            users[message.authorId] ? 
+                <li key={message.id} className={this.state.editing ? "editing" : null}
+                    onMouseEnter={() => this.setState({ hovered: true })}
+                    onMouseLeave={() => this.setState({ hovered: false })}>
 
-                {currentUser.id === message.authorId && this.state.hovered && !this.state.editing ? editAndDeleteButtons : null}
+                    {currentUser.id === message.authorId && this.state.hovered && !this.state.editing ? editAndDeleteButtons : null}
 
-                <img src={defaultProfilePicture}/>
+                    {/* <img src={defaultProfilePicture}/> */}
+                    <img src={users[message.authorId].photoUrl === "noPhoto" ? defaultProfilePicture : users[message.authorId].photoUrl}/>
 
-                <div>
                     <div>
-                        {users[message.authorId] ? <h1>{users[message.authorId].username}</h1> : null}
-                        <h3>{dateToShow}</h3>
+                        <div>
+                            {users[message.authorId] ? <h1>{users[message.authorId].username}</h1> : null}
+                            <h3>{dateToShow}</h3>
+                        </div>
+                        {this.state.editing ? editingView : message.body}
+                        {!this.state.editing && this.state.edited ? <sub>(edited)</sub> : null}
                     </div>
-                    {this.state.editing ? editingView : message.body}
-                    {!this.state.editing && this.state.edited ? <sub>(edited)</sub> : null}
-                </div>
-
-            </li>
+                </li> : null
         );
     }
 }

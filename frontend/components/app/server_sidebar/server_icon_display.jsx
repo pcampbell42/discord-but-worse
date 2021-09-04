@@ -127,7 +127,7 @@ class ServerIconDisplay extends React.Component {
         const formData = new FormData();
         formData.append("id", this.props.server.id);
         formData.append("server[name]", this.state.name);
-        if (this.state.imageFile) formData.append("server[photo]", this.state.imageFile)
+        if (this.state.imageFile) formData.append("server[photo]", this.state.imageFile);
 
         this.props.updateServer(formData)
             .then(() => {
