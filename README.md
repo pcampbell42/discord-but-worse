@@ -37,6 +37,9 @@ ccc
 qwe
 * Custom server ordering
 * Make scroll pretty :)
+* Online status
+* Pinned Messages
+* Friends
 
 ## Local Installation Guide
 stuff
