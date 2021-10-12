@@ -27,7 +27,7 @@ asd
 ### Websockets
 aaa
 
-### Overflow with Scroll
+### Tooltips with Scroll
 bbb
 
 ### Date Algorithm and Grouping Messages
