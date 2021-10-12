@@ -15,7 +15,11 @@ class ConversationSidebar extends React.Component {
     render() {
         const { selectedId } = this.state;
         const { users, directMessages, currentUser } = this.props;
-        
+
+        // Weird bug fix - when navigating to home server index, conversation stayed selected
+        // because prop doesn't seem to update correctly. This isn't an ideal fix, but it works
+        let noneSelected = false;
+        if (window.location.hash.split("/").slice(-1).pop() === "home") noneSelected = true;
 
         return (
             <div className="cs-container">
@@ -24,8 +28,8 @@ class ConversationSidebar extends React.Component {
 
                 <ul>
                     {directMessages.map(directMessage =>
-                        <li key={directMessage.id} className={selectedId === directMessage.id ? "selected" : null}
-                            onClick={() => this.setState({ selectedId: directMessage.id })}>
+                        <li key={directMessage.id} onClick={() => this.setState({ selectedId: directMessage.id })}
+                            className={selectedId === directMessage.id && !noneSelected ? "selected" : null}>
 
                             {directMessage.user1Id === currentUser.id ?
 
