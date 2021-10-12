@@ -10,7 +10,6 @@ const mstp = state => ({
 
 
 // -------------------- Auth Route --------------------
-
 const Auth = ({ component: Component, path, loggedIn, exact }) => {
     return (
         <Route path={path} exact={exact} render={props =>
@@ -18,12 +17,10 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => {
         } />
     );
 };
-
 export const AuthRoute = withRouter(connect(mstp)(Auth));
 
 
 // -------------------- Protected Route --------------------
-
 const Protected = ({ component: Component, path, loggedIn, exact }) => {
     return (
         <Route path={path} exact={exact} render={props =>
@@ -31,5 +28,4 @@ const Protected = ({ component: Component, path, loggedIn, exact }) => {
         } />
     );
 };
-
 export const ProtectedRoute = withRouter(connect(mstp)(Protected));

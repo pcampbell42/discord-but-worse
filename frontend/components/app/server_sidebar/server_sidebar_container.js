@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import ServerSidebar from "./server_sidebar";
 import { fetchCurrentUserDetails } from "../../../actions/session_actions";
 import { createServer } from "../../../actions/server_actions";
-import { currentUserServers } from "../../../reducers/selectors/selectors";
+import { currentUserServers } from "../../../util/selectors";
 import { clearMembershipErrors } from "../../../actions/membership_actions";
 import { currentServerDetails } from "../../../actions/server_actions";
 import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../actions/message_actions";

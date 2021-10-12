@@ -21,9 +21,7 @@ const membershipsReducer = (state = {}, action) => {
 
         case REMOVE_SERVER:
             for (const i in nextState) {
-                if (nextState[i].serverId === action.serverId) {
-                    delete nextState[i];
-                }
+                if (nextState[i].serverId === action.serverId) delete nextState[i];
             }
             return nextState;
 

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import ServerShow from "./server_show";
 import { createMembership, clearMembershipErrors } from "../../../actions/membership_actions";
-import { currentUserServerIds, getServerTextChannels } from "../../../reducers/selectors/selectors";
+import { currentUserServerIds, getServerTextChannels } from "../../../util/selectors";
 import { currentServerDetails } from "../../../actions/server_actions";
 import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../actions/message_actions";
 

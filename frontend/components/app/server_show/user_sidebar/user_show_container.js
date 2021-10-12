@@ -2,7 +2,8 @@ import { connect } from "react-redux";
 import UserShow from "./user_show";
 import { createDirectMessage } from "../../../../actions/direct_message_actions";
 import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../../actions/message_actions";
-import { dmExists, getDMId } from "../../../../reducers/selectors/selectors";
+import { getDMId } from "../../../../util/selectors";
+import { dmExists } from "../../../../util/helpers";
 
 const mstp = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],

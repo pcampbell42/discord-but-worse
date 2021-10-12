@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import ChatRoom from "./chat_room";
-import { getMessagesForChannel } from "../../../reducers/selectors/selectors";
+import { getMessagesForChannel } from "../../../util/selectors";
 
 const mstp = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],

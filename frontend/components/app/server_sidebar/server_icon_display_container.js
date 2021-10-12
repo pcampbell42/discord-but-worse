@@ -3,7 +3,7 @@ import ServerIconDisplay from "./server_icon_display";
 import { deleteMembership } from "../../../actions/membership_actions";
 import { deleteServer } from "../../../actions/server_actions";
 import { currentServerDetails } from "../../../actions/server_actions";
-import { getFirstTextChannelId } from "../../../reducers/selectors/selectors";
+import { getFirstTextChannelId } from "../../../util/selectors";
 import { updateServer } from "../../../actions/server_actions";
 import { clearMembershipErrors } from "../../../actions/membership_actions";
 

@@ -1,4 +1,3 @@
-
 /**
  * Helper method that creates a websocket connection for the specified text channel or dm.
  * 
@@ -10,7 +9,6 @@
  * @param {function} receiveMessage - Input should be dispatch(receiveMessage(...))
  * @param {function} deleteMessage - Input should be dispatch(deleteMessage(...))
  */
-
 export const createSubscription = (thread_type, thread_id, receiveAllMessages, receiveMessage, deleteMessage) => {
     App.cable.subscriptions.create(
         { channel: "ChatChannel", thread_type: thread_type, thread_id: thread_id },
@@ -55,7 +53,6 @@ export const createSubscription = (thread_type, thread_id, receiveAllMessages, r
  * @param {number} chatRoomId - The text channel's / dm's id
  * @returns - Returns the index of the correct websocket subscription in the subscriptions array.
  */
-
 export const findCurrentSubscription = (chatRoomType = undefined, chatRoomId = undefined) => {
     let currentLocation = window.location.hash;
 
@@ -80,7 +77,6 @@ export const findCurrentSubscription = (chatRoomType = undefined, chatRoomId = u
 /**
  * Simple helper method for removing all active websocket subscriptions.
  */
-
 export const removeAllSubscriptions = () => {
     App.cable.subscriptions.subscriptions.forEach(subscription =>
         App.cable.subscriptions.remove(subscription)

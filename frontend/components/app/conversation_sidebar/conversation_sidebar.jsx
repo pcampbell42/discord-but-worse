@@ -15,6 +15,7 @@ class ConversationSidebar extends React.Component {
     render() {
         const { selectedId } = this.state;
         const { users, directMessages, currentUser } = this.props;
+        
 
         return (
             <div className="cs-container">

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import ConversationSidebar from "./conversation_sidebar";
-import { getUsersForDms } from "../../../reducers/selectors/selectors";
+import { getUsersForDms } from "../../../util/selectors";
 
 
 const mstp = state => ({

@@ -18,3 +18,4 @@ const receiveDirectMessage = directMessage => ({
 
 export const createDirectMessage = formDM => dispatch => DMAPIUtil.createDirectMessage(formDM)
     .then(directMessage => dispatch(receiveDirectMessage(directMessage)));
+    

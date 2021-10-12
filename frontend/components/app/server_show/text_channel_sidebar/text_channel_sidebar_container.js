@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import TextChannelSidebar from "./text_channel_sidebar";
-import { getServerTextChannels } from "../../../../reducers/selectors/selectors";
+import { getServerTextChannels } from "../../../../util/selectors";
 import { createTextChannel } from "../../../../actions/text_channel_actions";
 import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../../actions/message_actions";
 

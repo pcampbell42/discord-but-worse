@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import { findMembershipId } from "../../../reducers/selectors/selectors";
+import { findMembershipId } from "../../../util/selectors";
 
 
 class ServerIconDisplay extends React.Component {

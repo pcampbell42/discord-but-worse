@@ -39,3 +39,4 @@ export const createMembership = membership => dispatch => MembershipAPIUtil.crea
 
 export const deleteMembership = membershipId => dispatch => MembershipAPIUtil.deleteMembership(membershipId)
     .then(() => dispatch(removeMembership(membershipId)));
+    
