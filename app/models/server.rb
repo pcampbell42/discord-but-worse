@@ -2,11 +2,12 @@
 #
 # Table name: servers
 #
-#  id         :bigint           not null, primary key
-#  name       :string           not null
-#  owner_id   :integer          not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :bigint           not null, primary key
+#  name        :string           not null
+#  owner_id    :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  invite_code :string           not null
 #
 class Server < ApplicationRecord
 
@@ -14,6 +15,16 @@ class Server < ApplicationRecord
 
     validates :name, :owner_id, presence: true
     validates :name, length: { minimum: 2, maximum: 30 }
+
+
+    #--------------------- After Initialize ---------------------
+
+    after_initialize :generate_invite_code
+
+    def generate_invite_code
+        self.invite_code ||= SecureRandom::urlsafe_base64
+        # Add logic for checking if invite code is taken here
+    end
 
 
     #--------------------- Associations ---------------------

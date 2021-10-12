@@ -139,6 +139,12 @@ class ServerIconDisplay extends React.Component {
     }
 
 
+    // ------------- Event handlers for invite show -------------
+    handleShowInvite(e) {
+        
+    }
+
+
     // ------------- Event handlers for right click dropdown -------------
 
     handleRightClick(e) {
@@ -186,6 +192,7 @@ class ServerIconDisplay extends React.Component {
                         <li id="ss-options-settings" onClick={this.handleShowSettings}>Server Settings</li> :
                         <li id="ss-options-leave" onClick={this.handleLeave}>Leave Server</li>
                     }
+                    <li id="ss-options-invite" onClick={this.handleShowInvite}>Invite People</li>
                     <li id="ss-options-cancel" onClick={() => this.setState({ showDropdown: false })}>Cancel</li>
                 </ul>
             </div>

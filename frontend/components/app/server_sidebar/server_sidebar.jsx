@@ -146,7 +146,7 @@ class ServersSideBar extends React.Component {
 
         const createTooltipShow = (
             <div className="ss-create-relative-position-anchor">
-                <div className="ss-create-tooltip-show">Create a Server</div>
+                <div className="ss-create-tooltip-show">Add a Server</div>
                 <div className="ss-create-arrow-left"></div>
             </div>
         );
