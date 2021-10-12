@@ -30,7 +30,7 @@ aaa
 ### Overflow with Scroll
 bbb
 
-### Date Algorithm
+### Date Algorithm and Grouping Messages
 ccc
 
 ## Future Direction
