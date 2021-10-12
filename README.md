@@ -33,6 +33,9 @@ bbb
 ### Date Algorithm and Grouping Messages
 ccc
 
+### Messaging Scroll
+ddd
+
 ## Future Direction
 qwe
 * Custom server ordering
