@@ -188,11 +188,11 @@ class ServerIconDisplay extends React.Component {
         const serverDropdown = (
             <div className="ss-options-relative-position-anchor">
                 <ul className="ss-dropdown" ref={serverDropdownEl => this.serverDropdownEl = serverDropdownEl}>
+                    <li id="ss-options-invite" onClick={this.handleShowInvite}>Invite People</li>
                     {currentUser.id === server.ownerId ?
                         <li id="ss-options-settings" onClick={this.handleShowSettings}>Server Settings</li> :
                         <li id="ss-options-leave" onClick={this.handleLeave}>Leave Server</li>
                     }
-                    <li id="ss-options-invite" onClick={this.handleShowInvite}>Invite People</li>
                     <li id="ss-options-cancel" onClick={() => this.setState({ showDropdown: false })}>Cancel</li>
                 </ul>
             </div>

@@ -1,0 +1,64 @@
+.ss-container {
+    .ss-options-relative-position-anchor {
+        position: relative;
+        width: 0;
+        height: 0;
+
+
+        .ss-dropdown {
+            position: absolute;
+            left: 42px;
+            top: -14px;
+
+            border-radius: 5px;
+
+            background-color: #18191c;
+
+            li {
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                height: 30px;
+                width: 98px;
+
+                border-radius: 0;
+
+                background-color: #18191c;
+                
+                padding-left: 7px;
+                margin: 0.8vh 0.8vh 0.8vh 0.8vh;
+
+                font-family: 'Nunito', sans-serif;
+                color: white;
+                font-size: 13px;
+                font-weight: 400;
+            }
+
+            li:hover {
+                border-radius: 2px;
+                cursor: pointer;
+                background-color: #0f65ae;
+            }
+
+            #ss-options-invite {
+                color: #939bf4;
+                border-bottom: 1px solid #35393f;
+            }
+
+            #ss-options-invite:hover {
+                color: white;
+                background-color: #0f65ae;
+            }
+            
+            #ss-options-leave {
+                color: #ed4245;
+                border-bottom: 1px solid #35393f;
+            }
+
+            #ss-options-leave:hover {
+                color: white;
+                background-color: #ed4245;
+            }
+        }
+    }
+}
