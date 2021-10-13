@@ -1,9 +1,7 @@
-
 .user-sidebar-container {
     height: 100vh;
     width: 33.74vh;
     background-color: #2f3137;
-    // overflow-y: auto;
 
     .user-sidebar-header-box {
         height: 6.5vh;
@@ -26,7 +24,6 @@
     ul {
         margin-top: 0.5vh;
         height: 86vh;
-        // overflow-y: auto;
 
         li {
             padding-left: 0.4vw;
@@ -138,7 +135,6 @@
                     }
 
                     img:hover {
-                        // cursor: pointer;
                         opacity: 0.5;
                     }
 

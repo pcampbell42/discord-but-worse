@@ -14,11 +14,11 @@
 
         div {
             position: absolute;
-            height: 30%;
-            width: 31%;
+            height: 250px;
+            width: 500px;
             background-color: #35393f;
 
-            border-radius: 1vh;
+            border-radius: 7px;
 
             display: flex;
             flex-direction: column;
@@ -52,11 +52,10 @@
             }
 
             form {
-
                 label {
                     display: block;
                     
-                    margin-left: 2.7vh;
+                    margin-left: 18.9px;
 
                     font-family: 'Nunito', sans-serif;
                     color: #dcddde;
@@ -64,14 +63,14 @@
                     font-weight: 600;
                     
                     input {
-                        height: 5vh;
-                        width: 55vh;
-                        margin-top: 1.5vh;
-                        padding-left: 1.5vh;
+                        height: 35px;
+                        width: 385px;
+                        margin-top: 10.5px;
+                        padding-left: 10.5px;
 
                         background-color: #2f3339;
 
-                        border-radius: 0.3vh;
+                        border-radius: 2.1px;
                         border-style: solid;
                         border-color: black;
                         border-width: 1px;
@@ -96,14 +95,14 @@
                     input {
                         display: block;
 
-                        height: 5.5vh;
-                        width: 17vh;
-                        padding-left: 0.4vh;
-                        margin-right: 2.4vh;
-                        margin-top: 1.7vh;
+                        height: 38.5px;
+                        width: 119px;
+                        padding-left: 2.8px;
+                        margin-right: 16.8px;
+                        margin-top: 11.9px;
                         background-color: #5865f1;
     
-                        border-radius: 0.5vh;
+                        border-radius: 3.5px;
 
                         border-style: none;
     
