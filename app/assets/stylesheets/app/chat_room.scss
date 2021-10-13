@@ -1,6 +1,6 @@
 .chat-room-container {
     height: 100vh;
-    width: 60.8vw;
+    width: calc(100vw - 73px - 246px - 236px);
     background-color: #35393f;
 
     font-family: 'Nunito', sans-serif;
@@ -17,32 +17,30 @@
         display: flex;
         align-items: center;
 
-        padding-left: 1vw;
+        padding-left: 14px;
 
         h1 {
             color: #72767d;
             font-weight: 700;
-            font-size: 4vh;
+            font-size: 28px;
         }
 
         h2 {
-            padding-left: 0.5vw;
+            padding-left: 7px;
             font-weight: 800;
-            font-size: 2.5vh;
+            font-size: 17.5px;
         }
     }
 
     .chat-room-sub-container {
-        height: 92.5vh;
+        height: calc(100vh - 50px);
         width: 100%;
 
        article {
-            height: 80vh;
-
-            // overflow-y: auto;
-            padding-top: 1vh;
+            height: calc(100vh - 45px - 100px);
+            padding-top: 7px;
             
-            margin-bottom: 1vh;
+            margin-bottom: 7px;
 
             display: flex;
             flex-direction: column;
@@ -55,51 +53,51 @@
                     display: flex;
                     flex-direction: row;
                     align-items: center;
-                    height: 7vh;
+                    height: 49px;
                     
                     width: 97.5%;
-                    margin-top: 2vh;
-                    padding-left: 3vh;
+                    margin-top: 14px;
+                    padding-left: 21px;
 
                     img {
-                        height: 5.5vh;
-                        width: 5.5vh;
-                        margin-right: 1vh;
+                        height: 38.5px;
+                        width: 38.5px;
+                        margin-right: 7px;
 
                         border-radius: 50%;
                         border-style: solid;
                         border-color: black;
-                        border-width: 0.1vh;
+                        border-width: 0.7px;
                     }
                     
                     div {
-                        font-size: 2vh;
-                        line-height: 3vh;
+                        font-size: 14px;
+                        line-height: 21px;
 
                         div {
                             display: flex;
                             align-items: center;
 
                             h1 {
-                                font-size: 2vh;
+                                font-size: 14px;
                                 font-weight: 700;
                             }
 
                             h3 {
-                                font-size: 1.5vh;
+                                font-size: 10.5px;
                                 font-weight: 700;
                                 color: #71757c;
-                                margin-left: 1vh;
-                                margin-top: 0.25vh;
+                                margin-left: 7px;
+                                margin-top: 1.75px;
                             }
                         }
                     }
 
                     sub {
                         color: #71757c;
-                        font-size: 1.3vh;
+                        font-size: 9.1px;
                         font-weight: 600;
-                        padding-left: 0.3vw;
+                        padding-left: 4.2px;
 
                     }
 
@@ -117,8 +115,8 @@
                             justify-content: space-evenly;
                             align-items: center;
 
-                            height: 4vh;
-                            width: 8vh;
+                            height: 28px;
+                            width: 56px;
 
                             position: absolute;
                             left: 105vh;
@@ -134,6 +132,9 @@
                                 img {
                                     height: 2vh;
                                     width: 2vh;
+                                    filter: invert(1);
+                                    border-radius: 0;
+                                    border: none;
                                 }
 
                                 img:hover {
@@ -150,20 +151,20 @@
                 }
 
                 li.editing {
-                    height: 14vh;
+                    height: 98px;
 
                     img {
-                        margin-bottom: 3vh;
+                        margin-bottom: 21px;
                     }
 
                     form {
-                        width: 51vw;
+                        width: calc(100vw - 73px - 246px - 236px - 150px);
 
                         input {
-                            height: 5vh;
+                            height: 35px;
                             width: 100%;
-                            margin-top: 1vh;
-                            margin-left: -0.6vh;
+                            margin-top: 7px;
+                            margin-left: -4.2px;
                         }
                     }
                 }
@@ -174,22 +175,21 @@
 
         form {
             input {
-                height: 6vh;
+                height: 42px;
                 width: 92.2%;
 
-                margin-left: 3vh;
-                margin-top: 2vh;
-                padding-left: 3vh;
+                margin-left: 18px;
+                margin-top: 14px;
+                padding-left: 18px;
 
                 background-color: #40444b;
 
                 border-style: none;
-                border-radius: 1vh;
+                border-radius: 7px;
 
                 font-family: 'Nunito', sans-serif;
                 font-weight: 300;
                 font-size: 14px;
-                // color: #70747a;
                 color: white;
             }
 
@@ -202,13 +202,13 @@
 
 
 .chat-room-container#dm {
-    width: 77.8%;
+    width: calc(100vw - 73px - 246px);
 
     .chat-room-header {
         width: 98.73%;
 
         h1 {
-            font-size: 3.5vh;
+            font-size: 24.5px;
         }
     }
 
@@ -240,11 +240,11 @@
 
 .empty-chat-room-container {
     height: 100vh;
-    width: 60.8vw;
+    width: calc(100vw - 73px - 246px - 236px);
     background-color: #35393f;
     
     .empty-chat-room-header {
-        height: 6.5vh;
+        height: 45px;
         width: 100%;
         border-bottom: 1px solid black;
     }
