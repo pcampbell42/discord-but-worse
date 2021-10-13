@@ -1,19 +1,19 @@
 .user-sidebar-container {
     height: 100vh;
-    width: 33.74vh;
+    width: 236px;
     background-color: #2f3137;
 
     .user-sidebar-header-box {
-        height: 6.5vh;
+        height: 45px;
         width: 100%;
 
         border-bottom: 1px solid black;
     }
 
     h1 {
-        margin-top: 2vh;
-        margin-left: 2.5vh;
-        margin-bottom: 1vh;
+        margin-top: 14px;
+        margin-left: 17.5px;
+        margin-bottom: 7px;
 
         font-family: 'Nunito', sans-serif;
         color: #8e9296;
@@ -22,13 +22,13 @@
     }
 
     ul {
-        margin-top: 0.5vh;
-        height: 86vh;
+        margin-top: 3.5px;
+        height: calc(100vh - 45px - 35px);
 
         li {
-            padding-left: 0.4vw;
-            margin-right: 0.6vw;
-            border-radius: 1vh;
+            padding-left: 10px;
+            margin-right: 8.4px;
+            border-radius: 7px;
 
             font-family: 'Nunito', sans-serif;
             color: #8e9296;
@@ -38,20 +38,20 @@
             section {
                 display: flex;
                 align-items: center;
-                height: 5.8vh;
-                margin-left: 0.2vw;
-                border-radius: 0.7vh;
+                height: 40.6px;
+                margin-left: 2.8px;
+                border-radius: 4.9px;
                 
                 img {
-                    width: 4.3vh;
-                    height: 4.3vh;
-                    margin-right: 1.4vh;
-                    margin-left: 0.4vw;
+                    width: 30.1px;
+                    height: 30.1px;
+                    margin-right: 9.8px;
+                    margin-left: 2.8px;
 
                     border-radius: 50%;
                     border-style: solid;
                     border-color: black;
-                    border-width: 0.1vh;
+                    border-width: 0.7px;
                 }
     
                 img:hover {
@@ -59,11 +59,11 @@
                 }
     
                 .king-icon {
-                    width: 1vw;
-                    height: 1.7vh;
+                    width: 14px;
+                    height: 11.9px;
                     filter: invert(0);
     
-                    margin-left: 1vw;
+                    margin-left: 14px;
                 }
             }
 
