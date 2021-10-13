@@ -119,19 +119,20 @@
                             width: 56px;
 
                             position: absolute;
-                            left: 105vh;
-                            bottom: 0.7vh;
+                            left: calc(100vw - 73px - 246px - 236px - 120px);
 
-                            padding-left: 0.6vw;
+                            bottom: 4.9px;
+
+                            padding-left: 8.4px;
 
                             background-color: #31353b;
                             border: 0.5px solid black;
-                            border-radius: 0.6vh;
+                            border-radius: 4.2px;
 
                             div {
                                 img {
-                                    height: 2vh;
-                                    width: 2vh;
+                                    height: 14px;
+                                    width: 14px;
                                     filter: invert(1);
                                     border-radius: 0;
                                     border: none;
@@ -176,7 +177,8 @@
         form {
             input {
                 height: 42px;
-                width: 92.2%;
+                width: calc(100vw - 73px - 246px - 236px - 60px);
+
 
                 margin-left: 18px;
                 margin-top: 14px;
@@ -205,7 +207,7 @@
     width: calc(100vw - 73px - 246px);
 
     .chat-room-header {
-        width: 98.73%;
+        width: calc(100vw - 73px - 246px - 14px);
 
         h1 {
             font-size: 24.5px;
@@ -223,7 +225,7 @@
 
         form {
             input {
-                width: 73.3vw;
+                width: calc(100vw - 73px - 246px - 65px);
                 margin-right: 0;
             }
         }
@@ -231,7 +233,7 @@
         li.editing {
             form {
                 input {
-                    width: 129%;
+                    width: calc(100vw - 73px - 246px - 150px);
                 }
             }
         }
