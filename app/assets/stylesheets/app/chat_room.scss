@@ -55,7 +55,7 @@
                     align-items: center;
                     height: 49px;
                     
-                    width: 97.5%;
+                    // width: 97.5%;
                     margin-top: 14px;
                     padding-left: 21px;
 
@@ -220,7 +220,7 @@
         }
 
         .message-hover-container {
-            left: 69vw
+                left: calc(100vw - 73px - 246px - 120px);
         }
 
         form {
