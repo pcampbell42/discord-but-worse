@@ -1,10 +1,9 @@
-
 .session-form-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background-color: #35393f;
-    width: 40%;
+    width: 580px;
     height: 300px;
 
     border-width: 3px;
@@ -20,8 +19,6 @@
     font-family: 'Nunito', sans-serif;
     color: #8d9196;
     font-weight: 300;
-
-
 
     .session-form {
         display: flex;
@@ -146,9 +143,6 @@
             background-color: #1065ae;
             
             border-radius: 8px;
-            // border-width: 3px;
-            // border-color: black;
-            // border-style: solid;
         }
         
         div:hover {
@@ -159,7 +153,7 @@
 }
 
 #signup {
-    width: 30%;
+    width: 435px;
     height: 400px;
     margin-top: 6%;
 

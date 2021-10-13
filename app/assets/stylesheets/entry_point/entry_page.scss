@@ -1,4 +1,4 @@
-// If logged in
+// --------------- If logged in ---------------
 
 .ep-welcome-display {
     display: flex;
@@ -7,8 +7,8 @@
     align-items: center;
 
     margin: auto;
-    margin-top: 17vh;
     width: 40%;
+    height: calc(75vh - 80px);
 
     font-family: 'Nunito', sans-serif;
 
@@ -68,7 +68,7 @@
 }
 
 
-// If not logged in
+// --------------- If not logged in ---------------
 
 .ep-login-display {
     display: flex;
@@ -77,8 +77,8 @@
     align-items: center;
 
     margin: auto;
-    margin-top: 17vh;
     width: 400px;
+    height: calc(85vh - 80px);
 
     h1 {
         font-family: 'Nunito', sans-serif;

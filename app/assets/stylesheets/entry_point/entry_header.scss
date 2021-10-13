@@ -1,8 +1,9 @@
-
 .ep-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    height: 80px;
 
     .ep-header-left {
         display: flex;
@@ -26,13 +27,11 @@
             font-family: 'Nunito', sans-serif;
             font-size: 30px;
             font-weight: 900;
-            // color: black;
             color: white;
 
             sub {
                 font-size: 10px;
                 font-weight: 600;
-                // color: black;
                 color: white;
                 position: relative;
                 top: 13px;
@@ -65,11 +64,9 @@
             width: 35px;
             padding-right: 10px;
             filter: invert(100%);
-
         }
 
         img:hover {
-            // filter: invert(100%);
             opacity: 0.5;
         }
     }
