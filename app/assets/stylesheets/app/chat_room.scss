@@ -216,7 +216,7 @@
 
     .chat-room-sub-container {
         li {
-            width: 98%;
+            width: calc(100vw - 73px - 246px - 21px);
         }
 
         .message-hover-container {
