@@ -1,3 +1,4 @@
+// If logged in
 
 .ep-welcome-display {
     display: flex;
@@ -6,7 +7,7 @@
     align-items: center;
 
     margin: auto;
-    margin-top: 9%;
+    margin-top: 17vh;
     width: 40%;
 
     font-family: 'Nunito', sans-serif;
@@ -14,7 +15,6 @@
     h1 {
         padding: 20px, 20px, 20px, 20px;
         color: black;
-        // color: white;
         font-size: 38px;
         font-weight: 800;
         margin-bottom: 50px;
@@ -44,7 +44,6 @@
     }
 
     a:hover {
-        // background-color: #abd0e1;
         background-color: #063B6B;
     }
 
@@ -68,6 +67,9 @@
     }
 }
 
+
+// If not logged in
+
 .ep-login-display {
     display: flex;
     flex-direction: column;
@@ -75,13 +77,12 @@
     align-items: center;
 
     margin: auto;
-    margin-top: 9.5%;
-    width: 25%;
+    margin-top: 17vh;
+    width: 400px;
 
     h1 {
         font-family: 'Nunito', sans-serif;
         color: black;
-        // color: white;
         font-size: 38px;
         font-weight: 800;
         padding-bottom: 30px;
@@ -116,7 +117,6 @@
             padding: 12px 30px 12px 30px;
             
             text-decoration: none;
-            // color: black;
             color: white;
             font-family: 'Nunito', sans-serif;
             font-size: 20px;
@@ -124,7 +124,6 @@
         }
 
         a:hover {
-            // background-color: #abd0e1;
             background-color: #063B6B;
         }
     }
