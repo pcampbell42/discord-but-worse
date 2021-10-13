@@ -1,14 +1,14 @@
 
 .pn-container {
     position: absolute;
-    left: 5.1vw;
-    top: 93vh;
+    left: 73px;
+    bottom: 0;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    height: 7vh;
+    height: 49px;
     width: 17.1%;
 
     z-index: 5;
@@ -19,12 +19,12 @@
         display: flex;
         align-items: center;
 
-        margin-left: 0.5vw;
+        margin-left: 7px;
 
         .pn-profile-pic {
-            width: 4.5vh;
-            height: 4.5vh;
-            margin-right: 0.25vw;
+            width: 31.5px;
+            height: 31.5px;
+            margin-right: 3.5px;
 
             background: image-url("default_profile_picture.png");
             background-size: 100% 100%;
@@ -32,7 +32,7 @@
 
             border-style: solid;
             border-color: black;
-            border-width: 0.1vh;
+            border-width: 0.3px;
             border-radius: 50%;
 
             .change-profile-pic-input {
@@ -63,13 +63,13 @@
                 align-items: center;
 
                 position: absolute;
-                bottom: 3vh;
-                right: -3vw;
+                bottom: 21px;
+                right: -42px;
 
-                height: 5.9vh;
-                width: 4.2vw;
-                padding: 0vh 1.5vh 0vh 1.5vh;
-                border-radius: 1vh;
+                height: 54px;
+                width: 45px;
+                padding: 0vh 10.5px 0vh 10.5px;
+                border-radius: 7px;
 
                 background-color: black;
 
@@ -78,33 +78,33 @@
                 font-size: 12px;
                 font-weight: 900;
                 text-align: center;
-                line-height: 2vh;
+                line-height: 14px;
             }
 
             .pn-profile-picture-arrow-down {
                 position: absolute;
-                bottom: 2.1vh;
-                right: 1.5vh;
+                bottom: 14.7px;
+                right: 10.5px;
 
                 width: 0; 
                 height: 0; 
-                border-left: 1vh solid transparent;
-                border-right: 1vh solid transparent;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
                 
-                border-top: 1vh solid black;
+                border-top: 7px solid black;
             }
         }
 
         .pn-username {
-            margin-top: 0.3vh;
-            margin-left: 0.5vh;
+            margin-top: 2.1px;
+            margin-left: 3.5px;
 
             h2{
                 font-family: 'Nunito', sans-serif;
                 color: white;
                 font-size: 14px;
                 font-weight: 700;
-                margin-bottom: 0.3vh;
+                margin-bottom: 2.1px;
             }
     
             h3 {
@@ -127,16 +127,16 @@
 
             .pn-copied-tooltip-show {
                 position: absolute;
-                bottom: 3.3vh;
-                right: -1vw;
+                bottom: 23.1px;
+                right: -14px;
 
                 display: flex;
                 justify-content: center;
                 align-items: center;
 
-                height: 4.5vh;
-                padding: 0vh 1.5vh 0vh 1.5vh;
-                border-radius: 1vh;
+                height: 31.5px;
+                padding: 0vh 10.5px 0vh 10.5px;
+                border-radius: 7px;
 
                 background-color: #3ba55d;
 
@@ -150,15 +150,15 @@
 
             .pn-copied-arrow-down {
                 position: absolute;
-                bottom: 2.4vh;
-                right: 2vh;
+                bottom: 16.8px;
+                right: 14px;
 
                 width: 0; 
                 height: 0; 
-                border-left: 1vh solid transparent;
-                border-right: 1vh solid transparent;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
                 
-                border-top: 1vh solid #3ba55d;
+                border-top: 7px solid #3ba55d;
 
                 animation: fadeCopyMessage 1.5s linear infinite;
             }
@@ -183,21 +183,21 @@
     .pn-right-container {
         display: flex;
         align-items: center;
-        margin-right: 1vh;
+        margin-right: 7px;
 
         .pn-home-icon-container {
             display: flex;
             justify-content: center;
             align-items: center;
 
-            height: 5vh;
-            width: 5vh;
+            height: 35px;
+            width: 35px;
 
             border-radius: 10px;
 
             img {
-                width: 2.5vh;
-                height: 2.5vh;
+                width: 17.5px;
+                height: 17.5px;
                 filter: invert(1);
             }
         }
@@ -217,12 +217,12 @@
                 align-items: center;
 
                 position: absolute;
-                bottom: 3vh;
-                right: -1.4vh;
+                bottom: 21px;
+                right: -9.8px;
 
-                height: 4vh;
-                padding: 0vh 1.5vh 0vh 1.5vh;
-                border-radius: 1vh;
+                height: 28px;
+                padding: 0vh 10.5px 0vh 10.5px;
+                border-radius: 7px;
 
                 background-color: black;
 
@@ -234,15 +234,15 @@
 
             .pn-home-arrow-down {
                 position: absolute;
-                bottom: 2.1vh;
-                right: 1.5vh;
+                bottom: 14.7px;
+                right: 10.5px;
 
                 width: 0; 
                 height: 0; 
-                border-left: 1vh solid transparent;
-                border-right: 1vh solid transparent;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
                 
-                border-top: 1vh solid black;
+                border-top: 7px solid black;
             }
         }
     
@@ -251,14 +251,14 @@
             justify-content: center;
             align-items: center;
 
-            height: 5vh;
-            width: 5vh;
+            height: 35px;
+            width: 35px;
 
             border-radius: 10px;
 
             img {
-                width: 2.5vh;
-                height: 2.5vh;
+                width: 17.5px;
+                height: 17.5px;
                 filter: invert(1);
             }
         }
@@ -279,12 +279,12 @@
                 align-items: center;
 
                 position: absolute;
-                bottom: 3vh;
-                right: -1.6vh;
+                bottom: 21px;
+                right: -11.2px;
 
-                height: 4vh;
-                padding: 0vh 1.5vh 0vh 1.5vh;
-                border-radius: 1vh;
+                height: 28px;
+                padding: 0vh 10.5px 0vh 10.5px;
+                border-radius: 7px;
 
                 background-color: black;
 
@@ -296,15 +296,15 @@
 
             .pn-logout-arrow-down {
                 position: absolute;
-                bottom: 2.1vh;
-                right: 1.5vh;
+                bottom: 14.7px;
+                right: 10.5px;
 
                 width: 0; 
                 height: 0; 
-                border-left: 1vh solid transparent;
-                border-right: 1vh solid transparent;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
                 
-                border-top: 1vh solid black;
+                border-top: 7px solid black;
             }
         }
     }
