@@ -1,0 +1,227 @@
+.text-channel-container {
+    height: 100vh;
+    width: 246px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background-color: #2f3137;
+
+    .text-channel-header-box {
+        height: 45px;
+        width: 100%;
+        border-bottom: 1px solid black;
+        overflow-x: auto;
+
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        padding-left: 12.6px;
+
+        font-family: 'Nunito', sans-serif;
+        font-size: 18px;
+        font-weight: 900;
+        color: white;
+    }
+
+    div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+            font-family: 'Nunito', sans-serif;
+            color: #8e9296;
+            font-size: 12px;
+            font-weight: 800;
+    
+            padding-top: 14px;
+            padding-left: 14px;
+        }
+    
+        h1:hover {
+            color: white;
+        }
+
+        h2 {
+            font-family: 'Nunito', sans-serif;
+            color: #8e9296;
+            font-size: 20px;
+            font-weight: 700;
+
+            padding-top: 14px;
+            padding-right: 14px;
+        }
+
+        h2:hover {
+            cursor: pointer;
+            color: white;
+        }
+
+    }
+
+    .ts-create-relative-position-anchor {
+        position: relative;
+        width: 0;
+        height: 0;
+
+        .ts-create-tooltip-show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: absolute;
+            left: 178.5px;
+            bottom: 24.5px;
+
+            background-color: #18191c;
+            padding: 7px 7px 7px 7px;
+            border-radius: 7px;
+
+            font-family: 'Nunito', sans-serif;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 14px;
+        }
+
+        .ts-create-arrow-down {
+            position: absolute;
+            left: 212.1px;
+            bottom: 17.5px;
+
+            width: 0; 
+            height: 0; 
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            
+            border-top: 7px solid #18191c;
+        }
+    }
+
+    ul {
+        li {
+            height: 28px;
+            width: 90%;
+            margin-left: 10.5px;
+            margin-top: 7px;
+
+            padding: 2.8px 0vh 0vh 0vh;
+
+            border-radius: 7px;
+
+            a {
+                display: flex;
+                justify-self: start;
+                align-items: center;
+
+                text-decoration: none;
+
+                h1 {
+                    font-family: 'Nunito', sans-serif;
+                    color: #72767d;
+                    font-size: 26px;
+                    font-weight: 400;
+    
+                    padding: 0;
+                    padding-left: 7px;
+                    margin-right: 7px;
+                }
+    
+                h3 {
+                    font-family: 'Nunito', sans-serif;
+                    color: #8e9296;
+                    font-size: 15px;
+                    font-weight: 600;
+                }
+            }
+
+            .tc-name-hover-relative-position-anchor {
+                position: relative;
+                width: 0;
+                height: 0;
+
+                .tc-name-hover-container {
+                    position: absolute;
+                    left: 192.5px;
+                    bottom: 6.3px;
+
+                    img {
+                        height: 11.9px;
+                        width: 11.9px;
+                        filter: invert(1);
+                    }
+                }
+            }
+
+            .ts-settings-relative-position-anchor {
+                position: relative;
+                width: 0;
+                height: 0;
+
+                .ts-settings-tooltip-show {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    position: absolute;
+                    left: 161px;
+                    bottom: 28px;
+
+                    background-color: #18191c;
+                    padding: 7px 7px 7px 7px;
+                    border-radius: 7px;
+
+                    font-family: 'Nunito', sans-serif;
+                    color: white;
+                    font-size: 12px;
+                    font-weight: 700;
+                    text-align: center;
+                    line-height: 2vh;
+                }
+
+                .ts-settings-arrow-down {
+                    position: absolute;
+                    left: 191.8px;
+                    bottom: 22.4px;
+
+                    width: 0; 
+                    height: 0; 
+                    border-left: 7px solid transparent;
+                    border-right: 7px solid transparent;
+                    
+                    border-top: 7px solid #18191c;
+                }
+            }
+        }
+
+        li:hover {
+            background-color: #33373c;
+            cursor: pointer;
+
+            a {
+                h1 {
+                    color: #72767d;
+                }
+    
+                h3 {
+                    color: #dcddde;
+                }
+            }
+        }
+
+        li.selected {
+            background-color: #383c43;
+
+            a {
+                h1 {
+                    color: #72767d;
+                }
+
+                h3 {
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+}
