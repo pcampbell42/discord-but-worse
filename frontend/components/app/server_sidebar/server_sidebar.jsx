@@ -186,10 +186,8 @@ class ServersSideBar extends React.Component {
             <div className="ss-container">
                 {showForm ? createServerForm : null}
 
-                <div className="ss-buffer"></div>
-
                 <Link to="/app/home" onMouseEnter={() => this.setState({ homeHovered: true })}
-                    onMouseLeave={() => this.setState({ homeHovered: false })}>
+                    className="home-link" onMouseLeave={() => this.setState({ homeHovered: false })}>
 
                     <div className="ss-home-hover-bar-relative-position-anchor">
                         <aside className={homeHovered ? "hovered" : null} id={homeSelected ? "selected" : null}></aside>

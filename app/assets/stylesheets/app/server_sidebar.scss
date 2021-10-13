@@ -1,18 +1,12 @@
 
 .ss-container {
     height: 100vh;
-    width: 5.1%;
-    // overflow-x: visible;
-    // overflow-y: auto;
+    width: 73px;
     z-index: 10;
 
     background-color: #202225;
 
-    .ss-buffer {
-        height: 0.1vh;
-    }
-
-    a {
+    .home-link {
         .ss-home-hover-bar-relative-position-anchor {
             position: relative;
             width: 0;
@@ -20,42 +14,42 @@
 
             aside.hovered {
                 background-color: #fefefe;
-                width: 1vh;
-                height: 2.8vh;
-                border-radius: 0.5vh;
+                width: 9px;
+                height: 20px;
+                border-radius: 10px;
 
                 position: absolute;
-                top: 2vh;
-                left: -0.5vh;
+                top: 15px;
+                left: -5px;
             }
 
             aside#selected {
                 background-color: #fefefe;
-                width: 1vh;
-                height: 5.5vh;
-                border-radius: 0.5vh;
+                width: 9px;
+                height: 40px;
+                border-radius: 10px;
 
                 position: absolute;
-                top: 0.8vh;
-                left: -0.5vh;
+                top: 4.8px;
+                left: -5px;
             }
         }
 
         .ss-logo-container {
-            height: 7vh;
-            width: 7vh;
+            height: 50px;
+            width: 50px;
             background-color: #37393f;
     
-            margin-left: 1.5vh;
-            margin-top: 1.5vh;
+            margin-left: 11.5px;
+            margin-top: 11.5px;
 
             border-radius: 50px;
 
             img {
-                margin-left: 0.4vh;
-                margin-top: 0.4vh;
-                height: 6vh;
-                width: 6vh;
+                margin-left: 3.75px;
+                margin-top: 3.75px;
+                height: 40px;
+                width: 40px;
             }
         }
 
@@ -82,13 +76,13 @@
             align-items: center;
 
             position: absolute;
-            left: 11vh;
-            bottom: 1.1vh;
+            left: 79px;
+            bottom: 7.5px;
 
-            height: 5vh;
-            padding: 0vh 1.5vh 0vh 1.5vh;
+            height: 34px;
+            padding: 0 10px 0 10px;
             white-space: nowrap;
-            border-radius: 1vh;
+            border-radius: 6px;
 
             background-color: black;
 
@@ -100,15 +94,15 @@
 
         .ss-home-arrow-left {
             position: absolute;
-            left: 10.1vh;
-            bottom: 2.5vh;
+            left: 73px;
+            bottom: 17.5px;
 
             width: 0; 
             height: 0; 
-            border-top: 1vh solid transparent;
-            border-bottom: 1vh solid transparent;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
             
-            border-right: 1vh solid black;
+            border-right: 7px solid black;
         }
     }
 
@@ -121,24 +115,24 @@
 
                 aside.hovered {
                     background-color: #fefefe;
-                    width: 1vh;
-                    height: 2.8vh;
-                    border-radius: 0.5vh;
+                    width: 9px;
+                    height: 20px;
+                    border-radius: 10px;
 
                     position: absolute;
-                    top: 2vh;
-                    left: -0.5vh;
+                    top: 15px;
+                    left: -5px;
                 }
 
                 aside#selected {
                     background-color: #fefefe;
-                    width: 1vh;
-                    height: 5.5vh;
-                    border-radius: 0.5vh;
+                    width: 9px;
+                    height: 40px;
+                    border-radius: 10px;
 
                     position: absolute;
-                    top: 0.8vh;
-                    left: -0.5vh;
+                    top: 4.8px;
+                    left: -5px;
                 }
             }
 
@@ -150,16 +144,16 @@
                     align-items: center;
                     justify-content: center;
             
-                    height: 7vh;
-                    width: 7vh;
+                    height: 50px;
+                    width: 50px;
             
-                    margin-left: 1.5vh;
-                    margin-top: 1.2vh;
+                    margin-left: 11.5px;
+                    margin-top: 11px;
             
                     background-color: #37393f;
             
                     border-radius: 50px;
-            
+
                     div {
                         font-family: 'Nunito', sans-serif;
                         color: white;
@@ -169,8 +163,8 @@
                 }
 
                 li#server-has-photo {
-                    height: 7vh;
-                    width: 7vh;
+                    height: 50px;
+                    width: 50px;
                     background-size: 100% 100%;
                     background-position: center;
                     border-radius: 50%;
@@ -209,13 +203,13 @@
                     align-items: center;
 
                     position: absolute;
-                    left: 11vh;
-                    bottom: 1.1vh;
+                    left: 79px;
+                    bottom: 7.5px;
 
-                    height: 5vh;
-                    padding: 0vh 1.5vh 0vh 1.5vh;
+                    height: 34px;
+                    padding: 0vh 10px 0vh 10px;
                     white-space: nowrap;
-                    border-radius: 1vh;
+                    border-radius: 6px;
 
                     background-color: black;
     
@@ -227,15 +221,15 @@
 
                 .ss-name-show-arrow-left {
                     position: absolute;
-                    left: 10.1vh;
-                    bottom: 2.5vh;
+                    left: 73px;
+                    bottom: 17.5px;
 
                     width: 0; 
                     height: 0; 
-                    border-top: 1vh solid transparent;
-                    border-bottom: 1vh solid transparent;
+                    border-top: 7px solid transparent;
+                    border-bottom: 7px solid transparent;
                     
-                    border-right: 1vh solid black;
+                    border-right: 7px solid black;
                 }
             }
 
@@ -247,11 +241,11 @@
         align-items: center;
         justify-content: center;
 
-        height: 7vh;
-        width: 7vh;
+        height: 50px;
+        width: 50px;
 
-        margin-left: 1.5vh;
-        margin-top: 1.2vh;
+        margin-left: 11.5px;
+        margin-top: 11px;
 
         background-color: #37393f;
 
@@ -282,13 +276,13 @@
             align-items: center;
 
             position: absolute;
-            left: 11vh;
-            bottom: 1.1vh;
+            left: 79px;
+            bottom: 7.5px;
 
-            height: 5vh;
-            padding: 0vh 1.5vh 0vh 1.5vh;
+            height: 34px;
+            padding: 0vh 10px 0vh 10px;
             white-space: nowrap;
-            border-radius: 1vh;
+            border-radius: 6px;
 
             background-color: black;
 
@@ -300,17 +294,20 @@
 
         .ss-create-arrow-left {
             position: absolute;
-            left: 10.1vh;
-            bottom: 2.5vh;
+            left: 73px;
+            bottom: 17.5px;
 
             width: 0; 
             height: 0; 
-            border-top: 1vh solid transparent;
-            border-bottom: 1vh solid transparent;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
             
-            border-right: 1vh solid black;
+            border-right: 7px solid black;
         }
     }
+
+
+    // ------------------ Dropdown Menu CSS ------------------
 
     .ss-options-relative-position-anchor {
         position: relative;
