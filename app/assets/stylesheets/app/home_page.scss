@@ -1,6 +1,6 @@
 .hp-container {
     height: 100vh;
-    width: 77.8vw;
+    width: calc(100vw - 73px - 246px);
 
     overflow-y: auto;
 
@@ -17,8 +17,8 @@
             color: white;
             font-size: 25px;
             font-weight: 800;
-            padding-top: 1.5vh;
-            padding-left: 2vh;
+            padding-top: 10.5px;
+            padding-left: 14px;
         }
     }
 
@@ -32,21 +32,20 @@
         li {
             display: flex;
             flex-direction: column;
-            // justify-content: space-around;
             align-items: center;
 
-            height: 40vh;
+            height: 280px;
 
-            margin-right: 5vh;
-            margin-bottom: 5vh;
+            margin-right: 35px;
+            margin-bottom: 35px;
 
             div {
                 display: flex;
                 justify-content: center;
                 align-items: center;
 
-                height: 14vh;
-                width: 14vh;
+                height: 98px;
+                width: 98px;
     
                 background-color: #0f65ae;
                 border-radius: 50px;
@@ -56,7 +55,7 @@
                 font-size: 40px;
                 font-weight: 500;
 
-                margin-bottom: 2vh;
+                margin-bottom: 14px;
             }
 
             #home-page-server-photo {
@@ -79,19 +78,19 @@
             button {
                 background-color: #3ba55d;
                 border: none;
-                height: 6vh;
-                width: 10vh;
+                height: 42px;
+                width: 70px;
                 outline-style: none;
 
 
-                margin-bottom: 2vh;
-                border-radius: 1vh;
+                margin-bottom: 14px;
+                border-radius: 7px;
 
                 font-family: 'Nunito', sans-serif;
                 color: white;
                 font-size: 15px;
                 font-weight: 500;
-                line-height: 2vh;
+                line-height: 14px;
             }
 
             button:hover {
@@ -100,9 +99,9 @@
             }
 
             h2 {
-                margin-bottom: 2vh;
+                margin-bottom: 14px;
 
-                width: 15vh;
+                width: 105px;
                 
                 text-align: center;
                 font-family: 'Nunito', sans-serif;
@@ -112,7 +111,7 @@
             }
 
             h3 {
-                width: 15vh;
+                width: 105px;
 
                 text-align: center;
                 font-family: 'Nunito', sans-serif;
@@ -124,11 +123,7 @@
 
         li#e {
             button {
-                // outline-style: solid;
-                // outline-width: 0.3vh;
-                // outline-color: #ed4245;
-
-                box-shadow: 0px 0px 0px 0.3vh #ed4245 inset;
+                box-shadow: 0px 0px 0px 2.1px #ed4245 inset;
             }
         }
     }
