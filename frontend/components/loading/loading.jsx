@@ -26,6 +26,7 @@ class Loading extends React.Component {
 
         //  ---------------------- Set up subscriptions ----------------------
             .then(() => {
+                // Text channel subscriptions
                 for (const i in this.props.textChannels) {
                     createSubscription("tc", this.props.textChannels[i].id,
                         this.props.receiveAllMessages,
@@ -34,6 +35,7 @@ class Loading extends React.Component {
                     );
                 }
 
+                // DM subscriptions
                 for (const i in this.props.directMessages) {
                     createSubscription("dm", this.props.directMessages[i].id,
                         this.props.receiveAllMessages,
@@ -41,6 +43,9 @@ class Loading extends React.Component {
                         this.props.deleteMessage
                     );
                 }
+
+                // Personal handshake subscription
+                // createSubscription("")
             })
 
         // ---------------------- Set timeout for loading screen end ----------------------

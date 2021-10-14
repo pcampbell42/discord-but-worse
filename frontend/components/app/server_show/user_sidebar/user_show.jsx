@@ -72,16 +72,22 @@ class UserShow extends React.Component {
 
             this.props.createDirectMessage({ user1_id: this.props.currentUser.id, user2_id: this.props.user.id })
                 .then(() => {
-                     createSubscription("dm", this.props.dmId,
-                        this.props.receiveAllMessages, this.props.receiveMessage,
-                        this.props.deleteMessage)
-                })
-                .then(() => {
-                    let subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
-                    App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
-                })
-                .then(() => this.setState({ showProfile: false, body: "" }))
-                .then(() => this.props.history.push(`/app/home/conversations/${this.props.dmId}`));
+                    // Create websocket subscription to DM
+                    createSubscription("dm", this.props.dmId, this.props.receiveAllMessages, 
+                        this.props.receiveMessage, this.props.deleteMessage)
+
+                        // Not an ideal fix, but need a tiny delay or sometimes the subscription isn't created
+                        // by the time the message is created, resulting in the message getting lost forever
+                        setTimeout(() => {
+                            // Get subscription and send message
+                            let subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
+                            App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
+        
+                            // Close user profile and redirect to DM
+                            this.setState({ showProfile: false, body: "" })
+                            this.props.history.push(`/app/home/conversations/${this.props.dmId}`)
+                        }, 50)
+                });
         }
     }
 
