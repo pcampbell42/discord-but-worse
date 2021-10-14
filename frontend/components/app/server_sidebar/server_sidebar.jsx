@@ -151,6 +151,22 @@ class ServersSideBar extends React.Component {
             </div>
         );
 
+        const addServerForm = (
+            <div className="ss-add-relative-position-anchor">
+                <div className="ss-add-container">
+
+                </div>
+            </div>
+        );
+
+        const joinServerForm = (
+            <div className="ss-join-relative-position-anchor">
+                <div className="ss-join-container">
+
+                </div>
+            </div>
+        );
+        
 
         const createServerForm = (
             <div className="ss-create-form-relative-position-anchor">

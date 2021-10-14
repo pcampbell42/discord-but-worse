@@ -10,6 +10,8 @@ class ServerIconDisplay extends React.Component {
         this.state = {
             hovered: false,
             showDropdown: false,
+            showInvite: false,
+            inviteCopied: false, // Used to show green border around invite input when link is copied
             showSettings: false,
             updatedServerLoading: false, // Used to "smooth" the loading time when updating a new server with an avatar
 
@@ -32,6 +34,9 @@ class ServerIconDisplay extends React.Component {
         this.handleOutsideRightClick = this.handleOutsideRightClick.bind(this);
         this.handleFileUpload = this.handleFileUpload.bind(this);
         this._resetFormValues = this._resetFormValues.bind(this);
+        this.handleShowInvite = this.handleShowInvite.bind(this);
+        this.handleInviteCopy = this.handleInviteCopy.bind(this);
+        this.handleCloseInvite = this.handleCloseInvite.bind(this);
     }
 
 
@@ -54,6 +59,13 @@ class ServerIconDisplay extends React.Component {
     // ------------- Event handlers for closing dropdown / settings -------------
 
     handleOutsideClick(e) {
+        // Closing invite popup
+        if (e.target.className === "ss-invite-relative-position-anchor") {
+            this.setState({ showInvite: false });
+            return;
+        }
+
+        // Closing dropdown
         if (!this.serverDropdownEl) return;
         if (!this.serverDropdownEl.contains(e.target)) {
             this.setState({ showDropdown: false });
@@ -71,7 +83,7 @@ class ServerIconDisplay extends React.Component {
 
     handleEscape(e) {
         if (e.keyCode === 27) {
-            this.setState({ showSettings: false, showDropdown: false });
+            this.setState({ showSettings: false, showDropdown: false, showInvite: false });
             this._resetFormValues();
             this.props.clearMembershipErrors();
         }
@@ -140,8 +152,22 @@ class ServerIconDisplay extends React.Component {
 
 
     // ------------- Event handlers for invite show -------------
+
     handleShowInvite(e) {
-        
+        e.preventDefault();
+        this.setState({ showDropdown: false, showInvite: true });
+    }
+
+    handleInviteCopy(e) {
+        e.preventDefault();
+        navigator.clipboard.writeText(this.props.server.inviteCode);
+        this.setState({ inviteCopied: true });
+        setTimeout(() => this.setState({ inviteCopied: false }), 1500);
+    }
+
+    handleCloseInvite(e) {
+        e.preventDefault();
+        this.setState({ showInvite: false });
     }
 
 
@@ -174,7 +200,8 @@ class ServerIconDisplay extends React.Component {
 
     render() {
         const { server, currentUser, selected, currentServerDetails, firstTextChannelId, error } = this.props
-        const { hovered, showDropdown, showSettings, name, imageUrl, updatedServerLoading } = this.state;
+        const { hovered, showDropdown, showInvite, showSettings, name, imageUrl, updatedServerLoading, 
+                inviteCopied } = this.state;
 
 
         const serverNameShow = (
@@ -196,6 +223,25 @@ class ServerIconDisplay extends React.Component {
                     <li id="ss-options-cancel" onClick={() => this.setState({ showDropdown: false })}>Cancel</li>
                 </ul>
             </div>
+        );
+
+
+        const serverInvite = (
+          <div className="ss-invite-relative-position-anchor">
+              <div className="ss-invite-container">
+                <button id="ss-close-create-form" onClick={this.handleCloseInvite}>x</button>
+
+                <form className="server-invite-form">
+                    <label className="server-invite-copy-label">SEND A SERVER INVITE LINK TO A FRIEND
+                            <input className="server-invite-copy-input" id={inviteCopied ? "copied" : null}
+                                    type="text" value={server.inviteCode} readOnly />
+                    </label>
+
+                    <button className="copy-invite-button" id={inviteCopied ? "copied" : null} 
+                            onClick={this.handleInviteCopy}>Copy</button>
+                </form>
+              </div>
+          </div>  
         );
 
 
@@ -248,6 +294,7 @@ class ServerIconDisplay extends React.Component {
         return (
             <div>
                 {showSettings ? serverSettings : null}
+                {showInvite ? serverInvite : null}
 
                 <div className="ss-hover-bar-relative-position-anchor">
                     <aside className={hovered ? "hovered" : null} id={selected ? "selected" : null}></aside>
