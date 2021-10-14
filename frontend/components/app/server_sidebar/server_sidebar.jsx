@@ -167,11 +167,18 @@ class ServersSideBar extends React.Component {
         // creates a new server and immediately sends you an invite, you might not have
         // that server in state yet (depending on where you've been navigating).
 
+        // Get all joined server ids for current user
+        let currentUserServerIds = [];
+        for (let i = 0; i < this.props.userServers.length; i++) {
+            currentUserServerIds.push(this.props.userServers[i].id);
+        }
+
         // Checking if valid code
         let invalidCode = true;
         let serverId;
         for (let i = 0; i < this.props.servers.length; i++) {
-            if (this.props.servers[i].inviteCode === this.state.inviteCode) {
+            if (this.props.servers[i].inviteCode === this.state.inviteCode &&
+                !currentUserServerIds.includes(this.props.servers[i].id)) {
                 invalidCode = false;
                 serverId = this.props.servers[i].id;
             }
