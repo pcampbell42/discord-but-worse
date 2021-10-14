@@ -19,12 +19,12 @@
         div {
             position: absolute;
             background-color: white;
-            height: 56%;
-            width: 31%;
+            height: 400px;
+            width: 450px;
             display: flex;
             justify-content: space-evenly;
 
-            border-radius: 1vh;
+            border-radius: 7px;
 
             button {
                 position: absolute;
@@ -49,14 +49,15 @@
                 flex-direction: column;
                 justify-content: space-evenly;
                 align-items: center;
+                height: 240px;
                 width: 75%;
-                margin-top: 3vh;
+                margin-top: 21px;
                 
                 h1 {
                     font-family: 'Nunito', sans-serif;
                     font-size: 26px;
                     font-weight: 900;
-                    margin-bottom: 1.2vh;
+                    margin-bottom: 8.4px;
                     text-align: center;
                 }
 
@@ -65,13 +66,13 @@
                     font-size: 15px;
                     font-weight: 400;
                     text-align: center;
-                    line-height: 3vh;
+                    line-height: 21px;
                 }
 
                 .server-custom-file-input {
-                    margin-top: 3vh;
-                    height: 15vh;
-                    width: 16vh;
+                    margin-top: 21px;
+                    height: 105px;
+                    width: 112px;
                     background: image-url("image_upload_icon.png");
                     background-color: white;
                     background-size: 100% 100%;
@@ -92,7 +93,7 @@
                 position: relative;
                 top: 70%;
 
-                height: 20vh;
+                height: 140px;
 
                 font-family: 'Nunito', sans-serif;
                 font-size: 13px;
@@ -108,12 +109,12 @@
 
                     input {
                         display: block;
-                        height: 5vh;
-                        width: 55vh;
-                        margin-top: 1vh;
-                        padding-left: 1vh;
+                        height: 35px;
+                        width: 385px;
+                        margin-top: 7px;
+                        padding-left: 7px;
 
-                        border-radius: 0.3vh;
+                        border-radius: 2.1px;
                         border-style: solid;
                         border-color: #8e9296;
                         border-width: 1px;
@@ -131,15 +132,26 @@
                 footer {
                     display: flex;
                     justify-content: space-between;
+
+                    .ss-create-back-button {
+                        margin-top: 23px;
+                        margin-left: 9px;
+                        font-size: 14px;
+                        font-weight: 700;
+                    }
+
+                    .ss-create-back-button:hover {
+                        cursor: pointer;
+                    }
                     
                     .ss-submit-button {
-                        height: 5vh;
-                        width: 13vh;
+                        height: 35px;
+                        width: 91px;
                         padding-left: 0;
-                        margin-top: 1.7vh;
+                        margin-top: 11.9px;
                         background-color: #5865f1;
     
-                        border-radius: 0.3vh;
+                        border-radius: 2.1px;
                         border-style: solid;
                         border-color: #8e9296;
                         border-width: 1px;
