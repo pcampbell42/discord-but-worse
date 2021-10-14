@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logoutIcon from "../../../../app/assets/images/logout_icon.png"
-import homeIcon from "../../../../app/assets/images/home_icon.png"
-import defaultProfilePicture from "../../../../app/assets/images/default_profile_picture.png"
+import logoutIcon from "../../../../app/assets/images/logout_icon.png";
+import homeIcon from "../../../../app/assets/images/home_icon.png";
 
 
 class ProfileNavbar extends React.Component {
