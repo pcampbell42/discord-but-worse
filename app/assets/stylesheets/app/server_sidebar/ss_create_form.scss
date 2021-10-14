@@ -19,7 +19,7 @@
         div {
             position: absolute;
             background-color: white;
-            height: 400px;
+            height: 420px;
             width: 450px;
             display: flex;
             justify-content: space-evenly;
@@ -104,7 +104,6 @@
 
                     font-weight: 700;
                     font-size: 11px;
-
                     color: #8e9296;
 
                     input {
@@ -151,13 +150,10 @@
                         margin-top: 11.9px;
                         background-color: #5865f1;
     
-                        border-radius: 2.1px;
-                        border-style: solid;
-                        border-color: #8e9296;
-                        border-width: 1px;
+                        border-radius: 3px;
+                        border-style: none;
     
                         color: white;
-    
                     }
 
                     .ss-submit-button#ss-invalid {

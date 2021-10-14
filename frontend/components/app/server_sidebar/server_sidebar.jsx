@@ -22,7 +22,8 @@ class ServersSideBar extends React.Component {
             // form info
             name: `${props.currentUser.username}'s server`,
             imageUrl: "",
-            imageFile: null
+            imageFile: null,
+            inviteCode: ""
         };
 
         this._resetFormValues = this._resetFormValues.bind(this);
@@ -35,6 +36,8 @@ class ServersSideBar extends React.Component {
         this.handleGoToCreate = this.handleGoToCreate.bind(this);
         this.handleGoToJoin = this.handleGoToJoin.bind(this);
         this.handleBack = this.handleBack.bind(this);
+        this.handleJoin = this.handleJoin.bind(this);
+        this.handleRedirect = this.handleRedirect.bind(this);
     }
 
 
@@ -96,11 +99,17 @@ class ServersSideBar extends React.Component {
         this.setState({ showAddForm: true })
     }
 
+    handleRedirect(e) {
+        this.handleClose(e);
+        this.props.history.push("/app/home");
+    }
+
 
     // ------------- Event handlers for updating form values -------------
 
     update(e) {
-        this.setState({ name: e.currentTarget.value })
+        if (this.state.showCreateForm) this.setState({ name: e.currentTarget.value });
+        if (this.state.showJoinForm) this.setState({ inviteCode: e.currentTarget.value });
     }
 
     handleFileUpload(e) {
@@ -146,6 +155,10 @@ class ServersSideBar extends React.Component {
             .then(() => this.setState({ newServerLoading: false }))
     }
 
+    handleJoin(e) {
+
+    }
+
 
     // ------------- Helper method for resetting state -------------
 
@@ -154,7 +167,7 @@ class ServersSideBar extends React.Component {
             name: `${this.props.currentUser.username}'s server`,
             imageUrl: "",
             imageFile: null,
-            // Also, reset the join link
+            inviteCode: "",
             showAddForm: false,
             showCreateForm: false,
             showJoinForm: false
@@ -165,7 +178,7 @@ class ServersSideBar extends React.Component {
     render() {
         const { error, homeSelected } = this.props;
         const { imageUrl, name, showCreateForm, createHovered, homeHovered, newServerLoading,
-                showAddForm, showJoinForm } = this.state;
+                showAddForm, showJoinForm, inviteCode } = this.state;
 
 
         const homeTooltipShow = (
@@ -245,6 +258,33 @@ class ServersSideBar extends React.Component {
                 <div className="ss-join-container">
                     <button className="ss-close-join-form" onClick={this.handleClose}>x</button>
 
+                    <div className="ss-join-header">
+                        <h1 className="ss-join-title">Join a Server</h1>
+                        <p className="ss-join-description">Enter an invite below to join an existing server.</p>
+                    </div>
+
+                    <form className="ss-join-form" onSubmit={inviteCode === "" ? null : this.handleJoin}>
+                        <div className="ss-join-form-upper">
+                            <label className="ss-join-label">INVITE LINK <span className="ss-join-asterisk">*</span>
+                                <input className="ss-join-input" type="text" value={inviteCode} 
+                                    placeholder="Af5Ty-rKLYHwaj3wYLSAnA" onChange={this.update} />
+                            </label>
+
+                            <h3 className="ss-join-invite-example-header">INVITES SHOULD LOOK LIKE</h3>
+                            <p className="ss-join-invite-example">yJ3H2owV6tgf9U1q87ym2g</p>
+                        </div>
+
+                        <div className="ss-join-form-middle">
+                            <h2 className="ss-join-home-header">Don't have an invite?</h2>
+                            <Link to="/app/home" className="ss-join-home-link" 
+                                onClick={this.handleRedirect}>Join public servers in Server Discovery</Link>
+                        </div>
+
+                        <footer className="ss-join-form-lower">
+                            <span className="ss-join-back-button" onClick={this.handleBack}>Back</span>
+                            <input className="ss-join-submit" type="submit" value="Join Server" />
+                        </footer>
+                    </form>
 
                 </div>
             </div>
