@@ -4,13 +4,17 @@ import { withRouter } from "react-router";
 import ServerIconDisplayContainer from "./server_icon_display_container";
 import { createSubscription } from "../../../util/websockets_helpers";
 import discordLogo from "../../../../app/assets/images/discord_logo.png";
+import rightArrow from "../../../../app/assets/images/right_arrow.png";
+import serverCreateIcon from "../../../../app/assets/images/server_create_icon.png";
 
 
 class ServersSideBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showForm: false,
+            showAddForm: false,
+            showCreateForm: false,
+            showJoinForm: false,
             homeHovered: false,
             createHovered: false,
             newServerLoading: false, // Used to "smooth" the loading time when creating a new server with an avatar
@@ -28,6 +32,9 @@ class ServersSideBar extends React.Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleEscape = this.handleEscape.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleGoToCreate = this.handleGoToCreate.bind(this);
+        this.handleGoToJoin = this.handleGoToJoin.bind(this);
+        this.handleBack = this.handleBack.bind(this);
     }
 
 
@@ -49,7 +56,9 @@ class ServersSideBar extends React.Component {
 
     handleClick(e) {
         // If click is outside of form, close form
-        if (e.target.className === "ss-create-form-relative-position-anchor") {
+        if (e.target.className === "ss-add-relative-position-anchor" ||
+            e.target.className === "ss-create-form-relative-position-anchor" ||
+            e.target.className === "ss-join-relative-position-anchor") {
             this._resetFormValues();
             this.props.clearMembershipErrors();
         }
@@ -66,6 +75,25 @@ class ServersSideBar extends React.Component {
         e.preventDefault();
         this._resetFormValues();
         this.props.clearMembershipErrors();
+    }
+
+
+    // ------------- Event handlers for server forms -------------
+
+    handleGoToCreate(e) {
+        e.preventDefault();
+        this.setState({ showAddForm: false, showCreateForm: true });
+    }
+
+    handleGoToJoin(e) {
+        e.preventDefault();
+        this.setState({ showAddForm: false, showJoinForm: true });
+    }
+
+    handleBack(e) {
+        e.preventDefault();
+        this._resetFormValues();
+        this.setState({ showAddForm: true })
     }
 
 
@@ -126,14 +154,18 @@ class ServersSideBar extends React.Component {
             name: `${this.props.currentUser.username}'s server`,
             imageUrl: "",
             imageFile: null,
-            showForm: false
+            // Also, reset the join link
+            showAddForm: false,
+            showCreateForm: false,
+            showJoinForm: false
         });
     }
 
 
     render() {
         const { error, homeSelected } = this.props;
-        const { imageUrl, name, showForm, createHovered, homeHovered, newServerLoading } = this.state;
+        const { imageUrl, name, showCreateForm, createHovered, homeHovered, newServerLoading,
+                showAddForm, showJoinForm } = this.state;
 
 
         const homeTooltipShow = (
@@ -154,15 +186,25 @@ class ServersSideBar extends React.Component {
         const addServerForm = (
             <div className="ss-add-relative-position-anchor">
                 <div className="ss-add-container">
+                    <button className="ss-close-add-form" onClick={this.handleClose}>x</button>
 
-                </div>
-            </div>
-        );
+                    <div className="ss-add-header">
+                        <h1 className="ss-add-create-header">Create a server</h1>
+                        <p className="ss-add-create-description">Your server is where you and your friends hang out. Make yours and start talking.</p>
+                    </div>
 
-        const joinServerForm = (
-            <div className="ss-join-relative-position-anchor">
-                <div className="ss-join-container">
+                    <button className="ss-add-create-button" onClick={this.handleGoToCreate}>
+                        <div className="ss-add-create-button-left">
+                            <img className="ss-add-img-create-icon" src={serverCreateIcon} />
+                            <p className="ss-add-create-button-text">Create My Own</p>
+                        </div>
+                        <img className="ss-add-img-right-arrow" src={rightArrow} />
+                    </button>
 
+                    <footer className="ss-add-footer">
+                        <h2 className="ss-add-join-header">Have an invite already?</h2>
+                        <button className="ss-add-join-button" onClick={this.handleGoToJoin}>Join a Server</button>
+                    </footer>
                 </div>
             </div>
         );
@@ -189,7 +231,7 @@ class ServersSideBar extends React.Component {
                             <input type="text" value={name} onChange={this.update} />
                         </label>
                         <footer>
-                            <span></span>
+                            <span className="ss-create-back-button" onClick={this.handleBack}>Back</span>
                             <input id={name === "" || newServerLoading ? "ss-invalid" : null} className="ss-submit-button" type="submit" value="Create" />
                         </footer>
                     </form>
@@ -198,9 +240,22 @@ class ServersSideBar extends React.Component {
         );
 
 
+        const joinServerForm = (
+            <div className="ss-join-relative-position-anchor">
+                <div className="ss-join-container">
+                    <button className="ss-close-join-form" onClick={this.handleClose}>x</button>
+
+
+                </div>
+            </div>
+        );
+
+
         return (
             <div className="ss-container">
-                {showForm ? createServerForm : null}
+                {showAddForm ? addServerForm : null}
+                {showCreateForm ? createServerForm : null}
+                {showJoinForm ? joinServerForm : null}
 
                 <Link to="/app/home" onMouseEnter={() => this.setState({ homeHovered: true })}
                     className="home-link" onMouseLeave={() => this.setState({ homeHovered: false })}>
@@ -222,7 +277,7 @@ class ServersSideBar extends React.Component {
                     )}
                 </ul>
 
-                <button onClick={() => this.setState({ showForm: true })}
+                <button onClick={() => this.setState({ showAddForm: true })}
                     onMouseEnter={() => this.setState({ createHovered: true })}
                     onMouseLeave={() => this.setState({ createHovered: false })}>
                     +
