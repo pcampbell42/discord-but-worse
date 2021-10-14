@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import ServerIconDisplayContainer from "./server_icon_display_container";
 import { createSubscription } from "../../../util/websockets_helpers";
+import { getServerTextChannels } from "../../../util/selectors";
 import discordLogo from "../../../../app/assets/images/discord_logo.png";
 import rightArrow from "../../../../app/assets/images/right_arrow.png";
 import serverCreateIcon from "../../../../app/assets/images/server_create_icon.png";
@@ -22,7 +23,9 @@ class ServersSideBar extends React.Component {
             // form info
             name: `${props.currentUser.username}'s server`,
             imageUrl: "",
-            imageFile: null
+            imageFile: null,
+            inviteCode: "",
+            invalidCode: false
         };
 
         this._resetFormValues = this._resetFormValues.bind(this);
@@ -35,6 +38,8 @@ class ServersSideBar extends React.Component {
         this.handleGoToCreate = this.handleGoToCreate.bind(this);
         this.handleGoToJoin = this.handleGoToJoin.bind(this);
         this.handleBack = this.handleBack.bind(this);
+        this.handleJoin = this.handleJoin.bind(this);
+        this.handleRedirect = this.handleRedirect.bind(this);
     }
 
 
@@ -96,11 +101,17 @@ class ServersSideBar extends React.Component {
         this.setState({ showAddForm: true })
     }
 
+    handleRedirect(e) {
+        this.handleClose(e);
+        this.props.history.push("/app/home");
+    }
+
 
     // ------------- Event handlers for updating form values -------------
 
     update(e) {
-        this.setState({ name: e.currentTarget.value })
+        if (this.state.showCreateForm) this.setState({ name: e.currentTarget.value });
+        if (this.state.showJoinForm) this.setState({ inviteCode: e.currentTarget.value });
     }
 
     handleFileUpload(e) {
@@ -134,16 +145,63 @@ class ServersSideBar extends React.Component {
                 this.props.clearMembershipErrors();
 
                 // Grab info for new server
-                this.props.currentServerDetails(this.props.userServers[this.props.userServers.length - 1].id);
-
-                // Create websocket subscription for default text channel in new server
-                createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id,
-                    this.props.receiveAllMessages, this.props.receiveMessage, this.props.deleteMessage);
-
-                // Finally, redirect to default text channel in new server
-                this.props.history.push(`/app/servers/${this.props.userServers[0].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`);
+                this.props.currentServerDetails(this.props.userServers[this.props.userServers.length - 1].id)
+                    .then(() => {
+                        // Create websocket subscription for default text channel in new server
+                        createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id,
+                            this.props.receiveAllMessages, this.props.receiveMessage, this.props.deleteMessage);
+        
+                        // Finally, redirect to default text channel in new server
+                        this.props.history.push(`/app/servers/${this.props.userServers[0].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`);
+                    });
             })
             .then(() => this.setState({ newServerLoading: false }))
+    }
+
+    handleJoin(e) {
+        e.preventDefault();
+
+        // No need for a backend call to check if valid because we will always have
+        // all the servers in state - for a larger scale project, we would obviously
+        // want to create a new route. The only possible error here is if someone 
+        // creates a new server and immediately sends you an invite, you might not have
+        // that server in state yet (depending on where you've been navigating).
+
+        // Checking if valid code
+        let invalidCode = true;
+        let serverId;
+        for (let i = 0; i < this.props.servers.length; i++) {
+            if (this.props.servers[i].inviteCode === this.state.inviteCode) {
+                invalidCode = false;
+                serverId = this.props.servers[i].id;
+            }
+        }
+
+        if (invalidCode) {
+            this.setState({ invalidCode: true })
+        } else {
+            this.props.createMembership({ server_id: serverId })
+                .then(() => {
+                    // Reset all the values...
+                    this._resetFormValues();
+                    this.props.clearMembershipErrors();
+
+                    // Grab server info
+                    this.props.currentServerDetails(serverId)
+                        .then(() => {
+                            let serverTextChannels = getServerTextChannels(this.props.textChannels, serverId.toString());
+
+                            // Create websocket subscriptions to each text channel
+                            serverTextChannels.forEach(textChannel =>
+                                createSubscription("tc", textChannel.id, this.props.receiveAllMessages,
+                                    this.props.receiveMessage, this.props.deleteMessage)
+                            );
+
+                            // Finally, redirect to default text channel in new server
+                            this.props.history.push(`/app/servers/${serverId}/${serverTextChannels[0].id}`);
+                        });
+                });
+        }
     }
 
 
@@ -154,7 +212,8 @@ class ServersSideBar extends React.Component {
             name: `${this.props.currentUser.username}'s server`,
             imageUrl: "",
             imageFile: null,
-            // Also, reset the join link
+            inviteCode: "",
+            invalidCode: false,
             showAddForm: false,
             showCreateForm: false,
             showJoinForm: false
@@ -165,7 +224,7 @@ class ServersSideBar extends React.Component {
     render() {
         const { error, homeSelected } = this.props;
         const { imageUrl, name, showCreateForm, createHovered, homeHovered, newServerLoading,
-                showAddForm, showJoinForm } = this.state;
+                showAddForm, showJoinForm, inviteCode, invalidCode } = this.state;
 
 
         const homeTooltipShow = (
@@ -245,7 +304,36 @@ class ServersSideBar extends React.Component {
                 <div className="ss-join-container">
                     <button className="ss-close-join-form" onClick={this.handleClose}>x</button>
 
+                    <div className="ss-join-header">
+                        <h1 className="ss-join-title">Join a Server</h1>
+                        <p className="ss-join-description">Enter an invite below to join an existing server.</p>
+                    </div>
 
+                    <form className="ss-join-form" onSubmit={this.handleJoin}>
+                        <div className="ss-join-form-upper">
+                            <label className="ss-join-label" id={invalidCode ? "invalid" : null}>
+                                INVITE LINK {invalidCode ? 
+                                    <span className="ss-join-error-message">- The invite is invalid</span> : 
+                                    <span className="ss-join-asterisk">*</span>}
+                                <input className="ss-join-input" type="text" value={inviteCode} 
+                                    placeholder="Af5Ty-rKLYHwaj3wYLSAnA" onChange={this.update} />
+                            </label>
+
+                            <h3 className="ss-join-invite-example-header">INVITES SHOULD LOOK LIKE</h3>
+                            <p className="ss-join-invite-example">yJ3H2owV6tgf9U1q87ym2g</p>
+                        </div>
+
+                        <div className="ss-join-form-middle">
+                            <h2 className="ss-join-home-header">Don't have an invite?</h2>
+                            <Link to="/app/home" className="ss-join-home-link" 
+                                onClick={this.handleRedirect}>Join public servers in Server Discovery</Link>
+                        </div>
+
+                        <footer className="ss-join-form-lower">
+                            <span className="ss-join-back-button" onClick={this.handleBack}>Back</span>
+                            <input className="ss-join-submit" type="submit" value="Join Server" />
+                        </footer>
+                    </form>
                 </div>
             </div>
         );
