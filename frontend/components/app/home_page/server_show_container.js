@@ -10,7 +10,7 @@ import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../acti
 const mstp = (state, ownProps) => ({
     currentUserServerIds: currentUserServerIds(state),
     errors: state.errors.memberships,
-    textChannels: getServerTextChannels(state, ownProps.server.id.toString())
+    textChannels: getServerTextChannels(Object.values(state.entities.textChannels), ownProps.server.id.toString())
 });
 
 const mdtp = dispatch => ({

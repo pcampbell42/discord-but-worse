@@ -8,7 +8,7 @@ import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../../a
 const mstp = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],
     server: state.entities.servers[ownProps.serverId],
-    textChannels: getServerTextChannels(state, ownProps.serverId)
+    textChannels: getServerTextChannels(Object.values(state.entities.textChannels), ownProps.serverId)
 });
 
 const mdtp = dispatch => ({

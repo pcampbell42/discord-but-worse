@@ -110,12 +110,10 @@ export const getFirstTextChannelId = (state, currentServerId) => {
 /**
  * Selector that returns all text channels for a given server.
  * @param {Obj} state - All of state
- * @param {Number} currentServerId - Server id
+ * @param {String} currentServerId - Server id AS A STRING
  * @returns - Array of text channels for a server
  */
-export const getServerTextChannels = (state, currentServerId) => {
-    const textChannels = Object.values(state.entities.textChannels);
-
+export const getServerTextChannels = (textChannels, currentServerId) => {
     let selectedChannels = [];
     for (let i = 0; i < textChannels.length; i++) {
         if (textChannels[i].serverId.toString() === currentServerId) 

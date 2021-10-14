@@ -3,7 +3,7 @@ import ServerSidebar from "./server_sidebar";
 import { fetchCurrentUserDetails } from "../../../actions/session_actions";
 import { createServer } from "../../../actions/server_actions";
 import { currentUserServers } from "../../../util/selectors";
-import { clearMembershipErrors } from "../../../actions/membership_actions";
+import { createMembership, clearMembershipErrors } from "../../../actions/membership_actions";
 import { currentServerDetails } from "../../../actions/server_actions";
 import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../actions/message_actions";
 
@@ -14,12 +14,14 @@ const mstp = state => ({
     error: state.errors.memberships,
     homeSelected: (window.location.hash.includes("#/app/home") ? true : false),
     textChannels: Object.values(state.entities.textChannels),
-    directMessages: Object.values(state.entities.directMessages)
+    directMessages: Object.values(state.entities.directMessages),
+    servers: Object.values(state.entities.servers)
 });
 
 const mdtp = dispatch => ({
     fetchCurrentUserDetails: currentUserId => dispatch(fetchCurrentUserDetails(currentUserId)),
     createServer: server => dispatch(createServer(server)),
+    createMembership: membership => dispatch(createMembership(membership)),
     clearMembershipErrors: () => dispatch(clearMembershipErrors()),
     currentServerDetails: serverId => dispatch(currentServerDetails(serverId)),
 

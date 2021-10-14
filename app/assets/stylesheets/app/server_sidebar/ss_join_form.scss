@@ -98,6 +98,13 @@
                     color: #ed4245;
                 }
 
+                .ss-join-error-message {
+                    color: #ed4245;
+                    font-style: italic;
+                    font-size: 12px;
+                    margin-bottom: 4px;
+                }
+
                 .ss-join-input {
                     display: block;
                     height: 35px;
@@ -119,6 +126,10 @@
                     border-style: none;
                     outline: transparent;
                 }
+            }
+
+            .ss-join-label#invalid {
+                color: #ed4245;
             }
 
             .ss-join-invite-example-header {

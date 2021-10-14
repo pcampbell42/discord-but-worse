@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import ServerIconDisplayContainer from "./server_icon_display_container";
 import { createSubscription } from "../../../util/websockets_helpers";
+import { getServerTextChannels } from "../../../util/selectors";
 import discordLogo from "../../../../app/assets/images/discord_logo.png";
 import rightArrow from "../../../../app/assets/images/right_arrow.png";
 import serverCreateIcon from "../../../../app/assets/images/server_create_icon.png";
@@ -23,7 +24,8 @@ class ServersSideBar extends React.Component {
             name: `${props.currentUser.username}'s server`,
             imageUrl: "",
             imageFile: null,
-            inviteCode: ""
+            inviteCode: "",
+            invalidCode: false
         };
 
         this._resetFormValues = this._resetFormValues.bind(this);
@@ -143,20 +145,63 @@ class ServersSideBar extends React.Component {
                 this.props.clearMembershipErrors();
 
                 // Grab info for new server
-                this.props.currentServerDetails(this.props.userServers[this.props.userServers.length - 1].id);
-
-                // Create websocket subscription for default text channel in new server
-                createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id,
-                    this.props.receiveAllMessages, this.props.receiveMessage, this.props.deleteMessage);
-
-                // Finally, redirect to default text channel in new server
-                this.props.history.push(`/app/servers/${this.props.userServers[0].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`);
+                this.props.currentServerDetails(this.props.userServers[this.props.userServers.length - 1].id)
+                    .then(() => {
+                        // Create websocket subscription for default text channel in new server
+                        createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id,
+                            this.props.receiveAllMessages, this.props.receiveMessage, this.props.deleteMessage);
+        
+                        // Finally, redirect to default text channel in new server
+                        this.props.history.push(`/app/servers/${this.props.userServers[0].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`);
+                    });
             })
             .then(() => this.setState({ newServerLoading: false }))
     }
 
     handleJoin(e) {
+        e.preventDefault();
 
+        // No need for a backend call to check if valid because we will always have
+        // all the servers in state - for a larger scale project, we would obviously
+        // want to create a new route. The only possible error here is if someone 
+        // creates a new server and immediately sends you an invite, you might not have
+        // that server in state yet (depending on where you've been navigating).
+
+        // Checking if valid code
+        let invalidCode = true;
+        let serverId;
+        for (let i = 0; i < this.props.servers.length; i++) {
+            if (this.props.servers[i].inviteCode === this.state.inviteCode) {
+                invalidCode = false;
+                serverId = this.props.servers[i].id;
+            }
+        }
+
+        if (invalidCode) {
+            this.setState({ invalidCode: true })
+        } else {
+            this.props.createMembership({ server_id: serverId })
+                .then(() => {
+                    // Reset all the values...
+                    this._resetFormValues();
+                    this.props.clearMembershipErrors();
+
+                    // Grab server info
+                    this.props.currentServerDetails(serverId)
+                        .then(() => {
+                            let serverTextChannels = getServerTextChannels(this.props.textChannels, serverId.toString());
+
+                            // Create websocket subscriptions to each text channel
+                            serverTextChannels.forEach(textChannel =>
+                                createSubscription("tc", textChannel.id, this.props.receiveAllMessages,
+                                    this.props.receiveMessage, this.props.deleteMessage)
+                            );
+
+                            // Finally, redirect to default text channel in new server
+                            this.props.history.push(`/app/servers/${serverId}/${serverTextChannels[0].id}`);
+                        });
+                });
+        }
     }
 
 
@@ -168,6 +213,7 @@ class ServersSideBar extends React.Component {
             imageUrl: "",
             imageFile: null,
             inviteCode: "",
+            invalidCode: false,
             showAddForm: false,
             showCreateForm: false,
             showJoinForm: false
@@ -178,7 +224,7 @@ class ServersSideBar extends React.Component {
     render() {
         const { error, homeSelected } = this.props;
         const { imageUrl, name, showCreateForm, createHovered, homeHovered, newServerLoading,
-                showAddForm, showJoinForm, inviteCode } = this.state;
+                showAddForm, showJoinForm, inviteCode, invalidCode } = this.state;
 
 
         const homeTooltipShow = (
@@ -263,9 +309,12 @@ class ServersSideBar extends React.Component {
                         <p className="ss-join-description">Enter an invite below to join an existing server.</p>
                     </div>
 
-                    <form className="ss-join-form" onSubmit={inviteCode === "" ? null : this.handleJoin}>
+                    <form className="ss-join-form" onSubmit={this.handleJoin}>
                         <div className="ss-join-form-upper">
-                            <label className="ss-join-label">INVITE LINK <span className="ss-join-asterisk">*</span>
+                            <label className="ss-join-label" id={invalidCode ? "invalid" : null}>
+                                INVITE LINK {invalidCode ? 
+                                    <span className="ss-join-error-message">- The invite is invalid</span> : 
+                                    <span className="ss-join-asterisk">*</span>}
                                 <input className="ss-join-input" type="text" value={inviteCode} 
                                     placeholder="Af5Ty-rKLYHwaj3wYLSAnA" onChange={this.update} />
                             </label>
@@ -285,7 +334,6 @@ class ServersSideBar extends React.Component {
                             <input className="ss-join-submit" type="submit" value="Join Server" />
                         </footer>
                     </form>
-
                 </div>
             </div>
         );
