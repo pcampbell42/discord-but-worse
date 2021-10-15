@@ -8,7 +8,7 @@ export const RECEIVE_DIRECT_MESSAGE = "RECEIVE_DIRECT_MESSAGE";
 
 // ---------------------- Normal Actions ----------------------
 
-const receiveDirectMessage = directMessage => ({
+export const receiveDirectMessage = directMessage => ({
     type: RECEIVE_DIRECT_MESSAGE,
     directMessage
 });

@@ -27,25 +27,28 @@ class ConversationSidebar extends React.Component {
                 <h1>DIRECT MESSAGES</h1>
 
                 <ul>
-                    {directMessages.map(directMessage =>
-                        <li key={directMessage.id} onClick={() => this.setState({ selectedId: directMessage.id })}
-                            className={selectedId === directMessage.id && !noneSelected ? "selected" : null}>
+                    {directMessages.map(directMessage => 
+                        (directMessage.user2Id !== currentUser.id && users[directMessage.user2Id] === undefined) ||
+                        (directMessage.user1Id !== currentUser.id && users[directMessage.user1Id] === undefined) ? null : 
 
-                            {directMessage.user1Id === currentUser.id ?
+                            <li key={directMessage.id} onClick={() => this.setState({ selectedId: directMessage.id })}
+                                className={selectedId === directMessage.id && !noneSelected ? "selected" : null}>
 
-                                <Link to={`/app/home/conversations/${directMessage.id}`}>
-                                    <img src={users[directMessage.user2Id].photoUrl === "noPhoto" ? 
-                                                    defaultProfilePicture : users[directMessage.user2Id].photoUrl} />
-                                    {users[directMessage.user2Id].username}
-                                </Link> :
+                                {directMessage.user1Id === currentUser.id ?
 
-                                <Link to={`/app/home/conversations/${directMessage.id}`}>
-                                    <img src={users[directMessage.user1Id].photoUrl === "noPhoto" ? 
-                                                    defaultProfilePicture : users[directMessage.user1Id].photoUrl} />
-                                    {users[directMessage.user1Id].username}
-                                </Link>
-                            }
-                        </li>
+                                    <Link to={`/app/home/conversations/${directMessage.id}`}>
+                                        <img src={users[directMessage.user2Id].photoUrl === "noPhoto" ? 
+                                                        defaultProfilePicture : users[directMessage.user2Id].photoUrl} />
+                                        {users[directMessage.user2Id].username}
+                                    </Link> :
+
+                                    <Link to={`/app/home/conversations/${directMessage.id}`}>
+                                        <img src={users[directMessage.user1Id].photoUrl === "noPhoto" ? 
+                                                        defaultProfilePicture : users[directMessage.user1Id].photoUrl} />
+                                        {users[directMessage.user1Id].username}
+                                    </Link>
+                                }
+                            </li>
                     )}
                 </ul>
             </div>

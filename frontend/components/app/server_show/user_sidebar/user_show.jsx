@@ -2,7 +2,8 @@ import React from "react";
 import { withRouter } from "react-router";
 import defaultProfilePicture from "./../../../../../app/assets/images/default_profile_picture.png";
 import crownIcon from "./../../../../../app/assets/images/crown_icon.png";
-import { createSubscription, findCurrentSubscription } from "../../../../util/websockets_helpers";
+import { createSubscription, findCurrentSubscription, createUserSubscription, 
+         findUserSubscription } from "../../../../util/websockets_helpers";
 
 
 class UserShow extends React.Component {
@@ -58,36 +59,56 @@ class UserShow extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
+        // DM already exists, just send message
         if (this.props.dmExists) {
+            // Format message
             let messageToSend = Object.assign({}, { body: this.state.body }, { author_id: this.props.currentUser.id });
+
+            // Get DM websocket subscription
             let subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
 
+            // Send Message
             App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
+
+            // Redirect to DM and close user profile
             if (this.state.body !== "") this.props.history.push(`/app/home/conversations/${this.props.dmId}`);
             this.setState({ showProfile: false, body: "" });
-            
-
-        } else {
+        }
+    
+        // DM doesn't exist, so make new DM and send message
+        else {
+            // Format DM and message
+            let dmToCreate = { current_user_id: this.props.currentUser.id };
             let messageToSend = Object.assign({}, { body: this.state.body }, { author_id: this.props.currentUser.id });
 
-            this.props.createDirectMessage({ user1_id: this.props.currentUser.id, user2_id: this.props.user.id })
-                .then(() => {
-                    // Create websocket subscription to DM
-                    createSubscription("dm", this.props.dmId, this.props.receiveAllMessages, 
-                        this.props.receiveMessage, this.props.deleteMessage)
+            // Subscribe to the target user's UserChannel
+            createUserSubscription(this.props.user.id, this.props.receiveDirectMessage, 
+                this.props.receiveUser, this.props.receiveAllMessages, this.props.receiveMessage,
+                this.props.deleteMessage);
 
-                        // Not an ideal fix, but need a tiny delay or sometimes the subscription isn't created
-                        // by the time the message is created, resulting in the message getting lost forever
-                        setTimeout(() => {
-                            // Get subscription and send message
-                            let subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
-                            App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
-        
-                            // Close user profile and redirect to DM
-                            this.setState({ showProfile: false, body: "" })
-                            this.props.history.push(`/app/home/conversations/${this.props.dmId}`)
-                        }, 50)
-                });
+            // Wait a tiny amount of time to avoid bug where subscription isn't created yet
+            setTimeout(() => {
+                // Call createDM to target user's UserChannel (Basically tells all subscribers
+                // to save this DM to state). Note that this is kind of bug prone (if someone else
+                // happens to be subscribed to the channel at the exact same time, they would save
+                // this DM to state).
+                let userSubscriptionNum = findUserSubscription(this.props.user.id);
+                App.cable.subscriptions.subscriptions[userSubscriptionNum].createDM({ dm: dmToCreate });
+
+                // Tiny timeout to wait for DM to be made and subscribed to
+                setTimeout(() => {
+                    // Get DM subscription and send message
+                    let subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
+                    App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
+
+                    // Close user profile and redirect to DM
+                    this.setState({ showProfile: false, body: "" });
+                    this.props.history.push(`/app/home/conversations/${this.props.dmId}`);
+
+                    // Remove user subscription (shouldn't stay subscribed to other user's channel)
+                    App.cable.subscriptions.remove(App.cable.subscriptions.subscriptions[userSubscriptionNum]);
+                }, 100)
+            }, 100);
         }
     }
 
