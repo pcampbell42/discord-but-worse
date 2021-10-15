@@ -59,6 +59,7 @@ class ChatChannel < ApplicationCable::Channel
 
     
     private
+    # Converting to camel case...
     def create_return_message(message)
         {
             id: message.id,

@@ -2,6 +2,8 @@ import { connect } from "react-redux";
 import Loading from "./loading";
 import { fetchCurrentUserDetails } from "../../actions/session_actions";
 import { receiveMessage, deleteMessage, receiveAllMessages } from "../../actions/message_actions";
+import { receiveDirectMessage } from "../../actions/direct_message_actions";
+import { receiveUser } from "../../actions/user_actions";
 
 
 const mstp = state => ({
@@ -16,7 +18,10 @@ const mdtp = dispatch => ({
 
     receiveMessage: message => dispatch(receiveMessage(message)),
     receiveAllMessages: messages => dispatch(receiveAllMessages(messages)),
-    deleteMessage: messageId => dispatch(deleteMessage(messageId))
+    deleteMessage: messageId => dispatch(deleteMessage(messageId)),
+
+    receiveDirectMessage: directMessage => dispatch(receiveDirectMessage(directMessage)),
+    receiveUser: user => dispatch(receiveUser(user))
 });
 
 

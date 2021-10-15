@@ -67,9 +67,8 @@ export const findCurrentSubscription = (chatRoomType = undefined, chatRoomId = u
 
     for (let i = 0; i < App.cable.subscriptions.subscriptions.length; i++) {
         let parsedIdentifier = JSON.parse(App.cable.subscriptions.subscriptions[i].identifier);
-        if (parsedIdentifier.thread_type === chatRoomType && parseInt(parsedIdentifier.thread_id) === chatRoomId) {
+        if (parsedIdentifier.thread_type === chatRoomType && parseInt(parsedIdentifier.thread_id) === chatRoomId)
             return i;
-        }
     }
 }
 
@@ -81,4 +80,64 @@ export const removeAllSubscriptions = () => {
     App.cable.subscriptions.subscriptions.forEach(subscription =>
         App.cable.subscriptions.remove(subscription)
     );
+}
+
+
+/**
+ * Similar to createSubscription, but for user channels. User channels are used for 
+ * opening a new DM with websockets and for online status. Note that we still need
+ * receiveAllMessages, receiveMessage, and deleteMessage as arguments because we have
+ * to call the normal createSubscription within this method (when creating a new DM, 
+ * have to create subscriptions to that DM).
+ * 
+ * @param {Number} user_id - Id of the user whose channel your joining
+ * @param {Function} receiveDirectMessage - Action... input should be dispatch(...())
+ * @param {Function} receiveUser - Action... input should be dispatch(...())
+ * @param {Function} receiveAllMessages - Action... input should be dispatch(...())
+ * @param {Function} receiveMessage - Action... input should be dispatch(...())
+ * @param {Function} deleteMessage - Action... input should be dispatch(...())
+ */
+export const createUserSubscription = (user_id, receiveDirectMessage, receiveUser, receiveAllMessages, 
+                                        receiveMessage, deleteMessage) => {
+    App.cable.subscriptions.create(
+        { channel: "UserChannel", user_id: user_id },
+        {
+            // When data is received from the backend, dispatch one of the following actions...
+            received: data => {
+                switch (data.type) {
+                    case "createDM":
+                        receiveDirectMessage(data.directMessage);
+
+                        // Sometimes, the person receiving the new DM won't have the initiating
+                        // user in state. This throws a nasty error, so we need to receive the 
+                        // initiator in state.
+                        receiveUser(data.user);
+
+                        // Subscribe receivers to DM websocket channel
+                        createSubscription("dm", data.directMessage.id, receiveAllMessages, 
+                            receiveMessage, deleteMessage);
+                        break;
+
+                    default:
+                        break;
+                }
+            },
+
+            // Functions for creating / updating / deleting a DM. Sends data to backend.
+            createDM: function (data) { return this.perform("createDM", data) },
+        }
+    )
+}
+
+
+/**
+ * Similar to findCurrentSubscription, but for UserChannels.
+ * @param {Number} userId - Target user's id
+ * @returns - The index in App.cable.subscriptions.subscriptions
+ */
+export const findUserSubscription = (userId) => {
+    for (let i = 0; i < App.cable.subscriptions.subscriptions.length; i++) {
+        let parsedIdentifier = JSON.parse(App.cable.subscriptions.subscriptions[i].identifier);
+        if (parsedIdentifier.user_id === userId) return i;
+    }
 }

@@ -7,8 +7,7 @@ import ConversationSidebarContainer from "../app/conversation_sidebar/conversati
 import ChatRoomContainer from "../app/messages/chat_room_container";
 import ProfileNavbarContainer from "../app/profile_navbar/profile_navbar_container";
 import ServerShowContainer from "../app/server_show/server_show_container";
-
-import { createSubscription } from "../../util/websockets_helpers";
+import { createSubscription, createUserSubscription } from "../../util/websockets_helpers";
 
 
 class Loading extends React.Component {
@@ -19,7 +18,6 @@ class Loading extends React.Component {
 
 
     componentDidMount() {
-
         // ---------------------- Grab everything from backend ----------------------
         this.props.fetchCurrentUserDetails(this.props.currentUser.id)
 
@@ -45,7 +43,9 @@ class Loading extends React.Component {
                 }
 
                 // Personal handshake subscription
-                // createSubscription("")
+                createUserSubscription(this.props.currentUser.id, this.props.receiveDirectMessage,
+                        this.props.receiveUser, this.props.receiveAllMessages, this.props.receiveMessage,
+                        this.props.deleteMessage);
             })
 
         // ---------------------- Set timeout for loading screen end ----------------------
