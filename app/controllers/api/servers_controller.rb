@@ -16,10 +16,7 @@ class Api::ServersController < ApplicationController
         @server = Server.new(server_params)
         @server.owner_id = current_user.id
         
-        if current_user.memberships.length >= 8
-            render json: ["Premium account required for more than 8 servers :)"], status: 402
-
-        elsif @server.save
+        if @server.save
             # Create membership for owner
             @membership = Membership.new(server_id: @server.id)
             @membership.user_id = current_user.id

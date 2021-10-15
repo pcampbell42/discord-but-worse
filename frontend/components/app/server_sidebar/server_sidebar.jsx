@@ -233,19 +233,22 @@ class ServersSideBar extends React.Component {
         const { imageUrl, name, showCreateForm, createHovered, homeHovered, newServerLoading,
                 showAddForm, showJoinForm, inviteCode, invalidCode } = this.state;
 
-
         const homeTooltipShow = (
             <div className="ss-home-relative-position-anchor">
-                <div className="ss-home-tooltip-show">Server Discovery</div>
-                <div className="ss-home-arrow-left"></div>
+                <div className="ss-home-tooltip-show" style={{ top: `${this.homeLink ? 
+                    this.homeLink.getBoundingClientRect().top + 8 : 0}px` }}>Server Discovery</div>
+                <div className="ss-home-arrow-left" style={{ top: `${this.homeLink ? 
+                    this.homeLink.getBoundingClientRect().top + 18 : 0}px`}}></div>
             </div>
         );
 
 
         const createTooltipShow = (
             <div className="ss-create-relative-position-anchor">
-                <div className="ss-create-tooltip-show">Add a Server</div>
-                <div className="ss-create-arrow-left"></div>
+                <div className="ss-create-tooltip-show" style={{ top: `${this.createButton ? 
+                    this.createButton.getBoundingClientRect().top + 8 : 0}px` }}>Add a Server</div>
+                <div className="ss-create-arrow-left" style={{ top: `${this.createButton ? 
+                    this.createButton.getBoundingClientRect().top + 18 : 0}px` }}></div>
             </div>
         );
 
@@ -353,7 +356,8 @@ class ServersSideBar extends React.Component {
                 {showJoinForm ? joinServerForm : null}
 
                 <Link to="/app/home" onMouseEnter={() => this.setState({ homeHovered: true })}
-                    className="home-link" onMouseLeave={() => this.setState({ homeHovered: false })}>
+                    className="home-link" onMouseLeave={() => this.setState({ homeHovered: false })}
+                    ref={homeLink => this.homeLink = homeLink}>
 
                     <div className="ss-home-hover-bar-relative-position-anchor">
                         <aside className={homeHovered ? "hovered" : null} id={homeSelected ? "selected" : null}></aside>
@@ -374,7 +378,8 @@ class ServersSideBar extends React.Component {
 
                 <button onClick={() => this.setState({ showAddForm: true })}
                     onMouseEnter={() => this.setState({ createHovered: true })}
-                    onMouseLeave={() => this.setState({ createHovered: false })}>
+                    onMouseLeave={() => this.setState({ createHovered: false })}
+                    ref={createButton => this.createButton = createButton}>
                     +
                 </button>
                 {createHovered ? createTooltipShow : null}

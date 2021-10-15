@@ -18,7 +18,7 @@ class ServerIconDisplay extends React.Component {
             // form info
             name: props.server.name,
             imageUrl: props.server.photoUrl,
-            imageFile: null
+            imageFile: null,
         };
 
         this.handleRightClick = this.handleRightClick.bind(this);
@@ -206,8 +206,10 @@ class ServerIconDisplay extends React.Component {
 
         const serverNameShow = (
             <div className="ss-relative-position-anchor">
-                <div className="ss-name-show">{server.name}</div>
-                <div className="ss-name-show-arrow-left"></div>
+                <div className="ss-name-show" style={{ top: `${this.serverIconEl ? 
+                    this.serverIconEl.getBoundingClientRect().top + 8 : 0}px` }}>{server.name}</div>
+                <div className="ss-name-show-arrow-left" style={{top: `${this.serverIconEl ? 
+                    this.serverIconEl.getBoundingClientRect().top + 18 : 0}px` }}></div>
             </div>
         );
 
@@ -301,6 +303,7 @@ class ServerIconDisplay extends React.Component {
                 </div>
 
                 <Link to={`/app/servers/${server.id}/${firstTextChannelId}`} onClick={() => currentServerDetails(server.id)}>
+
                     <li className={selected ? "selected" : null}
                         onMouseEnter={() => this.setState({ hovered: true })}
                         onMouseLeave={() => this.setState({ hovered: false })}

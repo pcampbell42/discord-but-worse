@@ -1,7 +1,15 @@
+.ss-container::-webkit-scrollbar {
+    display: none;
+}
+
 .ss-container {
     height: 100vh;
     width: 73px;
     z-index: 10;
+
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
     background-color: #202225;
 
@@ -65,7 +73,6 @@
     }
 
     .ss-home-relative-position-anchor {
-        position: relative;
         width: 0;
         height: 0;
 
@@ -76,7 +83,6 @@
 
             position: absolute;
             left: 79px;
-            bottom: 7.5px;
 
             height: 34px;
             padding: 0 10px 0 10px;
@@ -192,7 +198,6 @@
             }
 
             .ss-relative-position-anchor {
-                position: relative;
                 width: 0;
                 height: 0;
 
@@ -203,7 +208,6 @@
 
                     position: absolute;
                     left: 79px;
-                    bottom: 7.5px;
 
                     height: 34px;
                     padding: 0vh 10px 0vh 10px;
@@ -245,6 +249,7 @@
 
         margin-left: 11.5px;
         margin-top: 11px;
+        margin-bottom: 11.5px;
 
         background-color: #37393f;
 
@@ -265,7 +270,6 @@
     }
 
     .ss-create-relative-position-anchor {
-        position: relative;
         width: 0;
         height: 0;
 
@@ -276,7 +280,6 @@
 
             position: absolute;
             left: 79px;
-            bottom: 7.5px;
 
             height: 34px;
             padding: 0vh 10px 0vh 10px;
