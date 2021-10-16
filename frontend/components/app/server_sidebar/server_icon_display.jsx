@@ -328,7 +328,8 @@ class ServerIconDisplay extends React.Component {
                 {showInvite ? serverInvite : null}
 
                 <div className="ss-hover-bar-relative-position-anchor">
-                    <aside className={hovered ? "hovered" : null} id={selected ? "selected" : null}></aside>
+                    <aside className="ss-server-hover-bar" id={selected ? "selected" : startHover ? "start-hover" : 
+                        stopHover ? "stop-hover" : null}></aside>
                 </div>
 
                 <Link to={`/app/servers/${server.id}/${firstTextChannelId}`} onClick={() => currentServerDetails(server.id)}>

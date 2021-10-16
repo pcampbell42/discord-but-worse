@@ -413,8 +413,8 @@ class ServersSideBar extends React.Component {
                     ref={homeLink => this.homeLink = homeLink}>
 
                     <div className="ss-home-hover-bar-relative-position-anchor">
-                        <aside className={startHoverHome ? "start-hover-home" : null} 
-                            id={homeSelected ? "selected" : null}></aside>
+                        <aside className="ss-home-hover-bar" id={homeSelected ? "selected" : startHoverHome ? 
+                            "start-hover-home" : stopHoverHome ? "stop-hover-home" : null}></aside>
                     </div>
 
                     <div className="ss-logo-container" id={homeSelected ? "selected" : startHoverHome ? 
