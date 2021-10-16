@@ -26,6 +26,9 @@ class ServersSideBar extends React.Component {
             startHoverCreate: false,
             stopHoverCreate: false,
 
+            // selecting animations
+            startSelectHome: false,
+
             // Used to "smooth" the loading time when creating a new server with an avatar
             newServerLoading: false,
 
@@ -53,6 +56,7 @@ class ServersSideBar extends React.Component {
         this.handleStopHoverHome = this.handleStopHoverHome.bind(this);
         this.handleStartHoverCreate = this.handleStartHoverCreate.bind(this);
         this.handleStopHoverCreate = this.handleStopHoverCreate.bind(this);
+        this.handleSelectHome = this.handleSelectHome.bind(this);
     }
 
 
@@ -225,7 +229,7 @@ class ServersSideBar extends React.Component {
     }
 
 
-    // ------------- Event handlers for hovering -------------
+    // ------------- Event handlers for hovering and selecting -------------
 
     handleStartHoverHome() {
         this.setState({
@@ -263,6 +267,10 @@ class ServersSideBar extends React.Component {
         setTimeout(() => this.setState({ stopHoverCreate: false }), 200);
     }
 
+    handleSelectHome(e) {
+        this.setState({ startSelectHome: true });
+        setTimeout(() => this.setState({ startSelectHome: false }), 100);
+    }
 
     // ------------- Helper method for resetting state -------------
 
@@ -284,7 +292,7 @@ class ServersSideBar extends React.Component {
         const { error, homeSelected } = this.props;
         const { imageUrl, name, showCreateForm, createHovered, homeHovered, newServerLoading,
                 showAddForm, showJoinForm, inviteCode, invalidCode, startHoverHome, stopHoverHome,
-                startHoverCreate, stopHoverCreate } = this.state;
+                startHoverCreate, stopHoverCreate, startSelectHome } = this.state;
 
         const homeTooltipShow = (
             <div className="ss-home-relative-position-anchor">
@@ -408,13 +416,16 @@ class ServersSideBar extends React.Component {
                 {showCreateForm ? createServerForm : null}
                 {showJoinForm ? joinServerForm : null}
 
-                <Link to="/app/home" onMouseEnter={this.handleStartHoverHome}
-                    className="home-link" onMouseLeave={this.handleStopHoverHome}
+                <Link to="/app/home" className="home-link" 
+                    onMouseEnter={this.handleStartHoverHome}
+                    onMouseLeave={this.handleStopHoverHome}
+                    onClick={this.handleSelectHome}
                     ref={homeLink => this.homeLink = homeLink}>
 
                     <div className="ss-home-hover-bar-relative-position-anchor">
-                        <aside className="ss-home-hover-bar" id={homeSelected ? "selected" : startHoverHome ? 
-                            "start-hover-home" : stopHoverHome ? "stop-hover-home" : null}></aside>
+                        <aside className="ss-home-hover-bar" id={startSelectHome ? "start-select-home" : 
+                            homeSelected ? "selected" : startHoverHome ? "start-hover-home" : stopHoverHome ?
+                            "stop-hover-home" : null}></aside>
                     </div>
 
                     <div className="ss-logo-container" id={homeSelected ? "selected" : startHoverHome ? 

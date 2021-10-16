@@ -11,6 +11,7 @@ class ServerIconDisplay extends React.Component {
             hovered: false,
             startHover: false,
             stopHover: false,
+            startSelect: false,
 
             showDropdown: false,
             showInvite: false,
@@ -42,6 +43,7 @@ class ServerIconDisplay extends React.Component {
         this.handleCloseInvite = this.handleCloseInvite.bind(this);
         this.handleStartHover = this.handleStartHover.bind(this);
         this.handleStopHover = this.handleStopHover.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
     }
 
 
@@ -192,7 +194,7 @@ class ServerIconDisplay extends React.Component {
     }
 
 
-    // ------------- Event handlers for hovering -------------
+    // ------------- Event handlers for hovering and selecting -------------
 
     handleStartHover() {
         this.setState({
@@ -212,6 +214,12 @@ class ServerIconDisplay extends React.Component {
         setTimeout(() => this.setState({ stopHover: false }), 200);
     }
 
+    handleSelect() {
+        this.props.currentServerDetails(this.props.server.id)
+        this.setState({ startSelect: true });
+        setTimeout(() => this.setState({ startSelect: false }), 100);
+    }
+
 
     // ------------- Helper method for resetting form values -------------
 
@@ -225,9 +233,9 @@ class ServerIconDisplay extends React.Component {
 
 
     render() {
-        const { server, currentUser, selected, currentServerDetails, firstTextChannelId, error } = this.props
+        const { server, currentUser, selected, firstTextChannelId, error } = this.props
         const { hovered, showDropdown, showInvite, showSettings, name, imageUrl, updatedServerLoading, 
-                inviteCopied, startHover, stopHover } = this.state;
+                inviteCopied, startHover, stopHover, startSelect } = this.state;
 
 
         const serverNameShow = (
@@ -328,11 +336,11 @@ class ServerIconDisplay extends React.Component {
                 {showInvite ? serverInvite : null}
 
                 <div className="ss-hover-bar-relative-position-anchor">
-                    <aside className="ss-server-hover-bar" id={selected ? "selected" : startHover ? "start-hover" : 
-                        stopHover ? "stop-hover" : null}></aside>
+                    <aside className="ss-server-hover-bar" id={startSelect ? "start-select" : selected ? "selected" :
+                        startHover ? "start-hover" : stopHover ? "stop-hover" : null}></aside>
                 </div>
 
-                <Link to={`/app/servers/${server.id}/${firstTextChannelId}`} onClick={() => currentServerDetails(server.id)}>
+                <Link to={`/app/servers/${server.id}/${firstTextChannelId}`} onClick={this.handleSelect}>
 
                     <li className={selected ? "selected" : startHover ? "start-hover" : stopHover ? "stop-hover" : null}
                         onMouseEnter={this.handleStartHover}

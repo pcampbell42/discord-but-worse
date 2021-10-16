@@ -88,6 +88,20 @@
                 animation-fill-mode: forwards;
             }
 
+            .ss-home-hover-bar#start-select-home {
+                background-color: #fefefe;
+                width: 9px;
+                height: 40px;
+                border-radius: 10px;
+
+                position: absolute;
+                top: 4.8px;
+                left: -5px;
+
+                animation: selectBarGrow 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+
             .ss-home-hover-bar#selected {
                 background-color: #fefefe;
                 width: 9px;
@@ -219,6 +233,20 @@
                     left: -5px;
 
                     animation: hoverBarShrink 0.1s linear 0.05s;
+                    animation-fill-mode: forwards;
+                }
+
+                .ss-server-hover-bar#start-select {
+                    background-color: #fefefe;
+                    width: 9px;
+                    height: 40px;
+                    border-radius: 10px;
+
+                    position: absolute;
+                    top: 4.8px;
+                    left: -5px;
+
+                    animation: selectBarGrow 0.1s linear 1;
                     animation-fill-mode: forwards;
                 }
 
