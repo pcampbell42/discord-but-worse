@@ -424,6 +424,8 @@ class ServersSideBar extends React.Component {
                 </Link>
                 {homeHovered ? homeTooltipShow : null}
 
+                <aside className="ss-home-link-under-bar"></aside>
+
                 <ul className="ss-servers">
                     {this.props.userServers.map(server =>
                         <ServerIconDisplayContainer key={server.id} server={server}
