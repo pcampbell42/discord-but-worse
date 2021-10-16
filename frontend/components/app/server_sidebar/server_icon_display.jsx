@@ -242,7 +242,10 @@ class ServerIconDisplay extends React.Component {
 
         const serverDropdown = (
             <div className="ss-options-relative-position-anchor">
-                <ul className="ss-dropdown" ref={serverDropdownEl => this.serverDropdownEl = serverDropdownEl}>
+                <ul className="ss-dropdown" ref={serverDropdownEl => this.serverDropdownEl = serverDropdownEl}
+                    style={{ top: `${this.serverIconEl ? (window.innerHeight - this.serverIconEl.getBoundingClientRect().bottom) < 100 ?
+                        window.innerHeight - 120 : this.serverIconEl.getBoundingClientRect().top + 30 : 0}px` }}>
+
                     <li id="ss-options-invite" onClick={this.handleShowInvite}>Invite People</li>
                     {currentUser.id === server.ownerId ?
                         <li id="ss-options-settings" onClick={this.handleShowSettings}>Server Settings</li> :
