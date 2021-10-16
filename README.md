@@ -35,9 +35,10 @@ ccc
 
 ## Future Direction
 qwe
-* Pinned Messages
-* Message reactions
 * Custom server ordering
+* Pinned Messages
+* Message reactions and emojis
+* Server owner can kick players (with websockets?)
 * Make scroll pretty :)
 * Online status
 
