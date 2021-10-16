@@ -129,7 +129,6 @@ class Message extends React.Component {
 
                     {currentUser.id === message.authorId && this.state.hovered && !this.state.editing ? editAndDeleteButtons : null}
 
-                    {/* <img src={defaultProfilePicture}/> */}
                     <img src={users[message.authorId].photoUrl === "noPhoto" ? defaultProfilePicture : users[message.authorId].photoUrl}/>
 
                     <div>
