@@ -20,6 +20,39 @@ class Message extends React.Component {
         this.update = this.update.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+    }
+
+
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleKeyPress, true);
+    }
+
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleKeyPress, true);
+    }
+
+
+    handleKeyPress(e) {
+        // If ESC is pressed
+        if (e.keyCode === 27) {
+            e.preventDefault();
+            this.setState({ message: { body: this.props.message.body }, editing: false });
+        }
+
+        // If enter is pressed
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            if (this.state.editing) {
+                if (this.state.message.body !== this.props.message.body) {
+                    this.handleSubmit(e);
+                } else {
+                    this.handleClose(e);
+                }
+            }
+        }
     }
 
 
@@ -54,13 +87,23 @@ class Message extends React.Component {
         this.setState({ editing: false });
     }
 
+
+    handleClose(e) {
+        e.preventDefault();
+        this.setState({ message: { body: this.props.message.body }, editing: false });
+    }
+
     
     render() {
         const { message, currentUser, users } = this.props;
 
         const editingView = (
-            <form onSubmit={this.handleSubmit}>
+            <form>
                 <input type="text" value={this.state.message.body} onChange={this.update} />
+                <p className="message-edit-text">
+                    escape to <span className="message-edit-cancel" onClick={this.handleClose}>cancel</span> 
+                     • enter to <span className="message-edit-save" onClick={this.handleSubmit}>save</span>
+                </p>
             </form>
         );
 
