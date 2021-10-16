@@ -1,0 +1,203 @@
+.ss-container::-webkit-scrollbar {
+    display: none;
+}
+
+.ss-container {
+    height: 100vh;
+    width: 73px;
+    z-index: 10;
+
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    background-color: #202225;
+
+
+    // ---------------- Home Link ----------------
+
+    .home-link {
+        .ss-logo-container {
+            height: 50px;
+            width: 50px;
+            background-color: #37393f;
+    
+            margin-left: 10.5px;
+            margin-top: 11.5px;
+
+            border-radius: 50px;
+
+            img {
+                margin-left: 3.75px;
+                margin-top: 3.75px;
+                height: 40px;
+                width: 40px;
+            }
+        }
+
+        .ss-logo-container:hover {
+            background-color: #0f65ae;
+            cursor: pointer;
+            border-radius: 18px;
+        }
+
+        .ss-logo-container#selected {
+            background-color: #0f65ae;
+            border-radius: 18px;
+        }
+
+        // Hover / selected bar
+        .ss-home-hover-bar-relative-position-anchor {
+            position: relative;
+            width: 0;
+            height: 0;
+
+            aside.hovered {
+                background-color: #fefefe;
+                width: 9px;
+                height: 20px;
+                border-radius: 10px;
+
+                position: absolute;
+                top: 15px;
+                left: -5px;
+            }
+
+            aside#selected {
+                background-color: #fefefe;
+                width: 9px;
+                height: 40px;
+                border-radius: 10px;
+
+                position: absolute;
+                top: 4.8px;
+                left: -5px;
+            }
+        }
+    }
+
+
+    // ---------------- Servers ----------------
+
+    .ss-servers {
+        div {
+            a {
+                text-decoration: none;
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+            
+                    height: 50px;
+                    width: 50px;
+            
+                    margin-left: 10.5px;
+                    margin-top: 11px;
+            
+                    background-color: #37393f;
+            
+                    border-radius: 50px;
+
+                    div {
+                        font-family: 'Nunito', sans-serif;
+                        color: white;
+                        font-size: 20px;
+                        font-weight: 500;
+                    }
+                }
+
+                li#server-has-photo {
+                    height: 50px;
+                    width: 50px;
+                    background-size: 100% 100%;
+                    background-position: center;
+                    border-radius: 50%;
+                }
+
+                li:hover {
+                    background-color: #0f65ae;
+                    cursor: pointer;
+                    border-radius: 18px;
+                }
+
+                li#server-has-photo:hover {
+                    background-color: white;
+                    cursor: pointer;
+                    border-radius: 18px;
+                }
+    
+                li.selected {
+                    background-color: #0f65ae;
+                    border-radius: 18px;
+                }
+
+                li#server-has-photo.selected {
+                    border-radius: 18px;
+                }
+            }
+
+            // Hovered / selected bar
+            .ss-hover-bar-relative-position-anchor {
+                position: relative;
+                width: 0;
+                height: 0;
+
+                aside.hovered {
+                    background-color: #fefefe;
+                    width: 9px;
+                    height: 20px;
+                    border-radius: 10px;
+
+                    position: absolute;
+                    top: 15px;
+                    left: -5px;
+                }
+
+                aside#selected {
+                    background-color: #fefefe;
+                    width: 9px;
+                    height: 40px;
+                    border-radius: 10px;
+
+                    position: absolute;
+                    top: 4.8px;
+                    left: -5px;
+                }
+            }
+        }
+    }
+
+
+    // ---------------- Add Button ----------------
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 50px;
+        width: 50px;
+
+        margin-left: 11.5px;
+        margin-top: 11px;
+        margin-bottom: 11.5px;
+
+        background-color: #37393f;
+
+        border-radius: 50px;
+        border: none;
+
+        font-family: 'Nunito', sans-serif;
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    button:hover {
+        background-color: #3ba55d;
+        cursor: pointer;
+        border-radius: 18px;
+    }
+}

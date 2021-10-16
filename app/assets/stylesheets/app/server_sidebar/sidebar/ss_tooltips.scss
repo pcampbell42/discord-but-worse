@@ -1,0 +1,131 @@
+.ss-container {
+
+    // ---------------- Home tooltip ----------------
+
+     .ss-home-relative-position-anchor {
+        width: 0;
+        height: 0;
+
+        .ss-home-tooltip-show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: absolute;
+            left: 79px;
+
+            height: 34px;
+            padding: 0 10px 0 10px;
+            white-space: nowrap;
+            border-radius: 6px;
+
+            background-color: black;
+
+            font-family: 'Nunito', sans-serif;
+            color: white;
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        .ss-home-arrow-left {
+            position: absolute;
+            left: 73px;
+            bottom: 17.5px;
+
+            width: 0; 
+            height: 0; 
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            
+            border-right: 7px solid black;
+        }
+    }
+
+
+    // ---------------- Server tooltips----------------
+
+    .ss-servers {
+        div {
+            .ss-relative-position-anchor {
+                width: 0;
+                height: 0;
+
+                .ss-name-show {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    position: absolute;
+                    left: 79px;
+
+                    height: 34px;
+                    padding: 0vh 10px 0vh 10px;
+                    white-space: nowrap;
+                    border-radius: 6px;
+
+                    background-color: black;
+    
+                    font-family: 'Nunito', sans-serif;
+                    color: white;
+                    font-size: 15px;
+                    font-weight: 900;
+                }
+
+                .ss-name-show-arrow-left {
+                    position: absolute;
+                    left: 73px;
+                    bottom: 17.5px;
+
+                    width: 0; 
+                    height: 0; 
+                    border-top: 7px solid transparent;
+                    border-bottom: 7px solid transparent;
+                    
+                    border-right: 7px solid black;
+                }
+            }
+        }
+    }
+
+
+    // ---------------- Add tooltip ----------------
+
+    .ss-create-relative-position-anchor {
+        width: 0;
+        height: 0;
+
+        .ss-create-tooltip-show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: absolute;
+            left: 79px;
+
+            height: 34px;
+            padding: 0vh 10px 0vh 10px;
+            white-space: nowrap;
+            border-radius: 6px;
+
+            background-color: black;
+
+            font-family: 'Nunito', sans-serif;
+            color: white;
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        .ss-create-arrow-left {
+            position: absolute;
+            left: 73px;
+            bottom: 17.5px;
+
+            width: 0; 
+            height: 0; 
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            
+            border-right: 7px solid black;
+        }
+    }
+}
