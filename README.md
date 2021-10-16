@@ -35,11 +35,11 @@ ccc
 
 ## Future Direction
 qwe
+* Pinned Messages
+* Message reactions
 * Custom server ordering
 * Make scroll pretty :)
 * Online status
-* Pinned Messages
-* Friends
 
 ## Local Installation Guide
 stuff
