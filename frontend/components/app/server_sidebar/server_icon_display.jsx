@@ -9,6 +9,9 @@ class ServerIconDisplay extends React.Component {
         super(props);
         this.state = {
             hovered: false,
+            startHover: false,
+            stopHover: false,
+
             showDropdown: false,
             showInvite: false,
             inviteCopied: false, // Used to show green border around invite input when link is copied
@@ -37,6 +40,8 @@ class ServerIconDisplay extends React.Component {
         this.handleShowInvite = this.handleShowInvite.bind(this);
         this.handleInviteCopy = this.handleInviteCopy.bind(this);
         this.handleCloseInvite = this.handleCloseInvite.bind(this);
+        this.handleStartHover = this.handleStartHover.bind(this);
+        this.handleStopHover = this.handleStopHover.bind(this);
     }
 
 
@@ -187,6 +192,27 @@ class ServerIconDisplay extends React.Component {
     }
 
 
+    // ------------- Event handlers for hovering -------------
+
+    handleStartHover() {
+        this.setState({
+            hovered: true,
+            stopHover: false,
+            startHover: true
+        });
+    }
+
+    handleStopHover() {
+        this.setState({
+            hovered: false,
+            startHover: false,
+            stopHover: true
+        });
+
+        setTimeout(() => this.setState({ stopHover: false }), 200);
+    }
+
+
     // ------------- Helper method for resetting form values -------------
 
     _resetFormValues() {
@@ -201,7 +227,7 @@ class ServerIconDisplay extends React.Component {
     render() {
         const { server, currentUser, selected, currentServerDetails, firstTextChannelId, error } = this.props
         const { hovered, showDropdown, showInvite, showSettings, name, imageUrl, updatedServerLoading, 
-                inviteCopied } = this.state;
+                inviteCopied, startHover, stopHover } = this.state;
 
 
         const serverNameShow = (
@@ -304,13 +330,13 @@ class ServerIconDisplay extends React.Component {
 
                 <Link to={`/app/servers/${server.id}/${firstTextChannelId}`} onClick={() => currentServerDetails(server.id)}>
 
-                    <li className={selected ? "selected" : null}
-                        onMouseEnter={() => this.setState({ hovered: true })}
-                        onMouseLeave={() => this.setState({ hovered: false })}
+                    <li className={selected ? "selected" : startHover ? "start-hover" : stopHover ? "stop-hover" : null}
+                        onMouseEnter={this.handleStartHover}
+                        onMouseLeave={this.handleStopHover}
                         onContextMenu={this.handleRightClick}
                         ref={serverIconEl => this.serverIconEl = serverIconEl}
                         style={server.photoUrl === "noPhoto" ? null : { backgroundImage: `url(${server.photoUrl})` }}
-                        id={server.photoUrl === "noPhoto" ? null : "server-has-photo"}>
+                        id={server.photoUrl === "noPhoto" ? "no-photo" : "server-has-photo"}>
                         <div>{server.photoUrl === "noPhoto" ? server.name[0] : null}</div>
                     </li>
                 </Link>
