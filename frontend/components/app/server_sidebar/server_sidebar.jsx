@@ -13,12 +13,21 @@ class ServersSideBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            // modal stuff
             showAddForm: false,
             showCreateForm: false,
             showJoinForm: false,
+
+            // hover animations
             homeHovered: false,
+            startHoverHome: false,
+            stopHoverHome: false,
             createHovered: false,
-            newServerLoading: false, // Used to "smooth" the loading time when creating a new server with an avatar
+            startHoverCreate: false,
+            stopHoverCreate: false,
+
+            // Used to "smooth" the loading time when creating a new server with an avatar
+            newServerLoading: false,
 
             // form info
             name: `${props.currentUser.username}'s server`,
@@ -40,6 +49,10 @@ class ServersSideBar extends React.Component {
         this.handleBack = this.handleBack.bind(this);
         this.handleJoin = this.handleJoin.bind(this);
         this.handleRedirect = this.handleRedirect.bind(this);
+        this.handleStartHoverHome = this.handleStartHoverHome.bind(this);
+        this.handleStopHoverHome = this.handleStopHoverHome.bind(this);
+        this.handleStartHoverCreate = this.handleStartHoverCreate.bind(this);
+        this.handleStopHoverCreate = this.handleStopHoverCreate.bind(this);
     }
 
 
@@ -83,7 +96,7 @@ class ServersSideBar extends React.Component {
     }
 
 
-    // ------------- Event handlers for server forms -------------
+    // ------------- Event handlers for navigating forms -------------
 
     handleGoToCreate(e) {
         e.preventDefault();
@@ -128,7 +141,7 @@ class ServersSideBar extends React.Component {
     }
 
 
-    // ------------- Event handler for submitting form -------------
+    // ------------- Event handlers for submitting forms -------------
 
     handleSubmit(e) {
         e.preventDefault();
@@ -212,6 +225,45 @@ class ServersSideBar extends React.Component {
     }
 
 
+    // ------------- Event handlers for hovering -------------
+
+    handleStartHoverHome() {
+        this.setState({
+            homeHovered: true,
+            stopHoverHome: false,
+            startHoverHome: true
+         });
+    }
+
+    handleStopHoverHome() {
+        this.setState({
+            homeHovered: false,
+            startHoverHome: false,
+            stopHoverHome: true
+         });
+
+         setTimeout(() => this.setState({ stopHoverHome: false }), 200);
+    }
+
+    handleStartHoverCreate() {
+        this.setState({
+            createHovered: true,
+            stopHoverCreate: false,
+            startHoverCreate: true
+        });
+    }
+
+    handleStopHoverCreate() {
+        this.setState({
+            createHovered: false,
+            startHoverCreate: false,
+            stopHoverCreate: true
+        });
+
+        setTimeout(() => this.setState({ stopHoverCreate: false }), 200);
+    }
+
+
     // ------------- Helper method for resetting state -------------
 
     _resetFormValues() {
@@ -231,7 +283,8 @@ class ServersSideBar extends React.Component {
     render() {
         const { error, homeSelected } = this.props;
         const { imageUrl, name, showCreateForm, createHovered, homeHovered, newServerLoading,
-                showAddForm, showJoinForm, inviteCode, invalidCode } = this.state;
+                showAddForm, showJoinForm, inviteCode, invalidCode, startHoverHome, stopHoverHome,
+                startHoverCreate, stopHoverCreate } = this.state;
 
         const homeTooltipShow = (
             <div className="ss-home-relative-position-anchor">
@@ -355,15 +408,17 @@ class ServersSideBar extends React.Component {
                 {showCreateForm ? createServerForm : null}
                 {showJoinForm ? joinServerForm : null}
 
-                <Link to="/app/home" onMouseEnter={() => this.setState({ homeHovered: true })}
-                    className="home-link" onMouseLeave={() => this.setState({ homeHovered: false })}
+                <Link to="/app/home" onMouseEnter={this.handleStartHoverHome}
+                    className="home-link" onMouseLeave={this.handleStopHoverHome}
                     ref={homeLink => this.homeLink = homeLink}>
 
                     <div className="ss-home-hover-bar-relative-position-anchor">
-                        <aside className={homeHovered ? "hovered" : null} id={homeSelected ? "selected" : null}></aside>
+                        <aside className={startHoverHome ? "start-hover-home" : null} 
+                            id={homeSelected ? "selected" : null}></aside>
                     </div>
 
-                    <div className="ss-logo-container" id={homeSelected ? "selected" : null}>
+                    <div className="ss-logo-container" id={homeSelected ? "selected" : startHoverHome ? 
+                        "start-hover-home" : stopHoverHome ? "stop-hover-home" : null}>
                         <img src={discordLogo} />
                     </div>
                 </Link>
@@ -376,9 +431,11 @@ class ServersSideBar extends React.Component {
                     )}
                 </ul>
 
-                <button onClick={() => this.setState({ showAddForm: true })}
-                    onMouseEnter={() => this.setState({ createHovered: true })}
-                    onMouseLeave={() => this.setState({ createHovered: false })}
+                <button className="ss-create-button"
+                    onClick={() => this.setState({ showAddForm: true })}
+                    onMouseEnter={this.handleStartHoverCreate}
+                    onMouseLeave={this.handleStopHoverCreate}
+                    id={startHoverCreate ? "start-hover-create" : stopHoverCreate ? "stop-hover-create" : null}
                     ref={createButton => this.createButton = createButton}>
                     +
                 </button>
