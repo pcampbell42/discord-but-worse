@@ -118,7 +118,9 @@ class UserShow extends React.Component {
 
         const profileDisplay = (
             <div className="user-show-relative-position-anchor">
-                <div className="user-show-profile-display" ref={showProfileEl => this.showProfileEl = showProfileEl}>
+                <div className="user-show-profile-display" ref={showProfileEl => this.showProfileEl = showProfileEl}
+                    style={{ top: `${this.userDisplay ? (window.innerHeight - this.userDisplay.getBoundingClientRect().bottom) < 220 ? 
+                        window.innerHeight - 230 : this.userDisplay.getBoundingClientRect().bottom - 41 : 0}px` }}>
 
                     <div className="user-show-profile-header"></div>
                     <button onClick={() => this.setState({ showProfile: false, body: "" })}>x</button>
@@ -141,7 +143,7 @@ class UserShow extends React.Component {
         );
 
         return (
-            <li id={this.state.showProfile ? "selected" : null}>
+            <li id={this.state.showProfile ? "selected" : null} ref={userDisplay => this.userDisplay = userDisplay}>
                 <section onClick={() => this.setState({ showProfile: true })}>
                     <img src={user.photoUrl === "noPhoto" ? defaultProfilePicture : user.photoUrl}/>
                     {user.username}

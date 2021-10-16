@@ -24,6 +24,7 @@
     ul {
         margin-top: 3.5px;
         height: calc(100vh - 45px - 35px);
+        overflow-y: auto;
 
         li {
             padding-left: 10px;
@@ -76,14 +77,12 @@
             // ------------- User profile display -------------
 
             .user-show-relative-position-anchor {
-                position: relative;
                 width: 0;
                 height: 0;
 
                 .user-show-profile-display {
                     position: absolute;
-                    left: -301px;
-                    top: -33.6px;
+                    right: 240px;
 
                     height: 210px;
                     width: 280px;
@@ -97,8 +96,8 @@
                         height: 56px;
                         width: 100%;
 
-                        border-top-left-radius: 14px;
-                        border-top-right-radius: 14px;
+                        border-top-left-radius: 7px;
+                        border-top-right-radius: 7px;
                     }
 
                     button {
