@@ -12,6 +12,7 @@ class ServerIconDisplay extends React.Component {
             startHover: false,
             stopHover: false,
             startSelect: false,
+            stopSelect: false,
 
             showDropdown: false,
             showInvite: false,
@@ -43,7 +44,8 @@ class ServerIconDisplay extends React.Component {
         this.handleCloseInvite = this.handleCloseInvite.bind(this);
         this.handleStartHover = this.handleStartHover.bind(this);
         this.handleStopHover = this.handleStopHover.bind(this);
-        this.handleSelect = this.handleSelect.bind(this);
+        this.handleStartSelect = this.handleStartSelect.bind(this);
+        this.handleStopSelect = this.handleStopSelect.bind(this);
     }
 
 
@@ -60,6 +62,13 @@ class ServerIconDisplay extends React.Component {
         document.removeEventListener("keydown", this.handleEscape, true);
         document.removeEventListener("click", this.handleOutsideClick, true);
         document.removeEventListener("contextmenu", this.handleOutsideRightClick, true);
+    }
+
+
+    // ------------- Compare current props to previous props for deselect animation -------------
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.selected && !nextProps.selected) this.handleStopSelect();
     }
 
 
@@ -214,10 +223,21 @@ class ServerIconDisplay extends React.Component {
         setTimeout(() => this.setState({ stopHover: false }), 200);
     }
 
-    handleSelect() {
+    handleStartSelect() {
         this.props.currentServerDetails(this.props.server.id)
-        this.setState({ startSelect: true });
+        this.setState({
+            stopSelect: false,
+            startSelect: true
+        });
         setTimeout(() => this.setState({ startSelect: false }), 100);
+    }
+
+    handleStopSelect() {
+        this.setState({
+            startSelect: false,
+            stopSelect: true
+        });
+        setTimeout(() => this.setState({ stopSelect: false }), 100);
     }
 
 
@@ -235,7 +255,7 @@ class ServerIconDisplay extends React.Component {
     render() {
         const { server, currentUser, selected, firstTextChannelId, error } = this.props
         const { hovered, showDropdown, showInvite, showSettings, name, imageUrl, updatedServerLoading, 
-                inviteCopied, startHover, stopHover, startSelect } = this.state;
+                inviteCopied, startHover, stopHover, startSelect, stopSelect } = this.state;
 
 
         const serverNameShow = (
@@ -336,13 +356,13 @@ class ServerIconDisplay extends React.Component {
                 {showInvite ? serverInvite : null}
 
                 <div className="ss-hover-bar-relative-position-anchor">
-                    <aside className="ss-server-hover-bar" id={startSelect ? "start-select" : selected ? "selected" :
-                        startHover ? "start-hover" : stopHover ? "stop-hover" : null}></aside>
+                    <aside className="ss-server-hover-bar" id={startSelect ? "start-select" : stopSelect ? "stop-select" :
+                        selected ? "selected" : startHover ? "start-hover" : stopHover ? "stop-hover" : null}></aside>
                 </div>
 
-                <Link to={`/app/servers/${server.id}/${firstTextChannelId}`} onClick={this.handleSelect}>
+                <Link to={`/app/servers/${server.id}/${firstTextChannelId}`} onClick={this.handleStartSelect}>
 
-                    <li className={selected ? "selected" : startHover ? "start-hover" : stopHover ? "stop-hover" : null}
+                    <li className={selected ? "selected" : startHover ? "start-hover" : stopHover || stopSelect ? "stop-hover" : null}
                         onMouseEnter={this.handleStartHover}
                         onMouseLeave={this.handleStopHover}
                         onContextMenu={this.handleRightClick}

@@ -28,6 +28,7 @@ class ServersSideBar extends React.Component {
 
             // selecting animations
             startSelectHome: false,
+            stopSelectHome: false,
 
             // Used to "smooth" the loading time when creating a new server with an avatar
             newServerLoading: false,
@@ -56,7 +57,8 @@ class ServersSideBar extends React.Component {
         this.handleStopHoverHome = this.handleStopHoverHome.bind(this);
         this.handleStartHoverCreate = this.handleStartHoverCreate.bind(this);
         this.handleStopHoverCreate = this.handleStopHoverCreate.bind(this);
-        this.handleSelectHome = this.handleSelectHome.bind(this);
+        this.handleStartSelectHome = this.handleStartSelectHome.bind(this);
+        this.handleStopSelectHome = this.handleStopSelectHome.bind(this);
     }
 
 
@@ -71,6 +73,13 @@ class ServersSideBar extends React.Component {
         this.props.clearMembershipErrors();
         document.removeEventListener("keydown", this.handleEscape, true);
         document.removeEventListener("click", this.handleClick, true);
+    }
+
+
+    // ------------- Compare current props to previous props for deselect animation -------------
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.homeSelected && !nextProps.homeSelected) this.handleStopSelectHome();
     }
 
 
@@ -267,10 +276,22 @@ class ServersSideBar extends React.Component {
         setTimeout(() => this.setState({ stopHoverCreate: false }), 200);
     }
 
-    handleSelectHome(e) {
-        this.setState({ startSelectHome: true });
+    handleStartSelectHome() {
+        this.setState({
+            stopSelectHome: false,
+            startSelectHome: true
+        });
         setTimeout(() => this.setState({ startSelectHome: false }), 100);
     }
+
+    handleStopSelectHome() {
+        this.setState({
+            startSelectHome: false,
+            stopSelectHome: true
+        });
+        setTimeout(() => this.setState({ stopSelectHome: false }), 100);
+    }
+
 
     // ------------- Helper method for resetting state -------------
 
@@ -292,7 +313,7 @@ class ServersSideBar extends React.Component {
         const { error, homeSelected } = this.props;
         const { imageUrl, name, showCreateForm, createHovered, homeHovered, newServerLoading,
                 showAddForm, showJoinForm, inviteCode, invalidCode, startHoverHome, stopHoverHome,
-                startHoverCreate, stopHoverCreate, startSelectHome } = this.state;
+                startHoverCreate, stopHoverCreate, startSelectHome, stopSelectHome } = this.state;
 
         const homeTooltipShow = (
             <div className="ss-home-relative-position-anchor">
@@ -419,17 +440,17 @@ class ServersSideBar extends React.Component {
                 <Link to="/app/home" className="home-link" 
                     onMouseEnter={this.handleStartHoverHome}
                     onMouseLeave={this.handleStopHoverHome}
-                    onClick={this.handleSelectHome}
+                    onClick={this.handleStartSelectHome}
                     ref={homeLink => this.homeLink = homeLink}>
 
                     <div className="ss-home-hover-bar-relative-position-anchor">
                         <aside className="ss-home-hover-bar" id={startSelectHome ? "start-select-home" : 
-                            homeSelected ? "selected" : startHoverHome ? "start-hover-home" : stopHoverHome ?
-                            "stop-hover-home" : null}></aside>
+                            stopSelectHome ? "stop-select-home" : homeSelected ? "selected" : startHoverHome ? 
+                            "start-hover-home" : stopHoverHome ? "stop-hover-home" : null}></aside>
                     </div>
 
                     <div className="ss-logo-container" id={homeSelected ? "selected" : startHoverHome ? 
-                        "start-hover-home" : stopHoverHome ? "stop-hover-home" : null}>
+                        "start-hover-home" : stopHoverHome || stopSelectHome ? "stop-hover-home" : null}>
                         <img src={discordLogo} />
                     </div>
                 </Link>
