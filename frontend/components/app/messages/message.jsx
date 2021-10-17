@@ -43,7 +43,7 @@ class Message extends React.Component {
         }
 
         // If enter is pressed
-        if (e.keyCode === 13) {
+        if (e.keyCode === 13 && document.activeElement === this.editInput) {
             e.preventDefault();
             if (this.state.editing) {
                 if (this.state.message.body !== this.props.message.body) {
@@ -99,7 +99,8 @@ class Message extends React.Component {
 
         const editingView = (
             <form>
-                <input type="text" value={this.state.message.body} onChange={this.update} />
+                <input ref={editInput => this.editInput = editInput} type="text" value={this.state.message.body} 
+                    onChange={this.update} />
                 <p className="message-edit-text">
                     escape to <span className="message-edit-cancel" onClick={this.handleClose}>cancel</span> 
                      • enter to <span className="message-edit-save" onClick={this.handleSubmit}>save</span>
