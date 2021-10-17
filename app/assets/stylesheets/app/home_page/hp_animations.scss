@@ -1,0 +1,19 @@
+@keyframes blueToDarkBlue {
+    from { background-color: #0f65ae; }
+    to { background-color: #063B6B; }
+}
+
+@keyframes darkBlueToBlue {
+    from { background-color: #063B6B; }
+    to { background-color: #0f65ae; }
+}
+
+@keyframes hpHoverIconGrow {
+    from { border-radius: 50px; }
+    to { border-radius: 35px; }
+}
+
+@keyframes hpHoverIconShrink {
+    from { border-radius: 35px; }
+    to { border-radius: 50px; }
+}

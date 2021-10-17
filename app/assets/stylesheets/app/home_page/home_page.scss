@@ -64,15 +64,30 @@
                 border-radius: 50%;
             }
 
-            div:hover {
-                background-color: #063B6B;
+            #hp-no-photo:hover {
                 cursor: default;
-                border-radius: 35px;
+            }
+
+            .hp-start-hover#hp-no-photo {
+                animation: hpHoverIconGrow 0.15s linear 1, blueToDarkBlue 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+
+            .hp-stop-hover#hp-no-photo {
+                animation: hpHoverIconShrink 0.2s linear 1, darkBlueToBlue 0.2s ease-in 1;
             }
 
             #home-page-server-photo:hover {
-                background-color: #063B6B;
-                border-radius: 35px;
+                cursor: default;
+            }
+
+            .hp-start-hover#home-page-server-photo {
+                animation: hpHoverIconGrow 0.15s linear 1;
+                animation-fill-mode: forwards;
+            }
+
+            .hp-stop-hover#home-page-server-photo {
+                animation: hpHoverIconShrink 0.2s linear 1;
             }
 
             button {

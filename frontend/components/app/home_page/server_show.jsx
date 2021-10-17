@@ -5,8 +5,13 @@ import { createSubscription } from "./../../../util/websockets_helpers";
 class ServerShow extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            startHover: false,
+            stopHover: false
+        };
         this.handleJoin = this.handleJoin.bind(this);
+        this.handleStartHover = this.handleStartHover.bind(this);
+        this.handleStopHover = this.handleStopHover.bind(this);
     }
 
 
@@ -28,14 +33,36 @@ class ServerShow extends React.Component {
     }
 
 
+    handleStartHover() {
+        this.setState({
+            stopHover: false,
+            startHover: true
+        });
+    }
+
+
+    handleStopHover() {
+        this.setState({
+            startHover: false,
+            stopHover: true
+        });
+
+        setTimeout(() => this.setState({ stopHover: false }), 200);
+    }
+
+
     render() {
+        const { startHover, stopHover } = this.state;
         const { currentUserServerIds, server, errors } = this.props;
 
         const serverDisplay = (
             <li className="hp-server-show-container" id={errors[1] === server.id.toString() ? "e" : null}>
 
                 <div style={server.photoUrl === "noPhoto" ? null : { backgroundImage: `url(${server.photoUrl})` }}
-                    id={server.photoUrl === "noPhoto" ? null : "home-page-server-photo"}>
+                    onMouseEnter={this.handleStartHover}
+                    onMouseLeave={this.handleStopHover}
+                    id={server.photoUrl === "noPhoto" ? "hp-no-photo" : "home-page-server-photo"}
+                    className={startHover ? "hp-start-hover" : stopHover ? "hp-stop-hover" : null}>
                     {server.photoUrl === "noPhoto" ? server.name[0] : null}
                 </div>
 
