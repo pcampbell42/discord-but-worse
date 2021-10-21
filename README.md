@@ -49,8 +49,8 @@ Messages also use websockets, so all members of the DM / text channel can see ne
 ### Websockets
 aaa
 
-### Tooltips with Scroll
-bbb
+### Scroll with Tooltips
+A challenge that really caught me off guard was trying to implement scroll on a component with tooltips, or any kind of overflow. This was a big problem for me because both the server sidebar and the user sidebar inside a server needed scroll with tooltips:
 
 ## Future Direction
 Obviously, Discord is a massive app with a ton of features, so I could add to it seemingly forever. However, here are some of the immediate features that I've been thinking about implementing.
