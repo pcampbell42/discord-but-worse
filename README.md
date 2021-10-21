@@ -53,7 +53,7 @@ aaa
 bbb
 
 ## Future Direction
-Obviously, Discord is a massive app with a ton of features, so I could add to it seemingly forever. However, here are some immediate features I've thought a bit about implementing.
+Obviously, Discord is a massive app with a ton of features, so I could add to it seemingly forever. However, here are some of the immediate features that I've been thinking about implementing.
 * Custom server ordering - an interesting fullstack problem that would require a little bit of backend and a lot of frontend / css
 * Pinned messages - a basic fullstack feature
 * Message reactions and emojis - also a basic fullstack feature
