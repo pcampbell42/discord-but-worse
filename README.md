@@ -1,7 +1,7 @@
 # [Discord but Worse](https://discord-but-worse.herokuapp.com/#/)
-Picture here
+[![Discord but Worse](https://github.com/pcampbell42/discord-but-worse/blob/main/app/assets/images/readme_assets/entry_point_ss.png)](https://discord-but-worse.herokuapp.com/#/)
 
-Description here
+[Discord but Worse](https://discord-but-worse.herokuapp.com/#/) is a clone of the browser version of the popular app [Discord](https://discord.com/). Discord is an instant messaging app that originally beat out Skype as the app of choice in the gaming world. Due to its intuitive design it now sees use outside of the gaming world and is even being used by businesses in place of other popular instant messaging apps like Slack. This clone seeks to cleanly mimic the basic functionalities of Discord.
 
 ## Contents
 * [Technologies Used](#technologies-used)
@@ -11,7 +11,7 @@ Description here
 * [Local Installation Guide](#local-installation-guide)
 
 ## Technologies Used
-yo
+
 
 ## Features
 ### User Authentication
@@ -29,9 +29,6 @@ aaa
 
 ### Tooltips with Scroll
 bbb
-
-### Date Algorithm and Grouping Messages
-ccc
 
 ## Future Direction
 qwe
