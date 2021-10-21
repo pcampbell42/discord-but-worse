@@ -245,7 +245,7 @@ class ServersSideBar extends React.Component {
             homeHovered: true,
             stopHoverHome: false,
             startHoverHome: true
-         });
+            });
     }
 
     handleStopHoverHome() {
@@ -253,9 +253,8 @@ class ServersSideBar extends React.Component {
             homeHovered: false,
             startHoverHome: false,
             stopHoverHome: true
-         });
-
-         setTimeout(() => this.setState({ stopHoverHome: false }), 200);
+            });
+            setTimeout(() => this.setState({ stopHoverHome: false }), 200);
     }
 
     handleStartHoverCreate() {
@@ -281,7 +280,10 @@ class ServersSideBar extends React.Component {
             stopSelectHome: false,
             startSelectHome: true
         });
-        setTimeout(() => this.setState({ startSelectHome: false }), 100);
+        // Need 200 on timeout (twice as long as animation) because homeSelected
+        // prop cant take longer than 100 to update, resulting in a split second
+        // glitchy animation
+        setTimeout(() => this.setState({ startSelectHome: false }), 200);
     }
 
     handleStopSelectHome() {
