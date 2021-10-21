@@ -119,7 +119,7 @@ def create(data)
     end
 end
 ```
-Finally, `broadcast_to` sends the message (translated into camelCase) to the frontend of every user subscribed to this channel. The switch statement in the `createSubscription` helper method from earlier is then stepped into, and the appropriate normal message action is taken to save the message to state. This is the basic flow of data with WebSockets.
+Finally, `broadcast_to` sends the message (translated into camelCase) to the frontend of every user subscribed to this channel. The switch statement in the `createSubscription` helper method from earlier is then stepped into, and the appropriate normal message action is dispatched to save the message to state. This is the basic flow of data with WebSockets.
 
 To keep things simple, I decided to create subscriptions to all of the user's text channels and DMs when they load in. To do this, I created a `Loading` component that wraps all of the in-app components. This component has the following:
 
