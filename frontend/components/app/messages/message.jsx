@@ -138,7 +138,7 @@ class Message extends React.Component {
                             <h3>{dateToShow}</h3>
                         </div>
                         {this.state.editing ? editingView : message.body}
-                        {!this.state.editing && this.state.edited ? <sub>(edited)</sub> : null}
+                        {!this.state.editing && message.updatedAt !== message.createdAt ? <sub>(edited)</sub> : null}
                     </div>
                 </li> : null
         );
