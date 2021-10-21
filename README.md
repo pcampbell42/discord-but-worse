@@ -11,7 +11,7 @@
 * [Local Installation Guide](#local-installation-guide)
 
 ## Technologies Used
-Discord but Worse is a browser app built with a `Ruby on Rails` backend and a `PostgresQL` database. It uses `React` for its frontend and `Redux` to manage frontend state. Rails' `ActionCable` was used to integrate the `WebSockets` API, which allows for features to be in realtime such as messaging creating a new DM with someone (aka, the user doesn't have to refresh to see new messages or DMs). `AWS` was used to implement user and server avatars. Finally, `Webpack` was used to bundle up the frontend.
+Discord but Worse is a browser app built with a `Ruby on Rails` backend and a `PostgresQL` database. It uses `React` for its frontend and `Redux` to manage frontend state. Rails' `ActionCable` was used to integrate the `WebSockets` API, which allows for features to be in realtime, such as messaging or creating a new DM with someone (aka, the user doesn't have to refresh to see new messages or DMs). `AWS` was used to implement user and server avatars. Finally, `Webpack` was used to bundle up the frontend.
 
 ## Features
 ### User Authentication
