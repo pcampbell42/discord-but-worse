@@ -47,7 +47,7 @@ Messages also use Websockets, so all members of the DM / text channel can see ne
 
 ## Challenges
 ### WebSockets
-WebSockets have definitely been the most challenging part of my fullstack. However, they've also been quite eye opening and I've definitely arrived at a point where I basically want to integrate every feature of my app with them. The basic concept of WebSockets is that you can create subscriptions to a channel. You can then call methods on this channel from the frontend (such as create message) that calls a corresponding method on the backend that does something with the data sent (such as saving the message to the database). This backend method then sends a response to the frontend, which is received in real-time by every single person subscribed to that channel. This response calls a corresponding frontend method that does something with the response's data (such as saving the new message to state). Hence, new messages in real-time for all users subscribed to that channel.
+WebSockets have definitely been the most challenging part of my fullstack. However, they've also been quite eye opening and I've definitely arrived at a point where I basically want to integrate every feature of my app with them. The basic concept of WebSockets is that you can create subscriptions to a channel. You can then call methods on this channel from the frontend (such as create message) that calls a corresponding method on the backend that does something with the data sent (such as saving a message to the database). This backend method then sends a response to the frontend, which is received in real-time by every single person subscribed to that channel. This response calls a corresponding frontend method that does something with the response's data (such as saving the new message to state). Hence, new messages in real-time for all users subscribed to that channel.
 
 To add code to this process, we can look at what happens when we create a subscription to a channel:
 ```javascript
@@ -98,12 +98,12 @@ export const createSubscription = (thread_type, thread_id, receiveAllMessages, r
     )
 }
 ```
-Note that the last 3 lines of code are methods that you call on the frontend to send data to the backend using the channel. So, for example, when creating a new message, you would do something like this:
+Note that the last 3 lines of code are methods that you can call on the frontend to send data to the backend using the channel. So, for example, when creating a new message, you would do something like this:
 ```javascript
 const subscriptionNum = findCurrentSubscription();
 App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
 ```
-This method then calls the corresponding method on the backend:
+This method then calls the corresponding method on the backend in `ChatChannel`:
 ```ruby
 def create(data)
     message = Message.new(
@@ -121,9 +121,9 @@ end
 ```
 Finally, `broadcast_to` sends the message (translated into camelCase) to the frontend of every user subscribed to this channel. The switch statement in the `createSubscription` helper method from earlier is then stepped into, and the appropriate normal message action is dispatched to save the message to state. This is the basic flow of data with WebSockets.
 
-Another problem I came across with with WebSockets was when to create subscriptions to different channels for different DMs / text channels. For example, should I create subscriptions for every text channel in a server only when navigating to that server, or should I create subscriptions to ALL of a user's DMs and text channels when they first log in. I landed on the latter, because not only did it seem simpler to just do it all at once, it also meant less API calls. In addition, Discord has a loading screen when first loading into the app, which now made sense. Thus, I wrapped all of the in-app components in a `Loading` component which makes one massive API call to get all of the user's servers, server text channels, DMs, etc, and then also create subscriptions to everything there.
+Another problem I came across with with WebSockets was when to create subscriptions for different channels. For example, should I create subscriptions for every text channel in a server only when navigating to that server, or should I create subscriptions to ALL of a user's server's text channels when logging in. I landed on the latter, because not only did it seem simpler to just do it all at once, it also meant less API calls. In addition, if I ever wanted to implement notifications, I would need to do the latter. Also, Discord has a loading screen when first loading into the app, which now made sense. Thus, I wrapped all of the in-app components in a `Loading` component which makes one massive API call to get all of the user's servers, server text channels, DMs, etc, and then also create subscriptions to everything there.
 
-Finally, the last challenge I had to overcome with WebSockets was figuring out how to open new DMs with them. To accomplish this, I made a new backend channel class called `UserChannel`. Whenever a user loads into the app, they create a personal `UserChannel` that allows for a handshake of sorts. Whenever a user wants to open a new DM, they subscribe to the other user's `UserChannel` (given by the other user's `id`) and call the method `createDM` which saves this new DM to the backend. The DM is then sent to the frontend for both users, and the following is called:
+Finally, the last challenge I had to overcome with WebSockets was figuring out how to open new DMs with them. To accomplish this, I made a new backend channel class called `UserChannel`. Whenever a user loads into the app, they create a personal `UserChannel` that allows for a handshake of sorts. Whenever a different user wants to open a new DM, they subscribe to the other user's `UserChannel` (given by the other user's `id`) and call the method `createDM` which saves this new DM to the backend. The DM is then sent to the frontend for both users, and the following is called:
 ```javascript
 case "createDM":
     receiveDirectMessage(data.directMessage);
