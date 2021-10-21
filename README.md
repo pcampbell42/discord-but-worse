@@ -53,4 +53,5 @@ Running this project locally only takes a few steps.
 2. Run `bundle install` to install gems
 3. Run `npm install` to install packages
 4. Run `bundle exec rails db:setup` to setup the database
-5. Finally, run `rails server` and `npm start` in two seperate terminals and navigate to `localhost:3000/` in your browser
+5. Start up your postgres server
+6. Finally, run `rails server` and `npm start` in two seperate terminals and navigate to `localhost:3000/` in your browser
