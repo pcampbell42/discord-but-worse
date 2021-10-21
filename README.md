@@ -22,10 +22,19 @@ User auth, complete with session errors, a demo account, and bootstrapping!
 ### Servers and Text Channels
 Users can create their own servers, and then update or delete them in the server settings.
 
-To join servers, users can either join them from the server index, or use an invite link to add them manually.
+<img src="/app/assets/images/readme_assets/server_create.gif" width="60%" height="60%" />
+
+To invite people to your server, simply copy the invite link and send it to your friend.
+
+<img src="/app/assets/images/readme_assets/server_invite.gif" width="60%" height="60%" />
+
+To join servers, users can either join with an invite link or from the public server directory.
+
+<img src="/app/assets/images/readme_assets/server_join.gif" width="60%" height="60%" />
 
 Text channels can be created and updated in the text channel settings.
 
+<img src="/app/assets/images/readme_assets/text_channels.gif" width="60%" height="60%" />
 
 ### DMs and Messages
 asd
