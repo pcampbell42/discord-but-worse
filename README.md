@@ -37,7 +37,12 @@ Text channels can be created and updated in the text channel settings.
 <img src="/app/assets/images/readme_assets/text_channels.gif" width="60%" height="60%" />
 
 ### DMs and Messages
-asd
+DMs can be started with any user by joining a server and messaging them. Note that opening new DMs uses websockets, so the receiving user doesn't have to refresh to see the new DM!
+
+
+Messages also use websockets, so all members of the DM / text channel can see new messages in real time. They can also see updating and deleting of messages in real time.
+
+
 
 ## Challenges
 ### Websockets
