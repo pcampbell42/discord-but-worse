@@ -11,7 +11,7 @@
 * [Local Installation Guide](#local-installation-guide)
 
 ## Technologies Used
-
+Discord but Worse is a browser app built with a `Ruby on Rails` backend with a `PostgresQL` database. It uses `React` for its frontend and `Redux` to manage frontend state. Rails' `ActionCable` was used to integrate the `WebSockets` API, which allows for real-time messaging and creation of new DM's (aka, the user doesn't have to refresh to see new messages or DMs). `AWS` was used to implement user and server avatars. Finally, `Webpack` was used to bundle up the frontend.
 
 ## Features
 ### User Authentication
@@ -31,13 +31,19 @@ aaa
 bbb
 
 ## Future Direction
-qwe
-* Custom server ordering
-* Pinned Messages
-* Message reactions and emojis
-* Server owner can kick players (with websockets?)
-* Make scroll pretty :)
-* Online status
+Obviously, Discord is a massive app with a top of features, so the number of things I could add are seemingly endless, and I could work on this clone for a very long time. However, here are some immediate features I've thought a bit about implementing.
+* Add websockets to deleting / leaving servers - a quick modification of the deleting / leaving already in place to use websockets
+* Custom server ordering - an interesting fullstack problem that would require a little bit of backend and a lot of frontend / css
+* Pinned messages - a simple, quick, fullstack feature
+* Message reactions and emojis - also a simple, quick, fullstack feature
+* Server owner can kick players - this is a pretty easy frontend problem that I could implement with websockets
+* View older messages in chat - a more challenging frontend problem
+* Online status - a super challenging websockets problem (use user channels to implement a way to check if a user is online)
 
 ## Local Installation Guide
-stuff
+Running this project locally only takes a few steps.
+1. Clone the repo
+2. Run `bundle install` to install gems
+3. Run `npm install` to install packages
+4. Run `bundle exec rails db:setup` to setup the database
+5. Finally, run `rails server` and `npm start` in two seperate terminals and navigate to `localhost:3000/` in your browser
