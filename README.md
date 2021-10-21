@@ -24,6 +24,8 @@ Users can create their own servers, and then update or delete them in the server
 
 To join servers, users can either join them from the server index, or use an invite link to add them manually.
 
+Text channels can be created and updated in the text channel settings.
+
 
 ### DMs and Messages
 asd
