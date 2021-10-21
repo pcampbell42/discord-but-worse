@@ -54,7 +54,7 @@ To add code to this process, we can look at what happens when we create a subscr
 /**
  * Helper method that creates a websocket connection for the specified text channel or dm.
  * 
- * @param {string} thread_type - Specifies if the thread is for a direct message (input = dm),
+ * @param {String} thread_type - Specifies if the thread is for a direct message (input = dm),
  *         or a text channel (input = tc). This input is needed because if the only input were thread_id,
  *         a text channel and a dm might have the same id, and thus would be the same channel.
  * @param {Number} thread_id - The text channel's / dm's id
