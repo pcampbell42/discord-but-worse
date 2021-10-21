@@ -37,17 +37,92 @@ Text channels can be created and updated in the text channel settings.
 <img src="/app/assets/images/readme_assets/text_channels.gif" width="60%" height="60%" />
 
 ### DMs and Messages
-DMs can be started with any user by joining a server and messaging them. Note that opening new DMs uses websockets, so the receiving user doesn't have to refresh to see the new DM!
+DMs can be started with any user by joining a server and messaging them. Note that opening new DMs uses WebSockets, so the receiving user doesn't have to refresh to see the new DM!
 
 <img src="/app/assets/images/readme_assets/dms.gif" width="60%" height="60%" />
 
-Messages also use websockets, so all members of the DM / text channel can see new messages in real time. They can also see updating and deleting of messages in real time.
+Messages also use Websockets, so all members of the DM / text channel can see new messages in real time. They can also see updating and deleting of messages in real time.
 
 <img src="/app/assets/images/readme_assets/messages.gif" width="60%" height="60%" />
 
 ## Challenges
-### Websockets
-aaa
+### WebSockets
+WebSockets have definitely been the most challenging part of my fullstack. However, they've also been quite eye opening and I've definitely arrived at a point where I basically want to integrate every feature of my app with them. The basic concept of WebSockets is that you can create subscriptions to a channel. You can then call methods on this channel from the frontend (such as create message) that calls a corresponding method on the backend that does something with the data sent (such as saving the message to the database). This backend method then sends a response to the frontend, which is receive in real-time by every single person subscribed to that channel. This response calls a corresponding frontend method that does something with the response's data (such as saving the new message to state). Hence, new messages in real-time for all users subscribed to that channel.
+
+To add code to this process, we can look at what happens when we create a subscription to a channel:
+```javascript
+/**
+ * Helper method that creates a websocket connection for the specified text channel or dm.
+ * 
+ * @param {string} thread_type - Specifies if the thread is for a direct message (input = dm),
+ *         or a text channel (input = tc). This input is needed because if the only input were thread_id,
+ *         a text channel and a dm might have the same id, and thus would be the same channel.
+ * @param {Number} thread_id - The text channel's / dm's id
+ * @param {Function} receiveAllMessages - Input should be dispatch(receiveAllMessages(...))
+ * @param {Function} receiveMessage - Input should be dispatch(receiveMessage(...))
+ * @param {Function} deleteMessage - Input should be dispatch(deleteMessage(...))
+ */
+export const createSubscription = (thread_type, thread_id, receiveAllMessages, receiveMessage, deleteMessage) => {
+    App.cable.subscriptions.create(
+        { channel: "ChatChannel", thread_type: thread_type, thread_id: thread_id },
+        {
+            // When data is received from the backend, dispatch one of the following actions...
+            received: data => {
+                switch (data.type) {
+                    case "index":
+                        receiveAllMessages(data.messages);
+                        break;
+
+                    case "create":
+                        receiveMessage(data.message);
+                        break;
+
+                    case "update":
+                        receiveMessage(data.message);
+                        break;
+
+                    case "destroy":
+                        deleteMessage(data.messageId);
+                        break;
+
+                    default:
+                        break;
+                }
+            },
+
+            // Functions for creating / updating / deleting a message. Sends data to backend.
+            create: function (data) { return this.perform("create", data) },
+            update: function (data) { return this.perform("update", data) },
+            destroy: function (data) { return this.perform("destroy", data) }
+        }
+    )
+}
+```
+Note that the last 3 lines of code are methods that you call on the frontend to send data to the backend using the channel. So, for example, when creating a new message, you would do something like this:
+```javascript
+const subscriptionNum = findCurrentSubscription();
+App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
+```
+This method then calls the corresponding method on the backend:
+```ruby
+def create(data)
+    message = Message.new(
+        body: data["message"]["body"],
+        author_id: data["message"]["author_id"],
+        messageable_id: params["thread_id"],
+        messageable_type: (params["thread_type"] == "tc" ? "TextChannel" : "DirectMessage")
+    )
+
+    if message.save
+        socket = { type: "create", message: create_return_message(message) }
+        ChatChannel.broadcast_to("chat_channel_#{params["thread_type"]}_#{params["thread_id"]}", socket)
+    end
+end
+```
+Finally, `broadcast_to` sends the message (translated into camelCase) to the frontend of every user subscribed to this channel. The switch statement in the `createSubscription` helper method from earlier is then stepped into, and the appropriate normal message action is taken to save the message to state. This is the basic flow of data with WebSockets.
+
+To keep things simple, I decided to create subscriptions to all of the user's text channels and DMs when they load in. To do this, I created a `Loading` component that wraps all of the in-app components. This component has the following:
+
 
 ### Scroll with Tooltips
 A challenge that really caught me off guard was trying to implement scroll on a component with tooltips, or any kind of overflow. This was a big problem for me because both the server sidebar and the user sidebar need scroll with overflow:
