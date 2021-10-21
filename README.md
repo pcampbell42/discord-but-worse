@@ -47,14 +47,16 @@ aaa
 bbb
 
 ## Future Direction
-Obviously, Discord is a massive app with a top of features, so the number of things I could add are seemingly endless, and I could work on this clone for a very long time. However, here are some immediate features I've thought a bit about implementing.
+Obviously, Discord is a massive app with a ton of features, so I could add to it seemingly forever. However, here are some immediate features I've thought a bit about implementing.
 * Add websockets to deleting / leaving servers - a quick modification of the deleting / leaving already in place to use websockets
+* Changing local nickname - a basic fullstack feature that would require 1 extra column in the memberships table
 * Custom server ordering - an interesting fullstack problem that would require a little bit of backend and a lot of frontend / css
-* Pinned messages - a simple, quick, fullstack feature
-* Message reactions and emojis - also a simple, quick, fullstack feature
+* Pinned messages - a basic fullstack feature
+* Message reactions and emojis - also a basic fullstack feature
 * Server owner can kick players - this is a pretty easy frontend problem that I could implement with websockets
 * View older messages in chat - a more challenging frontend problem
 * Online status - a super challenging websockets problem (use user channels to implement a way to check if a user is online)
+* Friends - another basic fullstack feature
 
 ## Local Installation Guide
 Running this project locally only takes a few steps.
