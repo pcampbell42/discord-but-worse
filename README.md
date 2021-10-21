@@ -50,7 +50,38 @@ Messages also use websockets, so all members of the DM / text channel can see ne
 aaa
 
 ### Scroll with Tooltips
-A challenge that really caught me off guard was trying to implement scroll on a component with tooltips, or any kind of overflow. This was a big problem for me because both the server sidebar and the user sidebar inside a server needed scroll with tooltips:
+A challenge that really caught me off guard was trying to implement scroll on a component with tooltips, or any kind of overflow. This was a big problem for me because both the server sidebar and the user sidebar need scroll with overflow:
+
+<img src="/app/assets/images/readme_assets/scroll.gif" width="60%" height="60%" />
+
+The way that I was doing tooltips was by placing a `position: relative` anchor at each server icon (or home page icon, user icon, or whatever, depending on the component). I would then set `position: absolute` for the tooltip, and scooch it into the correct position. However, I realized I needed `overflow-y: scroll` to allow for lots of servers / users in servers. It seemed intuitive that I could simply set `overflow-y: scroll` and `overflow-x: visible`. Unfortunately, setting `overflow-y: scroll` automatically sets `overflow-x: auto`, thus hiding my tooltips. To my surprise, I really couldn't find any great solutions to this problem online. However, I did find some hints, which allowed me to come up with a strategy.
+
+I would have to redo how tooltips were positioned. I found online that by removing the `position: relative` anchor, the tooltips showed up! However, they were positioned at the top corner of the screen. In order to figure out where the tooltip should be positioned, I would have to use `refs`.
+```javascript
+<Link to={`/app/servers/${server.id}/${firstTextChannelId}`} onClick={this.handleStartSelect}>
+    <li className={selected ? "selected" : startHover ? "start-hover" : stopHover || stopSelect ? "stop-hover" : null}
+        onMouseEnter={this.handleStartHover}
+        onMouseLeave={this.handleStopHover}
+        onContextMenu={this.handleRightClick}
+        ref={serverIconEl => this.serverIconEl = serverIconEl}
+        style={server.photoUrl === "noPhoto" ? null : { backgroundImage: `url(${server.photoUrl})` }}
+        id={server.photoUrl === "noPhoto" ? "no-photo" : "server-has-photo"}>
+        <div>{server.photoUrl === "noPhoto" ? server.name[0] : null}</div>
+    </li>
+</Link>
+```
+By creating a `ref` to where the `position: relative` anchor point used to be, I could then simply use `getBoundingClientRect()` with inline styles to position the tooltip correctly.
+```javascript
+const serverNameShow = (
+  <div className="ss-relative-position-anchor">
+      <div className="ss-name-show" style={{ top: `${this.serverIconEl ? 
+          this.serverIconEl.getBoundingClientRect().top + 8 : 0}px` }}>{server.name}</div>
+      <div className="ss-name-show-arrow-left" style={{top: `${this.serverIconEl ? 
+          this.serverIconEl.getBoundingClientRect().top + 18 : 0}px` }}></div>
+  </div>
+);
+```
+And thus, I had scroll with tooltips.
 
 ## Future Direction
 Obviously, Discord is a massive app with a ton of features, so I could add to it seemingly forever. However, here are some of the immediate features that I've been thinking about implementing.
