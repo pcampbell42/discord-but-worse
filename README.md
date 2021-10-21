@@ -16,10 +16,13 @@ Discord but Worse is a browser app built with a `Ruby on Rails` backend with a `
 ## Features
 ### User Authentication
 User auth, complete with session errors, a demo account, and bootstrapping!
+
 <img src="/app/assets/images/readme_assets/user_auth.gif" width="60%" height="60%" />
 
 ### Servers and Text Channels
-Users can create their own servers, and then update the name and picture.
+Users can create their own servers, and then update or delete them in the server settings.
+
+To join servers, users can either join them from the server index, or use an invite link to add them manually.
 
 
 ### DMs and Messages
