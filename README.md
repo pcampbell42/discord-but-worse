@@ -56,7 +56,7 @@ A challenge that really caught me off guard was trying to implement scroll on a 
 
 The way that I was doing tooltips was by placing a `position: relative` anchor at each server icon (or home page icon, user icon, or whatever, depending on the component). I would then set `position: absolute` for the tooltip, and scooch it into the correct position. However, I realized I needed `overflow-y: scroll` to allow for lots of servers / users in servers. It seemed intuitive that I could simply set `overflow-y: scroll` and `overflow-x: visible`. Unfortunately, setting `overflow-y: scroll` automatically sets `overflow-x: auto`, thus hiding my tooltips. To my surprise, I really couldn't find any great solutions to this problem online. However, I did find some hints, which allowed me to come up with a strategy.
 
-I would have to redo how tooltips were positioned. I found online that by removing the `position: relative` anchor, the tooltips showed up! However, they were positioned at the top corner of the screen. In order to figure out where the tooltip should be positioned, I would have to use `refs`.
+I would have to redo how tooltips were positioned. I found online that by removing the `position: relative` anchor, the tooltips showed up! However, they were positioned at the top corner of the screen because they no longer had an anchor. In order to figure out where the tooltip should be positioned, I would have to use `refs`.
 ```javascript
 <Link to={`/app/servers/${server.id}/${firstTextChannelId}`} onClick={this.handleStartSelect}>
     <li className={selected ? "selected" : startHover ? "start-hover" : stopHover || stopSelect ? "stop-hover" : null}
