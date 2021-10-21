@@ -121,8 +121,24 @@ end
 ```
 Finally, `broadcast_to` sends the message (translated into camelCase) to the frontend of every user subscribed to this channel. The switch statement in the `createSubscription` helper method from earlier is then stepped into, and the appropriate normal message action is dispatched to save the message to state. This is the basic flow of data with WebSockets.
 
-To keep things simple, I decided to create subscriptions to all of the user's text channels and DMs when they load in. To do this, I created a `Loading` component that wraps all of the in-app components. This component has the following:
+Another problem I came across with with WebSockets was when to create subscriptions to different channels for different DMs / text channels. For example, should I create subscriptions for every text channel in a server only when navigating to that server, or should I create subscriptions to ALL of a user's DMs and text channels when they first log in. I landed on the latter, because not only did it seem simpler to just do it all at once, it also meant less API calls. In addition, Discord has a loading screen when first loading into the app, which now made sense. Thus, I wrapped all of the in-app components in a `Loading` component which makes one massive API call to get all of the user's servers, server text channels, DMs, etc, and then also create subscriptions to everything there.
 
+Finally, the last challenge I had to overcome with WebSockets was figuring out how to open new DMs with them. To accomplish this, I made a new backend channel class called `UserChannel`. Whenever a user loads into the app, they create a personal `UserChannel` that allows for a handshake of sorts. Whenever a user wants to open a new DM, they subscribe to the other user's `UserChannel` (given by the other user's `id`) and call the method `createDM` which saves this new DM to the backend. The DM is then sent to the frontend for both users, and the following is called:
+```javascript
+case "createDM":
+    receiveDirectMessage(data.directMessage);
+
+    // Sometimes, the person receiving the new DM won't have the initiating
+    // user in state. This throws a nasty error, so we need to receive the 
+    // initiator in state.
+    receiveUser(data.user);
+
+    // Subscribe receivers to DM websocket channel
+    createSubscription("dm", data.directMessage.id, receiveAllMessages, 
+        receiveMessage, deleteMessage);
+    break;
+```
+Thus, a new DM is made and subscribed to for both users in real-time.
 
 ### Scroll with Tooltips
 A challenge that really caught me off guard was trying to implement scroll on a component with tooltips, or any kind of overflow. This was a big problem for me because both the server sidebar and the user sidebar need scroll with overflow:
