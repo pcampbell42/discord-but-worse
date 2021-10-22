@@ -43,8 +43,6 @@ DMs can be started with any user by joining a server and messaging them. Note th
 
 Messages also use Websockets, so all members of the DM / text channel can see new messages in real time. They can also see updating and deleting of messages in real time.
 
-<img src="/app/assets/images/readme_assets/messages.gif" width="90%" height="90%" />
-
 ## Challenges
 ### WebSockets
 WebSockets have definitely been the most challenging part of my fullstack. However, they've also been quite eye opening and I've definitely arrived at a point where I basically want to integrate every feature of my app with them. The basic concept of WebSockets is that you can create subscriptions to a channel. You can then call methods on this channel from the frontend (such as create message) that calls a corresponding method on the backend that does something with the data sent (such as saving a message to the database). This backend method then sends a response to the frontend, which is received in real-time by every single person subscribed to that channel. This response calls a corresponding frontend method that does something with the response's data (such as saving the new message to state). Hence, new messages in real-time for all users subscribed to that channel.
