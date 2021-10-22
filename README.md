@@ -143,7 +143,7 @@ Thus, a new DM is made and subscribed to for both users in real-time.
 ### Scroll with Tooltips
 A challenge that really caught me off guard was trying to implement scroll on a component with tooltips, or any kind of overflow. This was a big problem for me because both the server sidebar and the user sidebar need scroll with overflow:
 
-<img src="/app/assets/images/readme_assets/scroll.gif" width="60%" height="60%" />
+<img src="/app/assets/images/readme_assets/scroll.gif" width="90%" height="90%" />
 
 The way that I was doing tooltips was by placing a `position: relative` anchor at each server icon (or home page icon, user icon, or whatever, depending on the component). I would then set `position: absolute` for the tooltip, and scooch it into the correct position. However, I realized I needed `overflow-y: scroll` to allow for lots of servers / users in servers. It seemed intuitive that I could simply set `overflow-y: scroll` and `overflow-x: visible`. Unfortunately, setting `overflow-y: scroll` automatically sets `overflow-x: auto`, thus hiding my tooltips. To my surprise, I really couldn't find any great solutions to this problem online. However, I did find some hints, which allowed me to come up with a strategy.
 
