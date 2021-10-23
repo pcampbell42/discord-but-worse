@@ -106,12 +106,14 @@ export const createUserSubscription = (user_id, receiveDirectMessage, receiveUse
             received: data => {
                 switch (data.type) {
                     case "createDM":
-                        // Should check here if user_id or data.user.id is equal to
-                        // data.directMessage.user1Id or data.directMessage.user2Id to
-                        // avoid subscribing / adding someone else's DM to state (If a 
-                        // third person happens to be subscribed to this channel at the 
-                        // exact same moment, they would end up with the wrong stuff).
-                        // For the scale of this project, it doesn't matter.
+                        // Note that this is actually error prone (kind of). Basically,
+                        // if a 3rd user happens to be subscribed to this channel, they would
+                        // also become subscribed to the DM channel and have the DM in state. For
+                        // a project of this scale, it doesn't really matter so whatever.
+                        // An easy fix would be to pass currentUserId as an argument to
+                        // createUserSubscription, and then we could just check if the 
+                        // currentUserId is one of the 2 ids in the DM.
+
                         receiveDirectMessage(data.directMessage);
 
                         // Sometimes, the person receiving the new DM won't have the initiating

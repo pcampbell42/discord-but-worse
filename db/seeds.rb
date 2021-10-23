@@ -129,6 +129,40 @@ direct_messages = DirectMessage.create([
 #-------------------------------------------------------------------------------
 
 messages = Message.create([
+
+    #------------------------ DMs ------------------------
+
+    { body: "dude you have more viewers than Valorant rn", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[0].id },
+    { body: "how are they letting you restream", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[0].id },
+    { body: "wdym", author_id: users[9].id, messageable_type: "DirectMessage", messageable_id: direct_messages[0].id },
+
+    { body: "we're on last continue", author_id: users[11].id, messageable_type: "DirectMessage", messageable_id: direct_messages[1].id },
+    { body: "ok so", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[1].id },
+    { body: "lets just run across bridge?", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[1].id },
+    { body: "OK", author_id: users[11].id, messageable_type: "DirectMessage", messageable_id: direct_messages[1].id },
+    { body: "i follow", author_id: users[11].id, messageable_type: "DirectMessage", messageable_id: direct_messages[1].id },
+    { body: "im stunned", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[1].id },
+    { body: "turn around", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[1].id },
+    { body: "im dead", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[1].id },
+
+    { body: "yo play rmp with me", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[2].id },
+
+    { body: "how are you so fast", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[3].id },
+    { body: "literally living a block away from the server 100%", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[3].id },
+    { body: "mad", author_id: users[8].id, messageable_type: "DirectMessage", messageable_id: direct_messages[3].id },
+
+    { body: "ive got the interview with google, which is going to be over zoom, which is like four hours of whiteboard", author_id: users[2].id, messageable_type: "DirectMessage", messageable_id: direct_messages[4].id },
+    { body: "havent done any leetcode", author_id: users[2].id, messageable_type: "DirectMessage", messageable_id: direct_messages[4].id },
+    { body: "not stoked", author_id: users[2].id, messageable_type: "DirectMessage", messageable_id: direct_messages[4].id },
+    { body: "oh god LOL", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[4].id },
+    { body: "if they give me a dynamic programming question I think ill just say next", author_id: users[2].id, messageable_type: "DirectMessage", messageable_id: direct_messages[4].id },
+
+    { body: "hello?", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[5].id },
+    { body: "please respond", author_id: demo_user.id, messageable_type: "DirectMessage", messageable_id: direct_messages[5].id },
+
+
+    #------------------------ Text Channels ------------------------
+
     { body: "guess who got first tracks on the fingers yesterday", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[8].id },
     { body: "no big deal or anything", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[8].id },
     { body: "I got in line 5pm the day before", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[8].id },
@@ -137,5 +171,16 @@ messages = Message.create([
 
     { body: "who's up for a game of G.N.A.R.", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[7].id },
     { body: "RIP", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[9].id },
-    { body: "RIP", author_id: demo_user.id, messageable_type: "TextChannel", messageable_id: text_channels[9].id }
+    { body: "RIP", author_id: demo_user.id, messageable_type: "TextChannel", messageable_id: text_channels[9].id },
+
+    { body: "WHO WANTS TO PLAY SOME WOW", author_id: users[2].id, messageable_type: "TextChannel", messageable_id: text_channels[1].id },
+    { body: ":)", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[0].id },
+
+    { body: "we need a brain blast idea", author_id: users[2].id, messageable_type: "TextChannel", messageable_id: text_channels[1].id },
+    { body: "I saw your travel idea on reddit", author_id: users[2].id, messageable_type: "TextChannel", messageable_id: text_channels[1].id },
+    { body: "rip", author_id: users[1].id, messageable_type: "TextChannel", messageable_id: text_channels[1].id },
+    { body: "same idea", author_id: users[1].id, messageable_type: "TextChannel", messageable_id: text_channels[1].id },
 ])
+
+#-------------------------------------------------------------------------------
+
