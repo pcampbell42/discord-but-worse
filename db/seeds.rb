@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'open-uri'
 
 demo_user = User.create(username: "demo123", email: "demo123@email.com", password: "123456")
 
@@ -33,6 +34,54 @@ users = User.create([
     { username: "bugha", email: "worldchamp@email.com", password: "yessir" },
 ])
 
+#-------------------------------------------------------------------------------
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/t3_priest.png')
+users[0].photo.attach(io: file, filename: 't3_priest.png')
+
+# # file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/t3_priest.png')
+# # users[1].photo.attach(io: file, filename: 't3_priest.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/dumb_orc.png')
+users[2].photo.attach(io: file, filename: 'dumb_orc.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/feels_good_man.png')
+users[3].photo.attach(io: file, filename: 'feels_good_man.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/cat_mike.png')
+users[4].photo.attach(io: file, filename: 'cat_mike.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/truck.png')
+users[5].photo.attach(io: file, filename: 'truck.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/hxh.png')
+users[6].photo.attach(io: file, filename: 'hxh.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/tgk_1.png')
+users[7].photo.attach(io: file, filename: 'tgk_1.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/gamer_chair_smol.png')
+users[8].photo.attach(io: file, filename: 'gamer_chair_smol.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/shroud.png')
+users[9].photo.attach(io: file, filename: 'shroud.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/t3_mage.png')
+users[10].photo.attach(io: file, filename: 't3_mage.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/cao_cao.png')
+users[11].photo.attach(io: file, filename: 'cao_cao.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/lettuce.png')
+users[13].photo.attach(io: file, filename: 'lettuce.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/asmon.png')
+users[15].photo.attach(io: file, filename: 'asmon.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/reckful.png')
+users[16].photo.attach(io: file, filename: 'reckful.png')
+
+#-------------------------------------------------------------------------------
 
 servers = Server.create([
     { name: "tgk", owner_id: users[10].id },
@@ -56,6 +105,39 @@ servers = Server.create([
     { name: "hey im mvp", owner_id: users[16] },
 ])
 
+#-------------------------------------------------------------------------------
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/tgk.png')
+servers[0].photo.attach(io: file, filename: 'tgk.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/mop.png')
+servers[1].photo.attach(io: file, filename: 'mop.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/coors.png')
+servers[2].photo.attach(io: file, filename: 'coors.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/squawllywood.png')
+servers[3].photo.attach(io: file, filename: 'squawllywood.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/ktown.png')
+servers[4].photo.attach(io: file, filename: 'ktown.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/shroud_icon.png')
+servers[7].photo.attach(io: file, filename: 'shroud_icon.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/cross_country.png')
+servers[9].photo.attach(io: file, filename: 'cross_country.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/grape.png')
+servers[11].photo.attach(io: file, filename: 'grape.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/rmt.png')
+servers[13].photo.attach(io: file, filename: 'rmt.png')
+
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/olympus.png')
+servers[14].photo.attach(io: file, filename: 'olympus.png')
+
+#-------------------------------------------------------------------------------
 
 servers[0].members += [users[10], users[0], users[1], users[2], users[3], users[5], users[6], users[7]]
 servers[1].members += [users[0], users[2], users[5], users[6], users[10], users[13], users[16]]
@@ -77,6 +159,7 @@ servers[14].members += [users[15], users[0]]
 
 servers[15].members += [users[16], users[10]]
 
+#-------------------------------------------------------------------------------
 
 text_channels = TextChannel.create([
     { name: "tgk chat", server_id: servers[0].id },
@@ -173,14 +256,13 @@ messages = Message.create([
     { body: "RIP", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[9].id },
     { body: "RIP", author_id: demo_user.id, messageable_type: "TextChannel", messageable_id: text_channels[9].id },
 
-    { body: "WHO WANTS TO PLAY SOME WOW", author_id: users[2].id, messageable_type: "TextChannel", messageable_id: text_channels[1].id },
+    { body: "WHO WANTS TO PLAY SOME WOW", author_id: users[2].id, messageable_type: "TextChannel", messageable_id: text_channels[0].id },
     { body: ":)", author_id: users[10].id, messageable_type: "TextChannel", messageable_id: text_channels[0].id },
 
     { body: "we need a brain blast idea", author_id: users[2].id, messageable_type: "TextChannel", messageable_id: text_channels[1].id },
     { body: "I saw your travel idea on reddit", author_id: users[2].id, messageable_type: "TextChannel", messageable_id: text_channels[1].id },
     { body: "rip", author_id: users[1].id, messageable_type: "TextChannel", messageable_id: text_channels[1].id },
     { body: "same idea", author_id: users[1].id, messageable_type: "TextChannel", messageable_id: text_channels[1].id },
+
+    { body: "HEY GUYS!!!", author_id: demo_user.id, messageable_type: "TextChannel", messageable_id: text_channels[15].id },
 ])
-
-#-------------------------------------------------------------------------------
-
