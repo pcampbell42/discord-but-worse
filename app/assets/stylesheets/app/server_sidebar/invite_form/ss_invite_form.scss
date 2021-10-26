@@ -80,9 +80,8 @@
                 }
 
                 .server-invite-copy-input#copied {
-                    border-style: solid;
-                    border-color: #3ba55d;
-                    border-width: 1px;
+                    animation: sicInputBlackToGreen 0.25s linear 1, sicInputGreenToBlack 0.2s linear 1.3s;
+                    animation-fill-mode: forwards;
                 }
             }
         }
@@ -123,9 +122,12 @@
             padding-right: 18.5px;
             margin-right: 30px;
             border-radius: 2.8px;
-            background-color: #3ba55d;
 
             content: "Copied";
+
+            animation: sicButtonTextFadeIn 0.25s linear 1, sicButtonTextFadeOut 0.4s linear 1.25s,
+                sicButtonBlueToGreen 0.25s linear 1, sicButtonGreenToBlue 0.25s linear 1.25s;
+            animation-fill-mode: forwards;
         }
     }
 }

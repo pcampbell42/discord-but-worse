@@ -1,0 +1,30 @@
+@keyframes sicButtonTextFadeIn {
+    from { color: rgba(0, 0, 0, 0); }
+    to { color: white; }
+}
+
+@keyframes sicButtonTextFadeOut {
+    from { color: white; }
+    to { color: rgba(0, 0, 0, 0); }
+}
+
+@keyframes sicButtonBlueToGreen {
+    from { background-color: #4753c4; }
+    to { background-color: #3ba55d; }
+}
+
+@keyframes sicButtonGreenToBlue {
+    from { background-color: #3ba55d; }
+    to { background-color: #4753c4; }
+}
+
+@keyframes sicInputBlackToGreen {
+    from { border-color: black; }
+    to { border-color: #3ba55d; }
+}
+
+@keyframes sicInputGreenToBlack {
+    from { border-color: #3ba55d; }
+    to { border-color: black; }
+}
+
