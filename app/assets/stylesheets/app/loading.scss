@@ -1,5 +1,6 @@
 .loading-background {
-    background-color: #35393f;
+    // background-color: #35393f;
+    background-image: linear-gradient(to bottom right, #0f65ae, #35393f, #37393f, #35393f, #0f65ae);
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -17,11 +18,11 @@
 
         .loading-spinner {
             --clock-color: #0f65ae;
-            --clock-width: 70px;
+            --clock-width: 13vh;
             --clock-radius: calc(var(--clock-width) / 2);
             --clock-minute-length: calc(var(--clock-width) * 0.4);
             --clock-hour-length: calc(var(--clock-width) * 0.2);
-            --clock-thickness: 0.2rem;
+            --clock-thickness: 0.6vh;
 
             position: relative;
             display: flex;
@@ -29,7 +30,7 @@
             align-items: center;
             width: var(--clock-width);
             height: var(--clock-width);
-            border: 3px solid var(--clock-color);
+            border: 0.6vh solid var(--clock-color);
             border-radius: 50%;
 
             &::before,
@@ -39,7 +40,7 @@
                 top: calc(var(--clock-radius) * 0.25);
                 width: var(--clock-thickness);
                 background: var(--clock-color);
-                border-radius: 10px;
+                border-radius: 1vh;
                 transform-origin: center calc(100% - calc(var(--clock-thickness) / 2));
                 animation: spin infinite linear;
             }
@@ -67,7 +68,7 @@
 
             font-family: 'Nunito', sans-serif;
             color: #0f65ae;
-            font-size: 20px;
+            font-size: 4vh;
             font-weight: 600;
 
             &:after {
