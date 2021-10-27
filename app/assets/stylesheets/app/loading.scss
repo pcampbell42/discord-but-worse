@@ -6,6 +6,9 @@
     justify-content: center;
     align-items: center;
 
+    min-height: 100vh;
+    margin: 0;
+
     .loading-container {
         display: flex;
         flex-direction: column;
@@ -13,27 +16,59 @@
         align-items: center;
 
         .loading-spinner {
-          border: 16px solid #f3f3f3;
-          border-top: 16px solid #0f65ae;
-          background-color: transparent;
-          border-radius: 50%;
-          width: 120px;
-          height: 120px;
-          animation: spin 2s linear infinite;
+            --clock-color: #0f65ae;
+            --clock-width: 70px;
+            --clock-radius: calc(var(--clock-width) / 2);
+            --clock-minute-length: calc(var(--clock-width) * 0.4);
+            --clock-hour-length: calc(var(--clock-width) * 0.2);
+            --clock-thickness: 0.2rem;
+
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: var(--clock-width);
+            height: var(--clock-width);
+            border: 3px solid var(--clock-color);
+            border-radius: 50%;
+
+            &::before,
+            &::after {
+                position: absolute;
+                content: "";
+                top: calc(var(--clock-radius) * 0.25);
+                width: var(--clock-thickness);
+                background: var(--clock-color);
+                border-radius: 10px;
+                transform-origin: center calc(100% - calc(var(--clock-thickness) / 2));
+                animation: spin infinite linear;
+            }
+
+            &::before {
+                height: var(--clock-minute-length);
+                animation-duration: 2s;
+            }
+
+            &::after {
+                top: calc(var(--clock-radius) * 0.25 + var(--clock-hour-length));
+                height: var(--clock-hour-length);
+                animation-duration: 15s;
+            }
         }
         
         @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+            to {
+                transform: rotate(1turn);
+            }
         }
     
         .loading-message {
             margin-top: 4vh;
 
             font-family: 'Nunito', sans-serif;
-            color: #8e9296;
-            font-size: 4vh;
-            font-weight: 900;
+            color: #0f65ae;
+            font-size: 20px;
+            font-weight: 600;
 
             &:after {
                 content: "";
