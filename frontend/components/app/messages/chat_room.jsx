@@ -26,6 +26,9 @@ class ChatRoom extends React.Component {
                 dmdUser = users[chatRoomObj.user1Id]
         }
 
+        // Used for grouping messages based on date / user
+        let parentMessage = messages[0];
+
         return (
             chatRoomObj !== undefined ?
                 <div className="chat-room-container" id={chatRoomType === "dm" ? "dm" : null}>
@@ -38,9 +41,16 @@ class ChatRoom extends React.Component {
                     <div className="chat-room-sub-container">
                         <article>
                             <ul id="chat-room-ul">
-                                {messages.map(message => (
-                                    <Message key={message.id} message={message} currentUser={currentUser} users={users}/>
-                                ))}
+                                {messages.map((message, idx) => {
+                                    // If different user from parent messages
+                                    if (message.authorId !== parentMessage.authorId) parentMessage = message;
+
+                                    // If over 5 hours between messages (idk how long it actually takes in Discord)
+                                    // if ()
+
+                                    return <Message key={message.id} message={message} currentUser={currentUser} users={users}
+                                                parent={parentMessage === message ? true : false} />
+                                })}
                             </ul>
                         </article>
                         <MessageFormContainer />

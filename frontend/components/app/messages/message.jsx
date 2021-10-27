@@ -3,6 +3,7 @@ import defaultProfilePicture from "../../../../app/assets/images/default_profile
 import editIcon from "../../../../app/assets/images/edit_icon.png";
 import deleteIcon from "../../../../app/assets/images/delete_icon.png";
 import { findCurrentSubscription } from "../../../util/websockets_helpers";
+import { getDateToShow } from "../../../util/helpers";
 
 
 class Message extends React.Component {
@@ -25,15 +26,18 @@ class Message extends React.Component {
     }
 
 
+    // --------------- Event listeners for message edit shortcuts ---------------
+
     componentDidMount() {
         document.addEventListener("keydown", this.handleKeyPress, true);
     }
-
 
     componentWillUnmount() {
         document.removeEventListener("keydown", this.handleKeyPress, true);
     }
 
+
+    // --------------- Event listeners for message edit ---------------
 
     handleKeyPress(e) {
         // If ESC is pressed
@@ -55,17 +59,14 @@ class Message extends React.Component {
         }
     }
 
-
     swapToEditing(e) {
         e.preventDefault();
         this.setState({ editing: true });
     }
 
-
     update(e) {
         this.setState({ message: { body: e.currentTarget.value }});
     }
-
 
     handleSubmit(e) {
         e.preventDefault();
@@ -77,6 +78,13 @@ class Message extends React.Component {
         this.setState({ editing: false, edited: true });
     }
 
+    handleClose(e) {
+        e.preventDefault();
+        this.setState({ message: { body: this.props.message.body }, editing: false });
+    }
+
+
+    // --------------- Event listeners for other message things ---------------
 
     handleDelete(e) {
         e.preventDefault();
@@ -85,12 +93,6 @@ class Message extends React.Component {
         App.cable.subscriptions.subscriptions[subscriptionNum].destroy({ id: this.props.message.id });
 
         this.setState({ editing: false });
-    }
-
-
-    handleClose(e) {
-        e.preventDefault();
-        this.setState({ message: { body: this.props.message.body }, editing: false });
     }
 
     
@@ -118,9 +120,8 @@ class Message extends React.Component {
                 </div>
             </div>
         );
-
-        let messageDateArray = message.createdAt.split("T")[0].split("-"); // year, day, month
-        let dateToShow = `${messageDateArray[1]}/${messageDateArray[2]}/${messageDateArray[0]}`;
+        
+        let dateToShow = getDateToShow(message.updatedAt);
 
         return (
             users[message.authorId] ? 
