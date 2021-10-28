@@ -3,7 +3,7 @@ import defaultProfilePicture from "../../../../app/assets/images/default_profile
 import editIcon from "../../../../app/assets/images/edit_icon.png";
 import deleteIcon from "../../../../app/assets/images/delete_icon.png";
 import { findCurrentSubscription } from "../../../util/websockets_helpers";
-import { getDateToShow } from "../../../util/helpers";
+import { getDateToShow, formatReturnTime } from "../../../util/helpers";
 
 
 class Message extends React.Component {
@@ -97,7 +97,8 @@ class Message extends React.Component {
 
     
     render() {
-        const { message, currentUser, users } = this.props;
+        const { message, currentUser, users, isParent } = this.props;
+        const { hovered, editing } = this.state;
 
         const editingView = (
             <form>
@@ -120,26 +121,35 @@ class Message extends React.Component {
                 </div>
             </div>
         );
+
+        const childMessageTimeShow = (
+            <div className="chatroom-child-message-time-show-relative-position-anchor">
+                <span className="child-message-date">{formatReturnTime(message.createdAt)}</span>
+            </div>  
+        );
         
         let dateToShow = getDateToShow(message.updatedAt);
 
         return (
             users[message.authorId] ? 
-                <li key={message.id} className={this.state.editing ? "editing" : null}
+                <li key={message.id} className={editing ? "editing" : null}
+                    id={isParent ? null : "child-message"}
                     onMouseEnter={() => this.setState({ hovered: true })}
                     onMouseLeave={() => this.setState({ hovered: false })}>
 
-                    {currentUser.id === message.authorId && this.state.hovered && !this.state.editing ? editAndDeleteButtons : null}
+                    {currentUser.id === message.authorId && hovered && !editing ? editAndDeleteButtons : null}
+                    {hovered && !editing && !isParent ? childMessageTimeShow : null}
 
-                    <img src={users[message.authorId].photoUrl === "noPhoto" ? defaultProfilePicture : users[message.authorId].photoUrl}/>
+                    {isParent ? <img src={users[message.authorId].photoUrl === "noPhoto" ? defaultProfilePicture : users[message.authorId].photoUrl}/> 
+                        : null}
 
-                    <div>
+                    <div className="message-container">
                         <div>
-                            {users[message.authorId] ? <h1>{users[message.authorId].username}</h1> : null}
-                            <h3>{dateToShow}</h3>
+                            {users[message.authorId] && isParent ? <h1>{users[message.authorId].username}</h1> : null}
+                            <h3>{isParent ? dateToShow : null}</h3>
                         </div>
-                        {this.state.editing ? editingView : message.body}
-                        {!this.state.editing && message.updatedAt !== message.createdAt ? <sub>(edited)</sub> : null}
+                        {editing ? editingView : message.body}
+                        {!editing && message.updatedAt !== message.createdAt ? <sub>(edited)</sub> : null}
                     </div>
                 </li> : null
         );

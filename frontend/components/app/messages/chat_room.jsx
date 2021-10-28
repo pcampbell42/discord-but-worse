@@ -1,6 +1,7 @@
 import React from "react";
 import Message from "./message";
 import MessageFormContainer from "./message_form_container";
+import { isChildMessage } from "../../../util/helpers";
 
 
 class ChatRoom extends React.Component {
@@ -42,14 +43,11 @@ class ChatRoom extends React.Component {
                         <article>
                             <ul id="chat-room-ul">
                                 {messages.map((message, idx) => {
-                                    // If different user from parent messages
-                                    if (message.authorId !== parentMessage.authorId) parentMessage = message;
-
-                                    // If over 5 hours between messages (idk how long it actually takes in Discord)
-                                    // if ()
+                                    // If message isn't a child message of the current parentMessage
+                                    if (!isChildMessage(message, parentMessage)) parentMessage = message;
 
                                     return <Message key={message.id} message={message} currentUser={currentUser} users={users}
-                                                parent={parentMessage === message ? true : false} />
+                                                isParent={parentMessage === message ? true : false} />
                                 })}
                             </ul>
                         </article>

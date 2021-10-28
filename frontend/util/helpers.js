@@ -35,12 +35,12 @@ export const getDateToShow = (dateString) => {
 
     // If message was sent today
     if (messageDate.toDateString() === today.toDateString()) {
-        let returnTime = _formatReturnTime(dateString); // Convert time to proper format
+        let returnTime = formatReturnTime(dateString); // Convert time to proper format
         return `Today at ${returnTime}`;
     }
     // If message was sent yesterday (case 1 - same month, same year, 1 day less)
     else if (messageDate.toDateString() === yesterday.toDateString()) {
-        let returnTime = _formatReturnTime(dateString);
+        let returnTime = formatReturnTime(dateString);
         return `Yesterday at ${returnTime}`;
     }
     // If message is older
@@ -57,7 +57,7 @@ export const getDateToShow = (dateString) => {
  * @param {String} dateString - String for the date from updatedAt from the backend
  * @returns - String of the exact time to display for the message
  */
-const _formatReturnTime = (dateString) => {
+export const formatReturnTime = (dateString) => {
     let messageTime = dateString.split("T")[1].split(":");
     let messageHour = parseInt(messageTime[0]);
 
@@ -81,4 +81,25 @@ const _formatReturnTime = (dateString) => {
     else {
         return `${messageTime[0] - 12}:${messageTime[1]} PM`;
     }
+}
+
+
+/**
+ * Method used in ChatRoom component to check if a message is a child message of 
+ * the current parent message. Affects how the message is displayed.
+ * @param {Object} message - Message to check
+ * @param {Object} parentMessage - Parent message to compare to
+ * @returns - Boolean. True if the message should be a child message of the parentMessage
+ */
+export const isChildMessage = (message, parentMessage) => {
+    // If parentMessage is diff author from message
+    if (message.authorId !== parentMessage.authorId) return false;
+
+    let messageDate = new Date(message.createdAt);
+    let parentMessageDate = new Date(parentMessage.createdAt);
+
+    // If parentMessage came 1 hour before message (idk what the actual threshold is in Discord)
+    if (messageDate - parentMessageDate > 3600000) return false;
+
+    return true;
 }

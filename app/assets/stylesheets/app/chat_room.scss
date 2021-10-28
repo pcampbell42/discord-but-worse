@@ -62,12 +62,30 @@
                     img {
                         height: 38.5px;
                         width: 38.5px;
-                        margin-right: 7px;
+                        margin-right: 14px;
 
                         border-radius: 50%;
                         border-style: solid;
                         border-color: black;
                         border-width: 0.7px;
+                    }
+
+                    .chatroom-child-message-time-show-relative-position-anchor {
+                        position: relative;
+                        width: 0;
+                        height: 0;
+
+                        .child-message-date {
+                            position: absolute;
+                            bottom: -12px;
+                            left: 1px;
+
+                            width: 50px;
+
+                            color: #71757c;
+                            font-weight: 600;
+                            font-size: 10px;
+                        }
                     }
                     
                     div {
@@ -116,18 +134,18 @@
                             align-items: center;
 
                             height: 28px;
-                            width: 56px;
+                            width: 45px;
 
                             position: absolute;
                             left: calc(100vw - 73px - 246px - 236px - 120px);
 
                             bottom: 4.9px;
 
-                            padding-left: 8.4px;
+                            padding-left: 15px;
 
-                            background-color: #31353b;
-                            border: 0.5px solid black;
-                            border-radius: 4.2px;
+                            background-color: #35393f;
+                            border: 0.1px solid black;
+                            border-radius: 3.2px;
 
                             div {
                                 img {
@@ -144,6 +162,14 @@
                                 }
                             }
                         }
+                    }
+                }
+
+                #child-message {
+                    margin-top: 0;
+                    
+                    .message-container {
+                        margin-left: 55px;
                     }
                 }
 
@@ -165,12 +191,12 @@
                             height: 35px;
                             width: 100%;
                             margin-top: 7px;
-                            margin-left: -4.2px;
+                            margin-left: 1px;
                         }
 
                         .message-edit-text {
                             padding-top: 6px;
-                            padding-left: 7px;
+                            padding-left: 5px;
                             font-size: 11.5px;
 
                             .message-edit-cancel {
@@ -193,6 +219,10 @@
                             }
                         }
                     }
+                }
+
+                #child-message.editing {
+                    height: 75px;
                 }
             }
         }
@@ -258,7 +288,7 @@
         li.editing {
             form {
                 input {
-                    margin-left: 7px;
+                    margin-left: 1px;
                     width: calc(100vw - 73px - 246px - 150px);
                 }
             }
