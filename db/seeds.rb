@@ -36,11 +36,14 @@ users = User.create([
 
 #-------------------------------------------------------------------------------
 
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/mtb.png')
+demo_user.photo.attach(io: file, filename: 'mtb.png')
+
 file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/t3_priest.png')
 users[0].photo.attach(io: file, filename: 't3_priest.png')
 
-# # file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/t3_priest.png')
-# # users[1].photo.attach(io: file, filename: 't3_priest.png')
+file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/rogue.png')
+users[1].photo.attach(io: file, filename: 'rogue.png')
 
 file = open('https://dbw-seeds.s3.us-west-1.amazonaws.com/dumb_orc.png')
 users[2].photo.attach(io: file, filename: 'dumb_orc.png')
