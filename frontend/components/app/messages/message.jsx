@@ -31,17 +31,20 @@ class Message extends React.Component {
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleSendMessageFromProfile = this.handleSendMessageFromProfile.bind(this);
         this.updateProfileMessage = this.updateProfileMessage.bind(this);
+        this.handleOutsideClick = this.handleOutsideClick.bind(this);
     }
 
 
-    // --------------- Event listeners for message edit shortcuts ---------------
+    // --------------- Event listeners for message edit shortcuts & clsoing profile display ---------------
 
     componentDidMount() {
         document.addEventListener("keydown", this.handleKeyPress, true);
+        document.addEventListener("click", this.handleOutsideClick, true);
     }
 
     componentWillUnmount() {
         document.removeEventListener("keydown", this.handleKeyPress, true);
+        document.removeEventListener("click", this.handleOutsideClick, true);
     }
 
 
@@ -51,11 +54,11 @@ class Message extends React.Component {
         // If ESC is pressed
         if (e.keyCode === 27) {
             e.preventDefault();
-            this.setState({ message: { body: this.props.message.body }, editing: false });
+            this.setState({ message: { body: this.props.message.body }, editing: false, showProfile: false });
         }
 
-        // If enter is pressed
-        if (e.keyCode === 13 && document.activeElement === this.editInput) {
+        // If enter is pressed and edit message input is focused
+        if (e.keyCode === 13 && document.activeElement === this.editInput && !this.showProfile) {
             e.preventDefault();
             if (this.state.editing) {
                 if (this.state.message.body !== this.props.message.body) {
@@ -64,6 +67,13 @@ class Message extends React.Component {
                     this.handleClose(e);
                 }
             }
+        }
+
+        // If enter key is pressed and user profile is open
+        if (e.keyCode === 13 && this.showProfile) {
+            e.preventDefault();
+            if (this.state.body === "") return
+            this.handleSendMessageFromProfile(e);
         }
     }
 
@@ -100,6 +110,13 @@ class Message extends React.Component {
 
     updateProfileMessage(e) {
 
+    }
+
+    handleOutsideClick(e) {
+        if (!this.showProfileEl) return;
+        if (!this.showProfileEl.contains(e.target)) {
+            this.setState({ body: "", showProfile: false });
+        }
     }
 
 
@@ -190,7 +207,7 @@ class Message extends React.Component {
                     <div className="message-profile-display" ref={showProfileEl => this.showProfileEl = showProfileEl}
                         style={{
                             top: `${this.messageSenderName ? (window.innerHeight - this.messageSenderName.getBoundingClientRect().bottom) < 220 ?
-                                window.innerHeight - 230 : this.messageSenderName.getBoundingClientRect().bottom - 41 : 0}px`
+                                window.innerHeight - 230 : this.messageSenderName.getBoundingClientRect().bottom - 22 : 0}px`
                         }}>
 
                         <div className="message-profile-header"></div>
@@ -203,7 +220,8 @@ class Message extends React.Component {
                             <h1 className="message-user-show-username">{users[message.authorId].username}</h1>
                             {users[message.authorId].id !== currentUser.id ?
                                 <form onSubmit={this.handleSendMessageFromProfile}>
-                                    <input type="text" onChange={this.update} placeholder={`Message @${users[message.authorId].username}`} />
+                                    <input className="message-user-show-input" type="text" onChange={this.update} 
+                                        placeholder={`Message @${users[message.authorId].username}`} />
                                 </form>
                                 :
                                 null

@@ -58,6 +58,8 @@ class UserShow extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        
+        if (this.state.body === "") return;
 
         // DM already exists, just send message
         if (this.props.dmExists) {
