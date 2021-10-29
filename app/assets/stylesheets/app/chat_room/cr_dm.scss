@@ -1,0 +1,37 @@
+.chat-room-container#dm {
+    width: calc(100vw - 73px - 246px);
+
+    .chat-room-header {
+        width: calc(100vw - 73px - 246px - 14px);
+
+        h1 {
+            font-size: 24.5px;
+        }
+    }
+
+    .chat-room-sub-container {
+        li {
+            width: calc(100vw - 73px - 246px - 21px);
+        }
+
+        .message-hover-container {
+                left: calc(100vw - 73px - 246px - 120px);
+        }
+
+        form {
+            input {
+                width: calc(100vw - 73px - 246px - 65px);
+                margin-right: 0;
+            }
+        }
+
+        li.editing {
+            form {
+                input {
+                    margin-left: 1px;
+                    width: calc(100vw - 73px - 246px - 150px);
+                }
+            }
+        }
+    }
+}

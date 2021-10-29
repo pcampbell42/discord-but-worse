@@ -1,0 +1,11 @@
+.empty-chat-room-container {
+    height: 100vh;
+    width: calc(100vw - 73px - 246px - 236px);
+    background-color: #35393f;
+    
+    .empty-chat-room-header {
+        height: 45px;
+        width: 100%;
+        border-bottom: 1px solid black;
+    }
+}

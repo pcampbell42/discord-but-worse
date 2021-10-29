@@ -17,7 +17,10 @@ class Message extends React.Component {
             edited: (props.message.updatedAt === props.message.createdAt ? false : true),
 
             editHovered: false,
-            deleteHovered: false
+            deleteHovered: false,
+
+            showProfile: false,
+            body: ""
         };
 
         this.swapToEditing = this.swapToEditing.bind(this);
@@ -26,6 +29,8 @@ class Message extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleSendMessageFromProfile = this.handleSendMessageFromProfile.bind(this);
+        this.updateProfileMessage = this.updateProfileMessage.bind(this);
     }
 
 
@@ -87,6 +92,17 @@ class Message extends React.Component {
     }
 
 
+    // --------------- Event listeners for user profile display ---------------
+
+    handleSendMessageFromProfile(e) {
+
+    }
+
+    updateProfileMessage(e) {
+
+    }
+
+
     // --------------- Event listeners for other message things ---------------
 
     handleDelete(e) {
@@ -101,7 +117,7 @@ class Message extends React.Component {
     
     render() {
         const { message, currentUser, users, isParent } = this.props;
-        const { hovered, editing, editHovered, deleteHovered } = this.state;
+        const { hovered, editing, editHovered, deleteHovered, showProfile } = this.state;
 
         const editingView = (
             <form>
@@ -167,6 +183,36 @@ class Message extends React.Component {
                 <span className="child-message-date">{formatReturnTime(message.createdAt)}</span>
             </div>  
         );
+
+        const profileDisplay = (
+            users[message.authorId] ? 
+                <div className="message-relative-position-anchor">
+                    <div className="message-profile-display" ref={showProfileEl => this.showProfileEl = showProfileEl}
+                        style={{
+                            top: `${this.messageSenderName ? (window.innerHeight - this.messageSenderName.getBoundingClientRect().bottom) < 220 ?
+                                window.innerHeight - 230 : this.messageSenderName.getBoundingClientRect().bottom - 41 : 0}px`
+                        }}>
+
+                        <div className="message-profile-header"></div>
+                        <button onClick={() => this.setState({ showProfile: false, body: "" })}>x</button>
+
+                        <img className="message-user-show-profile-pic" src={users[message.authorId].photoUrl === "noPhoto" ? 
+                            defaultProfilePicture : users[message.authorId].photoUrl} />
+
+                        <div className="message-user-show-sub-container">
+                            <h1 className="message-user-show-username">{users[message.authorId].username}</h1>
+                            {users[message.authorId].id !== currentUser.id ?
+                                <form onSubmit={this.handleSendMessageFromProfile}>
+                                    <input type="text" onChange={this.update} placeholder={`Message @${users[message.authorId].username}`} />
+                                </form>
+                                :
+                                null
+                            }
+                        </div>
+
+                    </div>
+                </div> : null
+        );
         
         let dateToShow = getDateToShow(message.updatedAt);
 
@@ -177,6 +223,8 @@ class Message extends React.Component {
                     onMouseEnter={() => this.setState({ hovered: true })}
                     onMouseLeave={() => this.setState({ hovered: false })}>
 
+                    {showProfile ? profileDisplay : null}
+
                     {currentUser.id === message.authorId && hovered && !editing ? messageHoverOptions : null}
                     {hovered && !editing && !isParent ? childMessageTimeShow : null}
 
@@ -185,7 +233,12 @@ class Message extends React.Component {
 
                     <div className="message-container">
                         <div>
-                            {users[message.authorId] && isParent ? <h1>{users[message.authorId].username}</h1> : null}
+                            {users[message.authorId] && isParent ? 
+                                <h1 className="message-sender-name" onClick={() => this.setState({ showProfile: true })}
+                                    ref={messageSenderName => this.messageSenderName = messageSenderName}>
+                                    {users[message.authorId].username}
+                                </h1> : null
+                            }
                             <h3>{isParent ? dateToShow : null}</h3>
                         </div>
                         {editing ? editingView : message.body}

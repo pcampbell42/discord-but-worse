@@ -1,0 +1,118 @@
+// ------------- User profile display -------------
+
+.message-relative-position-anchor {
+    width: 0;
+    height: 0;
+
+    .message-profile-display {
+        position: absolute;
+        right: 240px;
+
+        height: 210px;
+        width: 280px;
+
+        display: flex;
+        flex-direction: column;
+
+        background-color: #18191c;
+
+        border-radius: 7px;
+
+        .message-profile-header {
+            background-color: #262429;
+            height: 56px;
+            width: 100%;
+
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+        }
+
+        button {
+            background: none;
+
+            position: absolute;
+            left: 90%;
+            bottom: 84.5%;
+
+            border-style: none;
+            border-radius: 7px;
+            border-color: #18191c;
+
+            font-family: 'Nunito', sans-serif;
+            color: white;
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        button:hover {
+            opacity: 0.4;
+            cursor: pointer;
+        }
+
+        .message-user-show-profile-pic {
+            position: absolute;
+            bottom: 112px;
+            left: 14px;
+
+            height: 70px;
+            width: 70px;
+
+            border-style: solid;
+            border-width: 7px;
+            border-color: #18191c;
+            border-radius: 50%;
+        }
+
+        img:hover {
+            opacity: 0.5;
+        }
+
+        .message-user-show-sub-container {
+            height: 154px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            .message-user-show-username {
+                margin-top: 52px;
+                margin-left: -116px;
+                color: white;
+                font-size: 28px;
+                font-weight: 900;
+            }
+
+            form {
+                margin-top: 15px;
+                margin-left: 14px;
+
+                input {
+                    height: 35px;
+                    width: 87%;
+
+                    background-color: #292b2f;
+
+                    border-style: none;
+                    border-radius: 3.5px;
+
+                    font-family: 'Nunito', sans-serif;
+                    color: #dcddde;
+                    font-size: 14px;
+                    font-weight: 600;
+
+                    padding-left: 7px;
+
+                    position: absolute;
+                    left: -4px;
+
+                }
+
+                input:focus {
+                    outline-style: solid;
+                    outline-color: #05aef4;
+                    outline-width: 1px;
+                    border-width: 0;
+                }
+            }
+        }
+    }
+}
