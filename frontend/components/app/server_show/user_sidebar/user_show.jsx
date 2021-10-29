@@ -2,8 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import defaultProfilePicture from "./../../../../../app/assets/images/default_profile_picture.png";
 import crownIcon from "./../../../../../app/assets/images/crown_icon.png";
-import { createSubscription, findCurrentSubscription, createUserSubscription, 
-         findUserSubscription } from "../../../../util/websockets_helpers";
+import { findCurrentSubscription, createUserSubscription, findUserSubscription } from "../../../../util/websockets_helpers";
 
 
 class UserShow extends React.Component {

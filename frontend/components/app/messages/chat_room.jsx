@@ -1,5 +1,5 @@
 import React from "react";
-import Message from "./message";
+import MessageContainer from "./message_container";
 import MessageFormContainer from "./message_form_container";
 import { isChildMessage } from "../../../util/helpers";
 
@@ -46,8 +46,8 @@ class ChatRoom extends React.Component {
                                     // If message isn't a child message of the current parentMessage
                                     if (!isChildMessage(message, parentMessage)) parentMessage = message;
 
-                                    return <Message key={message.id} message={message} currentUser={currentUser} users={users}
-                                                isParent={parentMessage === message ? true : false} />
+                                    return <MessageContainer key={message.id} message={message} currentUser={currentUser} 
+                                                users={users} isParent={parentMessage === message ? true : false} />
                                 })}
                             </ul>
                         </article>

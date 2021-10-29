@@ -2,8 +2,9 @@ import React from "react";
 import defaultProfilePicture from "../../../../app/assets/images/default_profile_picture.png";
 import editIcon from "../../../../app/assets/images/edit_icon.png";
 import deleteIcon from "../../../../app/assets/images/delete_icon.png";
-import { findCurrentSubscription } from "../../../util/websockets_helpers";
+import { findCurrentSubscription, createUserSubscription, findUserSubscription } from "../../../util/websockets_helpers";
 import { getDateToShow, formatReturnTime } from "../../../util/helpers";
+import { withRouter } from "react-router";
 
 
 class Message extends React.Component {
@@ -54,7 +55,7 @@ class Message extends React.Component {
         // If ESC is pressed
         if (e.keyCode === 27) {
             e.preventDefault();
-            this.setState({ message: { body: this.props.message.body }, editing: false, showProfile: false });
+            this.setState({ message: { body: this.props.message.body }, editing: false, body: "", showProfile: false });
         }
 
         // If enter is pressed and edit message input is focused
@@ -105,11 +106,65 @@ class Message extends React.Component {
     // --------------- Event listeners for user profile display ---------------
 
     handleSendMessageFromProfile(e) {
+        e.preventDefault();
 
+        if (this.state.body === "") return;
+
+        // DM already exists, just send message
+        if (this.props.dmExists) {
+            // Format message
+            let messageToSend = Object.assign({}, { body: this.state.body }, { author_id: this.props.currentUser.id });
+
+            // Get DM websocket subscription
+            let subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
+
+            // Send Message
+            App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
+
+            // Redirect to DM and close user profile
+            if (this.state.body !== "") this.props.history.push(`/app/home/conversations/${this.props.dmId}`);
+            this.setState({ showProfile: false, body: "" });
+        }
+
+        // DM doesn't exist, so make new DM and send message
+        else {
+            // Format DM and message
+            let dmToCreate = { current_user_id: this.props.currentUser.id };
+            let messageToSend = Object.assign({}, { body: this.state.body }, { author_id: this.props.currentUser.id });
+
+            // Subscribe to the target user's UserChannel
+            createUserSubscription(this.props.message.authorId, this.props.receiveDirectMessage,
+                this.props.receiveUser, this.props.receiveAllMessages, this.props.receiveMessage,
+                this.props.deleteMessage);
+
+            // Wait a tiny amount of time to avoid bug where subscription isn't created yet
+            setTimeout(() => {
+                // Call createDM to target user's UserChannel (Basically tells all subscribers
+                // to save this DM to state). Note that this is kind of bug prone (if someone else
+                // happens to be subscribed to the channel at the exact same time, they would save
+                // this DM to state).
+                let userSubscriptionNum = findUserSubscription(this.props.message.authorId);
+                App.cable.subscriptions.subscriptions[userSubscriptionNum].createDM({ dm: dmToCreate });
+
+                // Tiny timeout to wait for DM to be made and subscribed to
+                setTimeout(() => {
+                    // Get DM subscription and send message
+                    let subscriptionNum = findCurrentSubscription("dm", this.props.dmId);
+                    App.cable.subscriptions.subscriptions[subscriptionNum].create({ message: messageToSend });
+
+                    // Close user profile and redirect to DM
+                    this.setState({ showProfile: false, body: "" });
+                    this.props.history.push(`/app/home/conversations/${this.props.dmId}`);
+
+                    // Remove user subscription (shouldn't stay subscribed to other user's channel)
+                    App.cable.subscriptions.remove(App.cable.subscriptions.subscriptions[userSubscriptionNum]);
+                }, 100)
+            }, 100);
+        }
     }
 
     updateProfileMessage(e) {
-
+        this.setState({ body: e.currentTarget.value });
     }
 
     handleOutsideClick(e) {
@@ -220,7 +275,7 @@ class Message extends React.Component {
                             <h1 className="message-user-show-username">{users[message.authorId].username}</h1>
                             {users[message.authorId].id !== currentUser.id ?
                                 <form onSubmit={this.handleSendMessageFromProfile}>
-                                    <input className="message-user-show-input" type="text" onChange={this.update} 
+                                    <input className="message-user-show-input" type="text" onChange={this.updateProfileMessage} 
                                         placeholder={`Message @${users[message.authorId].username}`} />
                                 </form>
                                 :
@@ -267,4 +322,4 @@ class Message extends React.Component {
     }
 }
 
-export default Message;
+export default withRouter(Message);
