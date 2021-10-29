@@ -14,7 +14,10 @@ class Message extends React.Component {
             message: { body: props.message.body },
             editing: false,
             hovered: false,
-            edited: (props.message.updatedAt === props.message.createdAt ? false : true)
+            edited: (props.message.updatedAt === props.message.createdAt ? false : true),
+
+            editHovered: false,
+            deleteHovered: false
         };
 
         this.swapToEditing = this.swapToEditing.bind(this);
@@ -98,7 +101,7 @@ class Message extends React.Component {
     
     render() {
         const { message, currentUser, users, isParent } = this.props;
-        const { hovered, editing } = this.state;
+        const { hovered, editing, editHovered, deleteHovered } = this.state;
 
         const editingView = (
             <form>
@@ -111,13 +114,50 @@ class Message extends React.Component {
             </form>
         );
 
-        const editAndDeleteButtons = (
-            <div className="chatroom-message-hover-relative-position-anchor">
-                <div className="message-hover-container">
-                    {this.state.editing ? null :
-                        <div className="cr-edit-icon"><img src={editIcon} onClick={this.swapToEditing} /></div>}
+        const editTooltip = (
+            <div className="message-edit-tooltip-relative-position-anchor">
+                <div className="message-edit-tooltip" style={this.messageHoverPos ? 
+                    this.messageHoverPos.getBoundingClientRect().top < 95 ? { bottom: "-55px" } 
+                    : null : null}>Edit</div>
 
-                    <div><img src={deleteIcon} onClick={this.handleDelete} /></div>
+                {this.messageHoverPos ? this.messageHoverPos.getBoundingClientRect().top < 95 ? 
+                    <div className="message-edit-arrow-up"></div> : 
+                    <div className="message-edit-arrow-down"></div> : null
+                }
+            </div>
+        );
+
+        const deleteTooltip = (
+            <div className="message-delete-tooltip-relative-position-anchor">
+                <div className="message-delete-tooltip" style={this.messageHoverPos ?
+                    this.messageHoverPos.getBoundingClientRect().top < 95 ? { bottom: "-55px" }
+                        : null : null}>Delete</div>
+
+                {this.messageHoverPos ? this.messageHoverPos.getBoundingClientRect().top < 95 ?
+                    <div className="message-delete-arrow-up"></div> :
+                    <div className="message-delete-arrow-down"></div> : null
+                }
+            </div>
+        );
+
+        const messageHoverOptions = (
+            <div className="chatroom-message-hover-relative-position-anchor">
+                <div className="message-hover-container" ref={messageHoverPos => this.messageHoverPos = messageHoverPos}>
+                    {this.state.editing ? null :
+                        <div className="cr-edit-icon">
+                            {editHovered ? editTooltip : null}
+                            <img src={editIcon} onClick={this.swapToEditing} 
+                                onMouseEnter={() => this.setState({ editHovered: true })}
+                                onMouseLeave={() => this.setState({ editHovered: false })} />
+                        </div>
+                    }
+
+                    <div>
+                        {deleteHovered ? deleteTooltip : null}
+                        <img src={deleteIcon} onClick={this.handleDelete}
+                            onMouseEnter={() => this.setState({ deleteHovered: true })}
+                            onMouseLeave={() => this.setState({ deleteHovered: false })} />
+                    </div>
                 </div>
             </div>
         );
@@ -137,7 +177,7 @@ class Message extends React.Component {
                     onMouseEnter={() => this.setState({ hovered: true })}
                     onMouseLeave={() => this.setState({ hovered: false })}>
 
-                    {currentUser.id === message.authorId && hovered && !editing ? editAndDeleteButtons : null}
+                    {currentUser.id === message.authorId && hovered && !editing ? messageHoverOptions : null}
                     {hovered && !editing && !isParent ? childMessageTimeShow : null}
 
                     {isParent ? <img src={users[message.authorId].photoUrl === "noPhoto" ? defaultProfilePicture : users[message.authorId].photoUrl}/> 

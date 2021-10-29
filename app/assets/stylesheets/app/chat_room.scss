@@ -160,6 +160,112 @@
                                     cursor: pointer;
                                     opacity: 0.5;
                                 }
+
+                                .message-edit-tooltip-relative-position-anchor {
+                                    position: relative;
+                                    width: 0;
+                                    height: 0;
+
+                                    .message-edit-tooltip {
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+
+                                        position: absolute;
+                                        bottom: 22px;
+                                        left: -15px;
+
+                                        background-color: #18191c;
+                                        padding: 9px 11px 9px 11px;
+                                        border-radius: 5px;
+
+                                        font-family: 'Nunito', sans-serif;
+                                        color: white;
+                                        font-size: 13px;
+                                        font-weight: 700;
+                                        text-align: center;
+                                        line-height: 14px;
+                                    }
+
+                                    .message-edit-arrow-down {
+                                        position: absolute;
+                                        bottom: 17px;
+                                        left: 0;
+
+                                        width: 0; 
+                                        height: 0; 
+                                        border-left: 7px solid transparent;
+                                        border-right: 7px solid transparent;
+                                        
+                                        border-top: 7px solid #18191c;
+                                    }
+
+                                    .message-edit-arrow-up {
+                                        position: absolute;
+                                        bottom: -24px;
+                                        left: 0;
+
+                                        width: 0; 
+                                        height: 0; 
+                                        border-left: 7px solid transparent;
+                                        border-right: 7px solid transparent;
+                                        
+                                        border-bottom: 7px solid #18191c;
+                                    }
+                                }
+
+                                .message-delete-tooltip-relative-position-anchor {
+                                    position: relative;
+                                    width: 0;
+                                    height: 0;
+
+                                    .message-delete-tooltip {
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+
+                                        position: absolute;
+                                        bottom: 22px;
+                                        left: -24px;
+
+                                        background-color: #18191c;
+                                        padding: 9px 11px 9px 11px;
+                                        border-radius: 5px;
+
+                                        font-family: 'Nunito', sans-serif;
+                                        color: white;
+                                        font-size: 13px;
+                                        font-weight: 700;
+                                        text-align: center;
+                                        line-height: 14px;
+                                    }
+
+                                    .message-delete-arrow-down {
+                                        position: absolute;
+                                        bottom: 17px;
+                                        left: 0;
+
+                                        width: 0; 
+                                        height: 0; 
+                                        border-left: 7px solid transparent;
+                                        border-right: 7px solid transparent;
+                                        
+                                        border-top: 7px solid #18191c;
+                                    }
+
+                                    .message-delete-arrow-up {
+                                        position: absolute;
+                                        bottom: -24px;
+                                        left: 0;
+
+                                        width: 0; 
+                                        height: 0; 
+                                        border-left: 7px solid transparent;
+                                        border-right: 7px solid transparent;
+                                        
+                                        border-bottom: 7px solid #18191c;
+                                    }
+                                }
                             }
                         }
                     }
