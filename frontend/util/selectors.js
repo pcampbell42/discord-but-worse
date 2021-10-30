@@ -191,3 +191,24 @@ export const getDMId = (state, currentUserId, otherUserId) => {
             return allDMs[i].id;
     }
 }
+
+
+/**
+ * Selector method used in the ConversationSidebar component that sorts the DMs
+ * by most recent messages.
+ * @param {Object} state - State
+ * @returns - Array of all DMs, sorted by most recent messages
+ */
+export const sortDMs = state => {
+    const messages = Object.values(state.entities.messages).reverse();
+    let dms = Object.assign({}, state.entities.directMessages);
+
+    let sortedDMs = [];
+    for (let i = 0; i < messages.length; i++) {
+        if (messages[i].messageableType === "DirectMessage" && dms[messages[i].messageableId] !== undefined) {
+            sortedDMs.push(dms[messages[i].messageableId]);
+            delete dms[messages[i].messageableId];
+        }
+    }
+    return sortedDMs;
+}
