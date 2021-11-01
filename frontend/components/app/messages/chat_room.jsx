@@ -2,6 +2,7 @@ import React from "react";
 import MessageContainer from "./message_container";
 import MessageFormContainer from "./message_form_container";
 import { isChildMessage } from "../../../util/helpers";
+import sadge from "../../../../app/assets/images/sadge.png";
 
 
 class ChatRoom extends React.Component {
@@ -56,6 +57,9 @@ class ChatRoom extends React.Component {
                 </div> :
                 <div className="empty-chat-room-container">
                     <div className="empty-chat-room-header"></div>
+                    <div className="empty-chat-room-sub-container">
+                        <img className="empty-chat-room-img" src={sadge}/>
+                    </div>
                 </div>
         );
     }

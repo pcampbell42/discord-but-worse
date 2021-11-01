@@ -8,4 +8,18 @@
         width: 100%;
         border-bottom: 1px solid black;
     }
+
+    .empty-chat-room-sub-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: calc(100vw - 73px - 246px - 236px);
+        height: calc(100vh - 55px);
+
+        .empty-chat-room-img {
+            width: 320px;
+            height: 250px;
+        }
+    }
 }
