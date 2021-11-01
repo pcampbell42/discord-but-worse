@@ -15,6 +15,11 @@
         background-color: #18191c;
 
         border-radius: 7px;
+        box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+                    0.6em 0.6em 1em rgba(0,0,0,0.3);
+
+        animation: slideUserProfileCR 0.17s linear 1;
+        animation-fill-mode: forwards;
 
         .message-profile-header {
             background-color: #262429;
@@ -113,4 +118,9 @@
             }
         }
     }
+}
+
+@keyframes slideUserProfileCR {
+    from { left: 500px; }
+    to { left: 480px; }
 }

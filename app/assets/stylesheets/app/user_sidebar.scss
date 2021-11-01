@@ -82,7 +82,7 @@
 
                 .user-show-profile-display {
                     position: absolute;
-                    right: 240px;
+                    right: 250px;
 
                     height: 210px;
                     width: 280px;
@@ -90,6 +90,11 @@
                     background-color: #18191c;
 
                     border-radius: 7px;
+                    box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+                                0.6em 0.6em 1em rgba(0,0,0,0.3);
+
+                    animation: slideUserProfile 0.17s linear 1;
+                    animation-fill-mode: forwards;
 
                     .user-show-profile-header {
                         background-color: #262429;
@@ -185,4 +190,9 @@
             }
         }
     }
+}
+
+@keyframes slideUserProfile {
+    from { right: 260px; }
+    to { right: 250px; }
 }
