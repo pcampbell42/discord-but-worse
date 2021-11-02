@@ -19,12 +19,14 @@
         div {
             position: absolute;
             background-color: white;
-            height: 420px;
+            height: 400px;
             width: 450px;
             display: flex;
             justify-content: space-evenly;
 
             border-radius: 7px;
+
+            animation: createAndJoinExpandForm 0.15s linear 1;
 
             button {
                 position: absolute;
@@ -38,6 +40,9 @@
                 color: #a5aaae;
                 font-family: 'Nunito', sans-serif;
                 font-size: 30px;
+
+                animation: fadeFormContentsIn 0.1s linear 1;
+                animation-fill-mode: forwards;
             }
 
             button:hover {
@@ -52,6 +57,9 @@
                 height: 240px;
                 width: 75%;
                 margin-top: 21px;
+
+                animation: fadeFormContentsIn 0.1s linear 1;
+                animation-fill-mode: forwards;
                 
                 h1 {
                     font-family: 'Nunito', sans-serif;
@@ -98,6 +106,9 @@
                 font-family: 'Nunito', sans-serif;
                 font-size: 13px;
                 font-weight: 400;
+
+                animation: fadeFormContentsIn 0.1s linear 1;
+                animation-fill-mode: forwards;
 
                 label {
                     display: block;

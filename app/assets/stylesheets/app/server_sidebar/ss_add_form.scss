@@ -24,6 +24,9 @@
         justify-content: space-between;
         align-items: center;
 
+        animation: addExpandForm 0.15s linear 1;
+        animation-fill-mode: forwards;
+
         .ss-close-add-form {
             position: absolute;
             left: 90%;
@@ -37,6 +40,9 @@
             font-family: 'Nunito', sans-serif;
             font-size: 30px;
             border-style: none;
+
+            animation: fadeFormContentsIn 0.15s linear 1;
+            animation-fill-mode: forwards;
         }
 
         .ss-close-add-form:hover {
@@ -51,6 +57,9 @@
             align-items: center;
 
             margin-top: 25px;
+
+            animation: fadeFormContentsIn 0.15s linear 1;
+            animation-fill-mode: forwards;
 
             .ss-add-create-header {
                 font-family: 'Nunito', sans-serif;
@@ -87,6 +96,9 @@
             border-color: #ebebec;
             border-radius: 7px;
 
+            animation: fadeFormContentsIn 0.15s linear 1;
+            animation-fill-mode: forwards;
+
             .ss-add-create-button-left {
                 display: flex;
                 align-items: center;
@@ -122,11 +134,14 @@
             justify-content: center;
             align-items: center;
 
-            width: 430px;
+            width: 95.6%;
             background-color: #f6f6f7;
             padding: 10px 10px 10px 10px;
             border-bottom-left-radius: 7px;
             border-bottom-right-radius: 7px;
+
+            animation: fadeFormContentsIn 0.15s linear 1;
+            animation-fill-mode: forwards;
 
             .ss-add-join-header {
                 font-family: 'Nunito', sans-serif;
@@ -136,7 +151,8 @@
             }
 
             .ss-add-join-button {
-                width: 400px;
+                // width: 400px;
+                width: 95%;
                 height: 40px;
                 background-color: #747f8d;
                 border-radius: 4px;

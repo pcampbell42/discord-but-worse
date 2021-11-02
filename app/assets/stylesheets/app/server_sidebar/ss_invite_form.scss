@@ -23,6 +23,9 @@
         flex-direction: column;
         justify-content: space-around;
 
+        animation: sioExpandForm 0.15s linear 1;
+        animation-fill-mode: forwards;
+
         #ss-close-create-form {
             position: absolute;
             left: 90%;
@@ -36,6 +39,9 @@
             font-family: 'Nunito', sans-serif;
             font-size: 30px;
             border-style: none;
+
+            animation: fadeFormContentsIn 0.15s linear 1;
+            animation-fill-mode: forwards;
         }
 
         #ss-close-create-form:hover {
@@ -44,6 +50,9 @@
         }
 
         .server-invite-form {
+            animation: fadeFormContentsIn 0.15s linear 1;
+            animation-fill-mode: forwards;
+
             .server-invite-copy-label {
                 display: block;
                     

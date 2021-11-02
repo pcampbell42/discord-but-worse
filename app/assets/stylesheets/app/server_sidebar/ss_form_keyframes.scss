@@ -28,3 +28,17 @@
     to { border-color: black; }
 }
 
+@keyframes sioExpandForm {
+    from { height: 20px; width: 200px; opacity: 0.1; }
+    to { height: 130px; width: 425px; opacity: 1; }
+}
+
+@keyframes addExpandForm {
+    from { height: 50px; width: 200px; opacity: 0.1 }
+    to { height: 300px; width: 450px; opacity: 1; }
+}
+
+@keyframes createAndJoinExpandForm {
+    from { height: 300px; }
+    to { height: 400px; }
+}

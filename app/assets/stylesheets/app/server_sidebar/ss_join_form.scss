@@ -23,6 +23,8 @@
         align-items: center;
 
         border-radius: 7px;
+
+        animation: createAndJoinExpandForm 0.15s linear 1;
     }
 
     .ss-close-join-form {
@@ -38,6 +40,9 @@
         font-family: 'Nunito', sans-serif;
         font-size: 30px;
         border-style: none;
+
+        animation: fadeFormContentsIn 0.1s linear 1;
+        animation-fill-mode: forwards;
     }
 
     .ss-close-join-form:hover {
@@ -53,6 +58,9 @@
         align-items: center;
 
         margin-top: 30px;
+
+        animation: fadeFormContentsIn 0.1s linear 1;
+        animation-fill-mode: forwards;
 
         .ss-join-title {
             font-family: 'Nunito', sans-serif;
@@ -83,6 +91,9 @@
 
         height: 280px;
         width: 100%;
+
+        animation: fadeFormContentsIn 0.1s linear 1;
+        animation-fill-mode: forwards;
 
         .ss-join-form-upper {
             
