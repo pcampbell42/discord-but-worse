@@ -38,6 +38,11 @@
     to { height: 300px; width: 450px; opacity: 1; }
 }
 
+@keyframes addShrinkForm {
+    from { height: 400px; }
+    to { height: 300px; }
+}
+
 @keyframes createAndJoinExpandForm {
     from { height: 300px; }
     to { height: 400px; }

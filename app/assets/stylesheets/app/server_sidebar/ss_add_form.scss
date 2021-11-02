@@ -24,7 +24,7 @@
         justify-content: space-between;
         align-items: center;
 
-        animation: addExpandForm 0.15s linear 1;
+        animation: addShrinkForm 0.15s linear 1;
         animation-fill-mode: forwards;
 
         .ss-close-add-form {
@@ -169,5 +169,10 @@
                 background-color: #5f6772;
             }
         }
+    }
+
+    .ss-add-container#initial-open {
+        animation: addExpandForm 0.15s linear 1;
+        animation-fill-mode: forwards;
     }
 }

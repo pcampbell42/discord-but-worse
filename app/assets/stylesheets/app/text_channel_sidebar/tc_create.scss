@@ -24,6 +24,8 @@
             flex-direction: column;
             justify-content: space-around;
 
+            animation: tcCreateExpandForm 0.15s linear 1;
+
             button {
                 position: absolute;
                 left: 92%;
@@ -37,6 +39,9 @@
                 font-family: 'Nunito', sans-serif;
                 font-size: 30px;
                 border-style: none;
+
+                animation: fadeFormContentsIn 0.15s linear 1;
+                animation-fill-mode: forwards;
             }
 
             button:hover {
@@ -49,9 +54,15 @@
                 color: white;
                 font-size: 27px;
                 font-weight: 900;
+
+                animation: fadeFormContentsIn 0.15s linear 1;
+                animation-fill-mode: forwards;
             }
 
             form {
+                animation: fadeFormContentsIn 0.15s linear 1;
+                animation-fill-mode: forwards;
+                
                 label {
                     display: block;
                     

@@ -14,3 +14,8 @@
     98% { opacity: 0.9; }
     100% { opacity: 1; }
 }
+
+@keyframes fadeSettingsIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

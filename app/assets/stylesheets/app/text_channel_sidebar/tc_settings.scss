@@ -8,6 +8,9 @@
 
     background-color: #35393f;
 
+    animation: fadeSettingsIn 0.15s linear 1;
+    animation-fill-mode: forwards;
+
     .tc-settings-cancel-button {
         position: absolute;
         right: 17vw;

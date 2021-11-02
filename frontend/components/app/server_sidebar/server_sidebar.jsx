@@ -15,6 +15,7 @@ class ServersSideBar extends React.Component {
         this.state = {
             // modal stuff
             showAddForm: false,
+            addFormInitialOpen: true, // Used to differentiate 2 different animations
             showCreateForm: false,
             showJoinForm: false,
 
@@ -124,7 +125,7 @@ class ServersSideBar extends React.Component {
     handleBack(e) {
         e.preventDefault();
         this._resetFormValues();
-        this.setState({ showAddForm: true })
+        this.setState({ showAddForm: true, addFormInitialOpen: false });
     }
 
     handleRedirect(e) {
@@ -306,7 +307,8 @@ class ServersSideBar extends React.Component {
             invalidCode: false,
             showAddForm: false,
             showCreateForm: false,
-            showJoinForm: false
+            showJoinForm: false,
+            addFormInitialOpen: true
         });
     }
 
@@ -315,7 +317,7 @@ class ServersSideBar extends React.Component {
         const { error, homeSelected } = this.props;
         const { imageUrl, name, showCreateForm, createHovered, homeHovered, newServerLoading,
                 showAddForm, showJoinForm, inviteCode, invalidCode, startHoverHome, stopHoverHome,
-                startHoverCreate, stopHoverCreate, startSelectHome, stopSelectHome } = this.state;
+                startHoverCreate, stopHoverCreate, startSelectHome, stopSelectHome, addFormInitialOpen } = this.state;
 
         const homeTooltipShow = (
             <div className="ss-home-relative-position-anchor">
@@ -338,7 +340,7 @@ class ServersSideBar extends React.Component {
 
         const addServerForm = (
             <div className="ss-add-relative-position-anchor">
-                <div className="ss-add-container">
+                <div className="ss-add-container" id={addFormInitialOpen ? "initial-open" : null}>
                     <button className="ss-close-add-form" onClick={this.handleClose}>x</button>
 
                     <div className="ss-add-header">
