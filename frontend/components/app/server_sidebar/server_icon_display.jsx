@@ -18,7 +18,9 @@ class ServerIconDisplay extends React.Component {
             showInvite: false,
             inviteCopied: false, // Used to show green border around invite input when link is copied
             showSettings: false,
+            closeSettings: false,
             updatedServerLoading: false, // Used to "smooth" the loading time when updating a new server with an avatar
+
 
             // form info
             name: props.server.name,
@@ -98,10 +100,16 @@ class ServerIconDisplay extends React.Component {
     }
 
     handleEscape(e) {
+        const { showSettings, showInvite } = this.state;
+
         if (e.keyCode === 27) {
-            this.setState({ showSettings: false, showDropdown: false, showInvite: false });
-            this._resetFormValues();
-            this.props.clearMembershipErrors();
+            if (showSettings) {
+                this.handleCloseSettings(e);
+            } else {
+                this.setState({ showDropdown: false, showInvite: false });
+                this._resetFormValues();
+                this.props.clearMembershipErrors();
+            }
         }
     }
 
@@ -114,9 +122,13 @@ class ServerIconDisplay extends React.Component {
     }
 
     handleCloseSettings(e) {
-        this.setState({ showSettings: false });
-        this._resetFormValues();
-        this.props.clearMembershipErrors();
+        this.setState({ closeSettings: true });
+        setTimeout(() => {
+            this.setState({ closeSettings: false, showSettings: false });
+            this._resetFormValues();
+            this.props.clearMembershipErrors();
+        }, 150)
+
     }
 
     handleReset(e) {
@@ -142,10 +154,14 @@ class ServerIconDisplay extends React.Component {
     }
 
     handleDelete(e) {
+        e.preventDefault();
         const savedServerId = this.props.server.id;
-        this.props.deleteServer(this.props.server.id)
-            .then(() => (window.location.href.includes(`/app/servers/${savedServerId}`)) ?
-                this.props.history.push("/app/home") : null);
+        this.setState({ closeSettings: true });
+        setTimeout(() => 
+            this.props.deleteServer(this.props.server.id)
+                .then(() => (window.location.href.includes(`/app/servers/${savedServerId}`)) ?
+                    this.props.history.push("/app/home") : null)
+        , 150);
     }
 
     handleSubmit(e) {
@@ -159,11 +175,11 @@ class ServerIconDisplay extends React.Component {
 
         this.props.updateServer(formData)
             .then(() => {
-                this.setState({ showSettings: false });
+                this.setState({ updatedServerLoading: false, closeSettings: true });
                 this._resetFormValues();
                 this.props.clearMembershipErrors();
+                setTimeout(() => this.setState({ closeSettings: false, showSettings: false }), 150);
             })
-            .then(() => this.setState({ updatedServerLoading: false }));
     }
 
 
@@ -183,6 +199,7 @@ class ServerIconDisplay extends React.Component {
 
     handleCloseInvite(e) {
         e.preventDefault();
+
         this.setState({ showInvite: false });
     }
 
@@ -255,7 +272,7 @@ class ServerIconDisplay extends React.Component {
     render() {
         const { server, currentUser, selected, firstTextChannelId, error } = this.props
         const { hovered, showDropdown, showInvite, showSettings, name, imageUrl, updatedServerLoading, 
-                inviteCopied, startHover, stopHover, startSelect, stopSelect } = this.state;
+                inviteCopied, startHover, stopHover, startSelect, stopSelect, closeSettings } = this.state;
 
 
         const serverNameShow = (
@@ -305,7 +322,8 @@ class ServerIconDisplay extends React.Component {
 
 
         const serverSettings = (
-            <div className="server-settings-container" id={updatedServerLoading ? "updated-server-loading" : null}>
+            <div className="server-settings-container" id={updatedServerLoading ? "updated-server-loading" : 
+                closeSettings ? "ss-settings-closing" : null}>
 
                 <div className="server-settings-cancel-button">
                     <div className="server-settings-x-button" onClick={this.handleCloseSettings}>x</div>

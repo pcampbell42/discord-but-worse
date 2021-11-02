@@ -7,7 +7,8 @@ class TextChannelDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showForm: false,
+            showSettings: false,
+            closeSettings: false,
             hovered: false,
             editHovered: false,
             name: props.textChannel.name
@@ -34,7 +35,8 @@ class TextChannelDisplay extends React.Component {
 
     handleEscape(e) {
         if (e.keyCode === 27) {
-            this.setState({ showForm: false, name: this.props.textChannel.name });
+            this.setState({ closeSettings: true, name: this.props.textChannel.name });
+            setTimeout(() => this.setState({ showSettings: false, closeSettings: false }), 150);
         }
     }
 
@@ -51,30 +53,42 @@ class TextChannelDisplay extends React.Component {
 
 
     handleClose() {
-        this.setState({ showForm: false, name: this.props.textChannel.name });
+        this.setState({ closeSettings: true, name: this.props.textChannel.name });
+        setTimeout(() => this.setState({ showSettings: false, closeSettings: false }), 150);
     }
 
 
     handleDelete(e) {
-        this.props.deleteTextChannel(this.props.textChannel.id)
-            .then(() => this.props.history.push(`/app/servers/${this.props.server.id}/${this.props.textChannels[0].id}`));
+        this.setState({ closeSettings: true });
+        setTimeout(() => {
+            this.props.deleteTextChannel(this.props.textChannel.id)
+                .then(() => {
+                    this.props.history.push(`/app/servers/${this.props.server.id}/${this.props.textChannels[0].id}`);
+            });
+        }, 150);
     }
 
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.updateTextChannel({ id: this.props.textChannel.id, name: this.state.name })
-            .then(() => this.setState({ name: this.props.textChannel.name, showForm: false }))
+        this.setState({ closeSettings: true });
+        setTimeout(() => 
+            this.props.updateTextChannel({ id: this.props.textChannel.id, name: this.state.name })
+                .then(() => {
+                    this.setState({ name: this.props.textChannel.name, closeSettings: false, showSettings: false });
+                })
+        , 150);
     }
 
 
     render() {
+        const { closeSettings, showSettings, hovered, editHovered, name } = this.state;
         const { textChannel, server, selected, currentUser } = this.props;
 
         const settingsButton = (
             <div className="tc-name-hover-relative-position-anchor">
                 <div className="tc-name-hover-container">
-                    <img src={settingsIcon} onClick={() => this.setState({ editHovered: false, showForm: true })}
+                    <img src={settingsIcon} onClick={() => this.setState({ editHovered: false, showSettings: true })}
                         onMouseEnter={() => this.setState({ editHovered: true })}
                         onMouseLeave={() => this.setState({ editHovered: false })}></img>
                 </div>
@@ -89,7 +103,7 @@ class TextChannelDisplay extends React.Component {
         );
 
         const textChannelSettings = (
-            <div className="tc-settings-container">
+            <div className="tc-settings-container" id={closeSettings ? "tc-settings-closing" : null}>
 
                 <div className="tc-settings-cancel-button">
                     <div className="tc-settings-x-button" onClick={this.handleClose}>x</div>
@@ -107,12 +121,12 @@ class TextChannelDisplay extends React.Component {
                     <h1>OVERVIEW</h1>
                     <form onSubmit={this.handleSubmit}>
                         <label>CHANNEL NAME
-                            <input type="text" value={this.state.name} onChange={this.update} />
+                            <input type="text" value={name} onChange={this.update} />
                         </label>
 
                         <div>
                             <section onClick={this.handleReset}>Reset</section>
-                            <input id={this.state.name === "" ? "tc-settings-invalid" : null} className="tc-settings-save-changes" type="submit" value="Save Changes" />
+                            <input id={name === "" ? "tc-settings-invalid" : null} className="tc-settings-save-changes" type="submit" value="Save Changes" />
                         </div>
                     </form>
                 </div>
@@ -120,7 +134,7 @@ class TextChannelDisplay extends React.Component {
         );
 
         return (
-            this.state.showForm ? textChannelSettings : (
+            showSettings ? textChannelSettings : (
                 <li className={selected ? "selected" : null}
                     onMouseEnter={() => this.setState({ hovered: true })}
                     onMouseLeave={() => this.setState({ hovered: false })}>
@@ -130,11 +144,11 @@ class TextChannelDisplay extends React.Component {
                         <h3>{textChannel.name}</h3>
                     </Link>
 
-                    {(this.state.hovered || selected) && currentUser.id === server.ownerId ?
+                    {(hovered || selected) && currentUser.id === server.ownerId ?
                         settingsButton : null
                     }
 
-                    {this.state.editHovered ? settingsTooltip : null}
+                    {editHovered ? settingsTooltip : null}
                 </li>
             )
         );

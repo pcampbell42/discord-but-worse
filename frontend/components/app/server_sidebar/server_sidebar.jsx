@@ -339,7 +339,7 @@ class ServersSideBar extends React.Component {
         );
 
         const addServerForm = (
-            <div className="ss-add-relative-position-anchor">
+            <div className="ss-add-relative-position-anchor" id={addFormInitialOpen ? "fade-in" : null}>
                 <div className="ss-add-container" id={addFormInitialOpen ? "initial-open" : null}>
                     <button className="ss-close-add-form" onClick={this.handleClose}>x</button>
 

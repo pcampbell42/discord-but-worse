@@ -11,6 +11,9 @@
     justify-content: center;
     align-items: center;
 
+    animation: fadeModalBackgroundIn 0.15s linear 1;
+    animation-fill-mode: forwards;
+
     .ss-invite-container {
         position: absolute;
         height: 130px;

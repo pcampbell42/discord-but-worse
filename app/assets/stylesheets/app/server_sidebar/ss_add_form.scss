@@ -170,7 +170,11 @@
             }
         }
     }
-
+}
+.ss-add-relative-position-anchor#fade-in {
+    animation: fadeModalBackgroundIn 0.15s linear 1;
+    animation-fill-mode: forwards;
+    
     .ss-add-container#initial-open {
         animation: addExpandForm 0.15s linear 1;
         animation-fill-mode: forwards;
