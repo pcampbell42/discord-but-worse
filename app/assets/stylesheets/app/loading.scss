@@ -17,11 +17,11 @@
 
         .loading-spinner {
             --clock-color: #0f65ae;
-            --clock-width: 13vh;
+            --clock-width: 80px;
             --clock-radius: calc(var(--clock-width) / 2);
             --clock-minute-length: calc(var(--clock-width) * 0.4);
             --clock-hour-length: calc(var(--clock-width) * 0.2);
-            --clock-thickness: 0.6vh;
+            --clock-thickness: 3.5px;
 
             position: relative;
             display: flex;
@@ -29,7 +29,7 @@
             align-items: center;
             width: var(--clock-width);
             height: var(--clock-width);
-            border: 0.6vh solid var(--clock-color);
+            border: 3.5px solid var(--clock-color);
             border-radius: 50%;
 
             &::before,
@@ -39,7 +39,7 @@
                 top: calc(var(--clock-radius) * 0.25);
                 width: var(--clock-thickness);
                 background: var(--clock-color);
-                border-radius: 1vh;
+                border-radius: 7px;
                 transform-origin: center calc(100% - calc(var(--clock-thickness) / 2));
                 animation: spin infinite linear;
             }
@@ -63,11 +63,11 @@
         }
     
         .loading-message {
-            margin-top: 4vh;
+            margin-top: 20px;
 
             font-family: 'Nunito', sans-serif;
             color: #0f65ae;
-            font-size: 4vh;
+            font-size: 28px;
             font-weight: 600;
 
             &:after {
