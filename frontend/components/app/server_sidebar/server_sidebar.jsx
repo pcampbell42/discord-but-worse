@@ -188,17 +188,19 @@ class ServersSideBar extends React.Component {
                         // Create websocket subscription for default text channel in new server
                         createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id,
                             this.props.receiveAllMessages, this.props.receiveMessage, this.props.deleteMessage);
+                        
+                        // Loading is done...
+                        this.setState({ newServerLoading: false });
 
                         // Once closing animation is done...
                         setTimeout(() => {
                             // Reset all the values...
                             this._resetFormValues();
-                            this.setState({ newServerLoading: false });
                             this.props.clearMembershipErrors();
     
                             // Finally, redirect to default text channel in new server
                             this.props.history.push(`/app/servers/${this.props.userServers[0].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`);
-                        }, 100)
+                        }, 200)
                     })
             ));
     }
