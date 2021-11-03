@@ -143,3 +143,23 @@
         }
     }
 }
+
+.ss-invite-relative-position-anchor#sio-background-closing {
+    animation: fadeModalBackgroundOut 0.1s linear 1;
+    animation-fill-mode: forwards;
+
+    .ss-invite-container#sio-closing {
+        animation: sioCloseForm 0.1s linear 1;
+        animation-fill-mode: forwards;
+
+        #ss-close-create-form {
+            animation: fadeFormContentsOut 0.1s linear 1;
+            animation-fill-mode: forwards;
+        }
+    
+        .server-invite-form {
+            animation: fadeFormContentsOut 0.1s linear 1;
+            animation-fill-mode: forwards;
+        }
+    }
+}

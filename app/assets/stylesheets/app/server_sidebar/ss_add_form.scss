@@ -171,6 +171,7 @@
         }
     }
 }
+
 .ss-add-relative-position-anchor#fade-in {
     animation: fadeModalBackgroundIn 0.15s linear 1;
     animation-fill-mode: forwards;
@@ -178,5 +179,35 @@
     .ss-add-container#initial-open {
         animation: addExpandForm 0.15s linear 1;
         animation-fill-mode: forwards;
+    }
+}
+
+.ss-add-relative-position-anchor#ss-add-fade-bg {
+    animation: fadeModalBackgroundOut 0.1s linear 1;
+    animation-fill-mode: forwards;
+
+    .ss-add-container#ss-add-closing {
+        animation: addCloseForm 0.1s linear 1;
+        animation-fill-mode: forwards;
+
+        .ss-close-add-form {
+            animation: fadeFormContentsOut 0.1s linear 1;
+            animation-fill-mode: forwards;
+        }
+
+        .ss-add-header {
+            animation: fadeFormContentsOut 0.1s linear 1;
+            animation-fill-mode: forwards;
+        }
+
+        .ss-add-create-button {
+            animation: fadeFormContentsOut 0.1s linear 1;
+            animation-fill-mode: forwards;
+        }
+
+        .ss-add-footer {
+            animation: fadeFormContentsOut 0.1s linear 1;
+            animation-fill-mode: forwards;
+        }
     }
 }

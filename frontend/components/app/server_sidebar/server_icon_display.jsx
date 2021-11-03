@@ -16,6 +16,7 @@ class ServerIconDisplay extends React.Component {
 
             showDropdown: false,
             showInvite: false,
+            closeInvite: false,
             inviteCopied: false, // Used to show green border around invite input when link is copied
             showSettings: false,
             closeSettings: false,
@@ -79,7 +80,7 @@ class ServerIconDisplay extends React.Component {
     handleOutsideClick(e) {
         // Closing invite popup
         if (e.target.className === "ss-invite-relative-position-anchor") {
-            this.setState({ showInvite: false });
+            this.handleCloseInvite(e);
             return;
         }
 
@@ -105,8 +106,12 @@ class ServerIconDisplay extends React.Component {
         if (e.keyCode === 27) {
             if (showSettings) {
                 this.handleCloseSettings(e);
-            } else {
-                this.setState({ showDropdown: false, showInvite: false });
+            } 
+            else if (showInvite) {
+                this.handleCloseInvite(e);
+            }
+            else {
+                this.setState({ showDropdown: false });
                 this._resetFormValues();
                 this.props.clearMembershipErrors();
             }
@@ -199,8 +204,8 @@ class ServerIconDisplay extends React.Component {
 
     handleCloseInvite(e) {
         e.preventDefault();
-
-        this.setState({ showInvite: false });
+        this.setState({ closeInvite: true });
+        setTimeout(() => this.setState({ closeInvite: false, showInvite: false }), 100)
     }
 
 
@@ -272,7 +277,8 @@ class ServerIconDisplay extends React.Component {
     render() {
         const { server, currentUser, selected, firstTextChannelId, error } = this.props
         const { hovered, showDropdown, showInvite, showSettings, name, imageUrl, updatedServerLoading, 
-                inviteCopied, startHover, stopHover, startSelect, stopSelect, closeSettings } = this.state;
+                inviteCopied, startHover, stopHover, startSelect, stopSelect, closeSettings,
+                closeInvite } = this.state;
 
 
         const serverNameShow = (
@@ -303,8 +309,8 @@ class ServerIconDisplay extends React.Component {
 
 
         const serverInvite = (
-          <div className="ss-invite-relative-position-anchor">
-              <div className="ss-invite-container">
+          <div className="ss-invite-relative-position-anchor" id={closeInvite ? "sio-background-closing" : null}>
+              <div className="ss-invite-container" id={closeInvite ? "sio-closing" : null}>
                 <button id="ss-close-create-form" onClick={this.handleCloseInvite}>x</button>
 
                 <form className="server-invite-form">

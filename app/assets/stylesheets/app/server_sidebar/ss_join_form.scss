@@ -228,3 +228,28 @@
         }
     }
 }
+
+.ss-join-relative-position-anchor#ss-join-bg-fading {
+    animation: fadeModalBackgroundOut 0.1s linear 1;
+    animation-fill-mode: forwards;
+
+    .ss-join-container#ss-join-closing {
+        animation: createAndJoinCloseForm 0.1s linear 1;
+        animation-fill-mode: forwards;
+
+        .ss-close-join-form {
+            animation: fadeFormContentsOut 0.1s linear 1;
+            animation-fill-mode: forwards;
+        }
+
+        .ss-join-header {
+            animation: fadeFormContentsOut 0.1s linear 1;
+            animation-fill-mode: forwards;
+        }
+
+        .ss-join-form {
+            animation: fadeFormContentsOut 0.1s linear 1;
+            animation-fill-mode: forwards;
+        }
+    }
+}

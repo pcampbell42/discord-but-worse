@@ -64,7 +64,7 @@ class TextChannelDisplay extends React.Component {
             this.props.deleteTextChannel(this.props.textChannel.id)
                 .then(() => {
                     this.props.history.push(`/app/servers/${this.props.server.id}/${this.props.textChannels[0].id}`);
-            });
+                });
         }, 150);
     }
 

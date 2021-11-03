@@ -10,6 +10,7 @@ class TextChannelSidebar extends React.Component {
         this.state = {
             createHovered: false,
             showForm: false,
+            closeForm: false,
             name: ""
         };
         
@@ -40,37 +41,43 @@ class TextChannelSidebar extends React.Component {
 
     handleClick(e) {
         if (e.target.className === "ts-create-form-relative-position-anchor") {
-            this.setState({ name: "", showForm: false });
+            this.handleClose(e);
         }
     }
 
 
     handleEscape(e) {
         if (e.keyCode === 27) {
-            this.setState({ name: "", showForm: false });
+            this.handleClose(e);
         }
     }
 
 
     handleClose(e) {
         e.preventDefault();
-        this.setState({ name: "", showForm: false });
+        this.setState({ closeForm: true });
+        setTimeout(() => this.setState({ name: "", closeForm: false, showForm: false }), 100);
     }
 
 
     handleSubmit(e) {
         e.preventDefault();
-
         this.props.createTextChannel({ name: this.state.name, server_id: this.props.server.id })
-            .then(() => this.setState({ name: "", showForm: false }))
-            .then(() => createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id, 
-                                                    this.props.receiveAllMessages, this.props.receiveMessage,
-                                                    this.props.deleteMessage))
-            .then(() => this.props.history.push(`/app/servers/${this.props.server.id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`));
+            .then(() => {
+                this.setState({ name: "", closeForm: true });
+                createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id,
+                    this.props.receiveAllMessages, this.props.receiveMessage,
+                    this.props.deleteMessage);
+                setTimeout(() => {
+                    this.setState({ showForm: false, closeForm: false });
+                    this.props.history.push(`/app/servers/${this.props.server.id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`)
+                }, 100)
+            });
     }
 
 
     render() {
+        const { createHovered, showForm, closeForm, name } = this.state;
         const { server, currentUser, textChannels } = this.props;
 
         const createTooltip = (
@@ -81,18 +88,18 @@ class TextChannelSidebar extends React.Component {
         );
 
         const createTextChannelForm = (
-            <div className="ts-create-form-relative-position-anchor">
-                <div>
+            <div className="ts-create-form-relative-position-anchor" id={closeForm ? "ts-create-background-closing" : null}>
+                <div id={closeForm ? "ts-create-closing" : null}>
                     <button onClick={this.handleClose}>x</button>
                     <h4>Create Text Channel</h4>
 
-                    <form onSubmit={this.state.name === "" ? null : this.handleSubmit}>
+                    <form onSubmit={name === "" ? null : this.handleSubmit}>
                         <label>CHANNEL NAME
-                            <input type="text" value={this.state.name} onChange={this.update} placeholder="# new-channel"/>
+                            <input type="text" value={name} onChange={this.update} placeholder="# new-channel"/>
                         </label>
                         <footer>
                             <span></span>
-                            <input id={this.state.name === "" ? "ts-invalid" : null} className="ts-submit-button" type="submit" value="Create Channel" />
+                            <input id={name === "" ? "ts-invalid" : null} className="ts-submit-button" type="submit" value="Create Channel" />
                         </footer>
                     </form>
                 </div>
@@ -102,9 +109,7 @@ class TextChannelSidebar extends React.Component {
         return (
             server ? (
                 <div className="text-channel-container">
-
-                    {this.state.showForm ? createTextChannelForm : null}
-
+                    {showForm ? createTextChannelForm : null}
                     <div className="text-channel-header-box">{server ? server.name : null}</div>
 
                     <div>
@@ -115,7 +120,7 @@ class TextChannelSidebar extends React.Component {
                                 onClick={() => this.setState({ showForm: true })}>+</h2> 
                                 : null}
                     </div>
-                    {this.state.createHovered ? createTooltip : null}
+                    {createHovered ? createTooltip : null}
 
                     <ul>
                         {textChannels.map(textChannel => 
@@ -124,7 +129,6 @@ class TextChannelSidebar extends React.Component {
                                     true : false)}  textChannels={textChannels} />
                         )}
                     </ul>
-
                 </div> 
             ) : <div></div>
         );

@@ -2,3 +2,8 @@
     from { height: 50px; width: 200px; opacity: 0.1 }
     to { height: 210px; width: 465px; opacity: 1; }
 }
+
+@keyframes tcCreateCloseForm {
+    from { height: 210px; width: 465px; opacity: 1 }
+    to { height: 0; width: 0; opacity: 0.1; }
+}

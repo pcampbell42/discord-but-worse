@@ -181,4 +181,29 @@
             }
         }
     }
+
+    .ss-create-form-relative-position-anchor#ss-create-bg-fading {
+        animation: fadeModalBackgroundOut 0.1s linear 1;
+        animation-fill-mode: forwards;
+
+        div#ss-create-closing {
+            animation: createAndJoinCloseForm 0.1s linear 1;
+            animation-fill-mode: forwards;
+
+            button {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+
+            div {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+
+            form {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+        }
+    }
 }

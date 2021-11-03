@@ -16,8 +16,11 @@ class ServersSideBar extends React.Component {
             // modal stuff
             showAddForm: false,
             addFormInitialOpen: true, // Used to differentiate 2 different animations
+            addFormClosing: false,
             showCreateForm: false,
+            createFormClosing: false,
             showJoinForm: false,
+            joinFormClosing: false,
 
             // hover animations
             homeHovered: false,
@@ -91,22 +94,31 @@ class ServersSideBar extends React.Component {
         if (e.target.className === "ss-add-relative-position-anchor" ||
             e.target.className === "ss-create-form-relative-position-anchor" ||
             e.target.className === "ss-join-relative-position-anchor") {
-            this._resetFormValues();
-            this.props.clearMembershipErrors();
+            this.handleClose(e);
         }
     }
 
     handleEscape(e) {
         if (e.keyCode === 27) {
-            this._resetFormValues();
-            this.props.clearMembershipErrors();
+            this.handleClose(e);
         }
     }
 
     handleClose(e) {
         e.preventDefault();
-        this._resetFormValues();
-        this.props.clearMembershipErrors();
+
+        if (this.state.showAddForm) {
+            this.setState({ addFormClosing: true });
+        } else if (this.state.showCreateForm) {
+            this.setState({ createFormClosing: true });
+        } else if (this.state.showJoinForm) {
+            this.setState({ joinFormClosing: true });
+        }
+
+        setTimeout(() => {
+            this._resetFormValues();
+            this.props.clearMembershipErrors();
+        }, 100);
     }
 
 
@@ -166,23 +178,29 @@ class ServersSideBar extends React.Component {
         if (this.state.imageFile) formData.append("server[photo]", this.state.imageFile)
 
         this.props.createServer(formData)
-            .then(() => {
-                // Reset all the values...
-                this._resetFormValues();
-                this.props.clearMembershipErrors();
-
+            .then(() => (
                 // Grab info for new server
                 this.props.currentServerDetails(this.props.userServers[this.props.userServers.length - 1].id)
                     .then(() => {
+                        // Start form closing animation
+                        this.setState({ createFormClosing: true });
+
                         // Create websocket subscription for default text channel in new server
                         createSubscription("tc", this.props.textChannels[this.props.textChannels.length - 1].id,
                             this.props.receiveAllMessages, this.props.receiveMessage, this.props.deleteMessage);
-        
-                        // Finally, redirect to default text channel in new server
-                        this.props.history.push(`/app/servers/${this.props.userServers[0].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`);
-                    });
-            })
-            .then(() => this.setState({ newServerLoading: false }))
+
+                        // Once closing animation is done...
+                        setTimeout(() => {
+                            // Reset all the values...
+                            this._resetFormValues();
+                            this.setState({ newServerLoading: false });
+                            this.props.clearMembershipErrors();
+    
+                            // Finally, redirect to default text channel in new server
+                            this.props.history.push(`/app/servers/${this.props.userServers[0].id}/${this.props.textChannels[this.props.textChannels.length - 1].id}`);
+                        }, 100)
+                    })
+            ));
     }
 
     handleJoin(e) {
@@ -215,14 +233,14 @@ class ServersSideBar extends React.Component {
             this.setState({ invalidCode: true })
         } else {
             this.props.createMembership({ server_id: serverId })
-                .then(() => {
-                    // Reset all the values...
-                    this._resetFormValues();
-                    this.props.clearMembershipErrors();
-
+                .then(() => (
                     // Grab server info
                     this.props.currentServerDetails(serverId)
                         .then(() => {
+                            // Start form closing animation
+                            this.setState({ joinFormClosing: true });
+
+                            // Grab all the text channels for the server so we can make WebSocket subscriptions to them
                             let serverTextChannels = getServerTextChannels(this.props.textChannels, serverId.toString());
 
                             // Create websocket subscriptions to each text channel
@@ -231,10 +249,17 @@ class ServersSideBar extends React.Component {
                                     this.props.receiveMessage, this.props.deleteMessage)
                             );
 
-                            // Finally, redirect to default text channel in new server
-                            this.props.history.push(`/app/servers/${serverId}/${serverTextChannels[0].id}`);
-                        });
-                });
+                            // Once closing animation is done...
+                            setTimeout(() => {
+                                // Reset all the values...
+                                this._resetFormValues();
+                                this.props.clearMembershipErrors();
+    
+                                // Finally, redirect to default text channel in new server
+                                this.props.history.push(`/app/servers/${serverId}/${serverTextChannels[0].id}`);
+                            }, 100);
+                        })
+                ));
         }
     }
 
@@ -308,7 +333,10 @@ class ServersSideBar extends React.Component {
             showAddForm: false,
             showCreateForm: false,
             showJoinForm: false,
-            addFormInitialOpen: true
+            addFormInitialOpen: true,
+            addFormClosing: false,
+            createFormClosing: false,
+            joinFormClosing: false
         });
     }
 
@@ -317,7 +345,9 @@ class ServersSideBar extends React.Component {
         const { error, homeSelected } = this.props;
         const { imageUrl, name, showCreateForm, createHovered, homeHovered, newServerLoading,
                 showAddForm, showJoinForm, inviteCode, invalidCode, startHoverHome, stopHoverHome,
-                startHoverCreate, stopHoverCreate, startSelectHome, stopSelectHome, addFormInitialOpen } = this.state;
+                startHoverCreate, stopHoverCreate, startSelectHome, stopSelectHome, addFormInitialOpen,
+                addFormClosing, createFormClosing, joinFormClosing } = this.state;
+
 
         const homeTooltipShow = (
             <div className="ss-home-relative-position-anchor">
@@ -338,9 +368,10 @@ class ServersSideBar extends React.Component {
             </div>
         );
 
+
         const addServerForm = (
-            <div className="ss-add-relative-position-anchor" id={addFormInitialOpen ? "fade-in" : null}>
-                <div className="ss-add-container" id={addFormInitialOpen ? "initial-open" : null}>
+            <div className="ss-add-relative-position-anchor" id={addFormClosing ? "ss-add-fade-bg" : addFormInitialOpen ? "fade-in" : null}>
+                <div className="ss-add-container" id={addFormClosing ? "ss-add-closing" : addFormInitialOpen ? "initial-open" : null}>
                     <button className="ss-close-add-form" onClick={this.handleClose}>x</button>
 
                     <div className="ss-add-header">
@@ -366,8 +397,8 @@ class ServersSideBar extends React.Component {
         
 
         const createServerForm = (
-            <div className="ss-create-form-relative-position-anchor">
-                <div id={newServerLoading ? "new-server-loading" : null}>
+            <div className="ss-create-form-relative-position-anchor" id={createFormClosing ? "ss-create-bg-fading" : null}>
+                <div id={newServerLoading ? "new-server-loading" : createFormClosing ? "ss-create-closing" : null}>
                     <button id="ss-close-create-form" onClick={this.handleClose}>x</button>
 
                     <div>
@@ -396,8 +427,8 @@ class ServersSideBar extends React.Component {
 
 
         const joinServerForm = (
-            <div className="ss-join-relative-position-anchor">
-                <div className="ss-join-container">
+            <div className="ss-join-relative-position-anchor" id={joinFormClosing ? "ss-join-bg-fading" : null}>
+                <div className="ss-join-container" id={joinFormClosing ? "ss-join-closing" : null}>
                     <button className="ss-close-join-form" onClick={this.handleClose}>x</button>
 
                     <div className="ss-join-header">
@@ -441,10 +472,8 @@ class ServersSideBar extends React.Component {
                 {showCreateForm ? createServerForm : null}
                 {showJoinForm ? joinServerForm : null}
 
-                <Link to="/app/home" className="home-link" 
-                    onMouseEnter={this.handleStartHoverHome}
-                    onMouseLeave={this.handleStopHoverHome}
-                    onClick={this.handleStartSelectHome}
+                <Link to="/app/home" className="home-link" onClick={this.handleStartSelectHome}
+                    onMouseEnter={this.handleStartHoverHome} onMouseLeave={this.handleStopHoverHome}
                     ref={homeLink => this.homeLink = homeLink}>
 
                     <div className="ss-home-hover-bar-relative-position-anchor">

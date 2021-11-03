@@ -137,4 +137,31 @@
             }
         }
     }
+
+    .ts-create-form-relative-position-anchor#ts-create-background-closing {
+        animation: fadeModalBackgroundOut 0.1s linear 1;
+        animation-fill-mode: forwards;
+
+        div#ts-create-closing {
+            animation: tcCreateCloseForm 0.1s linear 1;
+            animation-fill-mode: forwards;
+
+            button {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+
+            h4 {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+
+            form {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+
+
 }

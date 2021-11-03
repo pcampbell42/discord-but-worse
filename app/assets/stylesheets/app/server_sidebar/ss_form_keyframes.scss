@@ -33,6 +33,11 @@
     to { height: 130px; width: 425px; opacity: 1; }
 }
 
+@keyframes sioCloseForm {
+    from { height: 130px; width: 425px; opacity: 1; }
+    to { height: 0px; width: 0px; opacity: 0; }
+}
+
 @keyframes addExpandForm {
     from { height: 50px; width: 200px; opacity: 0.1 }
     to { height: 300px; width: 450px; opacity: 1; }
@@ -43,7 +48,17 @@
     to { height: 300px; }
 }
 
+@keyframes addCloseForm {
+    from { height: 300px; width: 450px; opacity: 1 }
+    to { height: 0px; width: 0px; opacity: 0; }
+}
+
 @keyframes createAndJoinExpandForm {
     from { height: 300px; }
     to { height: 400px; }
+}
+
+@keyframes createAndJoinCloseForm {
+    from { height: 400px; width: 450px; opacity: 1; }
+    to { height: 0px; width: 0px; opacity: 0; }
 }
