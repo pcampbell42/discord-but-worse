@@ -140,7 +140,7 @@
             border-bottom-left-radius: 7px;
             border-bottom-right-radius: 7px;
 
-            animation: fadeFormContentsIn 0.15s linear 1;
+            animation: fadeSSAddFooterIn 0.15s linear 1;
             animation-fill-mode: forwards;
 
             .ss-add-join-header {
@@ -151,7 +151,6 @@
             }
 
             .ss-add-join-button {
-                // width: 400px;
                 width: 95%;
                 height: 40px;
                 background-color: #747f8d;
