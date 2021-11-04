@@ -6,3 +6,11 @@ export const createDirectMessage = directMessage => (
         data: { direct_message: directMessage }
     })
 );
+
+export const updateDirectMessage = directMessage => (
+    $.ajax({
+        method: "PATCH",
+        url: `api/direct_messages/${directMessage.id}`,
+        data: { direct_message: directMessage }
+    })
+);

@@ -7,10 +7,25 @@
 #  user2_id   :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  hidden     :boolean          not null
 #
 class DirectMessage < ApplicationRecord
 
+    #--------------------- Validations ---------------------
+
     validates :user1_id, :user2_id, presence: true
+
+
+    #--------------------- After Initialize ---------------------
+
+    after_initialize :set_hidden
+
+    def set_hidden
+        self.hidden ||= false
+    end
+
+
+    #--------------------- Associations ---------------------
 
     belongs_to :initiator,
         primary_key: :id,
@@ -25,5 +40,4 @@ class DirectMessage < ApplicationRecord
     has_many :messages, :as => :messageable,
         dependent: :destroy
 
-    
 end

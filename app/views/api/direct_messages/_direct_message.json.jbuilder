@@ -1,1 +1,1 @@
-json.extract! direct_message, :id, :user1_id, :user2_id
+json.extract! direct_message, :id, :user1_id, :user2_id, :hidden
