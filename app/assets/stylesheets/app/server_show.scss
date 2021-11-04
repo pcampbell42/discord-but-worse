@@ -1,4 +1,64 @@
-
 .server-show-container {
     display: flex;
+
+    .users-toggle-anchor {
+        display: relative;
+        width: 0;
+        height: 0;
+        
+        .users-toggle {
+            position: absolute;
+            top: 6px;
+            right: 245px;
+
+            height: 35px;
+            width: 43px;
+        }
+
+        .users-toggle:hover {
+            opacity: 0.8;
+            cursor: pointer;
+        }
+
+        .users-toggle-tooltip-anchor {
+            display: relative;
+            width: 0;
+            height: 0;
+        
+            .users-toggle-tooltip {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                position: absolute;
+                right: 210px;
+                top: 43px;
+
+                background-color: #18191c;
+                padding: 10px 10px 10px 10px;
+                border-radius: 7px;
+
+                font-family: 'Nunito', sans-serif;
+                color: white;
+                font-size: 12px;
+                font-weight: 700;
+                text-align: center;
+                line-height: 14px;
+            }
+
+            .users-toggle-tooltip-arrow-up {
+                position: absolute;
+                right: 260px;
+                top: 36px;
+
+                width: 0; 
+                height: 0; 
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                
+                border-bottom: 7px solid #18191c;
+            }
+        }
+    }
 }
+
