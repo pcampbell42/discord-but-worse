@@ -22,6 +22,7 @@ class ServerShow extends React.Component {
 
     render() {
         const { usersHidden, usersToggleHovered } = this.state;
+        const { serverId, textChannelId } = this.props.match.params;
         
         const usersToggleTooltip = (
             <div className="users-toggle-tooltip-anchor">
@@ -36,22 +37,17 @@ class ServerShow extends React.Component {
             <div className="server-show-container">
                 <div className="users-toggle-anchor">
                     {usersToggleHovered ? usersToggleTooltip : null}
-                    <img className="users-toggle" src={usersIcon} 
+                    <img className="users-toggle" src={usersIcon} id={usersHidden ? null : "ut-selected"} 
                         onClick={() => this.setState({ usersHidden: (usersHidden ? false : true) })}
                         onMouseEnter={() => this.setState({ usersToggleHovered: true })}
                         onMouseLeave={() => this.setState({ usersToggleHovered: false })} />
                 </div>
 
-                <TextChannelSidebarContainer serverId={this.props.match.params.serverId} 
-                    channelId={this.props.match.params.textChannelId} />
+                <TextChannelSidebarContainer serverId={serverId} channelId={textChannelId} />
 
-                <ChatRoomContainer serverId={this.props.match.params.serverId} usersHidden={usersHidden}
-                    channelId={this.props.match.params.textChannelId} />
+                <ChatRoomContainer serverId={serverId} channelId={textChannelId} usersHidden={usersHidden}/>
 
-                {usersHidden ? null : 
-                    <UserSidebarContainer serverId={this.props.match.params.serverId} 
-                        channelId={this.props.match.params.textChannelId} />
-                }
+                {usersHidden ? null : <UserSidebarContainer serverId={serverId} channelId={textChannelId} />}
             </div>
         );
     }

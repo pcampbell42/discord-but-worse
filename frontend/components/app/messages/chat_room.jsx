@@ -19,7 +19,7 @@ class ChatRoom extends React.Component {
 
 
     render() {
-        const { currentUser, messages, users, chatRoomType, chatRoomObj } = this.props
+        const { currentUser, messages, users, chatRoomType, chatRoomObj, usersHidden } = this.props
 
         let dmdUser;
         if (chatRoomType === "dm") {
@@ -33,7 +33,7 @@ class ChatRoom extends React.Component {
 
         return (
             chatRoomObj !== undefined ?
-                <div className="chat-room-container" id={chatRoomType === "dm" ? "dm" : null}>
+                <div className="chat-room-container" id={chatRoomType === "dm" || usersHidden ? "dm" : null}>
                     <div className="chat-room-header">
                         <h1>{chatRoomType === "tc" ? "#" : "@"}</h1>
                         <h2>

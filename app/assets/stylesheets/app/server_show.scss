@@ -13,12 +13,23 @@
 
             height: 35px;
             width: 43px;
+            opacity: 0.5;
         }
 
         .users-toggle:hover {
-            opacity: 0.8;
+            opacity: 0.75;
             cursor: pointer;
         }
+
+        .users-toggle#ut-selected {
+            opacity: 1;
+        }
+
+        .users-toggle#ut-selected:hover {
+            opacity: 0.75;
+            cursor: pointer;
+        }
+
 
         .users-toggle-tooltip-anchor {
             display: relative;
