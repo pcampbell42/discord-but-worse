@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_04_184508) do
+ActiveRecord::Schema.define(version: 2021_11_04_213857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,8 @@ ActiveRecord::Schema.define(version: 2021_11_04_184508) do
     t.integer "user2_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "hidden", null: false
+    t.boolean "user1_hidden", null: false
+    t.boolean "user2_hidden", null: false
     t.index ["user1_id", "user2_id"], name: "index_direct_messages_on_user1_id_and_user2_id", unique: true
     t.index ["user1_id"], name: "index_direct_messages_on_user1_id"
     t.index ["user2_id"], name: "index_direct_messages_on_user2_id"

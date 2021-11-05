@@ -8,8 +8,9 @@
  * @param {function} receiveAllMessages - Input should be dispatch(receiveAllMessages(...))
  * @param {function} receiveMessage - Input should be dispatch(receiveMessage(...))
  * @param {function} deleteMessage - Input should be dispatch(deleteMessage(...))
+ * @param {function} updateDirectMessage - Input should be dispatch(updateDirectMessage(...))
  */
-export const createSubscription = (thread_type, thread_id, receiveAllMessages, receiveMessage, deleteMessage) => {
+export const createSubscription = (thread_type, thread_id, receiveAllMessages, receiveMessage, deleteMessage, updateDirectMessage) => {
     App.cable.subscriptions.create(
         { channel: "ChatChannel", thread_type: thread_type, thread_id: thread_id },
         {
@@ -22,6 +23,15 @@ export const createSubscription = (thread_type, thread_id, receiveAllMessages, r
 
                     case "create":
                         receiveMessage(data.message);
+
+                        // Basically, when a DM is "hidden" by a user, they're still subscribed
+                        // to the channel. When a new message comes in for that DM, the DM is un-hidden.
+                        if (data.message.messageableType === "DirectMessage")
+                            updateDirectMessage({ 
+                                id: data.message.messageableId,
+                                user1_hidden: false,
+                                user2_hidden: false
+                            });
                         break;
 
                     case "update":

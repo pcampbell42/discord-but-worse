@@ -11,6 +11,7 @@ const directMessagesReducer = (state = {}, action) => {
             return Object.assign({}, state, { [action.directMessage.id]: action.directMessage });
 
         case RECEIVE_CURRENT_USER_DETAILS:
+            // console.log(action.details)
             return Object.assign({}, state, action.details.directMessages)
 
         case LOGOUT_CURRENT_USER:

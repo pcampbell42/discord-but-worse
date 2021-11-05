@@ -13,7 +13,7 @@ class Server < ApplicationRecord
 
     #--------------------- Validations ---------------------
 
-    validates :name, :owner_id, presence: true
+    validates :name, :owner_id, :invite_code, presence: true
     validates :name, length: { minimum: 2, maximum: 30 }
 
 

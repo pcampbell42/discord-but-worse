@@ -1,4 +1,3 @@
-
 json.memberships do
     @user.memberships.each do |membership|
         json.set! membership.id do
@@ -26,6 +25,9 @@ json.text_channels do
 end
 
 json.direct_messages do
+    puts "QQQWEOIQJWEOIJQWOIEJQWqqweqwe"
+    puts @user.direct_messages_started.length
+
     @user.direct_messages_started.each do |direct_message|
         json.set! direct_message.id do
             json.partial! "api/direct_messages/direct_message", direct_message: direct_message
@@ -52,6 +54,3 @@ json.users do
         end
     end
 end
-
-# eventually will grab conversations here as well
-# ... and users in these conversations

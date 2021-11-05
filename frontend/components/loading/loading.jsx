@@ -38,7 +38,8 @@ class Loading extends React.Component {
                     createSubscription("dm", this.props.directMessages[i].id,
                         this.props.receiveAllMessages,
                         this.props.receiveMessage,
-                        this.props.deleteMessage
+                        this.props.deleteMessage,
+                        this.props.updateDirectMessage
                     );
                 }
 

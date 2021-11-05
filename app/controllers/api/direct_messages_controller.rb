@@ -23,7 +23,7 @@ class Api::DirectMessagesController < ApplicationController
 
     private
     def direct_message_params
-        params.require(:direct_message).permit(:user1_id, :user2_id, :hidden)
+        params.require(:direct_message).permit(:user1_id, :user2_id, :user1_hidden, :user2_hidden)
     end
 
 end
