@@ -8,16 +8,25 @@ class ServerIconDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            // Hovered / selected animations
             hovered: false,
             startHover: false,
             stopHover: false,
             startSelect: false,
             stopSelect: false,
 
+            // Dropdown
             showDropdown: false,
+            
+            // Server invite
             showInvite: false,
             closeInvite: false,
             inviteCopied: false, // Used to show green border around invite input when link is copied
+            
+            // Server profile
+            showEditProfile: false,
+
+            // Server settings
             showSettings: false,
             closeSettings: false,
             updatedServerLoading: false, // Used to "smooth" the loading time when updating a new server with an avatar
@@ -278,7 +287,7 @@ class ServerIconDisplay extends React.Component {
         const { server, currentUser, selected, firstTextChannelId, error } = this.props
         const { hovered, showDropdown, showInvite, showSettings, name, imageUrl, updatedServerLoading, 
                 inviteCopied, startHover, stopHover, startSelect, stopSelect, closeSettings,
-                closeInvite } = this.state;
+                closeInvite, showEditProfile } = this.state;
 
 
         const serverNameShow = (
@@ -298,8 +307,9 @@ class ServerIconDisplay extends React.Component {
                         window.innerHeight - 120 : this.serverIconEl.getBoundingClientRect().top + 30 : 0}px` }}>
 
                     <li id="ss-options-invite" onClick={this.handleShowInvite}>Invite People</li>
+                    <li id="ss-options-edit-profile" onClick={() => this.setState({ showEditProfile: true })}>Edit Server Profile</li>
                     {currentUser.id === server.ownerId ?
-                        <li id="ss-options-settings" onClick={this.handleShowSettings}>Server Settings</li> :
+                        <li id="ss-options-settings" onClick={this.handleShowSettings}>Server Settings</li> : 
                         <li id="ss-options-leave" onClick={this.handleLeave}>Leave Server</li>
                     }
                     <li id="ss-options-cancel" onClick={() => this.setState({ showDropdown: false })}>Cancel</li>
@@ -325,6 +335,15 @@ class ServerIconDisplay extends React.Component {
               </div>
           </div>  
         );
+
+        
+        const serverProfile = (
+            <div className="ss-profile-relative-position-anchor">
+                <div classname="ss-profile-container">
+                    
+                </div>
+            </div>
+        )
 
 
         const serverSettings = (
@@ -378,6 +397,7 @@ class ServerIconDisplay extends React.Component {
             <div>
                 {showSettings ? serverSettings : null}
                 {showInvite ? serverInvite : null}
+                {showEditProfile ? serverProfile : null}
 
                 <div className="ss-hover-bar-relative-position-anchor">
                     <aside className="ss-server-hover-bar" id={startSelect ? "start-select" : stopSelect ? "stop-select" :

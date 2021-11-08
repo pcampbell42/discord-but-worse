@@ -7,6 +7,14 @@ export const createMembership = membership => (
     })
 );
 
+export const updateMembership = membership => (
+    $.ajax({
+        method: "PATCH",
+        url: `api/memberships/${membership.id}`,
+        data: { membership }
+    })
+);
+
 export const deleteMembership = membershipId => (
     $.ajax({
         method: "DELETE",

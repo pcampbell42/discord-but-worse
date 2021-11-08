@@ -37,6 +37,9 @@ export const createMembership = membership => dispatch => MembershipAPIUtil.crea
     .then(membership => dispatch(receiveMembership(membership)),
         err => dispatch(receiveMembershipError(err.responseJSON)));
 
+export const updateMembership = formMembership => dispatch => MembershipAPIUtil.updateMembership(formMembership)
+    .then(membership => dispatch(receiveMembership(membership)));
+
 export const deleteMembership = membershipId => dispatch => MembershipAPIUtil.deleteMembership(membershipId)
     .then(() => dispatch(removeMembership(membershipId)));
     

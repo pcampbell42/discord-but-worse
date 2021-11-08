@@ -20,5 +20,5 @@ export const createDirectMessage = formDM => dispatch => DMAPIUtil.createDirectM
     .then(directMessage => dispatch(receiveDirectMessage(directMessage)));
 
 export const updateDirectMessage = directMessage => dispatch => DMAPIUtil.updateDirectMessage(directMessage)
-    .then(dm => dispatch(receiveDirectMessage(dm)))
+    .then(dm => dispatch(receiveDirectMessage(dm)));
     

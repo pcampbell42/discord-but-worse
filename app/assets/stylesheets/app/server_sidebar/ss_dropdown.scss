@@ -17,7 +17,7 @@
                 justify-content: left;
                 align-items: center;
                 height: 30px;
-                width: 98px;
+                width: 120px;
 
                 border-radius: 0;
 
@@ -38,6 +38,10 @@
                 background-color: #0f65ae;
             }
 
+            #ss-options-cancel {
+                border-top: 1px solid #35393f;
+            }
+
             #ss-options-invite {
                 color: #939bf4;
                 border-bottom: 1px solid #35393f;
@@ -50,7 +54,6 @@
             
             #ss-options-leave {
                 color: #ed4245;
-                border-bottom: 1px solid #35393f;
             }
 
             #ss-options-leave:hover {
