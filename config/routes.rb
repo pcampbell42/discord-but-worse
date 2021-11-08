@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
         resources :servers, only: [:show, :index, :create, :update, :destroy]
 
-        resources :memberships, only: [:create, :destroy]
+        resources :memberships, only: [:create, :update, :destroy]
 
         resources :text_channels, only: [:create, :update, :destroy]
 

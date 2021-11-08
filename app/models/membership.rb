@@ -15,6 +15,15 @@ class Membership < ApplicationRecord
     validates :user_id, :server_id, presence: true
 
 
+    #--------------------- After Initialize ---------------------
+
+    after_initialize :set_nickname
+
+    def set_nickname
+        self.nickname ||= ""
+    end
+
+
     #--------------------- Associations ---------------------
 
     belongs_to :member,

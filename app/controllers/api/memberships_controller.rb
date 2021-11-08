@@ -12,6 +12,17 @@ class Api::MembershipsController < ApplicationController
     end
 
 
+    def update
+        @membership = Membership.find_by(id: params[:id])
+
+        if @membership.update(membership_params)
+            render :show
+        else
+            render json: @membership.errors.full_messages, status: 422
+        end
+    end
+
+
     def destroy
         @membership = Membership.find_by(id: params[:id])
         @membership.destroy
@@ -21,7 +32,7 @@ class Api::MembershipsController < ApplicationController
 
     private
     def membership_params
-        params.require(:membership).permit(:server_id)
+        params.require(:membership).permit(:server_id, :nickname)
     end
 
 end

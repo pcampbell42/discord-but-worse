@@ -1,1 +1,1 @@
-json.extract! membership, :id, :user_id, :server_id
+json.extract! membership, :id, :user_id, :server_id, :nickname
