@@ -1,0 +1,65 @@
+.ss-ep-anchor {
+    position: fixed;
+    z-index: 300;
+    background-color: rgba(1, 1, 1, 0.9);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    animation: fadeModalBackgroundIn 0.15s linear 1;
+    animation-fill-mode: forwards;
+
+    .ss-ep-container {
+        position: absolute;
+        height: 250px;
+        width: 425px;
+        background-color: #35393f;
+
+        border-radius: 7px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        animation: sioExpandForm 0.15s linear 1;
+        animation-fill-mode: forwards;
+
+        .ss-ep-close {
+
+        }
+
+        .ss-ep-header {
+
+        }
+
+        .ss-ep-description {
+
+        }
+
+        .ss-ep-form {
+
+            .ss-ep-label {
+
+                .ss-ep-input {
+
+                }
+            }
+
+            .ss-ep-form-footer {
+                
+                .ss-ep-cancel {
+
+                }
+
+                .ss-ep-submit {
+
+                }
+            }
+        }
+    }
+}

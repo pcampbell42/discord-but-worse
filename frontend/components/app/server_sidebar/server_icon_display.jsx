@@ -25,20 +25,25 @@ class ServerIconDisplay extends React.Component {
             
             // Server profile
             showEditProfile: false,
+            closeEditProfile: false,
+            nickname: props.memberships[findMembershipId(props.currentUser.id, props.server.id, props.memberships)].nickname,
 
             // Server settings
             showSettings: false,
             closeSettings: false,
             updatedServerLoading: false, // Used to "smooth" the loading time when updating a new server with an avatar
-
-
-            // form info
             name: props.server.name,
             imageUrl: props.server.photoUrl,
             imageFile: null,
         };
 
+        // General closing handlers
         this.handleRightClick = this.handleRightClick.bind(this);
+        this.handleEscape = this.handleEscape.bind(this);
+        this.handleOutsideClick = this.handleOutsideClick.bind(this);
+        this.handleOutsideRightClick = this.handleOutsideRightClick.bind(this);
+
+        // Settings handlers
         this.handleLeave = this.handleLeave.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleShowSettings = this.handleShowSettings.bind(this);
@@ -46,18 +51,27 @@ class ServerIconDisplay extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.update = this.update.bind(this);
         this.handleReset = this.handleReset.bind(this);
-        this.handleEscape = this.handleEscape.bind(this);
-        this.handleOutsideClick = this.handleOutsideClick.bind(this);
-        this.handleOutsideRightClick = this.handleOutsideRightClick.bind(this);
         this.handleFileUpload = this.handleFileUpload.bind(this);
-        this._resetFormValues = this._resetFormValues.bind(this);
+
+        // Invite form handlers
         this.handleShowInvite = this.handleShowInvite.bind(this);
         this.handleInviteCopy = this.handleInviteCopy.bind(this);
         this.handleCloseInvite = this.handleCloseInvite.bind(this);
+
+        // Edit profile form handlers
+        this.handleShowEditProfile = this.handleShowEditProfile.bind(this);
+        this.handleCloseEditProfile = this.handleCloseEditProfile.bind(this);
+        this.handleSubmitEditProfile = this.handleSubmitEditProfile.bind(this);
+        this.handleUpdateNickname = this.handleUpdateNickname.bind(this);
+
+        // Hover / select handlers
         this.handleStartHover = this.handleStartHover.bind(this);
         this.handleStopHover = this.handleStopHover.bind(this);
         this.handleStartSelect = this.handleStartSelect.bind(this);
         this.handleStopSelect = this.handleStopSelect.bind(this);
+
+        // Reset form values
+        this._resetFormValues = this._resetFormValues.bind(this);
     }
 
 
@@ -197,6 +211,22 @@ class ServerIconDisplay extends React.Component {
     }
 
 
+    // ------------- Event handlers for right click dropdown -------------
+
+    handleRightClick(e) {
+        e.preventDefault();
+        this.setState({ showDropdown: true })
+    }
+
+    handleLeave(e) {
+        const savedServerId = this.props.server.id;
+        const membershipId = findMembershipId(this.props.currentUser.id, this.props.server.id, this.props.memberships);
+        this.props.deleteMembership(membershipId)
+            .then(() => (window.location.href.includes(`/app/servers/${savedServerId}`)) ?
+                this.props.history.push("/app/home") : null);
+    }
+
+
     // ------------- Event handlers for invite show -------------
 
     handleShowInvite(e) {
@@ -218,19 +248,26 @@ class ServerIconDisplay extends React.Component {
     }
 
 
-    // ------------- Event handlers for right click dropdown -------------
+    // ------------- Event handlers for edit server profile -------------
 
-    handleRightClick(e) {
+    handleShowEditProfile(e) {
         e.preventDefault();
-        this.setState({ showDropdown: true })
+        this.setState({ showDropdown: false, showEditProfile: true });
     }
 
-    handleLeave(e) {
-        const savedServerId = this.props.server.id;
-        const membershipId = findMembershipId(this.props.currentUser.id, this.props.server.id, this.props.memberships);
-        this.props.deleteMembership(membershipId)
-            .then(() => (window.location.href.includes(`/app/servers/${savedServerId}`)) ?
-                this.props.history.push("/app/home") : null);
+    handleUpdateNickname(e) {
+        this.setState({ nickname: e.currentTarget.value });
+    }
+
+    handleSubmitEditProfile(e) {
+
+    }
+
+    handleCloseEditProfile(e) {
+        e.preventDefault();
+        this._resetFormValues();
+        this.setState({ closeEditProfile: true });
+        setTimeout(() => this.setState({ closeEditProfile: false, showEditProfile: false }), 100)
     }
 
 
@@ -278,16 +315,19 @@ class ServerIconDisplay extends React.Component {
         this.setState({
             name: this.props.server.name,
             imageUrl: this.props.server.photoUrl,
-            imageFile: null
+            imageFile: null,
+            nickname: this.props.memberships[
+                findMembershipId(this.props.currentUser.id, this.props.server.id, this.props.memberships)
+            ].nickname
         });
     }
 
 
     render() {
-        const { server, currentUser, selected, firstTextChannelId, error } = this.props
+        const { server, currentUser, selected, firstTextChannelId, error, memberships } = this.props
         const { hovered, showDropdown, showInvite, showSettings, name, imageUrl, updatedServerLoading, 
                 inviteCopied, startHover, stopHover, startSelect, stopSelect, closeSettings,
-                closeInvite, showEditProfile } = this.state;
+                closeInvite, showEditProfile, closeEditProfile, nickname } = this.state;
 
 
         const serverNameShow = (
@@ -307,7 +347,7 @@ class ServerIconDisplay extends React.Component {
                         window.innerHeight - 120 : this.serverIconEl.getBoundingClientRect().top + 30 : 0}px` }}>
 
                     <li id="ss-options-invite" onClick={this.handleShowInvite}>Invite People</li>
-                    <li id="ss-options-edit-profile" onClick={() => this.setState({ showEditProfile: true })}>Edit Server Profile</li>
+                    <li id="ss-options-edit-profile" onClick={this.handleShowEditProfile}>Edit Server Profile</li>
                     {currentUser.id === server.ownerId ?
                         <li id="ss-options-settings" onClick={this.handleShowSettings}>Server Settings</li> : 
                         <li id="ss-options-leave" onClick={this.handleLeave}>Leave Server</li>
@@ -338,9 +378,24 @@ class ServerIconDisplay extends React.Component {
 
         
         const serverProfile = (
-            <div className="ss-profile-relative-position-anchor">
-                <div classname="ss-profile-container">
-                    
+            <div className="ss-ep-anchor" id={closeEditProfile ? "ss-ep-background-fading" : null}>
+                <div className="ss-ep-container" id={closeEditProfile ? "ss-ep-closing" : null}>
+                    <button id="ss-ep-close" onClick={this.handleCloseEditProfile}>x</button>
+
+                    <h1 className="ss-ep-header">Edit Server Profile</h1>
+                    <p className="ss-ep-description">You can change how others see you inside this server by setting a server nickname</p>
+
+                    <form className="ss-ep-form" onSubmit={this.handleSubmitEditProfile}>
+                        <label className="ss-ep-label"> NICKNAME
+                            <input className="ss-ep-input" type="text" placeholder={currentUser.username} value={nickname} 
+                                onChange={this.handleUpdateNickname} />
+                        </label>
+
+                        <footer className="ss-ep-form-footer">
+                            <span className="ss-ep-cancel" onClick={this.handleCloseEditProfile}>Cancel</span>
+                            <input className="ss-ep-submit" type="submit" value="Save" />
+                        </footer>
+                    </form>
                 </div>
             </div>
         )
