@@ -107,6 +107,11 @@ class ServerIconDisplay extends React.Component {
             return;
         }
 
+        if (e.target.className === "ss-ep-anchor") {
+            this.handleCloseEditProfile(e);
+            return;
+        }
+
         // Closing dropdown
         if (!this.serverDropdownEl) return;
         if (!this.serverDropdownEl.contains(e.target)) {
@@ -124,7 +129,7 @@ class ServerIconDisplay extends React.Component {
     }
 
     handleEscape(e) {
-        const { showSettings, showInvite } = this.state;
+        const { showSettings, showInvite, showEditProfile } = this.state;
 
         if (e.keyCode === 27) {
             if (showSettings) {
@@ -132,6 +137,9 @@ class ServerIconDisplay extends React.Component {
             } 
             else if (showInvite) {
                 this.handleCloseInvite(e);
+            }
+            else if (showEditProfile) {
+                this.handleCloseEditProfile(e);
             }
             else {
                 this.setState({ showDropdown: false });
@@ -265,8 +273,8 @@ class ServerIconDisplay extends React.Component {
 
     handleCloseEditProfile(e) {
         e.preventDefault();
-        this._resetFormValues();
         this.setState({ closeEditProfile: true });
+        this._resetFormValues();
         setTimeout(() => this.setState({ closeEditProfile: false, showEditProfile: false }), 100)
     }
 
@@ -380,16 +388,20 @@ class ServerIconDisplay extends React.Component {
         const serverProfile = (
             <div className="ss-ep-anchor" id={closeEditProfile ? "ss-ep-background-fading" : null}>
                 <div className="ss-ep-container" id={closeEditProfile ? "ss-ep-closing" : null}>
-                    <button id="ss-ep-close" onClick={this.handleCloseEditProfile}>x</button>
-
-                    <h1 className="ss-ep-header">Edit Server Profile</h1>
-                    <p className="ss-ep-description">You can change how others see you inside this server by setting a server nickname</p>
+                    <button className="ss-ep-close" onClick={this.handleCloseEditProfile}>x</button>
+                    
+                    <div className="ss-ep-top">
+                        <h1 className="ss-ep-header">Edit Server Profile</h1>
+                        <p className="ss-ep-description">You can change how others see you inside this server by setting a server nickname</p>
+                    </div>
 
                     <form className="ss-ep-form" onSubmit={this.handleSubmitEditProfile}>
                         <label className="ss-ep-label"> NICKNAME
                             <input className="ss-ep-input" type="text" placeholder={currentUser.username} value={nickname} 
                                 onChange={this.handleUpdateNickname} />
                         </label>
+
+                        <h3 className="ss-ep-reset" onClick={this._resetFormValues}>Reset Nickname</h3>
 
                         <footer className="ss-ep-form-footer">
                             <span className="ss-ep-cancel" onClick={this.handleCloseEditProfile}>Cancel</span>

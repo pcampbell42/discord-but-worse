@@ -63,6 +63,16 @@
     to { height: 0px; width: 0px; opacity: 0; }
 }
 
+@keyframes epExpandForm {
+    from { height: 50px; width: 200px; opacity: 0.1; }
+    to { height: 275px; width: 425px; opacity: 1; }
+}
+
+@keyframes epCloseForm {
+    from { height: 275px; width: 425px; opacity: 1; }
+    to { height: 0px; width: 0px; opacity: 0; }
+}
+
 @keyframes fadeSSAddFooterIn {
     0% { opacity: 0; }
     20% { opacity: 0; }
