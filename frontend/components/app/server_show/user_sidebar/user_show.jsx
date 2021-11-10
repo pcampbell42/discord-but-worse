@@ -115,7 +115,7 @@ class UserShow extends React.Component {
 
 
     render() {
-        const { user, server, currentUser } = this.props;
+        const { user, server, currentUser, membership } = this.props;
 
         const profileDisplay = (
             <div className="user-show-relative-position-anchor">
@@ -129,10 +129,11 @@ class UserShow extends React.Component {
                     <img src={user.photoUrl === "noPhoto" ? defaultProfilePicture : user.photoUrl}/>
 
                     <div>
-                        <h1>{user.username}</h1>
+                        <h1>{membership.nickname !== "" ? membership.nickname : user.username}</h1>
                         {user.id !== currentUser.id ? 
                             <form onSubmit={this.handleSubmit}>
-                                <input type="text" onChange={this.update} placeholder={`Message @${user.username}`}/>
+                                <input type="text" onChange={this.update} placeholder={`Message @${membership.nickname !== "" ? 
+                                    membership.nickname : user.username}`}/>
                             </form>
                             :
                             null
@@ -147,7 +148,7 @@ class UserShow extends React.Component {
             <li id={this.state.showProfile ? "selected" : null} ref={userDisplay => this.userDisplay = userDisplay}>
                 <section onClick={() => this.setState({ showProfile: true })}>
                     <img src={user.photoUrl === "noPhoto" ? defaultProfilePicture : user.photoUrl}/>
-                    {user.username}
+                    {membership.nickname !== "" ? membership.nickname : user.username}
                     {user.id === server.ownerId ? <img className="king-icon" src={crownIcon} /> : null}
 
                 </section>

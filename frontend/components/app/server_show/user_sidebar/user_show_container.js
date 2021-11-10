@@ -5,13 +5,19 @@ import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../../a
 import { receiveUser } from "../../../../actions/user_actions";
 import { getDMId } from "../../../../util/selectors";
 import { dmExists } from "../../../../util/helpers";
+import { findMembershipId } from "../../../../util/selectors";
+
 
 const mstp = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],
     dmExists: dmExists(state, state.session.id, ownProps.user.id),
     dmId: dmExists(state, state.session.id, ownProps.user.id) ? 
-        getDMId(state, state.session.id, ownProps.user.id) : null
+        getDMId(state, state.session.id, ownProps.user.id) : null,
+    membership: state.entities.memberships[
+        findMembershipId(ownProps.user.id, ownProps.server.id, state.entities.memberships)
+    ]
 });
+
 
 const mdtp = dispatch => ({
     receiveDirectMessage: directMessage => dispatch(receiveDirectMessage(directMessage)),
@@ -23,5 +29,6 @@ const mdtp = dispatch => ({
     deleteMessage: messageId => dispatch(deleteMessage(messageId)),
     receiveAllMessages: messages => dispatch(receiveAllMessages(messages))
 });
+
 
 export default connect(mstp, mdtp)(UserShow);

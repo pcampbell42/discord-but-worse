@@ -188,7 +188,7 @@ class Message extends React.Component {
 
     
     render() {
-        const { message, currentUser, users, isParent } = this.props;
+        const { message, currentUser, users, isParent, membership, user } = this.props;
         const { hovered, editing, editHovered, deleteHovered, showProfile } = this.state;
 
         const editingView = (
@@ -257,7 +257,7 @@ class Message extends React.Component {
         );
 
         const profileDisplay = (
-            users[message.authorId] ? 
+            users[message.authorId] && (message.messageableType === "DirectMessage" || membership) ?
                 <div className="message-relative-position-anchor">
                     <div className="message-profile-display" ref={showProfileEl => this.showProfileEl = showProfileEl}
                         style={{
@@ -272,11 +272,13 @@ class Message extends React.Component {
                             defaultProfilePicture : users[message.authorId].photoUrl} />
 
                         <div className="message-user-show-sub-container">
-                            <h1 className="message-user-show-username">{users[message.authorId].username}</h1>
+                            <h1 className="message-user-show-username">{membership && membership.nickname !== "" ? membership.nickname : 
+                                users[message.authorId].username}</h1>
                             {users[message.authorId].id !== currentUser.id ?
                                 <form onSubmit={this.handleSendMessageFromProfile}>
                                     <input className="message-user-show-input" type="text" onChange={this.updateProfileMessage} 
-                                        placeholder={`Message @${users[message.authorId].username}`} />
+                                        placeholder={`Message @${membership && membership.nickname !== "" ? membership.nickname : 
+                                        users[message.authorId].username}`} />
                                 </form>
                                 :
                                 null
@@ -290,7 +292,7 @@ class Message extends React.Component {
         let dateToShow = getDateToShow(message.updatedAt);
 
         return (
-            users[message.authorId] ? 
+            users[message.authorId] && (message.messageableType === "DirectMessage" || membership) ? 
                 <li key={message.id} className={editing ? "editing" : null}
                     id={isParent ? null : "child-message"}
                     onMouseEnter={() => this.setState({ hovered: true })}
@@ -309,7 +311,9 @@ class Message extends React.Component {
                             {users[message.authorId] && isParent ? 
                                 <h1 className="message-sender-name" onClick={() => this.setState({ showProfile: true })}
                                     ref={messageSenderName => this.messageSenderName = messageSenderName}>
-                                    {users[message.authorId].username}
+                                    {message.messageableType === "TextChannel" && membership.nickname !== "" ? 
+                                        membership.nickname : user.username
+                                    }
                                 </h1> : null
                             }
                             <h3>{isParent ? dateToShow : null}</h3>

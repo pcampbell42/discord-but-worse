@@ -5,12 +5,23 @@ import { receiveMessage, deleteMessage, receiveAllMessages } from "../../../acti
 import { receiveUser } from "../../../actions/user_actions";
 import { getDMId } from "../../../util/selectors";
 import { dmExists } from "../../../util/helpers";
+import { findMembershipId } from "../../../util/selectors";
+import message from "./message";
+
 
 const mstp = (state, ownProps) => ({
     dmExists: dmExists(state, state.session.id, ownProps.message.authorId),
     dmId: dmExists(state, state.session.id, ownProps.message.authorId) ?
-        getDMId(state, state.session.id, ownProps.message.authorId) : null
+        getDMId(state, state.session.id, ownProps.message.authorId) : null,
+        
+    membership: ownProps.message.messageableType === "TextChannel" ? 
+        state.entities.memberships[findMembershipId(
+            ownProps.user.id, 
+            state.entities.textChannels[ownProps.message.messageableId].serverId, 
+            state.entities.memberships)
+    ] : null
 });
+
 
 const mdtp = dispatch => ({
     receiveDirectMessage: directMessage => dispatch(receiveDirectMessage(directMessage)),
@@ -22,5 +33,6 @@ const mdtp = dispatch => ({
     deleteMessage: messageId => dispatch(deleteMessage(messageId)),
     receiveAllMessages: messages => dispatch(receiveAllMessages(messages))
 });
+
 
 export default connect(mstp, mdtp)(Message);

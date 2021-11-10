@@ -4,7 +4,7 @@ import { getMessagesForChannel } from "../../../util/selectors";
 
 const mstp = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],
-    users: state.entities.users, // selector here maybe?
+    users: state.entities.users,
     messages: getMessagesForChannel(state),
 
     chatRoomType: window.location.href.includes("servers") ? "tc" : "dm",
