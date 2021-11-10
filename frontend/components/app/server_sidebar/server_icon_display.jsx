@@ -402,7 +402,7 @@ class ServerIconDisplay extends React.Component {
                                 onChange={this.handleUpdateNickname} />
                         </label>
 
-                        <h3 className="ss-ep-reset" onClick={this._resetFormValues}>Reset Nickname</h3>
+                        <h3 className="ss-ep-reset" onClick={() => this.setState({ nickname: "" })}>Reset Nickname</h3>
 
                         <footer className="ss-ep-form-footer">
                             <span className="ss-ep-cancel" onClick={this.handleCloseEditProfile}>Cancel</span>
