@@ -26,7 +26,7 @@ class ServerIconDisplay extends React.Component {
             // Server profile
             showEditProfile: false,
             closeEditProfile: false,
-            nickname: props.memberships[findMembershipId(props.currentUser.id, props.server.id, props.memberships)].nickname,
+            nickname: props.membership.nickname,
 
             // Server settings
             showSettings: false,
@@ -268,7 +268,10 @@ class ServerIconDisplay extends React.Component {
     }
 
     handleSubmitEditProfile(e) {
-
+        e.preventDefault();
+        this.props.updateMembership({ id: this.props.membership.id, nickname: this.state.nickname });
+        this.setState({ closeEditProfile: true });
+        setTimeout(() => this.setState({ closeEditProfile: false, showEditProfile: false }), 100)
     }
 
     handleCloseEditProfile(e) {
@@ -324,9 +327,7 @@ class ServerIconDisplay extends React.Component {
             name: this.props.server.name,
             imageUrl: this.props.server.photoUrl,
             imageFile: null,
-            nickname: this.props.memberships[
-                findMembershipId(this.props.currentUser.id, this.props.server.id, this.props.memberships)
-            ].nickname
+            nickname: this.props.membership.nickname
         });
     }
 

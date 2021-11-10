@@ -3,11 +3,15 @@ import ServerIconDisplay from "./server_icon_display";
 import { updateMembership, deleteMembership, clearMembershipErrors } from "../../../actions/membership_actions";
 import { updateServer, deleteServer, currentServerDetails } from "../../../actions/server_actions";
 import { getFirstTextChannelId } from "../../../util/selectors";
+import { findMembershipId } from "../../../util/selectors";
 
 
 const mstp = (state, ownProps) => ({
     currentUser: state.entities.users[state.session.id],
     memberships: state.entities.memberships,
+    membership: state.entities.memberships[
+        findMembershipId(state.session.id, ownProps.server.id, state.entities.memberships)
+    ],
     firstTextChannelId: getFirstTextChannelId(state, ownProps.server.id),
     error: state.errors.memberships
 });
