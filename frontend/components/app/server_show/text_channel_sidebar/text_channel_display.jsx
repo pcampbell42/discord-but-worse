@@ -155,5 +155,4 @@ class TextChannelDisplay extends React.Component {
     }
 }
 
-// export default TextChannelDisplay;
 export default withRouter(TextChannelDisplay);

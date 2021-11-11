@@ -48,8 +48,8 @@ class ChatRoom extends React.Component {
                                     if (!isChildMessage(message, parentMessage)) parentMessage = message;
 
                                     return <MessageContainer key={message.id} message={message} currentUser={currentUser} 
-                                                user={users[message.authorId]}
-                                                users={users} isParent={parentMessage === message ? true : false} />
+                                                user={users[message.authorId]} users={users} 
+                                                isParent={parentMessage === message ? true : false} />
                                 })}
                             </ul>
                         </article>

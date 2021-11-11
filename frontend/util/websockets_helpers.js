@@ -27,7 +27,7 @@ export const createSubscription = (thread_type, thread_id, receiveAllMessages, r
                         // Basically, when a DM is "hidden" by a user, they're still subscribed to the chat channel. 
                         // When a new message arrives for that hidden DM, we check if its hidden, and if it is, we update
                         // the DM to not be hidden. Obviously, this causes excess API calls, but for a small project, it's fine.
-                        if (data.message.messageableType === "DirectMessage")
+                        if (data.message.messageableType === "DirectMessage" && updateDirectMessage)
                             updateDirectMessage({ 
                                 id: data.message.messageableId,
                                 user1_hidden: false,

@@ -14,7 +14,7 @@ const mstp = (state, ownProps) => ({
     dmId: dmExists(state, state.session.id, ownProps.message.authorId) ?
         getDMId(state, state.session.id, ownProps.message.authorId) : null,
         
-    membership: ownProps.message.messageableType === "TextChannel" ? 
+    membership: ownProps.message.messageableType === "TextChannel" && ownProps.user ? 
         state.entities.memberships[findMembershipId(
             ownProps.user.id, 
             state.entities.textChannels[ownProps.message.messageableId].serverId, 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import defaultProfilePicture from "./../../../../app/assets/images/default_profile_picture.png";
 
 
@@ -10,12 +11,32 @@ class ConversationSidebar extends React.Component {
             selectedId: props.selectedId,
             convoHovered: undefined
         };
+
+        this.handleClick = this.handleClick.bind(this);
+        this.handleHideDM = this.handleHideDM.bind(this);
+    }
+
+
+    handleClick(e, id) {
+        e.target.className === "dm-hide-button" ? null : this.setState({ selectedId: id });
+    }
+
+
+    handleHideDM(id, user1) {
+        user1 ?
+            this.props.updateDirectMessage({ id: id, user1_hidden: true }) :
+            this.props.updateDirectMessage({ id: id, user2_hidden: true });
+
+        // Handling redirect
+        let url = window.location.hash.split("/");
+        if (url[url.length - 2] === "conversations" && url[url.length - 1] === id.toString())
+            this.props.history.push("/app/home");
     }
 
 
     render() {
         const { selectedId, convoHovered } = this.state;
-        const { users, directMessages, currentUser, updateDirectMessage } = this.props;
+        const { users, directMessages, currentUser } = this.props;
 
         // Weird bug fix - when navigating to home server index, conversation stayed selected
         // because prop doesn't seem to update correctly. This isn't an ideal fix, but it works
@@ -34,8 +55,15 @@ class ConversationSidebar extends React.Component {
                         
                             (directMessage.user1Id === currentUser.id && directMessage.user1Hidden) ||
                             (directMessage.user2Id === currentUser.id && directMessage.user2Hidden) ? null :
-                                <li key={directMessage.id} onClick={() => this.setState({ selectedId: directMessage.id })}
+                                <li key={directMessage.id} onClick={e => this.handleClick(e, directMessage.id)}
                                     className={selectedId === directMessage.id && !noneSelected ? "selected" : null}>
+
+                                    {convoHovered === directMessage.id ?
+                                        <div className="dm-hide-button" onClick={() => this.handleHideDM(directMessage.id, 
+                                            directMessage.user1Id === currentUser.id ? true : false)}
+                                            onMouseEnter={() => this.setState({ convoHovered: directMessage.id })}
+                                            onMouseLeave={() => this.setState({ convoHovered: undefined })}>x</div> : null
+                                    }
 
                                     {directMessage.user1Id === currentUser.id ?
 
@@ -45,11 +73,6 @@ class ConversationSidebar extends React.Component {
                                             <img src={users[directMessage.user2Id].photoUrl === "noPhoto" ? 
                                                             defaultProfilePicture : users[directMessage.user2Id].photoUrl} />
                                             {users[directMessage.user2Id].username}
-
-                                            {convoHovered === directMessage.id ? 
-                                                <div className="dm-hide-button" onClick={() => updateDirectMessage({ id: directMessage.id,  user1_hidden: true})}>x</div>
-                                                : null
-                                            }
                                         </Link> :
 
                                         <Link to={`/app/home/conversations/${directMessage.id}`}
@@ -58,11 +81,6 @@ class ConversationSidebar extends React.Component {
                                             <img src={users[directMessage.user1Id].photoUrl === "noPhoto" ? 
                                                             defaultProfilePicture : users[directMessage.user1Id].photoUrl} />
                                             {users[directMessage.user1Id].username}
-
-                                            {convoHovered === directMessage.id ?
-                                                <div className="dm-hide-button" onClick={() => updateDirectMessage({ id: directMessage.id, user2_hidden: true })}>x</div>
-                                                : null
-                                            }
                                         </Link>
                                     }
                                 </li>
@@ -74,4 +92,4 @@ class ConversationSidebar extends React.Component {
 }
 
 
-export default ConversationSidebar;
+export default withRouter(ConversationSidebar);

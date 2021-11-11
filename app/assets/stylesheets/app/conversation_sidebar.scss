@@ -65,27 +65,28 @@
                     border-width: 0.3px;
                 }
 
-                .dm-hide-button {
-                    background: none;
+            }
 
-                    position: absolute;
-                    left: 290px;
+            .dm-hide-button {
+                background: none;
 
-                    margin-bottom: 3px;
+                position: absolute;
+                left: 290px;
 
-                    border-style: none;
-                    border-radius: 7px;
-                    border-color: #18191c;
+                margin-top: 8px;
 
-                    font-family: 'Nunito', sans-serif;
-                    color: #8e9296;
-                    font-size: 21px;
-                    font-weight: 400;
-                }
+                border-style: none;
+                border-radius: 7px;
+                border-color: #18191c;
 
-                .dm-hide-button:hover {
-                    color: #dadbdc;
-                }
+                font-family: 'Nunito', sans-serif;
+                color: #8e9296;
+                font-size: 21px;
+                font-weight: 400;
+            }
+
+            .dm-hide-button:hover {
+                color: #dadbdc;
             }
         }
 
