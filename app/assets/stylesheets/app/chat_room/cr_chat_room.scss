@@ -129,7 +129,6 @@
                     }
 
                     .chatroom-message-hover-relative-position-anchor {
-                        position: relative;
                         width: 0;
                         height: 0;
 
@@ -142,9 +141,7 @@
                             width: 45px;
 
                             position: absolute;
-                            left: calc(100vw - 73px - 246px - 236px - 120px);
-
-                            bottom: 4.9px;
+                            right: 276px;
 
                             padding-left: 15px;
 
@@ -218,11 +215,6 @@
                                         border-bottom: 7px solid #18191c;
                                     }
                                 }
-
-                                .message-edit-tooltip-relative-position-anchor#first-message {
-                                    position: static;
-                                }
-
 
                                 .message-delete-tooltip-relative-position-anchor {
                                     position: relative;

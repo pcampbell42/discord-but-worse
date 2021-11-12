@@ -43,12 +43,12 @@ class ChatRoom extends React.Component {
                     <div className="chat-room-sub-container">
                         <article>
                             <ul id="chat-room-ul">
-                                {messages.map((message, idx) => {
+                                {messages.map(message => {
                                     // If message isn't a child message of the current parentMessage
                                     if (!isChildMessage(message, parentMessage)) parentMessage = message;
 
                                     return <MessageContainer key={message.id} message={message} currentUser={currentUser} 
-                                                user={users[message.authorId]} users={users} firstMessage={idx === 0 ? true : false}
+                                                user={users[message.authorId]} users={users}
                                                 isParent={parentMessage === message ? true : false} />
                                 })}
                             </ul>
