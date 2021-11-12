@@ -219,6 +219,11 @@
                                     }
                                 }
 
+                                .message-edit-tooltip-relative-position-anchor#first-message {
+                                    position: static;
+                                }
+
+
                                 .message-delete-tooltip-relative-position-anchor {
                                     position: relative;
                                     width: 0;

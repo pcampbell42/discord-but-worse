@@ -188,7 +188,7 @@ class Message extends React.Component {
 
     
     render() {
-        const { message, currentUser, users, isParent, membership, user } = this.props;
+        const { message, currentUser, users, isParent, membership, user, firstMessage } = this.props;
         const { hovered, editing, editHovered, deleteHovered, showProfile } = this.state;
 
         const editingView = (
@@ -204,11 +204,11 @@ class Message extends React.Component {
 
         const editTooltip = (
             <div className="message-edit-tooltip-relative-position-anchor">
-                <div className="message-edit-tooltip" style={this.messageHoverPos ? 
+                <div className="message-edit-tooltip" style={this.messageHoverPos ? firstMessage ||
                     this.messageHoverPos.getBoundingClientRect().top < 95 ? { bottom: "-55px" } 
                     : null : null}>Edit</div>
 
-                {this.messageHoverPos ? this.messageHoverPos.getBoundingClientRect().top < 95 ? 
+                {this.messageHoverPos ? this.messageHoverPos.getBoundingClientRect().top < 95 || firstMessage ? 
                     <div className="message-edit-arrow-up"></div> : 
                     <div className="message-edit-arrow-down"></div> : null
                 }
@@ -217,11 +217,11 @@ class Message extends React.Component {
 
         const deleteTooltip = (
             <div className="message-delete-tooltip-relative-position-anchor">
-                <div className="message-delete-tooltip" style={this.messageHoverPos ?
+                <div className="message-delete-tooltip" style={this.messageHoverPos ? firstMessage ||
                     this.messageHoverPos.getBoundingClientRect().top < 95 ? { bottom: "-55px" }
                         : null : null}>Delete</div>
 
-                {this.messageHoverPos ? this.messageHoverPos.getBoundingClientRect().top < 95 ?
+                {this.messageHoverPos ? this.messageHoverPos.getBoundingClientRect().top < 95 || firstMessage ?
                     <div className="message-delete-arrow-up"></div> :
                     <div className="message-delete-arrow-down"></div> : null
                 }
