@@ -222,18 +222,38 @@ class ServersSideBar extends React.Component {
 
         // Checking if valid code
         let invalidCode = true;
+        let alreadyJoinedCode = false;
         let serverId;
         for (let i = 0; i < this.props.servers.length; i++) {
-            if (this.props.servers[i].inviteCode === this.state.inviteCode &&
-                !currentUserServerIds.includes(this.props.servers[i].id)) {
+            if (this.props.servers[i].inviteCode === this.state.inviteCode) {
                 invalidCode = false;
                 serverId = this.props.servers[i].id;
+
+                if (currentUserServerIds.includes(this.props.servers[i].id))
+                    alreadyJoinedCode = true;
             }
         }
 
-        if (invalidCode) {
-            this.setState({ invalidCode: true })
-        } else {
+        if (alreadyJoinedCode) {
+            // Start closing animation
+            this.setState({ joinFormClosing: true });
+
+            // Once closing animation is done...
+            setTimeout(() => {
+                // Reset all the values...
+                this._resetFormValues();
+                this.props.clearMembershipErrors();
+
+                // Finally, redirect to default text channel in new server
+                let serverTextChannels = getServerTextChannels(this.props.textChannels, serverId.toString());
+                this.props.history.push(`/app/servers/${serverId}/${serverTextChannels[0].id}`);
+            }, 100);
+
+        } 
+        else if (invalidCode) {
+            this.setState({ invalidCode: true });
+        } 
+        else {
             this.props.createMembership({ server_id: serverId })
                 .then(() => (
                     // Grab server info
@@ -348,7 +368,7 @@ class ServersSideBar extends React.Component {
         const { imageUrl, name, showCreateForm, createHovered, homeHovered, newServerLoading,
                 showAddForm, showJoinForm, inviteCode, invalidCode, startHoverHome, stopHoverHome,
                 startHoverCreate, stopHoverCreate, startSelectHome, stopSelectHome, addFormInitialOpen,
-                addFormClosing, createFormClosing, joinFormClosing } = this.state;
+                addFormClosing, createFormClosing, joinFormClosing, alreadyJoinedCode } = this.state;
 
 
         const homeTooltipShow = (
