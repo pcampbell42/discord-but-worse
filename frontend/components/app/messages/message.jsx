@@ -15,6 +15,7 @@ class Message extends React.Component {
             message: { body: props.message.body },
             editing: false,
             hovered: false,
+            showMessageDropdown: false,
             edited: (props.message.updatedAt === props.message.createdAt ? false : true),
 
             editHovered: false,
@@ -189,7 +190,8 @@ class Message extends React.Component {
     
     render() {
         const { message, currentUser, users, isParent, membership, user } = this.props;
-        const { hovered, editing, editHovered, deleteHovered, showProfile } = this.state;
+        const { hovered, editing, editHovered, deleteHovered, showProfile, showMessageDropdown } = this.state;
+
 
         const editingView = (
             <form>
@@ -201,6 +203,7 @@ class Message extends React.Component {
                 </p>
             </form>
         );
+
 
         const editTooltip = (
             <div className="message-edit-tooltip-relative-position-anchor">
@@ -215,6 +218,7 @@ class Message extends React.Component {
             </div>
         );
 
+
         const deleteTooltip = (
             <div className="message-delete-tooltip-relative-position-anchor">
                 <div className="message-delete-tooltip" style={this.messagePos ? 
@@ -228,6 +232,7 @@ class Message extends React.Component {
             </div>
         );
 
+
         const messageHoverOptions = (
             <div className="chatroom-message-hover-relative-position-anchor">
                 <div className="message-hover-container" style={{
@@ -239,7 +244,7 @@ class Message extends React.Component {
                             {editHovered ? editTooltip : null}
                             <img src={editIcon} onClick={this.swapToEditing} 
                                 onMouseEnter={() => this.setState({ editHovered: true })}
-                                onMouseLeave={() => this.setState({ editHovered: false })} />
+                                onMouseLeave={() => showMessageDropdown ? null : this.setState({ editHovered: false })} />
                         </div>
                     }
 
@@ -253,11 +258,22 @@ class Message extends React.Component {
             </div>
         );
 
+        
+        const messageDropdown = (
+            <div>
+                <div>
+                    
+                </div>
+            </div>
+        );
+
+
         const childMessageTimeShow = (
             <div className="chatroom-child-message-time-show-relative-position-anchor">
                 <span className="child-message-date">{formatReturnTime(message.createdAt)}</span>
             </div>  
         );
+
 
         const profileDisplay = (
             users[message.authorId] && (message.messageableType === "DirectMessage" || membership) ?
@@ -291,8 +307,10 @@ class Message extends React.Component {
                     </div>
                 </div> : null
         );
+      
         
         let dateToShow = getDateToShow(message.updatedAt);
+
 
         return (
             users[message.authorId] && (message.messageableType === "DirectMessage" || membership) ? 
