@@ -67,6 +67,7 @@ class ChatChannel < ApplicationCable::Channel
             authorId: message.author_id,
             messageableType: message.messageable_type,
             messageableId: message.messageable_id,
+            pinned: message.pinned,
             createdAt: message.created_at,
             updatedAt: message.updated_at
         }

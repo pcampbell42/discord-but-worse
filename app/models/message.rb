@@ -15,15 +15,20 @@ class Message < ApplicationRecord
     #--------------------- Validations ---------------------
 
     validates :body, :author_id, :messageable_id, :messageable_type, presence: true
+    validates :pinned, inclusion: { in: [ true, false ] }
 
 
     #--------------------- Placeholder after initialize ---------------------
 
-    after_initialize :placeholder_set_messageable
+    after_initialize :placeholder_set_messageable, :set_pinned
 
     def placeholder_set_messageable
         self.messageable_id ||= 1
         self.messageable_type ||= "TextChannel"
+    end
+
+    def set_pinned
+        self.pinned ||= false
     end
 
 
