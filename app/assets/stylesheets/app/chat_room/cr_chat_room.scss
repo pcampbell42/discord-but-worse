@@ -219,12 +219,8 @@
                             }
 
                             .message-more-container {
-                                padding-left: 2px;
-                                margin-bottom: 10px;
-
                                 .message-more-dots {
-                                    font-size: 20px;
-                                    color: white;
+                                    padding-left: 9px;
                                 }
 
                                 .message-more-dots:hover {
@@ -243,8 +239,8 @@
                                         align-items: center;
 
                                         position: absolute;
-                                        bottom: 30px;
-                                        left: -12px;
+                                        bottom: 22px;
+                                        left: -6px;
 
                                         background-color: #18191c;
                                         padding: 9px 11px 9px 11px;
@@ -260,8 +256,8 @@
 
                                     .message-more-arrow-down {
                                         position: absolute;
-                                        bottom: 24px;
-                                        left: 4px;
+                                        bottom: 17px;
+                                        left: 8px;
 
                                         width: 0; 
                                         height: 0; 
@@ -293,11 +289,25 @@
 
                                 .message-dropdown-container {
                                     position: absolute;
+                                    top: 20px;
+                                    left: -120px;
+
+                                    display: flex;
+                                    flex-direction: column;
+                                    
+                                    width: 150px;
+                                    
 
                                     background-color: #18191c;
 
 
                                     .message-edit-container {
+                                        display: flex;
+                                        justify-content: space-between;
+
+                                        width: 125px;
+                                        padding-top: 0;
+
                                         .message-edit-header {
 
                                         }
@@ -307,23 +317,54 @@
                                         }
                                     }
 
+                                    .message-edit-container:hover {
+                                        cursor: pointer;
+                                        background-color: #0f65ae;
+                                    }
+
                                     .message-pin-container {
+                                        display: flex;
+                                        justify-content: space-between;
+
+                                        width: 125px;
+                                        padding-top: 0;
+
                                         .message-pin-header {
 
                                         }
 
                                         .message-pin-icon {
-                                            
+                                            filter: invert(1);
                                         }
                                     }
 
-                                    .message-delete-container {
-                                        .message-delete-header {
+                                    .message-pin-container:hover {
+                                        cursor: pointer;
+                                        background-color: #0f65ae;
+                                    }
 
+                                    .message-delete-container {
+                                        display: flex;
+                                        justify-content: space-between;
+
+                                        width: 125px;
+                                        padding-top: 0;
+
+                                        .message-delete-header {
+                                            color: #ed4245;
                                         }
 
                                         .message-delete-icon {
                                             
+                                        }
+                                    }
+
+                                    .message-delete-container:hover {
+                                        cursor: pointer;
+                                        background-color: #ed4245;
+
+                                        .message-delete-header {
+                                            color: white;
                                         }
                                     }
                                 }

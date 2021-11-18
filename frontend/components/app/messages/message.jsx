@@ -3,6 +3,7 @@ import defaultProfilePicture from "../../../../app/assets/images/default_profile
 import editIcon from "../../../../app/assets/images/edit_icon.png";
 import pinIcon from "../../../../app/assets/images/pin_icon.png";
 import deleteIcon from "../../../../app/assets/images/delete_icon.png";
+import moreIcon from "../../../../app/assets/images/more.png";
 import { findCurrentSubscription, createUserSubscription, findUserSubscription } from "../../../util/websockets_helpers";
 import { getDateToShow, formatReturnTime } from "../../../util/helpers";
 import { withRouter } from "react-router";
@@ -57,7 +58,8 @@ class Message extends React.Component {
         // If ESC is pressed
         if (e.keyCode === 27) {
             e.preventDefault();
-            this.setState({ message: { body: this.props.message.body }, editing: false, body: "", showProfile: false });
+            this.setState({ message: { body: this.props.message.body }, editing: false, body: "", 
+                showProfile: false, showMessageDropdown: false, hovered: false });
         }
 
         // If enter is pressed and edit message input is focused
@@ -170,10 +172,16 @@ class Message extends React.Component {
     }
 
     handleOutsideClick(e) {
-        if (!this.showProfileEl) return;
-        if (!this.showProfileEl.contains(e.target)) {
-            this.setState({ body: "", showProfile: false });
+        if (this.showProfileEl) {
+            if (!this.showProfileEl.contains(e.target))
+                this.setState({ body: "", showProfile: false });
         }
+        
+        if (this.optionsDropdown) {
+            if (!this.optionsDropdown.contains(e.target))
+                this.setState({ showMessageDropdown: false, hovered: false });
+        }
+
     }
 
 
@@ -236,22 +244,22 @@ class Message extends React.Component {
 
         const messageDropdown = (
             <div className="message-dropdown-relative-position-anchor">
-                <ul className="message-dropdown-container">
-                    <li className="message-edit-container">
+                <div className="message-dropdown-container" ref={optionsDropdown => this.optionsDropdown = optionsDropdown}>
+                    <div className="message-edit-container">
                         <h3 className="message-edit-header">Edit Message</h3>
                         <img src={editIcon} onClick={this.swapToEditing} className="message-edit-icon" />
-                    </li>
+                    </div>
 
-                    <li className="message-pin-container">
+                    <div className="message-pin-container">
                         <h3 className="message-pin-header">Pin Message</h3>
                         <img src={pinIcon} onClick={this.handleSubmit} className="message-pin-icon" />
-                    </li>
+                    </div>
 
-                    <li className="message-delete-container">
+                    <div className="message-delete-container">
                         <h3 className="message-delete-header">Delete Message</h3>
                         <img src={deleteIcon} onClick={this.handleDelete} className="message-delete-button" />
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         );
 
@@ -274,12 +282,10 @@ class Message extends React.Component {
                     <div className="message-more-container">
                         {showMessageDropdown ? messageDropdown : null}
                         {moreHovered ? moreTooltip : null}
-                        <h3 className="message-more-dots"
+                        <img src={moreIcon} className="message-more-dots"
                             onClick={() => this.setState({ showMessageDropdown: true })}
                             onMouseEnter={() => this.setState({ moreHovered: true })}
-                            onMouseLeave={() => this.setState({ moreHovered: false })}>
-                            ...
-                        </h3>
+                            onMouseLeave={() => this.setState({ moreHovered: false })} />
                     </div>
                 </div>
             </div>
@@ -335,10 +341,7 @@ class Message extends React.Component {
                 <li key={message.id} className={editing ? "editing" : null}
                     id={isParent ? null : "child-message"}
                     onMouseEnter={() => this.setState({ hovered: true })}
-                    onMouseLeave={() => {
-                        console.log("QWPEOJQWe")
-                        showMessageDropdown ? null : this.setState({ hovered: false })
-                    }}>
+                    onMouseLeave={() => showMessageDropdown ? null : this.setState({ hovered: false })}>
 
                     {showProfile ? profileDisplay : null}
 
