@@ -3,12 +3,15 @@ import MessageContainer from "./message_container";
 import MessageFormContainer from "./message_form_container";
 import { isChildMessage } from "../../../util/helpers";
 import sadge from "../../../../app/assets/images/sadge.png";
+import pinIcon from "../../../../app/assets/images/pin_icon.png";
 
 
 class ChatRoom extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            showPinned: false
+        };
     }
 
 
@@ -19,7 +22,18 @@ class ChatRoom extends React.Component {
 
 
     render() {
+        const { showPinned } = this.state;
         const { currentUser, messages, users, chatRoomType, chatRoomObj, usersHidden } = this.props
+
+
+        const pinnedMessages = (
+            <div>
+                <div>
+
+                </div>
+            </div>
+        );
+
 
         let dmdUser;
         if (chatRoomType === "dm") {
@@ -28,18 +42,24 @@ class ChatRoom extends React.Component {
                 dmdUser = users[chatRoomObj.user1Id]
         }
 
+
         // Used for grouping messages based on date / user
         let parentMessage = messages[0];
+
 
         return (
             chatRoomObj !== undefined ?
                 <div className="chat-room-container" id={chatRoomType === "dm" || usersHidden ? "dm" : null}>
+                    {showPinned ? pinnedMessages : null}
+
                     <div className="chat-room-header">
                         <h1>{chatRoomType === "tc" ? "#" : "@"}</h1>
                         <h2>
                             {chatRoomType === "tc" ? chatRoomObj.name : dmdUser.username}
                         </h2>
+                        {/* <img src={pinIcon} className="chat-room-pinned-button" /> */}
                     </div>
+
                     <div className="chat-room-sub-container">
                         <article>
                             <ul id="chat-room-ul">
