@@ -36,6 +36,7 @@ class Message extends React.Component {
         this.handleSendMessageFromProfile = this.handleSendMessageFromProfile.bind(this);
         this.updateProfileMessage = this.updateProfileMessage.bind(this);
         this.handleOutsideClick = this.handleOutsideClick.bind(this);
+        this.handlePin = this.handlePin.bind(this);
     }
 
 
@@ -94,11 +95,24 @@ class Message extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        const messageToSend = Object.assign({}, this.state.message, { id: this.props.message.id });
+        const messageToSend = Object.assign({}, this.state.message, { id: this.props.message.id }, { pinned: this.props.message.pinned });
         const subscriptionNum = findCurrentSubscription();
         App.cable.subscriptions.subscriptions[subscriptionNum].update({ message: messageToSend });
 
         this.setState({ editing: false, edited: true });
+    }
+
+    handlePin(e) {
+        e.preventDefault();
+
+        const subscriptionNum = findCurrentSubscription();
+        App.cable.subscriptions.subscriptions[subscriptionNum].update({ message: { 
+            id: this.props.message.id, 
+            pinned: this.props.message.pinned ? false : true,
+            body: this.props.message.body 
+        } });
+
+        this.setState({ showMessageDropdown: false, hovered: false });
     }
 
     handleClose(e) {
@@ -245,19 +259,19 @@ class Message extends React.Component {
         const messageDropdown = (
             <div className="message-dropdown-relative-position-anchor">
                 <div className="message-dropdown-container" ref={optionsDropdown => this.optionsDropdown = optionsDropdown}>
-                    <div className="message-edit-container">
+                    <div className="message-edit-container" onClick={this.swapToEditing}>
                         <h3 className="message-edit-header">Edit Message</h3>
-                        <img src={editIcon} onClick={this.swapToEditing} className="message-edit-icon" />
+                        <img src={editIcon} className="message-edit-icon" />
                     </div>
 
-                    <div className="message-pin-container">
-                        <h3 className="message-pin-header">Pin Message</h3>
-                        <img src={pinIcon} onClick={this.handleSubmit} className="message-pin-icon" />
+                    <div className="message-pin-container" onClick={this.handlePin}>
+                        <h3 className="message-pin-header">{message.pinned ? "Unpin Message" : "Pin Message"}</h3>
+                        <img src={pinIcon} className="message-pin-icon" />
                     </div>
 
-                    <div className="message-delete-container">
+                    <div className="message-delete-container" onClick={this.handleDelete}>
                         <h3 className="message-delete-header">Delete Message</h3>
-                        <img src={deleteIcon} onClick={this.handleDelete} className="message-delete-button" />
+                        <img src={deleteIcon} className="message-delete-icon" />
                     </div>
                 </div>
             </div>

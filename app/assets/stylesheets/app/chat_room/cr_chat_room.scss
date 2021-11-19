@@ -289,73 +289,117 @@
 
                                 .message-dropdown-container {
                                     position: absolute;
-                                    top: 20px;
-                                    left: -120px;
+                                    top: -15px;
+                                    left: -188px;
 
                                     display: flex;
                                     flex-direction: column;
+                                    justify-content: space-evenly;
+                                    z-index: 100;
                                     
-                                    width: 150px;
-                                    
+                                    width: 175px;
+                                    padding: 7px 7px 7px 7px;
+                                    border-radius: 3px;
 
                                     background-color: #18191c;
-
 
                                     .message-edit-container {
                                         display: flex;
                                         justify-content: space-between;
 
-                                        width: 125px;
+                                        height: 32px;
+                                        width: 175px;
                                         padding-top: 0;
+                                        margin-bottom: 5px;
+                                        border-radius: 1.5px;
 
                                         .message-edit-header {
-
+                                            font-size: 13px;
+                                            font-weight: 400;
+                                            color: #b9bbbe;
                                         }
 
                                         .message-edit-icon {
-                                            
+                                            height: 12px;
+                                            width: 12px;
+                                            margin-right: 8px;
+                                        }
+
+                                        .message-edit-icon:hover {
+                                            opacity: 1;
                                         }
                                     }
 
                                     .message-edit-container:hover {
                                         cursor: pointer;
                                         background-color: #0f65ae;
+
+                                        .message-edit-header {
+                                            color: white;
+                                        }
                                     }
 
                                     .message-pin-container {
                                         display: flex;
                                         justify-content: space-between;
 
-                                        width: 125px;
+                                        height: 32px;
+                                        width: 175px;
                                         padding-top: 0;
+                                        margin-bottom: 5px;
+                                        border-radius: 1.5px;
 
                                         .message-pin-header {
-
+                                            font-size: 13px;
+                                            font-weight: 400;
+                                            color: #b9bbbe;
                                         }
 
                                         .message-pin-icon {
+                                            height: 12px;
+                                            width: 12px;
+                                            margin-right: 8px;
                                             filter: invert(1);
+                                        }
+
+                                        .message-pin-icon:hover {
+                                            opacity: 1;
                                         }
                                     }
 
                                     .message-pin-container:hover {
                                         cursor: pointer;
                                         background-color: #0f65ae;
+
+                                        .message-pin-header {
+                                            color: white;
+                                        }
                                     }
 
                                     .message-delete-container {
                                         display: flex;
                                         justify-content: space-between;
 
-                                        width: 125px;
+                                        height: 32px;
+                                        width: 175px;
                                         padding-top: 0;
+                                        border-radius: 1.5px;
 
                                         .message-delete-header {
                                             color: #ed4245;
+                                            font-size: 13px;
+                                            font-weight: 400;
                                         }
 
                                         .message-delete-icon {
-                                            
+                                            height: 14px;
+                                            width: 14px;
+                                            margin-right: 8px;
+                                            filter: invert(0);
+                                        }
+
+                                        .message-delete-icon:hover {
+                                            opacity: 1;
                                         }
                                     }
 
@@ -365,6 +409,10 @@
 
                                         .message-delete-header {
                                             color: white;
+                                        }
+
+                                        .message-delete-icon {
+                                            filter: grayscale(0.1) invert(1);
                                         }
                                     }
                                 }
