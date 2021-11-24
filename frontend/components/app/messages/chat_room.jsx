@@ -1,7 +1,7 @@
 import React from "react";
 import MessageContainer from "./message_container";
 import MessageFormContainer from "./message_form_container";
-import { isChildMessage } from "../../../util/helpers";
+import { isChildMessage, getDateToShow } from "../../../util/helpers";
 import sadge from "../../../../app/assets/images/sadge.png";
 import pinIcon from "../../../../app/assets/images/pin_icon.png";
 
@@ -27,12 +27,27 @@ class ChatRoom extends React.Component {
         const { currentUser, messages, users, chatRoomType, chatRoomObj, usersHidden } = this.props
 
 
-        const pinnedMessages = (
-            <div>
-                <div>
+        const pinnedMessages = (users[message.authorId] ? 
+            <div className="pinned-messages-display-anchor">
+                <div className="pinned-messages-display">
+                    <h2 className="pinned-messages-header">Pinned Messages</h2>
 
+                    <ul className="pinned-messages-list">
+                        {messages.map(message => 
+                            <li className="pinned-message">
+                                <img className="pinned-message-profile-pic" src={users[message.authorId].photoUrl === "noPhoto" ? 
+                                    defaultProfilePicture : users[message.authorId].photoUrl} />
+
+                                <div className="pinned-message-container">
+                                    <h3 className="pinned-message-user-name">{users[message.authorId].username}</h3>
+                                    <h4 className="pinned-message-date">{getDateToShow(message.updatedAt)}</h4>
+                                    <p className="pinned-message-body">{message.body}</p>
+                                </div>
+                            </li>
+                        )}
+                    </ul>
                 </div>
-            </div>
+            </div> : null
         );
 
 

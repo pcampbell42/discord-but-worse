@@ -365,13 +365,10 @@ class Message extends React.Component {
                     onMouseLeave={() => showMessageDropdown ? null : this.setState({ hovered: false })}>
 
                     {showProfile ? profileDisplay : null}
-
-                    {/* {currentUser.id === message.authorId && hovered && !editing ? messageHoverOptions : null} */}
                     {hovered && !editing ? messageHoverOptions : null}
-
                     {hovered && !editing && !isParent ? childMessageTimeShow : null}
 
-                    {isParent ? <img src={users[message.authorId].photoUrl === "noPhoto" ? defaultProfilePicture : users[message.authorId].photoUrl}/> 
+                    {isParent ? <img src={users[message.authorId].photoUrl === "noPhoto" ? defaultProfilePicture : users[message.authorId].photoUrl} /> 
                         : null}
 
                     <div className="message-container" ref={messagePos => this.messagePos = messagePos}>
