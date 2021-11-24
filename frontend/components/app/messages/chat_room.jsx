@@ -49,7 +49,7 @@ class ChatRoom extends React.Component {
 
     handleOutsideClick(e) {
         if (this.pinnedMessages) {
-            if (!this.pinnedMessages.contains(e.target)) {
+            if (!this.pinnedMessages.contains(e.target) && !this.pinnedToggle.contains(e.target)) {
                 this.setState({ showPinned: false });
             }
         }
@@ -124,7 +124,9 @@ class ChatRoom extends React.Component {
                         <h2>
                             {chatRoomType === "tc" ? chatRoomObj.name : dmdUser.username}
                         </h2>
+                        
                         <img src={pinIcon} className="chat-room-pinned-button" id={showPinned ? "crpb-selected" : null}
+                            ref={pinnedToggle => this.pinnedToggle = pinnedToggle}
                             onClick={() => this.setState({ showPinned: showPinned ? false : true })}
                             onMouseEnter={() => this.setState({ pinnedHovered: true })}
                             onMouseLeave={() => this.setState({ pinnedHovered: false })} />
