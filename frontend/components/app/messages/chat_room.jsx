@@ -1,9 +1,10 @@
 import React from "react";
 import MessageContainer from "./message_container";
 import MessageFormContainer from "./message_form_container";
-import { isChildMessage, getDateToShow } from "../../../util/helpers";
+import { isChildMessage, getDateToShow, hasPinnedMessages } from "../../../util/helpers";
 import sadge from "../../../../app/assets/images/sadge.png";
 import pinIcon from "../../../../app/assets/images/pin_icon.png";
+import noPinnedMessagesDisplay from "../../../../app/assets/images/no_pinned_messages.png"
 
 
 class ChatRoom extends React.Component {
@@ -13,12 +14,45 @@ class ChatRoom extends React.Component {
             pinnedHovered: false,
             showPinned: false
         };
+
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleOutsideClick = this.handleOutsideClick.bind(this);
     }
 
+
+    // --------------- Deals with scrolling ---------------
 
     componentDidUpdate() {
         const chatRoomUl = document.getElementById("chat-room-ul");
         chatRoomUl ? chatRoomUl.scrollTop = chatRoomUl.scrollHeight : null;
+    }
+
+
+    // --------------- Event listeners for closing pinned messages ---------------
+
+    componentDidMount() {
+        document.addEventListener("keydown", this.handleKeyPress, true);
+        document.addEventListener("click", this.handleOutsideClick, true);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleKeyPress, true);
+        document.removeEventListener("click", this.handleOutsideClick, true);
+    }
+
+
+    // --------------- Event handlers for closing pinned messages ---------------
+
+    handleKeyPress(e) {
+        if (e.keyCode === 27) this.setState({ showPinned: false });
+    }
+
+    handleOutsideClick(e) {
+        if (this.pinnedMessages) {
+            if (!this.pinnedMessages.contains(e.target)) {
+                this.setState({ showPinned: false });
+            }
+        }
     }
 
 
@@ -27,25 +61,34 @@ class ChatRoom extends React.Component {
         const { currentUser, messages, users, chatRoomType, chatRoomObj, usersHidden } = this.props
 
 
-        const pinnedMessages = (users[message.authorId] ? 
+        // Quick check if there are any pinned messages, used in pinnedMessages display below
+        const hasPinned = hasPinnedMessages(messages);
+
+        const pinnedMessages = (users ? 
             <div className="pinned-messages-display-anchor">
-                <div className="pinned-messages-display">
+                <div className="pinned-messages-display" ref={pinnedMessages => this.pinnedMessages = pinnedMessages}>
                     <h2 className="pinned-messages-header">Pinned Messages</h2>
 
-                    <ul className="pinned-messages-list">
-                        {messages.map(message => 
-                            <li className="pinned-message">
-                                <img className="pinned-message-profile-pic" src={users[message.authorId].photoUrl === "noPhoto" ? 
-                                    defaultProfilePicture : users[message.authorId].photoUrl} />
+                    {hasPinned ? 
+                        <ul className="pinned-messages-list">
+                            {messages.map(message => message.pinned ?
+                                <li className="pinned-message">
+                                    <img className="pinned-message-profile-pic" src={users[message.authorId].photoUrl === "noPhoto" ? 
+                                        defaultProfilePicture : users[message.authorId].photoUrl} />
 
-                                <div className="pinned-message-container">
-                                    <h3 className="pinned-message-user-name">{users[message.authorId].username}</h3>
-                                    <h4 className="pinned-message-date">{getDateToShow(message.updatedAt)}</h4>
-                                    <p className="pinned-message-body">{message.body}</p>
-                                </div>
-                            </li>
-                        )}
-                    </ul>
+                                    <div className="pinned-message-container">
+                                        <h3 className="pinned-message-username">{users[message.authorId].username}</h3>
+                                        <h4 className="pinned-message-date">{getDateToShow(message.updatedAt)}</h4>
+                                        <p className="pinned-message-body">{message.body}</p>
+                                    </div>
+                                </li> : null
+                            )}
+                        </ul>
+                            :
+                        <div className="no-pinned-messages-display">
+                            <img className="no-pinned-messages-image" src={noPinnedMessagesDisplay} />
+                        </div>
+                    }
                 </div>
             </div> : null
         );
@@ -82,7 +125,7 @@ class ChatRoom extends React.Component {
                             {chatRoomType === "tc" ? chatRoomObj.name : dmdUser.username}
                         </h2>
                         <img src={pinIcon} className="chat-room-pinned-button" id={showPinned ? "crpb-selected" : null}
-                            onClick={() => this.setState({ showPinned: true })}
+                            onClick={() => this.setState({ showPinned: showPinned ? false : true })}
                             onMouseEnter={() => this.setState({ pinnedHovered: true })}
                             onMouseLeave={() => this.setState({ pinnedHovered: false })} />
 

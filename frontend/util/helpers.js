@@ -103,3 +103,17 @@ export const isChildMessage = (message, parentMessage) => {
 
     return true;
 }
+
+
+/**
+ * Simple helper method used in ChatRoom component to check if a channel doesn't
+ * have any pinned messages.
+ * @param {Array} messages - Array of messages for a DM / text channel
+ * @returns - boolean indicated if the channel has 1+ pinned message(s)
+ */
+export const hasPinnedMessages = messages => {
+    for (let i = 0; i < messages.length; i++) {
+        if (messages[i].pinned) return true;
+    }
+    return false;
+}

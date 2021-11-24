@@ -33,13 +33,12 @@
 
         .chat-room-pinned-button {
             position: absolute;
-            top: 13px;
-            right: 296px;
+            top: 6px;
+            right: 288px;
 
-            height: 18px;
-            width: 18px;
+            height: 35px;
+            width: 38px;
 
-            filter: invert(1);
             opacity: 0.5;
         }
 
@@ -50,6 +49,10 @@
 
         .chat-room-pinned-button#crpb-selected {
             opacity: 1;
+        }
+
+        .chat-room-pinned-button#crpb-selected:hover {
+            opacity: 0.8;
         }
 
         .pinned-messages-tooltip-anchor {
@@ -393,10 +396,11 @@
                                             height: 12px;
                                             width: 12px;
                                             margin-right: 8px;
+                                            opacity: 0.8;
                                         }
 
                                         .message-edit-icon:hover {
-                                            opacity: 1;
+                                            opacity: 0.8;
                                         }
                                     }
 
@@ -406,6 +410,10 @@
 
                                         .message-edit-header {
                                             color: white;
+                                        }
+
+                                        .message-edit-icon {
+                                            opacity: 1;
                                         }
                                     }
 
@@ -426,14 +434,14 @@
                                         }
 
                                         .message-pin-icon {
-                                            height: 12px;
-                                            width: 12px;
-                                            margin-right: 8px;
-                                            filter: invert(1);
+                                            height: 25px;
+                                            width: 28px;
+                                            filter: invert(0);
+                                            opacity: 0.8;
                                         }
 
                                         .message-pin-icon:hover {
-                                            opacity: 1;
+                                            opacity: 0.8;
                                         }
                                     }
 
@@ -443,6 +451,10 @@
 
                                         .message-pin-header {
                                             color: white;
+                                        }
+                                        
+                                        .message-pin-icon {
+                                            opacity: 1;
                                         }
                                     }
 
