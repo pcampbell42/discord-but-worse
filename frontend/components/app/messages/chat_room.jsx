@@ -10,6 +10,7 @@ class ChatRoom extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            pinnedHovered: false,
             showPinned: false
         };
     }
@@ -22,7 +23,7 @@ class ChatRoom extends React.Component {
 
 
     render() {
-        const { showPinned } = this.state;
+        const { pinnedHovered, showPinned } = this.state;
         const { currentUser, messages, users, chatRoomType, chatRoomObj, usersHidden } = this.props
 
 
@@ -31,6 +32,14 @@ class ChatRoom extends React.Component {
                 <div>
 
                 </div>
+            </div>
+        );
+
+
+        const pinnedMessagesTooltip = (
+            <div className="pinned-messages-tooltip-anchor">
+                <div className="pinned-messages-tooltip">Pinned Messages</div>
+                <div className="pinned-messages-tooltip-arrow-up"></div>
             </div>
         );
 
@@ -57,7 +66,12 @@ class ChatRoom extends React.Component {
                         <h2>
                             {chatRoomType === "tc" ? chatRoomObj.name : dmdUser.username}
                         </h2>
-                        {/* <img src={pinIcon} className="chat-room-pinned-button" /> */}
+                        <img src={pinIcon} className="chat-room-pinned-button" id={showPinned ? "crpb-selected" : null}
+                            onClick={() => this.setState({ showPinned: true })}
+                            onMouseEnter={() => this.setState({ pinnedHovered: true })}
+                            onMouseLeave={() => this.setState({ pinnedHovered: false })} />
+
+                        {pinnedHovered && !showPinned ? pinnedMessagesTooltip : null}
                     </div>
 
                     <div className="chat-room-sub-container">

@@ -258,21 +258,27 @@ class Message extends React.Component {
 
         const messageDropdown = (
             <div className="message-dropdown-relative-position-anchor">
-                <div className="message-dropdown-container" ref={optionsDropdown => this.optionsDropdown = optionsDropdown}>
-                    <div className="message-edit-container" onClick={this.swapToEditing}>
-                        <h3 className="message-edit-header">Edit Message</h3>
-                        <img src={editIcon} className="message-edit-icon" />
-                    </div>
+                <div className="message-dropdown-container" ref={optionsDropdown => this.optionsDropdown = optionsDropdown}
+                    id={currentUser.id !== message.authorId ? "small-dropdown" : null}>
+
+                    {currentUser.id === message.authorId ?
+                        <div className="message-edit-container" onClick={this.swapToEditing}>
+                            <h3 className="message-edit-header">Edit Message</h3>
+                            <img src={editIcon} className="message-edit-icon" />
+                        </div> : null
+                    }
 
                     <div className="message-pin-container" onClick={this.handlePin}>
                         <h3 className="message-pin-header">{message.pinned ? "Unpin Message" : "Pin Message"}</h3>
                         <img src={pinIcon} className="message-pin-icon" />
                     </div>
 
-                    <div className="message-delete-container" onClick={this.handleDelete}>
-                        <h3 className="message-delete-header">Delete Message</h3>
-                        <img src={deleteIcon} className="message-delete-icon" />
-                    </div>
+                    {currentUser.id === message.authorId ?
+                        <div className="message-delete-container" onClick={this.handleDelete}>
+                            <h3 className="message-delete-header">Delete Message</h3>
+                            <img src={deleteIcon} className="message-delete-icon" />
+                        </div> : null
+                    }
                 </div>
             </div>
         );
@@ -280,17 +286,18 @@ class Message extends React.Component {
 
         const messageHoverOptions = (
             <div className="chatroom-message-hover-relative-position-anchor">
-                <div className="message-hover-container" style={{
+                <div className="message-hover-container" id={currentUser.id !== message.authorId ? "small-hover" : null}
+                    style={{
                         top: `${this.messagePos ? this.messagePos.getBoundingClientRect().top - 18 : 0}px`,
                         display: `${this.messagePos ? this.messagePos.getBoundingClientRect().top < 55 ? "none" : null : null}`
-                }}>
-                    {this.state.editing ? null :
+                    }}>
+                    {!this.state.editing && currentUser.id === message.authorId ?
                         <div className="cr-edit-icon">
                             {editHovered ? editTooltip : null}
                             <img src={editIcon} onClick={this.swapToEditing} 
                                 onMouseEnter={() => this.setState({ editHovered: true })}
                                 onMouseLeave={() => this.setState({ editHovered: false })} />
-                        </div>
+                        </div> : null
                     }
 
                     <div className="message-more-container">
@@ -359,7 +366,9 @@ class Message extends React.Component {
 
                     {showProfile ? profileDisplay : null}
 
-                    {currentUser.id === message.authorId && hovered && !editing ? messageHoverOptions : null}
+                    {/* {currentUser.id === message.authorId && hovered && !editing ? messageHoverOptions : null} */}
+                    {hovered && !editing ? messageHoverOptions : null}
+
                     {hovered && !editing && !isParent ? childMessageTimeShow : null}
 
                     {isParent ? <img src={users[message.authorId].photoUrl === "noPhoto" ? defaultProfilePicture : users[message.authorId].photoUrl}/> 
