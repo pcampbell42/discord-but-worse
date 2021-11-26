@@ -77,8 +77,10 @@ class ChatRoom extends React.Component {
                                         defaultProfilePicture : users[message.authorId].photoUrl} />
 
                                     <div className="pinned-message-container">
-                                        <h3 className="pinned-message-username">{users[message.authorId].username}</h3>
-                                        <h4 className="pinned-message-date">{getDateToShow(message.updatedAt)}</h4>
+                                        <div className="pinned-message-username-date-header">
+                                            <h3 className="pinned-message-username">{users[message.authorId].username}</h3>
+                                            <h4 className="pinned-message-date">{getDateToShow(message.updatedAt)}</h4>
+                                        </div>
                                         <p className="pinned-message-body">{message.body}</p>
                                     </div>
                                 </li> : null
