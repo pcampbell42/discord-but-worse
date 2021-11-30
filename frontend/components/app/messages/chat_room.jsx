@@ -72,7 +72,7 @@ class ChatRoom extends React.Component {
                     {hasPinned ? 
                         <ul className="pinned-messages-list">
                             {messages.map(message => message.pinned ?
-                                <li className="pinned-message">
+                                <li className="pinned-message" key={message.id}>
                                     <img className="pinned-message-profile-pic" src={users[message.authorId].photoUrl === "noPhoto" ? 
                                         defaultProfilePicture : users[message.authorId].photoUrl} />
 
