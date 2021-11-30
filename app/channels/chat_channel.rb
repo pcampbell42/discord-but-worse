@@ -41,7 +41,16 @@ class ChatChannel < ApplicationCable::Channel
     def update(data)
         message = Message.find_by(id: data["message"]["id"])
 
-        if message.update(body: data["message"]["body"], pinned: data["message"]["pinned"])
+        # The message has been pinned / unpinned, so we don't want to update the updated_at 
+        # column (this would mess with how we display (edited) on the frontend)
+        if message["pinned"] != data["message"]["pinned"]
+            if message.update_columns(pinned: data["message"]["pinned"])
+                socket = { type: "update", message: create_return_message(message) }
+                ChatChannel.broadcast_to("chat_channel_#{params["thread_type"]}_#{params["thread_id"]}", socket)
+            end
+        
+        # Normal update (aka, the body of the message has been updated)
+        elsif message.update(body: data["message"]["body"], pinned: data["message"]["pinned"])
             socket = { type: "update", message: create_return_message(message) }
             ChatChannel.broadcast_to("chat_channel_#{params["thread_type"]}_#{params["thread_id"]}", socket)
         end
