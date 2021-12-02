@@ -220,8 +220,11 @@ class Message extends React.Component {
     
     render() {
         const { message, currentUser, users, isParent, membership, user } = this.props;
-        const { hovered, editing, editHovered, moreHovered, showProfile, showMessageDropdown } = this.state;
+        const { hovered, editing, editHovered, moreHovered, showProfile, showMessageDropdown,
+            showPinPrompt, showUnpinPrompt } = this.state;
 
+        // Formatted date
+        let dateToShow = getDateToShow(message.updatedAt);
 
         // --------------- Message display while editing ---------------
 
@@ -371,25 +374,65 @@ class Message extends React.Component {
 
         // --------------- Pin / unpin message modals ---------------
 
-        const pinMessagePrompt = (
+        const pinMessagePrompt = (users ?
             <div className="pin-message-modal-background">
                 <div className="pin-message-modal-container">
+                    <h1 className="pmm-header">Pin it. Pin it Good.</h1>
 
+                    <p className="pmm-description">
+                        Hey, just double checking that you want to pin this message to the current channel 
+                        for posterity and greatness?
+                    </p>
+
+                    <div className="pmm-message">
+                        <img className="pmm-message-profile-pic" src={users[message.authorId].photoUrl === "noPhoto" ? 
+                            defaultProfilePicture : users[message.authorId].photoUrl} />
+
+                        <div className="pmm-message-username-date-header">
+                            <h3 className="pmm-message-username">{users[message.authorId].username}</h3>
+                            <h4 className="pmm-message-date">{dateToShow}</h4>
+                        </div>
+
+                        <p className="pmm-message-body">{message.body}</p>
+                    </div>
+
+                    <div className="pmm-footer">
+                        <span className="pmm-cancel-button">Cancel</span>
+                        <button className="pmm-pin-button">Oh yea. Pin it</button>
+                    </div>
                 </div>
-            </div>
+            </div> : null
         );
 
-        const unpinMessagePrompt = (
+        const unpinMessagePrompt = (users ?
             <div className="unpin-message-modal-background">
                 <div className="unpin-message-modal-container">
+                    <h1 className="upmm-header">Unpin Message</h1>
 
+                    <p className="upmm-description">
+                        You sure you want to remove this pinned message?
+                    </p>
+
+                    <div className="upmm-message">
+                        <img className="upmm-message-profile-pic" src={users[message.authorId].photoUrl === "noPhoto" ?
+                            defaultProfilePicture : users[message.authorId].photoUrl} />
+
+                        <div className="upmm-message-username-date-header">
+                            <h3 className="upmm-message-username">{users[message.authorId].username}</h3>
+                            <h4 className="upmm-message-date">{dateToShow}</h4>
+                        </div>
+
+                        <p className="upmm-message-body">{message.body}</p>
+                    </div>
+
+                    <div className="upmm-footer">
+                        <span className="upmm-cancel-button">Cancel</span>
+                        <button className="upmm-pin-button">Remove it please!</button>
+                    </div>
                 </div>
-            </div>
-        )
+            </div> : null
+        );
 
-      
-        // Formatted date
-        let dateToShow = getDateToShow(message.updatedAt);
 
         return (
             users[message.authorId] && (message.messageableType === "DirectMessage" || membership) ? 
@@ -398,6 +441,8 @@ class Message extends React.Component {
                     onMouseEnter={() => this.setState({ hovered: true })}
                     onMouseLeave={() => showMessageDropdown ? null : this.setState({ hovered: false })}>
 
+                    {showPinPrompt ? pinMessagePrompt : null}
+                    {showUnpinPrompt ? unpinMessagePrompt : null}
                     {showProfile ? profileDisplay : null}
                     {hovered && !editing ? messageHoverOptions : null}
                     {hovered && !editing && !isParent ? childMessageTimeShow : null}
