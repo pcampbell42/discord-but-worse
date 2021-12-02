@@ -14,17 +14,24 @@ class Message extends React.Component {
         super(props);
 
         this.state = {
+            // Message state
             message: { body: props.message.body },
-            editing: false,
-            hovered: false,
-            showMessageDropdown: false,
             edited: (props.message.updatedAt === props.message.createdAt ? false : true),
-
+            editing: false, // Used when a message is being edited
+            hovered: false, // Used when a message is hovered
+            
+            // Message options state
             editHovered: false,
             moreHovered: false,
+            showMessageDropdown: false,
 
+            // User profile state
             showProfile: false,
-            body: ""
+            body: "",
+
+            // Pin message state
+            showPinPrompt: false,
+            showUnpinPrompt: false
         };
 
         this.swapToEditing = this.swapToEditing.bind(this);
@@ -40,7 +47,7 @@ class Message extends React.Component {
     }
 
 
-    // --------------- Event listeners for message edit shortcuts & clsoing profile display ---------------
+    // --------------- Event listeners for message edit shortcuts & closing profile display ---------------
 
     componentDidMount() {
         document.addEventListener("keydown", this.handleKeyPress, true);
@@ -216,6 +223,8 @@ class Message extends React.Component {
         const { hovered, editing, editHovered, moreHovered, showProfile, showMessageDropdown } = this.state;
 
 
+        // --------------- Message display while editing ---------------
+
         const editingView = (
             <form>
                 <input ref={editInput => this.editInput = editInput} type="text" value={this.state.message.body} 
@@ -227,6 +236,8 @@ class Message extends React.Component {
             </form>
         );
 
+
+        // --------------- Tooltips ---------------
 
         const editTooltip = (
             <div className="message-edit-tooltip-relative-position-anchor">
@@ -241,7 +252,6 @@ class Message extends React.Component {
             </div>
         );
 
-
         const moreTooltip = (
             <div className="message-more-tooltip-relative-position-anchor">
                 <div className="message-more-tooltip" style={this.messagePos ? 
@@ -255,6 +265,8 @@ class Message extends React.Component {
             </div>
         );
 
+
+        // --------------- Message option displays ---------------
 
         const messageDropdown = (
             <div className="message-dropdown-relative-position-anchor">
@@ -282,7 +294,6 @@ class Message extends React.Component {
                 </div>
             </div>
         );
-
 
         const messageHoverOptions = (
             <div className="chatroom-message-hover-relative-position-anchor">
@@ -312,6 +323,8 @@ class Message extends React.Component {
             </div>
         );
 
+        
+        // --------------- Time display when message is hovered ---------------
 
         const childMessageTimeShow = (
             <div className="chatroom-child-message-time-show-relative-position-anchor">
@@ -319,6 +332,8 @@ class Message extends React.Component {
             </div>  
         );
 
+
+        // --------------- User Profile display ---------------
 
         const profileDisplay = (
             users[message.authorId] && (message.messageableType === "DirectMessage" || membership) ?
@@ -353,9 +368,28 @@ class Message extends React.Component {
                 </div> : null
         );
       
-        
+
+        // --------------- Pin / unpin message modals ---------------
+
+        const pinMessagePrompt = (
+            <div className="pin-message-modal-background">
+                <div className="pin-message-modal-container">
+
+                </div>
+            </div>
+        );
+
+        const unpinMessagePrompt = (
+            <div className="unpin-message-modal-background">
+                <div className="unpin-message-modal-container">
+
+                </div>
+            </div>
+        )
+
+      
+        // Formatted date
         let dateToShow = getDateToShow(message.updatedAt);
-        
 
         return (
             users[message.authorId] && (message.messageableType === "DirectMessage" || membership) ? 
