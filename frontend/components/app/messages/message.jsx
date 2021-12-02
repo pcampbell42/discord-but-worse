@@ -283,7 +283,9 @@ class Message extends React.Component {
                         </div> : null
                     }
 
-                    <div className="message-pin-container" onClick={this.handlePin}>
+                    <div className="message-pin-container" onClick={message.pinned ? this.setState({ showUnpinPrompt: true }) : 
+                        this.setState({ showPinPrompt: true })}>
+
                         <h3 className="message-pin-header">{message.pinned ? "Unpin Message" : "Pin Message"}</h3>
                         <img src={pinIcon} className="message-pin-icon" />
                     </div>
@@ -397,8 +399,9 @@ class Message extends React.Component {
                     </div>
 
                     <div className="pmm-footer">
-                        <span className="pmm-cancel-button">Cancel</span>
-                        <button className="pmm-pin-button">Oh yea. Pin it</button>
+                        <span className="pmm-cancel-button" onClick={() => this.setState({ pinMessagePrompt: false })}>
+                            Cancel</span>
+                        <button className="pmm-pin-button" onClick={this.handlePin}>Oh yea. Pin it</button>
                     </div>
                 </div>
             </div> : null
@@ -426,8 +429,9 @@ class Message extends React.Component {
                     </div>
 
                     <div className="upmm-footer">
-                        <span className="upmm-cancel-button">Cancel</span>
-                        <button className="upmm-pin-button">Remove it please!</button>
+                        <span className="upmm-cancel-button" onClick={() => this.setState({ unpinMessagePrompt: false })}>
+                            Cancel</span>
+                        <button className="upmm-pin-button" onClick={this.handlePin}>Remove it please!</button>
                     </div>
                 </div>
             </div> : null
