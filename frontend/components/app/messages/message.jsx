@@ -283,8 +283,8 @@ class Message extends React.Component {
                         </div> : null
                     }
 
-                    <div className="message-pin-container" onClick={message.pinned ? this.setState({ showUnpinPrompt: true }) : 
-                        this.setState({ showPinPrompt: true })}>
+                    <div className="message-pin-container" onClick={() => message.pinned ? 
+                        this.setState({ showUnpinPrompt: true }) : this.setState({ showPinPrompt: true })}>
 
                         <h3 className="message-pin-header">{message.pinned ? "Unpin Message" : "Pin Message"}</h3>
                         <img src={pinIcon} className="message-pin-icon" />
