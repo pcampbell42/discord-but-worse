@@ -379,6 +379,8 @@ class Message extends React.Component {
         const pinMessagePrompt = (users ?
             <div className="pin-message-modal-background">
                 <div className="pin-message-modal-container">
+                    <button className="pmm-close" onClick={() => this.setState({ showPinPrompt: false })}>x</button>
+
                     <h1 className="pmm-header">Pin it. Pin it Good.</h1>
 
                     <p className="pmm-description">
@@ -410,6 +412,8 @@ class Message extends React.Component {
         const unpinMessagePrompt = (users ?
             <div className="unpin-message-modal-background">
                 <div className="unpin-message-modal-container">
+                    <button className="upmm-close" onClick={() => this.setState({ showUnpinPrompt: false })}>x</button>
+
                     <h1 className="upmm-header">Unpin Message</h1>
 
                     <p className="upmm-description">

@@ -1,24 +1,91 @@
-.pin-message-modal-background {
-    position: fixed;
-    z-index: 300;
-    background-color: rgba(1, 1, 1, 0.9);
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .pin-message-modal-container {
-        position: absolute;
-        background-color: white;
-        height: 400px;
-        width: 450px;
+.chat-room-container .chat-room-sub-container article ul li {
+    .pin-message-modal-background {
+        position: fixed;
+        z-index: 300;
+        background-color: rgba(1, 1, 1, 0.9);
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+    
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
+        align-items: center;
+    
+        .pin-message-modal-container {
+            position: absolute;
+            background-color: #35393f;
+            height: 270px;
+            width: 440px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+    
+            border-radius: 4px;
+    
+            .pmm-close {
+                position: absolute;
+                left: 90%;
+                bottom: 83%;
+    
+                background: none;
+                width: auto;
+                height: auto;
+    
+                color: #77797f;
+                font-family: 'Nunito', sans-serif;
+                font-size: 30px;
+                border-style: none;
+            }
+    
+            .pmm-close:hover {
+                cursor: pointer;
+                color: #dcddde;
+            }
+    
+            .pmm-header {
+                margin-top: 17px;
+                padding-left: 16px;
+                margin-bottom: 15px;
 
-        border-radius: 7px;
+                font-size: 20px;
+            }
+    
+            .pmm-description {
+                padding-left: 16px;
+                margin-bottom: 15px;
+
+                font-size: 15px;
+            }
+    
+            .pmm-message {
+                border: solid 2px black;
+                
+                .pmm-message-username-date-header {
+                    .pmm-message-username {
+    
+                    }
+    
+                    .pmm-message-date {
+    
+                    }
+                }
+    
+                .pmm-message-body {
+    
+                }
+            }
+    
+            .pmm-footer {
+                .pmm-cancel-button {
+    
+                }
+    
+                .pmm-pin-button {
+    
+                }
+            }
+        }
     }
+
 }
