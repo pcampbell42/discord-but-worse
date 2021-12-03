@@ -119,7 +119,7 @@ class Message extends React.Component {
             body: this.props.message.body 
         } });
 
-        this.setState({ showMessageDropdown: false, hovered: false });
+        this.setState({ showMessageDropdown: false, hovered: false, showPinPrompt: false, showUnpinPrompt: false });
     }
 
     handleClose(e) {
@@ -392,16 +392,18 @@ class Message extends React.Component {
                         <img className="pmm-message-profile-pic" src={users[message.authorId].photoUrl === "noPhoto" ? 
                             defaultProfilePicture : users[message.authorId].photoUrl} />
 
-                        <div className="pmm-message-username-date-header">
-                            <h3 className="pmm-message-username">{users[message.authorId].username}</h3>
-                            <h4 className="pmm-message-date">{dateToShow}</h4>
-                        </div>
+                        <div className="pmm-message-right">
+                            <div className="pmm-message-username-date-header">
+                                <h3 className="pmm-message-username">{users[message.authorId].username}</h3>
+                                <h4 className="pmm-message-date">{dateToShow}</h4>
+                            </div>
 
-                        <p className="pmm-message-body">{message.body}</p>
+                            <p className="pmm-message-body">{message.body}</p>
+                        </div>
                     </div>
 
                     <div className="pmm-footer">
-                        <span className="pmm-cancel-button" onClick={() => this.setState({ pinMessagePrompt: false })}>
+                        <span className="pmm-cancel-button" onClick={() => this.setState({ showPinPrompt: false })}>
                             Cancel</span>
                         <button className="pmm-pin-button" onClick={this.handlePin}>Oh yea. Pin it</button>
                     </div>
@@ -424,16 +426,18 @@ class Message extends React.Component {
                         <img className="upmm-message-profile-pic" src={users[message.authorId].photoUrl === "noPhoto" ?
                             defaultProfilePicture : users[message.authorId].photoUrl} />
 
-                        <div className="upmm-message-username-date-header">
-                            <h3 className="upmm-message-username">{users[message.authorId].username}</h3>
-                            <h4 className="upmm-message-date">{dateToShow}</h4>
-                        </div>
+                        <div className="upmm-message-right">
+                            <div className="upmm-message-username-date-header">
+                                <h3 className="upmm-message-username">{users[message.authorId].username}</h3>
+                                <h4 className="upmm-message-date">{dateToShow}</h4>
+                            </div>
 
-                        <p className="upmm-message-body">{message.body}</p>
+                            <p className="upmm-message-body">{message.body}</p>
+                        </div>
                     </div>
 
                     <div className="upmm-footer">
-                        <span className="upmm-cancel-button" onClick={() => this.setState({ unpinMessagePrompt: false })}>
+                        <span className="upmm-cancel-button" onClick={() => this.setState({ showUnpinPrompt: false })}>
                             Cancel</span>
                         <button className="upmm-pin-button" onClick={this.handlePin}>Remove it please!</button>
                     </div>

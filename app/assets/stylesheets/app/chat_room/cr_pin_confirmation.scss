@@ -25,8 +25,8 @@
     
             .pmm-close {
                 position: absolute;
-                left: 90%;
-                bottom: 83%;
+                left: 92%;
+                bottom: 84%;
     
                 background: none;
                 width: auto;
@@ -59,30 +59,95 @@
             }
     
             .pmm-message {
-                border: solid 2px black;
+                display: flex;
+                align-items: center;
+
+                width: 395px;
+                margin-left: 15px;
+                padding-top: 12px;
+                padding-left: 15px;
+                padding-bottom: 12px;
+
+                border: solid 0.1px black;
+                border-radius: 3px;
+
+                box-shadow: inset 0 -1em 3em rgba(0,0,0,0.1),
+                    0.6em 0.6em 3em rgba(0,0,0,0.3);
                 
-                .pmm-message-username-date-header {
-                    .pmm-message-username {
-    
-                    }
-    
-                    .pmm-message-date {
-    
-                    }
+                .pmm-message-profile-pic {
+                    height: 41px;
+                    width: 41px;
                 }
-    
-                .pmm-message-body {
-    
+                
+                .pmm-message-right {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+
+                    .pmm-message-username-date-header {
+                        .pmm-message-username {
+                            margin-left: 0;
+                            margin-top: 0;
+
+                            color: white;
+                            font-size: 14px;
+                            font-weight: 600;
+                        }
+        
+                        .pmm-message-date {
+                            padding-left: 7px;
+
+                            color: #72767d;
+                            font-size: 11px;
+                            font-weight: 600;
+                        }
+                    }
+        
+                    .pmm-message-body {
+                        font-size: 14px;
+                    }
+
                 }
             }
     
             .pmm-footer {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+
+                height: 80px;
+                width: 440px;
+                margin-top: 20px;
+
+                border-bottom-right-radius: 4px;
+                border-bottom-left-radius: 4px;
+                background-color: #2c2d33;
+
                 .pmm-cancel-button {
-    
+                    margin-right: 20px;
+                }
+
+                .pmm-cancel-button:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
                 }
     
                 .pmm-pin-button {
-    
+                    height: 40px;
+                    width: 110px;
+                    margin-right: 15px;
+
+                    border-radius: 3px;
+                    border-style: none;
+                    
+                    background-color: #5865f1;
+
+                    color: white;
+                }
+
+                .pmm-pin-button:hover {
+                    cursor: pointer;
+                    background-color: #4753c4;
                 }
             }
         }
