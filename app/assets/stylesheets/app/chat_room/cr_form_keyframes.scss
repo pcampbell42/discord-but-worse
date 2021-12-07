@@ -1,0 +1,36 @@
+@keyframes pmExpandForm {
+    from { height: 20px; width: 200px; opacity: 0; }
+    to { height: 270px; width: 440px; opacity: 1; }
+}
+
+@keyframes pmCloseForm {
+    from { height: 270px; width: 440px; opacity: 1; }
+    to { height: 0; width: 0; opacity: 0; }
+}
+
+@keyframes upmExpandForm {
+    from { height: 20px; width: 200px; opacity: 0; }
+    to { height: 250px; width: 440px; opacity: 1; }
+}
+
+@keyframes upmCloseForm {
+    from { height: 250px; width: 440px; opacity: 1; }
+    to { height: 0; width: 0; opacity: 0; } 
+}
+
+@keyframes fadePmFooterIn {
+    0% { opacity: 0; }
+    20% { opacity: 0; }
+    40% { opacity: 0; }
+    60% { opacity: 0; }
+    82% { opacity: 0; }
+    84% { opacity: 0; }
+    86% { opacity: 0; }
+    88% { opacity: 0; }
+    90% { opacity: 0; }
+    92% { opacity: 0.2; }
+    94% { opacity: 0.4; }
+    96% { opacity: 0.6; }
+    98% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
