@@ -70,8 +70,20 @@ class Message extends React.Component {
         // If ESC is pressed
         if (e.keyCode === 27) {
             e.preventDefault();
-            this.setState({ message: { body: this.props.message.body }, editing: false, body: "", 
-                showProfile: false, showMessageDropdown: false, hovered: false });
+
+            // If pin prompt modal is open
+            if (this.state.showPinPrompt) {
+                this.handleClosePinPrompt(e);
+            }
+            // If unpin prompt modal is open
+            else if (this.state.showUnpinPrompt) {
+                this.handleCloseUnpinPrompt(e);
+            }
+            // If neither are open
+            else {
+                this.setState({ message: { body: this.props.message.body }, editing: false, body: "", 
+                    showProfile: false, showMessageDropdown: false, hovered: false });
+            }
         }
 
         // If enter is pressed and edit message input is focused
@@ -123,7 +135,7 @@ class Message extends React.Component {
             body: this.props.message.body 
         } });
 
-        this.setState({ showMessageDropdown: false, hovered: false, showPinPrompt: false, showUnpinPrompt: false });
+        this.state.showPinPrompt ? this.handleClosePinPrompt(e) : this.handleCloseUnpinPrompt(e);
     }
 
     handleClose(e) {
@@ -422,7 +434,7 @@ class Message extends React.Component {
                     </div>
 
                     <div className="pmm-footer">
-                        <span className="pmm-cancel-button" onClick={() => this.setState({ showPinPrompt: false })}>
+                        <span className="pmm-cancel-button" onClick={this.handleClosePinPrompt}>
                             Cancel</span>
                         <button className="pmm-pin-button" onClick={this.handlePin}>Oh yea. Pin it</button>
                     </div>
@@ -456,7 +468,7 @@ class Message extends React.Component {
                     </div>
 
                     <div className="upmm-footer">
-                        <span className="upmm-cancel-button" onClick={() => this.setState({ showUnpinPrompt: false })}>
+                        <span className="upmm-cancel-button" onClick={this.handleCloseUnpinPrompt}>
                             Cancel</span>
                         <button className="upmm-pin-button" onClick={this.handlePin}>Remove it please!</button>
                     </div>
