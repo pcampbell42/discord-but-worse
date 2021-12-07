@@ -31,7 +31,9 @@ class Message extends React.Component {
 
             // Pin message state
             showPinPrompt: false,
-            showUnpinPrompt: false
+            showUnpinPrompt: false,
+            pinPromptClosing: false,
+            unpinPromptClosing: false
         };
 
         this.swapToEditing = this.swapToEditing.bind(this);
@@ -44,6 +46,8 @@ class Message extends React.Component {
         this.updateProfileMessage = this.updateProfileMessage.bind(this);
         this.handleOutsideClick = this.handleOutsideClick.bind(this);
         this.handlePin = this.handlePin.bind(this);
+        this.handleClosePinPrompt = this.handleClosePinPrompt.bind(this);
+        this.handleCloseUnpinPrompt = this.handleCloseUnpinPrompt.bind(this);
     }
 
 
@@ -206,6 +210,21 @@ class Message extends React.Component {
     }
 
 
+    // --------------- Event listeners for pin / unpin prompts ---------------
+
+    handleClosePinPrompt(e) {
+        e.preventDefault();
+        this.setState({ pinPromptClosing: true });
+        setTimeout(() => this.setState({ pinPromptClosing: false, showPinPrompt: false }), 100);
+    }
+
+    handleCloseUnpinPrompt(e) {
+        e.preventDefault();
+        this.setState({ unpinPromptClosing: true });
+        setTimeout(() => this.setState({ unpinPromptClosing: false, showUnpinPrompt: false }), 100);
+    }
+
+
     // --------------- Event listeners for other message things ---------------
 
     handleDelete(e) {
@@ -221,7 +240,7 @@ class Message extends React.Component {
     render() {
         const { message, currentUser, users, isParent, membership, user } = this.props;
         const { hovered, editing, editHovered, moreHovered, showProfile, showMessageDropdown,
-            showPinPrompt, showUnpinPrompt } = this.state;
+            showPinPrompt, showUnpinPrompt, pinPromptClosing, unpinPromptClosing } = this.state;
 
         // Formatted date
         let dateToShow = getDateToShow(message.updatedAt);
@@ -377,9 +396,9 @@ class Message extends React.Component {
         // --------------- Pin / unpin message modals ---------------
 
         const pinMessagePrompt = (users ?
-            <div className="pin-message-modal-background">
+            <div className="pin-message-modal-background" id={pinPromptClosing ? "pin-prompt-closing" : null}>
                 <div className="pin-message-modal-container">
-                    <button className="pmm-close" onClick={() => this.setState({ showPinPrompt: false })}>x</button>
+                    <button className="pmm-close" onClick={this.handleClosePinPrompt}>x</button>
 
                     <h1 className="pmm-header">Pin it. Pin it Good.</h1>
 
@@ -412,9 +431,9 @@ class Message extends React.Component {
         );
 
         const unpinMessagePrompt = (users ?
-            <div className="unpin-message-modal-background">
+            <div className="unpin-message-modal-background" id={unpinPromptClosing ? "unpin-prompt-closing" : null}>
                 <div className="unpin-message-modal-container">
-                    <button className="upmm-close" onClick={() => this.setState({ showUnpinPrompt: false })}>x</button>
+                    <button className="upmm-close" onClick={this.handleCloseUnpinPrompt}>x</button>
 
                     <h1 className="upmm-header">Unpin Message</h1>
 

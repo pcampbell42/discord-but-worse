@@ -252,7 +252,7 @@ class ServerIconDisplay extends React.Component {
     handleCloseInvite(e) {
         e.preventDefault();
         this.setState({ closeInvite: true });
-        setTimeout(() => this.setState({ closeInvite: false, showInvite: false }), 100)
+        setTimeout(() => this.setState({ closeInvite: false, showInvite: false }), 100);
     }
 
 

@@ -173,5 +173,41 @@
             }
         }
     }
+}
 
+.chat-room-container .chat-room-sub-container article ul li {
+    .pin-message-modal-background#pin-prompt-closing {
+        animation: fadeModalBackgroundOut 0.1s linear 1;
+        animation-fill-mode: forwards;
+
+        .pin-message-modal-container {
+            animation: pmCloseForm 0.1s linear 1;
+            animation-fill-mode: forwards;
+
+            .pmm-close {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+    
+            .pmm-header {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+    
+            .pmm-description {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+    
+            .pmm-message {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+    
+            .pmm-footer {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+        }
+    }
 }

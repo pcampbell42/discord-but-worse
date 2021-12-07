@@ -174,3 +174,40 @@
         }
     }
 }
+
+.chat-room-container .chat-room-sub-container article ul li {
+    .unpin-message-modal-background#unpin-prompt-closing {
+        animation: fadeModalBackgroundOut 0.1s linear 1;
+        animation-fill-mode: forwards;
+
+        .unpin-message-modal-container {
+            animation: upmCloseForm 0.1s linear 1;
+            animation-fill-mode: forwards;
+
+            .upmm-close {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+    
+            .upmm-header {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+    
+            .upmm-description {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+    
+            .upmm-message {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+    
+            .upmm-footer {
+                animation: fadeFormContentsOut 0.1s linear 1;
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+}
