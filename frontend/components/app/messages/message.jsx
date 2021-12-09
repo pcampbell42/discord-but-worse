@@ -209,16 +209,24 @@ class Message extends React.Component {
     }
 
     handleOutsideClick(e) {
+        // Close user profile
         if (this.showProfileEl) {
             if (!this.showProfileEl.contains(e.target))
                 this.setState({ body: "", showProfile: false });
         }
         
+        // Close message options dropdown
         if (this.optionsDropdown) {
             if (!this.optionsDropdown.contains(e.target))
                 this.setState({ showMessageDropdown: false, hovered: false });
         }
 
+        // Close pin / unpin prompt
+        if (e.target.className === "pin-message-modal-background") {
+            this.handleClosePinPrompt(e);
+        } else if (e.target.className === "unpin-message-modal-background") {
+            this.handleCloseUnpinPrompt(e);
+        }
     }
 
 
