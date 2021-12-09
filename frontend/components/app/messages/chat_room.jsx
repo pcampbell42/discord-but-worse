@@ -4,7 +4,8 @@ import MessageFormContainer from "./message_form_container";
 import { isChildMessage, getDateToShow, hasPinnedMessages } from "../../../util/helpers";
 import sadge from "../../../../app/assets/images/sadge.png";
 import pinIcon from "../../../../app/assets/images/pin_icon.png";
-import noPinnedMessagesDisplay from "../../../../app/assets/images/no_pinned_messages.png"
+import noPinnedMessagesDisplay from "../../../../app/assets/images/no_pinned_messages.png";
+import { findCurrentSubscription } from "../../../util/websockets_helpers";
 
 
 class ChatRoom extends React.Component {
@@ -21,6 +22,7 @@ class ChatRoom extends React.Component {
 
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleOutsideClick = this.handleOutsideClick.bind(this);
+        this.handleUnpin = this.handleUnpin.bind(this);
     }
 
 
@@ -45,7 +47,7 @@ class ChatRoom extends React.Component {
     }
 
 
-    // --------------- Event handlers for closing pinned messages ---------------
+    // --------------- Event handlers for pinned messages ---------------
 
     handleKeyPress(e) {
         if (e.keyCode === 27) this.setState({ showPinned: false });
@@ -57,6 +59,19 @@ class ChatRoom extends React.Component {
                 this.setState({ showPinned: false });
             }
         }
+    }
+
+    handleUnpin(e, message) {
+        e.preventDefault();
+
+        const subscriptionNum = findCurrentSubscription();
+        App.cable.subscriptions.subscriptions[subscriptionNum].update({
+            message: {
+                id: message.id,
+                pinned: false,
+                body: message.body
+            }
+        });
     }
 
 
@@ -82,7 +97,7 @@ class ChatRoom extends React.Component {
 
                                     {showRemovePinnedX && hoveredMessageId === message.id ? 
                                         <div className="pinned-message-remove-x-anchor">
-                                            <button className="pinned-message-remove-x">x</button>
+                                            <button className="pinned-message-remove-x" onClick={e => this.handleUnpin(e, message)}>x</button>
                                         </div> : null}
 
                                     <img className="pinned-message-profile-pic" src={users[message.authorId].photoUrl === "noPhoto" ? 
