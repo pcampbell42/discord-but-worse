@@ -12,7 +12,11 @@ class ChatRoom extends React.Component {
         super(props);
         this.state = {
             pinnedHovered: false,
-            showPinned: false
+            showPinned: false,
+
+            // Used to display x remove button in pinned messages display
+            showRemovePinnedX: false,
+            hoveredMessageId: false
         };
 
         this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -57,7 +61,7 @@ class ChatRoom extends React.Component {
 
 
     render() {
-        const { pinnedHovered, showPinned } = this.state;
+        const { pinnedHovered, showPinned, showRemovePinnedX, hoveredMessageId } = this.state;
         const { currentUser, messages, users, chatRoomType, chatRoomObj, usersHidden } = this.props
 
 
@@ -72,7 +76,15 @@ class ChatRoom extends React.Component {
                     {hasPinned ? 
                         <ul className="pinned-messages-list">
                             {messages.map(message => message.pinned ?
-                                <li className="pinned-message" key={message.id}>
+                                <li className="pinned-message" key={message.id} 
+                                    onMouseEnter={() => this.setState({ showRemovePinnedX: true, hoveredMessageId: message.id })}
+                                    onMouseLeave={() => this.setState({ showRemovePinnedX: false, hoveredMessageId: null })}>
+
+                                    {showRemovePinnedX && hoveredMessageId === message.id ? 
+                                        <div className="pinned-message-remove-x-anchor">
+                                            <button className="pinned-message-remove-x">x</button>
+                                        </div> : null}
+
                                     <img className="pinned-message-profile-pic" src={users[message.authorId].photoUrl === "noPhoto" ? 
                                         defaultProfilePicture : users[message.authorId].photoUrl} />
 

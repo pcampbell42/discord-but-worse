@@ -72,6 +72,33 @@
                     border-width: 0.5px;
                     border-radius: 2px;
 
+                    .pinned-message-remove-x-anchor {
+                        position: relative;
+                        height: 0;
+                        width: 0;
+                    
+                        .pinned-message-remove-x {
+                            position: absolute;
+                            left: 345px;
+                            bottom: 5px;
+    
+                            background: none;
+                            width: auto;
+                            height: auto;
+    
+                            color: #77797f;
+                            font-family: 'Nunito', sans-serif;
+                            font-size: 22px;
+                            border-style: none;
+                        }
+    
+                        .pinned-message-remove-x:hover {
+                            cursor: pointer;
+                            color: #dcddde;
+                        }
+                    }
+
+
                     .pinned-message-profile-pic {
                         height: 43px;
                         width: 43px;
