@@ -283,8 +283,9 @@ class Message extends React.Component {
 
         const editTooltip = (
             <div className="message-edit-tooltip-relative-position-anchor">
-                <div className="message-edit-tooltip" style={this.messagePos ? 
-                    this.messagePos.getBoundingClientRect().top < 95 ? { bottom: "-55px" } 
+                <div className="message-edit-tooltip" onMouseEnter={() => this.setState({ hovered: false })}
+                    onMouseLeave={() => this.setState({ hovered: false })}
+                    style={this.messagePos ? this.messagePos.getBoundingClientRect().top < 95 ? { bottom: "-55px" } 
                     : null : null}>Edit</div>
 
                 {this.messagePos ? this.messagePos.getBoundingClientRect().top < 95 ? 
@@ -296,9 +297,10 @@ class Message extends React.Component {
 
         const moreTooltip = (
             <div className="message-more-tooltip-relative-position-anchor">
-                <div className="message-more-tooltip" style={this.messagePos ? 
-                    this.messagePos.getBoundingClientRect().top < 95 ? { bottom: "-55px" }
-                        : null : null}>More</div>
+                <div className="message-more-tooltip" onMouseEnter={() => this.setState({ hovered: false })}
+                    onMouseLeave={() => this.setState({ hovered: false })}
+                    style={this.messagePos ? this.messagePos.getBoundingClientRect().top < 95 ? { bottom: "-55px" }
+                    : null : null}>More</div>
 
                 {this.messagePos ? this.messagePos.getBoundingClientRect().top < 95 ?
                     <div className="message-more-arrow-up"></div> :
