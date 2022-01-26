@@ -417,7 +417,7 @@ class Message extends React.Component {
 
         // --------------- Pin / unpin message modals ---------------
 
-        const pinMessagePrompt = (users ?
+        const pinMessagePrompt = (users && users[message.authorId] ?
             <div className="pin-message-modal-background" id={pinPromptClosing ? "pin-prompt-closing" : null}>
                 <div className="pin-message-modal-container">
                     <button className="pmm-close" onClick={this.handleClosePinPrompt}>x</button>
@@ -452,7 +452,7 @@ class Message extends React.Component {
             </div> : null
         );
 
-        const unpinMessagePrompt = (users ?
+        const unpinMessagePrompt = (users && users[message.authorId] ?
             <div className="unpin-message-modal-background" id={unpinPromptClosing ? "unpin-prompt-closing" : null}>
                 <div className="unpin-message-modal-container">
                     <button className="upmm-close" onClick={this.handleCloseUnpinPrompt}>x</button>
