@@ -7,7 +7,6 @@ import SignupFormContainer from "./entry_point/session_form/signup_form_containe
 import LoginFormContainer from "./entry_point/session_form/login_form_container";
 import LoadingContainer from "./loading/loading_container";
 
-
 const App = () => (
     <div>
         <Route exact path="/" component={EntryPageContainer} />
@@ -17,6 +16,5 @@ const App = () => (
         <ProtectedRoute path="/app" component={LoadingContainer} />
     </div>
 )
-
 
 export default App;
